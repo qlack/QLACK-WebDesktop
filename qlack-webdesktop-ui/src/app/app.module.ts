@@ -5,12 +5,17 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ImageListComponent } from './image-list/image-list.component';
+import { WidgetComponent } from './widget/widget.component';
+import {DragDropModule} from '@angular/cdk/drag-drop';
+import {MatTooltipModule} from "@angular/material";
+import {ResizeBorderModule} from 'resize-border';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     ImageListComponent,
+    WidgetComponent
 
   ],
   imports: [
@@ -22,7 +27,10 @@ import { ImageListComponent } from './image-list/image-list.component';
     MatSidenavModule,
     MatListModule,
     MatInputModule,
-    MatGridListModule
+    MatGridListModule,
+    MatTooltipModule,
+    ResizeBorderModule,
+    DragDropModule
   ],
   providers: [],
   bootstrap: [AppComponent]
