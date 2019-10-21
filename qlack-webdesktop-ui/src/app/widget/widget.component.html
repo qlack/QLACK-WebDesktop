@@ -1,0 +1,34 @@
+<div
+        class="widget" cdkDragBoundary=".widget-boundary" cdkDrag [class.widgetMinimized]="isMinimized && !isSmallScreen"
+        *ngIf="isOpened" [style.top]="xPosition" [style.left]="yPosition" [style.z-index]="zIndex"
+        [cdkDragDisabled]="isSmallScreen || !isDraggable" (cdkDragStarted)="dragStart($event)"
+        (cdkDragEnded)="dragEnd($event)" (cdkDragReleased)="dragReleased($event)" (cdkDragMoved)="dragMoved($event)">
+
+    <div *ngIf="isMinimized && !isSmallScreen" class="widgetAsIcon" (dblclick)="widgetDClicked($event)">
+        <img *ngIf="!!iconImageSrc" [src]="safeIconImageSrc">
+        <div *ngIf="!(!!iconImageSrc)">{{title}}</div>
+    </div>
+
+    <div *ngIf="!isMinimized || isSmallScreen">
+        <div class="header" cdkDragHandle>
+            <img *ngIf="!!iconImageSrc" class="image" [src]="safeIconImageSrc">
+
+            <div class="title" style.left="{{!(!!iconImageSrc) && '5px'}}">{{title}}</div>
+
+            <div class="iconsContainer">
+                <i *ngIf="isMinimizable" class="material-icons headerIcon" (click)="widgetMinimized($event)"
+                   matTooltip="{{ isMinimized ? 'maximize'  : 'minimize'}}">
+                    {{isMinimized ? 'add' : 'remove'}}
+                </i>
+
+                <i class="material-icons headerIcon" (click)="close($event)" matTooltip="close">
+                    cancel
+                </i>
+            </div>
+        </div>
+        <div class="content " *ngIf="!isMinimized"  resizeBorder [resizeTop]="false" [resizeBottom]="false" [resizeLeft]="false" [resizeRight]="true" [offset]="">
+            <ng-content ></ng-content>
+        </div>
+    </div>
+
+</div>

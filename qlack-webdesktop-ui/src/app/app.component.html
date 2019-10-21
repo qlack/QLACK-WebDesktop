@@ -1,18 +1,38 @@
 <mat-toolbar color="primary">
-  <mat-toolbar-row>
-    <span>WebDesktop</span>
-  </mat-toolbar-row>
-
-
+  <span>WebDesktop</span>
+  <button mat-button [routerLink]="'/login'">Login</button>
+  <button mat-button [routerLink]="'/apps'">Apps</button>
 </mat-toolbar>
-<button routerLink="/login">imageList</button>
 <router-outlet></router-outlet>
+
+
+<div class="widget-boundary">
+  <app-widget
+          [isOpened]="true"
+          [isDraggable]="true"
+          [isMinimizable]="true"
+          title="my widget title"
+          xPosition="100px"
+          yPosition="50px"
+          [zIndex]="2"
+          iconImageSrc="assets/img/favicon.ico"
+          (onClose)="isOpened = false">
+    <div class="iframe-container">
+      <iframe src="https://www.eurodyn.com/"  ></iframe>
+    </div>
+  </app-widget>
+
+
+</div>
+
+
+
 
 <div  class="footer">
   <footer>
     <div class="matdialog" >
-     
-      <a target="_blank" href="https://www.eurodyn.com" rel="noopener noreferrer">About us</a>
+
+      <a target="_blank" href="https://www.eurodyn.com">About us</a>
     </div>
   </footer>
 </div>
