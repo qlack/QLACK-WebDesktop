@@ -1,0 +1,20 @@
+language: java
+
+sudo: false
+
+addons:
+  sonarcloud:
+    organization: "qlack"
+    token:
+      secure: "KYebXh9KNclCN//tLPF/HP2rnCS7kCTOjZFmziL+76JO6U35CRxYShHr3cGXSxLp+D4eK9rf07sDBHPxTJhnrUswZInAkopd0eZYeH6XA6sjv57ncmFZ7Fv8KF0V1sqzC4PgER+/Y/q9lj1FRQrzLLb/noz01n07SIvX6fHuDwdZ0dhqH96dNHcAU9Fvzp0hLJt3Rnjy4+dg3X/lTAB7//qhC+Y7UhWYoIrgCdf+IkvU/IgvLClTsX8hOpp7W1y/T6zRJRJAbZKUkwV2cvL8gaSZCCjmFQERKos4gklCFlV7ZSBeOQifBMzxEfk4wzN065zObf7BrQPaXSqlbVNE80Dm22IzgCaSuzWNZSQOObE6XiMi2ESiYsxBRQPPTF0mLoF/HFVakWBn19EHf4JId++WtAmm14lbk0zhbjtPqz0BCPhJV2yLI03w43+tYn/l7ZuXxCOR5JwbHDZo1nRIok9Xr+wK/NtNiRTzaKf+D4PMlsPKSLZzyoXiFtiL0XHEMzvLgbebeicN6ZijCi7zZwz/zF93FOYQhL9O8Sd9FCZCl2LI0XR/sAOLJCDSEQa2aVM0oGxQqGbs6nV/HX750UX1N1LsPvUQFuPl9w7QSjhppGNwBM2xjCGM0J2AePU8gtsaAhTzzICoHaFabxH4UTe+Y2YmMDlJ2jdhxN+Zy7E="
+
+jdk: openjdk8
+
+script: mvn clean install -Pcoverage sonar:sonar
+
+notifications:
+  email:
+    recipients:
+      - qlack@eurodyn.com
+    on_success: change
+    on_failure: change

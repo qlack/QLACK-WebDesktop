@@ -1,0 +1,157 @@
+databaseChangeLog:
+  - changeSet:
+      id: webdesktop_001
+      author: European Dynamics SA.
+      changes:
+        - createTable:
+            tableName: wd_application
+            columns:
+              - column:
+                  name: id
+                  type: varchar(36)
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: title_key
+                  type: varchar(256)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: description_key
+                  type: varchar(256)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: version
+                  type: varchar(32)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: path
+                  type: varchar(256)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: app_index
+                  type: varchar(256)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: bg_color
+                  type: varchar(32)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: multiple_instances
+                  type: boolean
+                  defaultValue: false
+                  constraints:
+                    nullable: false
+              - column:
+                  name: restrict_access
+                  type: boolean
+                  defaultValue: false
+                  constraints:
+                    nullable: false
+              - column:
+                  name: icon
+                  type: varchar(256)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: icon_small
+                  type: varchar(256)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: width
+                  type: int
+                  constraints:
+                    nullable: false
+              - column:
+                  name: min_width
+                  type: int
+                  constraints:
+                    nullable: false
+              - column:
+                  name: height
+                  type: int
+                  constraints:
+                    nullable: false
+              - column:
+                  name: min_height
+                  type: int
+                  constraints:
+                    nullable: false
+              - column:
+                  name: resizable
+                  type: boolean
+                  defaultValue: true
+                  constraints:
+                    nullable: false
+              - column:
+                  name: minimizable
+                  type: boolean
+                  defaultValue: true
+                  constraints:
+                    nullable: false
+              - column:
+                  name: maximizable
+                  type: boolean
+                  defaultValue: true
+                  constraints:
+                    nullable: false
+              - column:
+                  name: closable
+                  type: boolean
+                  defaultValue: true
+                  constraints:
+                    nullable: false
+              - column:
+                  name: draggable
+                  type: boolean
+                  defaultValue: true
+                  constraints:
+                    nullable: false
+              - column:
+                  name: translations_group
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: bundle_symbolic_name
+                  type: varchar(255)
+                  constraints:
+                    nullable: true
+              - column:
+                  name: is_active
+                  type: boolean
+                  defaultValue: true
+                  constraints:
+                    nullable: false
+              - column:
+                  name: added_on
+                  type: bigint
+                  constraints:
+                    nullable: false
+              - column:
+                  name: last_deployed_on
+                  type: bigint
+                  constraints:
+                    nullable: false
+              - column:
+                  name: is_system
+                  type: boolean
+                  constraints:
+                    nullable: false
+              - column:
+                  name: show_title
+                  type: boolean
+                  constraints:
+                    nullable: false
+              - column:
+                  name: checksum
+                  type: varchar(255)
+                  constraints:
+                    nullable: false

@@ -1,0 +1,1 @@
+# QLACK Web Desktop module
