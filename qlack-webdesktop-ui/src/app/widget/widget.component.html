@@ -4,7 +4,7 @@
         [cdkDragDisabled]="isSmallScreen || !isDraggable" (cdkDragStarted)="dragStart($event)"
         (cdkDragEnded)="dragEnd($event)" (cdkDragReleased)="dragReleased($event)" (cdkDragMoved)="dragMoved($event)">
 
-    <div *ngIf="isMinimized && !isSmallScreen" class="widgetAsIcon" (dblclick)="widgetDClicked($event)">
+    <div *ngIf="isMinimized && !isSmallScreen" class="widgetAsIcon" (click)="widgetClicked($event)">
         <img *ngIf="!!iconImageSrc" [src]="safeIconImageSrc">
         <div *ngIf="!(!!iconImageSrc)">{{title}}</div>
     </div>

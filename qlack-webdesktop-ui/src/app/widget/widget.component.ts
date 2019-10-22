@@ -18,7 +18,7 @@ export class WidgetComponent implements OnChanges,OnInit {
   @Output() onDragEnd = new EventEmitter();
   @Output() onDragMoved = new EventEmitter();
   @Output() onDragReleased = new EventEmitter();
-  @Output() onWidgetDClicked = new EventEmitter();
+  @Output() onWidgetClicked = new EventEmitter();
 
 
   @Input() isOpened: boolean = false;
@@ -82,9 +82,9 @@ export class WidgetComponent implements OnChanges,OnInit {
     this.onDragMoved.emit(event);
   }
 
-  widgetDClicked(event) {
+  widgetClicked(event) {
     this.isMinimized = !this.isMinimized;
-    this.onWidgetDClicked.emit(event);
+    this.onWidgetClicked.emit(event);
   }
 
 
