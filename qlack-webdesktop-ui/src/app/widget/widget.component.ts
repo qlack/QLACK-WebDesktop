@@ -31,6 +31,7 @@ export class WidgetComponent implements OnChanges,OnInit {
   @Input() zIndex?: number;
   @Input() iconImageSrc?: string;
   @Input() widgetWidthPercent?: string;
+  @Input() widgetPosition = {x: 0, y: 0};
 
   safeIconImageSrc
   isMinimized = false;
@@ -106,16 +107,23 @@ export class WidgetComponent implements OnChanges,OnInit {
 
 
     if(this.isMaximized){
+      this.changePosition(-parseInt(this.yPosition),-parseInt(this.xPosition));
       this.zIndex=2;
       this.widgetWidthPercent="10";
     }else{
-
+      this.changePosition(parseInt(this.yPosition),parseInt(this.xPosition));
       this.zIndex=9
       this.widgetWidthPercent="100";
     }
     this.isMaximized = !this.isMaximized;
     this.onMaximize.emit(event);
   }
+
+  changePosition(x:number,y:number) {
+    this.widgetPosition = {x: this.widgetPosition.x -x , y: this.widgetPosition.y -y};
+
+  }
+
 }
 
 
