@@ -1,9 +1,5 @@
-<mat-toolbar color="primary">
-  <span>WebDesktop</span>
-  <button mat-button [routerLink]="'/login'">Login</button>
-  <button mat-button [routerLink]="'/apps'">Apps</button>
-</mat-toolbar>
-<router-outlet></router-outlet>
+<app-header></app-header>
+<app-sidebar></app-sidebar>
 
 
 <div class="widget-boundary">
@@ -21,18 +17,4 @@
       <iframe src="https://www.eurodyn.com/"  ></iframe>
     </div>
   </app-widget>
-
-
-</div>
-
-
-
-
-<div  class="footer">
-  <footer>
-    <div class="matdialog" >
-
-      <a target="_blank" href="https://www.eurodyn.com">About us</a>
-    </div>
-  </footer>
 </div>

@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import {ImageListComponent} from "./image-list/image-list.component";
+import { SidebarComponent } from './common/sidebar/sidebar.component';
 
 
 const routes: Routes = [
   { path:  '', redirectTo:  'apps', pathMatch:  'full'},
-  {path: 'apps', component: ImageListComponent }
+  {path: 'apps', component: SidebarComponent }
   // {path: 'login', component: LoginComponent }
 
 ];
