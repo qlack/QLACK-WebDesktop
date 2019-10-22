@@ -20,13 +20,16 @@
                    matTooltip="{{ isMinimized ? 'maximize'  : 'minimize'}}">
                     {{isMinimized ? 'add' : 'remove'}}
                 </i>
+                <i class="material-icons headerIcon" (click)="widgetMaximized($event)" matTooltip="maximize">
+                    crop_free
+                </i>
 
                 <i class="material-icons headerIcon" (click)="close($event)" matTooltip="close">
                     cancel
                 </i>
             </div>
         </div>
-        <div class="content " *ngIf="!isMinimized"  resizeBorder [resizeTop]="false" [resizeBottom]="false" [resizeLeft]="false" [resizeRight]="true" [offset]="">
+        <div class="content " *ngIf="!isMinimized" [style.width.vmax]="widgetWidthPercent" resizeBorder [resizeTop]="false" [resizeBottom]="false" [resizeLeft]="false" [resizeRight]="true" [offset]="">
             <ng-content ></ng-content>
         </div>
     </div>

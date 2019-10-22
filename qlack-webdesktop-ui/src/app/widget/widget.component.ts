@@ -13,6 +13,7 @@ export class WidgetComponent implements OnChanges,OnInit {
   @Output() onOpen = new EventEmitter();
   @Output() onClose = new EventEmitter();
   @Output() onMinimize = new EventEmitter();
+  @Output() onMaximize = new EventEmitter();
   @Output() onDragStart = new EventEmitter();
   @Output() onDragEnd = new EventEmitter();
   @Output() onDragMoved = new EventEmitter();
@@ -23,15 +24,18 @@ export class WidgetComponent implements OnChanges,OnInit {
   @Input() isOpened: boolean = false;
   @Input() isDraggable: boolean = true;
   @Input() isMinimizable: boolean = true;
+  @Input() isMaximizable: boolean = false;
   @Input() title: string = "Title";
   @Input() xPosition?: string;
   @Input() yPosition?: string;
   @Input() zIndex?: number;
   @Input() iconImageSrc?: string;
+  @Input() widgetWidthPercent?: string;
 
   safeIconImageSrc
   isMinimized = false;
   isSmallScreen = false;
+  isMaximized = false;
 
   constructor(breakpointObserver: BreakpointObserver,
               private sanitizer: DomSanitizer, ) {
@@ -98,7 +102,20 @@ export class WidgetComponent implements OnChanges,OnInit {
     this.onMinimize.emit(event);
   }
 
+  widgetMaximized(event){
 
+
+    if(this.isMaximized){
+      this.zIndex=2;
+      this.widgetWidthPercent="10";
+    }else{
+
+      this.zIndex=9
+      this.widgetWidthPercent="100";
+    }
+    this.isMaximized = !this.isMaximized;
+    this.onMaximize.emit(event);
+  }
 }
 
 
