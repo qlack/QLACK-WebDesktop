@@ -18,4 +18,23 @@
       <iframe src="https://www.eurodyn.com/"  ></iframe>
     </div>
   </app-widget>
+
+
+  <app-widget
+          [isOpened]="true"
+          [isDraggable]="true"
+          [isMinimizable]="true"
+          title="my widget title"
+          xPosition="200px"
+          yPosition="100px"
+          [zIndex]="2"
+          iconImageSrc="assets/img/favicon.ico"
+          (onClose)="isOpened = false">
+    <div class="iframe-container">
+      <iframe src="https://angular.io/"  ></iframe>
+    </div>
+  </app-widget>
+
+
+
 </div>
