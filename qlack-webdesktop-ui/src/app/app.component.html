@@ -2,36 +2,37 @@
 <app-header></app-header>
 
   <app-widget
-          [isOpened]="true"
+          [isActive]="true"
           [isDraggable]="true"
           [isMinimizable]="true"
+          [isMaximizable]="true"
+          [isClosable]="true"
+          [isResizable]="true"
           title="my widget title"
           xPosition="100px"
           yPosition="50px"
           [zIndex]="2"
           iconImageSrc="assets/img/favicon.ico"
-          (onClose)="isOpened = false">
-    <div class="iframe-container">
-      <iframe src="https://www.eurodyn.com/"  ></iframe>
-    </div>
+          appUrl="https://www.eurodyn.com/"
+          (onClose)="isActive = false">
   </app-widget>
 
 
   <app-widget
-          [isOpened]="true"
+          [isActive]="true"
           [isDraggable]="true"
           [isMinimizable]="true"
+          [isMaximizable]="true"
+          [isClosable]="true"
+          [isResizable]="true"
           title="my widget title"
-          xPosition="200px"
-          yPosition="100px"
+          xPosition="100px"
+          yPosition="50px"
           [zIndex]="2"
           iconImageSrc="assets/img/favicon.ico"
-          (onClose)="isOpened = false">
-    <div class="iframe-container">
-      <iframe src="https://angular.io/"  ></iframe>
-    </div>
+          appUrl="https://angular.io/"
+          (onClose)="isActive = false">
   </app-widget>
-
 
 
 </div>

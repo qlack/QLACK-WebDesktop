@@ -10,6 +10,7 @@ import {DragDropModule} from '@angular/cdk/drag-drop';
 import {ResizeBorderModule} from 'resize-border';
 import { SidebarComponent } from './common/sidebar/sidebar.component';
 import { HeaderComponent } from './common/header/header.component';
+import { AngularResizedEventModule } from 'angular-resize-event';
 
 
 @NgModule({
@@ -34,6 +35,7 @@ import { HeaderComponent } from './common/header/header.component';
     DragDropModule,
     MatIconModule,
     MatMenuModule,
+    AngularResizedEventModule
   ],
   providers: [],
   bootstrap: [AppComponent]

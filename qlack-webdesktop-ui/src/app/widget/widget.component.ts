@@ -1,6 +1,8 @@
 import { Component, Input, Output, EventEmitter, OnChanges, SimpleChanges, OnInit } from "@angular/core";
 import { DomSanitizer } from '@angular/platform-browser';
 import { BreakpointObserver, Breakpoints } from "@angular/cdk/layout";
+import { CdkDragEnd } from '@angular/cdk/drag-drop';
+import { ResizedEvent } from 'angular-resize-event';
 
 
 @Component({
@@ -21,23 +23,34 @@ export class WidgetComponent implements OnChanges,OnInit {
   @Output() onWidgetClicked = new EventEmitter();
 
 
-  @Input() isOpened: boolean = false;
+  @Input() isActive: boolean = false;
   @Input() isDraggable: boolean = true;
   @Input() isMinimizable: boolean = true;
   @Input() isMaximizable: boolean = false;
+  @Input() isClosable: boolean = false;
+  @Input() isResizable: boolean = true;
   @Input() title: string = "Title";
   @Input() xPosition?: string;
   @Input() yPosition?: string;
+  @Input() width?: number;
+  @Input() height?: number;
+  @Input() minHeight?: string;
   @Input() zIndex?: number;
   @Input() iconImageSrc?: string;
+  @Input() appUrl?: string;
   @Input() widgetWidthPercent?: string;
   @Input() widgetHeightPercent?: string;
   @Input() widgetPosition = {x: 0, y: 0};
 
-  safeIconImageSrc
+  safeIconImageSrc;
+  safeAppUrl;
   isMinimized = false;
   isSmallScreen = false;
   isMaximized = false;
+  widgetCurrentPosition;
+  tempWidth:number;
+  tempHeight:number;
+
 
   constructor(breakpointObserver: BreakpointObserver,
               private sanitizer: DomSanitizer, ) {
@@ -58,16 +71,17 @@ export class WidgetComponent implements OnChanges,OnInit {
 
   ngOnInit() {
     this.safeIconImageSrc = this.iconImageSrc && this.sanitizer.bypassSecurityTrustResourceUrl(this.iconImageSrc)
+    this.safeAppUrl = this.appUrl && this.sanitizer.bypassSecurityTrustResourceUrl(this.appUrl)
   }
 
   ngOnChanges(event: SimpleChanges) {
-    if (event.isOpened) {
+    if (event.isActive) {
       let widgets: HTMLCollectionOf<Element> = document.getElementsByClassName("widget");
-      if (event.isOpened.currentValue == true) {
+      if (event.isActive.currentValue == true) {
         this.zIndex = this.zIndex || widgets.length;
         this.yPosition = this.yPosition || `${Math.floor(Math.random() * 40) + 20}%`;
         this.xPosition = this.xPosition || `${Math.floor(Math.random() * 30) + 15}%`;
-        this.onOpen.emit(event.isOpened.currentValue);
+        this.onOpen.emit(event.isActive.currentValue);
       }
     }
   }
@@ -76,7 +90,8 @@ export class WidgetComponent implements OnChanges,OnInit {
     this.onDragStart.emit(event);
   }
 
-  dragEnd(event) {
+  dragEnd(event: CdkDragEnd) {
+    this.widgetCurrentPosition=event.source.getFreeDragPosition();
     this.onDragEnd.emit(event);
   }
 
@@ -95,7 +110,7 @@ export class WidgetComponent implements OnChanges,OnInit {
   }
 
   close(event) {
-    this.isOpened = false;
+    this.isActive = false;
     this.onClose.emit(event);
   }
 
@@ -108,24 +123,35 @@ export class WidgetComponent implements OnChanges,OnInit {
 
 
     if(this.isMaximized){
-      this.changePosition(-parseInt(this.yPosition),-parseInt(this.xPosition));
+
+      this.widgetPosition = this.widgetCurrentPosition;
       this.zIndex=2;
-      this.widgetWidthPercent="16";
-      this.widgetHeightPercent="8";
+      this.widgetWidthPercent= this.tempWidth.toString() ;
+      this.widgetHeightPercent= this.tempHeight.toString() ;
     }else{
-      this.changePosition(parseInt(this.yPosition),parseInt(this.xPosition));
+      this.widgetPosition = {x:  -parseInt(this.yPosition) , y: -parseInt(this.xPosition)};
       this.zIndex=9
-      this.widgetWidthPercent="100";
+      this.tempWidth=this.width;
+      this.tempHeight=this.height;
+      //TODO width must have 100 or 98 value
+      this.widgetWidthPercent="198";
       this.widgetHeightPercent="100";
+
+
     }
+
+
     this.isMaximized = !this.isMaximized;
     this.onMaximize.emit(event);
   }
 
-  changePosition(x:number,y:number) {
-    this.widgetPosition = {x: this.widgetPosition.x -x , y: this.widgetPosition.y -y};
 
+  onResized(event: ResizedEvent) {
+
+    this.width = event.newWidth;
+    this.height = event.newHeight;
   }
+
 
 }
 

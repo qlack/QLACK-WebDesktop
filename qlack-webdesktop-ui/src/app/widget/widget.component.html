@@ -1,6 +1,6 @@
-<div
+<div    resizeBorder
         class="widget" cdkDragBoundary=".widget-boundary" cdkDrag [class.widgetMinimized]="isMinimized && !isSmallScreen"
-        *ngIf="isOpened" [style.top]="xPosition" [style.left]="yPosition" [style.z-index]="zIndex" [cdkDragFreeDragPosition]="widgetPosition"
+        *ngIf="isActive" [style.top]="xPosition" [style.left]="yPosition" [style.z-index]="zIndex" [cdkDragFreeDragPosition]="widgetPosition"
         [cdkDragDisabled]="isSmallScreen || !isDraggable" (cdkDragStarted)="dragStart($event)"
         (cdkDragEnded)="dragEnd($event)" (cdkDragReleased)="dragReleased($event)" (cdkDragMoved)="dragMoved($event)">
 
@@ -20,17 +20,29 @@
                    matTooltip="{{ isMinimized ? 'maximize'  : 'minimize'}}">
                     {{isMinimized ? 'add' : 'remove'}}
                 </i>
-                <i class="material-icons headerIcon" (click)="widgetMaximized($event)" matTooltip="maximize">
-                    crop_free
+                <i *ngIf="isMaximizable && !isMaximized" class="material-icons headerIcon" (click)="widgetMaximized($event)" matTooltip="fullscreen">
+                    fullscreen
+                </i>
+                <i *ngIf="isMaximizable && isMaximized" class="material-icons headerIcon" (click)="widgetMaximized($event)" matTooltip="fullscreen exit">
+                    fullscreen_exit
                 </i>
 
-                <i class="material-icons headerIcon" (click)="close($event)" matTooltip="close">
+                <i *ngIf="isClosable" class="material-icons headerIcon" (click)="close($event)" matTooltip="close">
                     cancel
                 </i>
             </div>
         </div>
-        <div class="content " *ngIf="!isMinimized" [style.width.vmax]="widgetWidthPercent" [style.height.vmax]="widgetHeightPercent" resizeBorder [resizeTop]="false" [resizeBottom]="true" [resizeLeft]="false" [resizeRight]="true" [offset]="8">
-            <ng-content ></ng-content>
+        <div  *ngIf="!isMinimized && !isMaximized" class="content " [style.width.px]="widgetWidthPercent" [style.height.px]="widgetHeightPercent"
+              resizeBorder [resizeBottom]="isResizable"  [resizeRight]="isResizable" [offset]="8" (resized)="onResized($event)">
+            <div class="iframe-container">
+                <iframe [src]="safeAppUrl"  ></iframe>
+            </div>
+        </div>
+        <div  *ngIf="!isMinimized && isMaximized" class="content " [style.width.vh]="widgetWidthPercent" [style.height.vh]="widgetHeightPercent"
+              resizeBorder [resizeBottom]="isResizable"  [resizeRight]="isResizable" [offset]="8" (resized)="onResized($event)">
+            <div class="iframe-container">
+                <iframe [src]="safeAppUrl"  ></iframe>
+            </div>
         </div>
     </div>
 
