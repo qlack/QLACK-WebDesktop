@@ -1,7 +1,14 @@
 /* You can add global styles to this file, and also import other style files */
+$light: #43c6ac;
+$dark: #191654;
 
 html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+body {
+  background: linear-gradient(45deg, $light, $dark);
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
 
 .widget-boundary {
   width: 99.8%;

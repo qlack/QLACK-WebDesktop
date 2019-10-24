@@ -1,5 +1,12 @@
-<mat-toolbar class="navigation-bar">
+<mat-toolbar class="navigation-bar border-line">
+    <button mat-button [routerLink]="'/login'">
+        <mat-icon>menu</mat-icon>
+    </button>
     <span>WebDesktop</span>
-    <button mat-button [routerLink]="'/login'">Login</button>
-    <button mat-button [routerLink]="'/apps'">Apps</button>
+    <div class="right-side-area">
+        <button mat-button [routerLink]="'/login'">
+            <mat-icon>account_circle</mat-icon>
+        </button>
+        <button mat-button>Logout</button>
+    </div>
 </mat-toolbar>

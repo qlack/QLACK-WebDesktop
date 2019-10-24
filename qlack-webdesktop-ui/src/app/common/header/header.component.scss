@@ -1,7 +1,15 @@
 .navigation-bar {
-  background: #212121;
-  color: #999;
+  background: rgba(64, 90, 133, 0.15);
+  color: #ededed;
   position: relative;
-  padding-left: 80px;
   height: 60px;
+}
+
+.border-line {
+  border-bottom: 1px solid rgba(231, 231, 231, 0.31);
+}
+
+.right-side-area {
+  position: absolute;
+  right: 3%;
 }
