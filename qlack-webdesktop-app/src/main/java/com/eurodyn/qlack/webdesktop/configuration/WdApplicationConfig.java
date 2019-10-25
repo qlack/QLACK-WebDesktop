@@ -55,7 +55,7 @@ public class WdApplicationConfig implements ApplicationRunner {
     }
 
     /**
-     * Searhes command line arguments for WebDesktop application configuration url endpoints. If found, the urls are
+     * Searches command line arguments for WebDesktop application configuration url endpoints. If found, the urls are
      * validated and the configuration files are loaded as Web Desktop applications in the database. This methods
      * overrides the {@link ApplicationRunner#run(org.springframework.boot.ApplicationArguments)} method to allow it to
      * run just before the application starts.
