@@ -1,11 +1,15 @@
-<div    resizeBorder
+<!-- img icon stays at init widget position-->
+<div *ngIf="!!iconImageSrc &&  isActive"  class="position"   (click)="widgetMinimized($event)" >
+    <img     [src]="safeIconImageSrc">
+</div>
+
+<div    resizeBorder [style.top]="xPosition" [style.left]="yPosition"
         class="widget" cdkDragBoundary=".widget-boundary" cdkDrag [class.widgetMinimized]="isMinimized && !isSmallScreen"
-        *ngIf="isActive" [style.top]="xPosition" [style.left]="yPosition" [style.z-index]="zIndex" [cdkDragFreeDragPosition]="widgetPosition"
+        *ngIf="isActive"   [style.z-index]="zIndex" [cdkDragFreeDragPosition]="widgetPosition"
         [cdkDragDisabled]="isSmallScreen || !isDraggable" (cdkDragStarted)="dragStart($event)"
         (cdkDragEnded)="dragEnd($event)" (cdkDragReleased)="dragReleased($event)" (cdkDragMoved)="dragMoved($event)">
 
     <div *ngIf="isMinimized && !isSmallScreen" class="widgetAsIcon" (click)="widgetClicked($event)">
-        <img *ngIf="!!iconImageSrc" [src]="safeIconImageSrc">
         <div *ngIf="!(!!iconImageSrc)">{{title}}</div>
     </div>
 
@@ -17,8 +21,8 @@
 
             <div class="iconsContainer">
                 <i *ngIf="isMinimizable" class="material-icons headerIcon" (click)="widgetMinimized($event)"
-                   matTooltip="{{ isMinimized ? 'maximize'  : 'minimize'}}">
-                    {{isMinimized ? 'add' : 'remove'}}
+                   matTooltip="minimize">
+                    remove
                 </i>
                 <i *ngIf="isMaximizable && !isMaximized" class="material-icons headerIcon" (click)="widgetMaximized($event)" matTooltip="fullscreen">
                     fullscreen

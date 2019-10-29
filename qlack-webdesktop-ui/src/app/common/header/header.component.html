@@ -1,6 +1,56 @@
 <mat-toolbar class="navigation-bar border-line">
     <app-start-menu></app-start-menu>
-    <span>WebDesktop</span>
+    <span style="margin-right: 20px;">WebDesktop</span>
+
+    <app-widget
+            [isActive]="true"
+            [isDraggable]="true"
+            [isMinimizable]="true"
+            [isMaximizable]="true"
+            [isClosable]="true"
+            [isResizable]="true"
+            title="my widget title"
+            [zIndex]="2"
+            iconImageSrc="assets/img/favicon.ico"
+            appUrl="https://angular.io/"
+            (onClose)="isActive = false"
+    >
+    </app-widget>
+
+    <app-widget
+            [isActive]="true"
+            [isDraggable]="true"
+            [isMinimizable]="true"
+            [isMaximizable]="true"
+            [isClosable]="true"
+            [isResizable]="true"
+            title="my widget title"
+            [zIndex]="2"
+            iconImageSrc="assets/img/eurodyn.png"
+            appUrl="https://www.eurodyn.com/"
+            (onClose)="isActive = false"
+    >
+    </app-widget>
+
+    <app-widget
+            [isActive]="true"
+            [isDraggable]="true"
+            [isMinimizable]="true"
+            [isMaximizable]="true"
+            [isClosable]="true"
+            [isResizable]="true"
+            title="my widget title"
+            [zIndex]="2"
+            iconImageSrc="assets/img/spring.png"
+            appUrl="https://spring.io/guides"
+            (onClose)="isActive = false"
+    >
+    </app-widget>
+
+
+
+
+
     <div class="right-side-area">
         <button mat-button [routerLink]="'/login'">
             <mat-icon>account_circle</mat-icon>

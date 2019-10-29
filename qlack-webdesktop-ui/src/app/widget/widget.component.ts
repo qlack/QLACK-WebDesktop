@@ -30,17 +30,18 @@ export class WidgetComponent implements OnChanges,OnInit {
   @Input() isClosable: boolean = false;
   @Input() isResizable: boolean = true;
   @Input() title: string = "Title";
-  @Input() xPosition?: string;
-  @Input() yPosition?: string;
   @Input() width?: number;
   @Input() height?: number;
   @Input() minHeight?: string;
+  @Input() minWidth?: string;
   @Input() zIndex?: number;
   @Input() iconImageSrc?: string;
   @Input() appUrl?: string;
   @Input() widgetWidthPercent?: string;
   @Input() widgetHeightPercent?: string;
-  @Input() widgetPosition = {x: 0, y: 0};
+  @Input() widgetPosition = {x: 500, y: 400};
+  // 42 is the height of the div of image icon
+  @Input() widgetMinimizedPosition = {x: 0, y: -42};
 
   safeIconImageSrc;
   safeAppUrl;
@@ -48,6 +49,8 @@ export class WidgetComponent implements OnChanges,OnInit {
   isSmallScreen = false;
   isMaximized = false;
   widgetCurrentPosition;
+  xPosition?: string;
+  yPosition?: string;
   tempWidth:number;
   tempHeight:number;
 
@@ -55,12 +58,12 @@ export class WidgetComponent implements OnChanges,OnInit {
   constructor(breakpointObserver: BreakpointObserver,
               private sanitizer: DomSanitizer, ) {
     breakpointObserver.observe([
-      '(max-width: 600px)',
+      '(max-width: 200px)',
       Breakpoints.XSmall,
       Breakpoints.Web
     ]).subscribe(result => {
       if (result.matches) {
-        if (result.breakpoints['(max-width: 600px)']) {
+        if (result.breakpoints['(max-width: 200px)']) {
           this.isSmallScreen = true;
         }
         else
@@ -79,8 +82,8 @@ export class WidgetComponent implements OnChanges,OnInit {
       let widgets: HTMLCollectionOf<Element> = document.getElementsByClassName("widget");
       if (event.isActive.currentValue == true) {
         this.zIndex = this.zIndex || widgets.length;
-        this.yPosition = this.yPosition || `${Math.floor(Math.random() * 40) + 20}%`;
-        this.xPosition = this.xPosition || `${Math.floor(Math.random() * 30) + 15}%`;
+       // this.yPosition = this.yPosition || `${Math.floor(Math.random() * 40) + 20}%`;
+       // this.xPosition = this.xPosition || `${Math.floor(Math.random() * 30) + 15}%`;
         this.onOpen.emit(event.isActive.currentValue);
       }
     }
@@ -99,11 +102,6 @@ export class WidgetComponent implements OnChanges,OnInit {
     this.onDragMoved.emit(event);
   }
 
-  widgetClicked(event) {
-    this.isMinimized = !this.isMinimized;
-    this.onWidgetClicked.emit(event);
-  }
-
 
   dragReleased(event) {
     this.onDragReleased.emit(event);
@@ -114,7 +112,45 @@ export class WidgetComponent implements OnChanges,OnInit {
     this.onClose.emit(event);
   }
 
+  widgetClicked(event) {
+    if(!this.isMaximized){
+      this.widgetWidthPercent= this.tempWidth.toString() ;
+      this.widgetHeightPercent= this.tempHeight.toString() ;
+      this.zIndex= 2;
+      this.widgetPosition=this.widgetCurrentPosition;
+
+
+    }
+    else{
+
+      this.xPosition="0px";
+
+      this.yPosition="0px";
+      this.widgetPosition = {x:  0 , y: 0};
+      this.zIndex=9;
+      this.widgetWidthPercent="198";
+      this.widgetHeightPercent="100";
+
+    }
+
+    this.isDraggable=true;
+    this.isMinimized = !this.isMinimized;
+    this.onWidgetClicked.emit(event);
+  }
+
+
   widgetMinimized(event){
+    if(!this.isMaximized){
+      this.tempWidth=this.width;
+      this.tempHeight=this.height;
+    }
+    this.xPosition=undefined;
+    this.yPosition=undefined;
+    this.zIndex= 0;
+
+
+    this.widgetPosition= this.widgetMinimizedPosition;
+    this.isDraggable=false;
     this.isMinimized = !this.isMinimized;
     this.onMinimize.emit(event);
   }
@@ -123,17 +159,22 @@ export class WidgetComponent implements OnChanges,OnInit {
 
 
     if(this.isMaximized){
+      this.xPosition=undefined;
 
+      this.yPosition=undefined;
       this.widgetPosition = this.widgetCurrentPosition;
-      this.zIndex=2;
+      this.zIndex=1;
       this.widgetWidthPercent= this.tempWidth.toString() ;
       this.widgetHeightPercent= this.tempHeight.toString() ;
+
     }else{
-      this.widgetPosition = {x:  -parseInt(this.yPosition) , y: -parseInt(this.xPosition)};
-      this.zIndex=9
+      this.xPosition="0px";
+
+      this.yPosition="0px";
+      this.widgetPosition = {x:  0 , y: 0};
+      this.zIndex=9;
       this.tempWidth=this.width;
       this.tempHeight=this.height;
-      //TODO width must have 100 or 98 value
       this.widgetWidthPercent="198";
       this.widgetHeightPercent="100";
 
