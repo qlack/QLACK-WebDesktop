@@ -201,6 +201,9 @@ export class WidgetComponent implements OnChanges,OnInit {
 
   }
 
+  open(){
+    this.isActive=true;
+  }
 
 }
 
