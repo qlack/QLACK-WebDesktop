@@ -6,8 +6,8 @@
   background-color: rgba(255, 255, 255, 0.9);
   width: auto;
   height: auto;
-  min-width: 300px;
-  min-height: 182px;
+  min-width: auto;
+  min-height: auto;
 
 
   &:active {
@@ -42,10 +42,34 @@
   //padding: 15px;
   padding: 0px;
   min-width: 300px;
-  min-height: 150px;
+  min-height: 182px;
 
 
 }
+
+
+
+.iframe-container {
+
+  min-width: 300px;
+  min-height: 182px;
+  height: 100%;
+  width: 100%;
+  position: relative;
+
+}
+
+.iframe-container iframe {
+  border: 0;
+  height: inherit;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: inherit;
+}
+
+
+
 
 
 .header {
@@ -66,7 +90,7 @@
   color: white;
   font-weight: bold;
   position: absolute;
-  top: 25%;
+  //top: 25%;
   left: 32px;
 }
 
@@ -136,6 +160,9 @@
     }
   }
 }
+
+
+
 
 
 

@@ -16,21 +16,3 @@ body {
  // border: dotted #ccc 2px;
 }
 
-.iframe-container {
-
-  min-width: 300px;
-  min-height: 150px;
-  height: 100%;
-  width: 100%;
-  position: relative;
-
-}
-
-.iframe-container iframe {
-  border: 0;
-  height: inherit;
-  left: 0;
-  position: absolute;
-  top: 0;
-  width: inherit;
-}

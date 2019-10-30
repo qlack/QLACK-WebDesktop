@@ -36,16 +36,16 @@
                 </i>
             </div>
         </div>
-        <div  *ngIf="!isMinimized && !isMaximized" class="content " [style.width.px]="widgetWidthPercent" [style.height.px]="widgetHeightPercent"
+        <div  *ngIf="!isMinimized && !isMaximized" class="content " [style.width.px]="width" [style.height.px]="height" [style.min-height.px]="minHeight" [style.min-width.px]="minWidth"
               resizeBorder [resizeBottom]="isResizable"  [resizeRight]="isResizable" [offset]="8" (resized)="onResized($event)">
-            <div class="iframe-container">
-                <iframe [src]="safeAppUrl"  ></iframe>
+            <div class="iframe-container" [style.min-height.px]="minHeight" [style.min-width.px]="minWidth">
+                <iframe [src]="safeAppUrl"  [style.display]="displayIframe ? 'block' : 'none'" ></iframe>
             </div>
         </div>
         <div  *ngIf="!isMinimized && isMaximized" class="content " [style.width.vh]="widgetWidthPercent" [style.height.vh]="widgetHeightPercent"
-              resizeBorder [resizeBottom]="isResizable"  [resizeRight]="isResizable" [offset]="8" (resized)="onResized($event)">
-            <div class="iframe-container">
-                <iframe [src]="safeAppUrl"  ></iframe>
+              resizeBorder [resizeBottom]="isResizable"  [resizeRight]="isResizable" [offset]="8" (resized)="onResized($event)" >
+            <div  class="iframe-container"  >
+                <iframe [src]="safeAppUrl"   ></iframe>
             </div>
         </div>
     </div>

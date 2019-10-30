@@ -37,8 +37,7 @@ export class WidgetComponent implements OnChanges,OnInit {
   @Input() zIndex?: number;
   @Input() iconImageSrc?: string;
   @Input() appUrl?: string;
-  @Input() widgetWidthPercent?: string;
-  @Input() widgetHeightPercent?: string;
+
   @Input() widgetPosition = {x: 500, y: 400};
   // 42 is the height of the div of image icon
   @Input() widgetMinimizedPosition = {x: 0, y: -42};
@@ -53,7 +52,9 @@ export class WidgetComponent implements OnChanges,OnInit {
   yPosition?: string;
   tempWidth:number;
   tempHeight:number;
-
+  widgetWidthPercent?: string;
+  widgetHeightPercent?: string;
+  displayIframe: boolean = false;
 
   constructor(breakpointObserver: BreakpointObserver,
               private sanitizer: DomSanitizer, ) {
@@ -90,10 +91,12 @@ export class WidgetComponent implements OnChanges,OnInit {
   }
 
   dragStart(event) {
+    this.displayIframe=false;
     this.onDragStart.emit(event);
   }
 
   dragEnd(event: CdkDragEnd) {
+    this.displayIframe=true;
     this.widgetCurrentPosition=event.source.getFreeDragPosition();
     this.onDragEnd.emit(event);
   }
@@ -114,8 +117,8 @@ export class WidgetComponent implements OnChanges,OnInit {
 
   widgetClicked(event) {
     if(!this.isMaximized){
-      this.widgetWidthPercent= this.tempWidth.toString() ;
-      this.widgetHeightPercent= this.tempHeight.toString() ;
+      this.width= this.tempWidth ;
+      this.height= this.tempHeight ;
       this.zIndex= 2;
       this.widgetPosition=this.widgetCurrentPosition;
 
@@ -164,8 +167,8 @@ export class WidgetComponent implements OnChanges,OnInit {
       this.yPosition=undefined;
       this.widgetPosition = this.widgetCurrentPosition;
       this.zIndex=1;
-      this.widgetWidthPercent= this.tempWidth.toString() ;
-      this.widgetHeightPercent= this.tempHeight.toString() ;
+      this.width= this.tempWidth ;
+      this.height= this.tempHeight ;
 
     }else{
       this.xPosition="0px";
@@ -187,10 +190,15 @@ export class WidgetComponent implements OnChanges,OnInit {
   }
 
 
+  //needs better implementation
   onResized(event: ResizedEvent) {
-
+    this.displayIframe = false;
+    setTimeout(()=>{
+      this.displayIframe = true;
+    }, 1000);
     this.width = event.newWidth;
     this.height = event.newHeight;
+
   }
 
 

@@ -1,16 +1,20 @@
 <mat-toolbar class="navigation-bar border-line">
     <app-widget *ngFor="let widget of widgets | async"
-            [isActive]="true"
-            [isDraggable]="true"
-            [isMinimizable]="true"
-            [isMaximizable]="true"
-            [isClosable]="true"
-            [isResizable]="true"
-            title={{widget.titleKey}}
-            [zIndex]="2"
-            iconImageSrc="assets/img/favicon.ico"
-            appUrl={{widget.appIndex}}
-            (onClose)="isActive = false"
+                [isActive]="true"
+                [isDraggable]="true"
+                [isMinimizable]="true"
+                [isMaximizable]="true"
+                [isClosable]="true"
+                [isResizable]="true"
+                [width]="400"
+                [height]="400"
+                [minWidth]="400"
+                [minHeight]="400"
+                title={{widget.titleKey}}
+                [zIndex]="2"
+                iconImageSrc="assets/img/favicon.ico"
+                appUrl={{widget.appIndex}}
+                (onClose)="isActive = false"
     >
     </app-widget>
 
