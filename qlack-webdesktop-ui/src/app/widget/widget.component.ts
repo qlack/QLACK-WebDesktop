@@ -34,20 +34,20 @@ export class WidgetComponent implements OnChanges,OnInit {
   @Input() height?: number;
   @Input() minHeight?: string;
   @Input() minWidth?: string;
-  @Input() zIndex?: number;
   @Input() iconImageSrc?: string;
   @Input() appUrl?: string;
 
-  @Input() widgetPosition = {x: 500, y: 400};
-  // 42 is the height of the div of image icon
-  @Input() widgetMinimizedPosition = {x: 0, y: -42};
 
+
+   widgetPosition = {x: 500, y: 400};
+  // 42 is the height of the div of image icon
+   widgetMinimizedPosition = {x: 0, y: -42};
   safeIconImageSrc;
   safeAppUrl;
   isMinimized = false;
   isSmallScreen = false;
   isMaximized = false;
-  widgetCurrentPosition;
+  widgetCurrentPosition = {x: 500, y: 400};
   xPosition?: string;
   yPosition?: string;
   tempWidth:number;
@@ -55,6 +55,8 @@ export class WidgetComponent implements OnChanges,OnInit {
   widgetWidthPercent?: string;
   widgetHeightPercent?: string;
   displayIframe: boolean = false;
+  zIndex?: number = 2;
+  static zIndexCounter?: number = 3;
 
   constructor(breakpointObserver: BreakpointObserver,
               private sanitizer: DomSanitizer, ) {
@@ -82,7 +84,7 @@ export class WidgetComponent implements OnChanges,OnInit {
     if (event.isActive) {
       let widgets: HTMLCollectionOf<Element> = document.getElementsByClassName("widget");
       if (event.isActive.currentValue == true) {
-        this.zIndex = this.zIndex || widgets.length;
+
        // this.yPosition = this.yPosition || `${Math.floor(Math.random() * 40) + 20}%`;
        // this.xPosition = this.xPosition || `${Math.floor(Math.random() * 30) + 15}%`;
         this.onOpen.emit(event.isActive.currentValue);
@@ -91,6 +93,7 @@ export class WidgetComponent implements OnChanges,OnInit {
   }
 
   dragStart(event) {
+    this.zIndex=WidgetComponent.zIndexCounter++;
     this.displayIframe=false;
     this.onDragStart.emit(event);
   }
@@ -119,7 +122,7 @@ export class WidgetComponent implements OnChanges,OnInit {
     if(!this.isMaximized){
       this.width= this.tempWidth ;
       this.height= this.tempHeight ;
-      this.zIndex= 2;
+      this.zIndex=WidgetComponent.zIndexCounter++;
       this.widgetPosition=this.widgetCurrentPosition;
 
 
@@ -130,7 +133,7 @@ export class WidgetComponent implements OnChanges,OnInit {
 
       this.yPosition="0px";
       this.widgetPosition = {x:  0 , y: 0};
-      this.zIndex=9;
+      this.zIndex=WidgetComponent.zIndexCounter++;
       this.widgetWidthPercent="198";
       this.widgetHeightPercent="100";
 
@@ -149,7 +152,7 @@ export class WidgetComponent implements OnChanges,OnInit {
     }
     this.xPosition=undefined;
     this.yPosition=undefined;
-    this.zIndex= 0;
+    this.zIndex=WidgetComponent.zIndexCounter++;
 
 
     this.widgetPosition= this.widgetMinimizedPosition;
@@ -166,7 +169,7 @@ export class WidgetComponent implements OnChanges,OnInit {
 
       this.yPosition=undefined;
       this.widgetPosition = this.widgetCurrentPosition;
-      this.zIndex=1;
+      this.zIndex=WidgetComponent.zIndexCounter++;
       this.width= this.tempWidth ;
       this.height= this.tempHeight ;
 
@@ -175,7 +178,7 @@ export class WidgetComponent implements OnChanges,OnInit {
 
       this.yPosition="0px";
       this.widgetPosition = {x:  0 , y: 0};
-      this.zIndex=9;
+      this.zIndex=WidgetComponent.zIndexCounter++;
       this.tempWidth=this.width;
       this.tempHeight=this.height;
       this.widgetWidthPercent="198";
@@ -201,9 +204,6 @@ export class WidgetComponent implements OnChanges,OnInit {
 
   }
 
-  open(){
-    this.isActive=true;
-  }
 
 }
 

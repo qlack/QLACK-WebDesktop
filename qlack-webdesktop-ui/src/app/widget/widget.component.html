@@ -2,9 +2,6 @@
 <div *ngIf="!!iconImageSrc &&  isActive"  class="position"   (click)="widgetMinimized($event)" >
     <img     [src]="safeIconImageSrc">
 </div>
-<div *ngIf="!!iconImageSrc &&  !isActive"  class="position"   (click)="open()" >
-    <img     [src]="safeIconImageSrc">
-</div>
 
 <div    resizeBorder [style.top]="xPosition" [style.left]="yPosition"
         class="widget" cdkDragBoundary=".widget-boundary" cdkDrag [class.widgetMinimized]="isMinimized && !isSmallScreen"
