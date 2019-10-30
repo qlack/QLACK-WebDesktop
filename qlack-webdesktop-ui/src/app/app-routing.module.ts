@@ -4,7 +4,6 @@ import { Routes, RouterModule } from '@angular/router';
 
 const routes: Routes = [
   { path:  '', redirectTo:  'apps', pathMatch:  'full'},
-  //{path: 'apps', component: SidebarComponent }
   // {path: 'login', component: LoginComponent }
 
 ];

@@ -10,7 +10,8 @@ import {DragDropModule} from '@angular/cdk/drag-drop';
 import {ResizeBorderModule} from 'resize-border';
 import { HeaderComponent } from './common/header/header.component';
 import { AngularResizedEventModule } from 'angular-resize-event';
-import { StartMenuComponent } from './common/start-menu/start-menu.component';
+import { HttpClientModule } from '@angular/common/http';
+import {WidgetService} from "./widget.service";
 
 
 @NgModule({
@@ -18,7 +19,6 @@ import { StartMenuComponent } from './common/start-menu/start-menu.component';
     AppComponent,
     HeaderComponent,
     WidgetComponent,
-    StartMenuComponent,
   ],
   imports: [
     BrowserModule,
@@ -35,9 +35,10 @@ import { StartMenuComponent } from './common/start-menu/start-menu.component';
     DragDropModule,
     MatIconModule,
     MatMenuModule,
-    AngularResizedEventModule
+    AngularResizedEventModule,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [WidgetService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
