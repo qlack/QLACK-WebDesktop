@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {Observable} from "rxjs";
 import {Widget} from "../../widget";
 import {WidgetService} from "../../widget.service";
@@ -11,6 +11,9 @@ import {WidgetService} from "../../widget.service";
 export class StartMenuComponent implements OnInit {
 
   widgets: Observable<Widget[]>;
+  title:string="Check voicemail";
+
+  @Output() onAppClick = new EventEmitter();
 
   constructor(private widgetService: WidgetService) { }
 

@@ -1,5 +1,26 @@
 <mat-toolbar class="navigation-bar border-line">
-    <app-start-menu></app-start-menu>
+    <app-start-menu (onAppClick)="setOpenApp($event)"></app-start-menu>
+    <h3>isActive is {{ openApp }}</h3>
+    <div *ngIf="openApp">
+        <app-widget
+
+                [isActive]="openApp"
+                [isDraggable]="true"
+                [isMinimizable]="true"
+                [isMaximizable]="true"
+                [isClosable]="true"
+                [isResizable]="true"
+                [width]="400"
+                [height]="400"
+                [minWidth]="400"
+                [minHeight]="400"
+                title="Angular"
+                (onClose)="setOpenApp(false)"
+                iconImageSrc="assets/img/favicon.ico"
+                appUrl="https://angular.io">
+        </app-widget>
+
+    </div>
 
     <div class="right-side-area">
         <button mat-button [routerLink]="'/login'">
