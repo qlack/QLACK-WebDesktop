@@ -24,7 +24,7 @@
           <span>{{widget.titleKey}}</span>
       </button> -->
     <div *ngFor="let widget of widgets | async">
-    <button  mat-menu-item (click)="onAppClick.emit('true')" >
+    <button  mat-menu-item (click)="onAppClick.emit(widget.titleKey)" >
         <img src="assets/img/favicon.ico">
         <span>{{widget.titleKey}}</span>
     </button>

@@ -1,10 +1,10 @@
 <mat-toolbar class="navigation-bar border-line">
-    <app-start-menu (onAppClick)="setOpenApp($event)"></app-start-menu>
-    <h3>isActive is {{ openApp }}</h3>
-    <div *ngIf="openApp">
+    <app-start-menu (onAppClick)="setApp($event)"></app-start-menu>
+    <div *ngFor="let widget of widgets | async">
+    <div *ngIf="activeApps.includes(widget.titleKey) ">
         <app-widget
 
-                [isActive]="openApp"
+                [isActive]="true"
                 [isDraggable]="true"
                 [isMinimizable]="true"
                 [isMaximizable]="true"
@@ -14,14 +14,14 @@
                 [height]="400"
                 [minWidth]="400"
                 [minHeight]="400"
-                title="Angular"
-                (onClose)="setOpenApp(false)"
+                title={{widget.titleKey}}
+                (onClose)="removeApp(widget.titleKey)"
                 iconImageSrc="assets/img/favicon.ico"
-                appUrl="https://angular.io">
+                appUrl={{widget.appIndex}}>
         </app-widget>
 
     </div>
-
+    </div>
     <div class="right-side-area">
         <button mat-button [routerLink]="'/login'">
             <mat-icon>account_circle</mat-icon>
@@ -29,3 +29,4 @@
         <button mat-button>Logout</button>
     </div>
 </mat-toolbar>
+

@@ -132,7 +132,7 @@ export class WidgetComponent implements OnChanges,OnInit {
       this.xPosition="0px";
 
       this.yPosition="0px";
-      this.widgetPosition = {x:  0 , y: 0};
+      this.widgetPosition = {x:  0 , y: 60};
       this.zIndex=WidgetComponent.zIndexCounter++;
       this.widgetWidthPercent="198";
       this.widgetHeightPercent="100";
@@ -177,7 +177,7 @@ export class WidgetComponent implements OnChanges,OnInit {
       this.xPosition="0px";
 
       this.yPosition="0px";
-      this.widgetPosition = {x:  0 , y: 0};
+      this.widgetPosition = {x:  0 , y: 60};
       this.zIndex=WidgetComponent.zIndexCounter++;
       this.tempWidth=this.width;
       this.tempHeight=this.height;
