@@ -1,21 +1,5 @@
 <mat-toolbar class="navigation-bar border-line">
-    <app-widget *ngFor="let widget of widgets | async"
-                [isActive]="true"
-                [isDraggable]="true"
-                [isMinimizable]="true"
-                [isMaximizable]="true"
-                [isClosable]="true"
-                [isResizable]="true"
-                [width]="400"
-                [height]="400"
-                [minWidth]="400"
-                [minHeight]="400"
-                title={{widget.titleKey}}
-                iconImageSrc="assets/img/favicon.ico"
-                appUrl={{widget.appIndex}}
-                (onClose)="isActive = false"
-    >
-    </app-widget>
+    <app-start-menu></app-start-menu>
 
     <div class="right-side-area">
         <button mat-button [routerLink]="'/login'">

@@ -1,4 +1,5 @@
 export class Widget {
     appIndex: string;
+    titleKey: string;
     icon: string;
 }
