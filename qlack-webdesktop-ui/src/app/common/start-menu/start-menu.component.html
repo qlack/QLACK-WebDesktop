@@ -1,32 +1,11 @@
-<button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+<button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Icon-button with a menu">
     <mat-icon>apps</mat-icon>
 </button>
 <mat-menu #menu="matMenu">
-    <!-- <button mat-menu-item *ngFor="let widget of widgets | async">
-      <app-widget
-                  [isActive]="true"
-                  [isDraggable]="true"
-                  [isMinimizable]="true"
-                  [isMaximizable]="true"
-                  [isClosable]="true"
-                  [isResizable]="true"
-                  [width]="400"
-                  [height]="400"
-                  [minWidth]="400"
-                  [minHeight]="400"
-                  title={{widget.titleKey}}
-                  [zIndex]="2"
-                  iconImageSrc="assets/img/favicon.ico"
-                  appUrl={{widget.appIndex}}
-                  (onClose)="isActive = false"
-      >
-      </app-widget>
-          <span>{{widget.titleKey}}</span>
-      </button> -->
     <div *ngFor="let widget of widgets | async">
     <button  mat-menu-item (click)="onAppClick.emit(widget.titleKey)" >
-        <img src="assets/img/favicon.ico">
-        <span>{{widget.titleKey}}</span>
+        <img src={{widget.icon}} alt={{widget.titleKey}} class="img-menu-icon">
+        <span class="area">{{widget.titleKey}}</span>
     </button>
     </div>
 </mat-menu>
