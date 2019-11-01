@@ -12,5 +12,5 @@ export class Widget {
     resizable:boolean;
     minimizable:boolean;
     draggable:boolean;
-    show_title:boolean;
+    showTitle:boolean;
 }

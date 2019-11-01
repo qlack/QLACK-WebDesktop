@@ -17,7 +17,7 @@
         <div class="header" cdkDragHandle>
             <img *ngIf="!!iconImageSrc" class="image" [src]="safeIconImageSrc">
 
-            <div class="title" style.left="{{!(!!iconImageSrc) && '5px'}}">{{title}}</div>
+            <div *ngIf="showTitle" class="title" style.left="{{!(!!iconImageSrc) && '5px'}}">{{title}}</div>
 
             <div class="iconsContainer">
                 <i *ngIf="isMinimizable" class="material-icons headerIcon" (click)="widgetMinimized($event)"
