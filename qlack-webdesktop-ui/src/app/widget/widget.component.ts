@@ -24,7 +24,7 @@ export class WidgetComponent implements OnChanges,OnInit {
 
 
   @Input() isActive: boolean = false;
-  @Input() isDraggable: boolean = true;
+  @Input() isDraggable: boolean;
   @Input() isMinimizable: boolean = true;
   @Input() isMaximizable: boolean = false;
   @Input() isClosable: boolean = false;
@@ -41,7 +41,7 @@ export class WidgetComponent implements OnChanges,OnInit {
 
 
 
-   widgetPosition = {x: 500, y: 400};
+   widgetPosition = {x: 0, y: 150};
   // 42 is the height of the div of image icon
    widgetMinimizedPosition = {x: 0, y: -42};
   safeIconImageSrc;
@@ -49,7 +49,7 @@ export class WidgetComponent implements OnChanges,OnInit {
   isMinimized = false;
   isSmallScreen = false;
   isMaximized = false;
-  widgetCurrentPosition = {x: 500, y: 400};
+  widgetCurrentPosition = {x: 0, y: 150};
   xPosition?: string;
   yPosition?: string;
   tempWidth:number;
@@ -59,6 +59,7 @@ export class WidgetComponent implements OnChanges,OnInit {
   displayIframe: boolean = false;
   zIndex?: number = 2;
   static zIndexCounter?: number = 3;
+  initDraggableValue: boolean;
 
   constructor(breakpointObserver: BreakpointObserver,
               private sanitizer: DomSanitizer, ) {
@@ -80,6 +81,7 @@ export class WidgetComponent implements OnChanges,OnInit {
   ngOnInit() {
     this.safeIconImageSrc = this.iconImageSrc && this.sanitizer.bypassSecurityTrustResourceUrl(this.iconImageSrc)
     this.safeAppUrl = this.appUrl && this.sanitizer.bypassSecurityTrustResourceUrl(this.appUrl)
+    this.initDraggableValue=this.isDraggable;
   }
 
   ngOnChanges(event: SimpleChanges) {
@@ -126,7 +128,7 @@ export class WidgetComponent implements OnChanges,OnInit {
       this.height= this.tempHeight ;
       this.zIndex=WidgetComponent.zIndexCounter++;
       this.widgetPosition=this.widgetCurrentPosition;
-
+       this.isDraggable=this.initDraggableValue;
 
     }
     else{
@@ -135,13 +137,13 @@ export class WidgetComponent implements OnChanges,OnInit {
 
       this.yPosition="0px";
       this.widgetPosition = {x:  0 , y: 60};
-      this.zIndex=WidgetComponent.zIndexCounter++;
+      this.zIndex=10000000;
       this.widgetWidthPercent="198";
       this.widgetHeightPercent="100";
+      this.isDraggable=false;
 
     }
 
-    this.isDraggable=true;
     this.isMinimized = !this.isMinimized;
     this.onWidgetClicked.emit(event);
   }
@@ -174,17 +176,19 @@ export class WidgetComponent implements OnChanges,OnInit {
       this.zIndex=WidgetComponent.zIndexCounter++;
       this.width= this.tempWidth ;
       this.height= this.tempHeight ;
+      this.isDraggable=this.initDraggableValue;
 
     }else{
       this.xPosition="0px";
 
       this.yPosition="0px";
       this.widgetPosition = {x:  0 , y: 60};
-      this.zIndex=WidgetComponent.zIndexCounter++;
+      this.zIndex=this.zIndex=10000000;
       this.tempWidth=this.width;
       this.tempHeight=this.height;
       this.widgetWidthPercent="198";
       this.widgetHeightPercent="100";
+      this.isDraggable=false;
 
 
     }
