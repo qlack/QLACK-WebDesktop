@@ -1,7 +1,8 @@
 <mat-toolbar class="navigation-bar border-line">
     <app-start-menu (onAppClick)="setApp($event)"></app-start-menu>
-    <div *ngFor="let widget of widgets | async">
-    <div *ngIf="activeApps.includes(widget.titleKey) ">
+
+    <div *ngFor="let widget of widgets">
+
         <app-widget
 
                 [isActive]="true"
@@ -10,18 +11,18 @@
                 [isMaximizable]=widget.maximizable
                 [isClosable]=widget.closable
                 [isResizable]=widget.resizable
+                [isResizable]=widget.multipleInstances
                 [width]=widget.width
                 [height]=widget.height
                 [minWidth]=widget.minWidth
                 [minHeight]=widget.minHeight
                 [showTitle]=widget.showTitle
                 title={{widget.titleKey}}
-                (onClose)="removeApp(widget.titleKey)"
+                (onClose)="removeApp(widget)"
                 iconImageSrc={{widget.icon}}
                 appUrl={{widget.appIndex}}>
         </app-widget>
 
-    </div>
     </div>
     <div class="right-side-area">
         <button mat-button [routerLink]="'/login'">

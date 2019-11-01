@@ -1,36 +1,37 @@
-import { Component, OnInit } from '@angular/core';
-import {Observable} from "rxjs";
+import {Component} from '@angular/core';
 import {Widget} from "../../widget";
-import {WidgetService} from "../../widget.service";
+
 
 @Component({
-  selector: 'app-header',
-  templateUrl: './header.component.html',
-  styleUrls: ['./header.component.scss']
+    selector: 'app-header',
+    templateUrl: './header.component.html',
+    styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent {
 
-  widgets: Observable<Widget[]>;
-  openApp:boolean;
-  //need fixes
-  activeApps:string[]=["initValue"];
+    widgets: Widget[] = new Array();
 
-  constructor(private widgetService: WidgetService) { }
 
-  ngOnInit() {
-    this.widgets = this.widgetService.getActiveApplications();
-  }
-
-  removeApp(appTitle:string){
-    const index = this.activeApps.indexOf(appTitle, 0);
-    if (index > -1) {
-      this.activeApps.splice(index, 1);
-    }
-  }
-  setApp(appTitle:string){
-    if (!this.activeApps.includes(appTitle)){
-      this.activeApps.push(appTitle);
+    constructor() {
     }
 
-  }
+
+    removeApp(widget: Widget) {
+        const index = this.widgets.indexOf(widget, 0);
+        if (index > -1) {
+            this.widgets.splice(index, 1);
+        }
+    }
+
+    setApp(widget: Widget) {
+        if (this.widgets.includes(widget)) {
+            if (widget.multipleInstances) {
+                this.widgets.push(widget);
+            }
+        } else {
+            this.widgets.push(widget);
+        }
+
+
+    }
 }

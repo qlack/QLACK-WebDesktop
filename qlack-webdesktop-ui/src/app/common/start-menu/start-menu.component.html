@@ -3,7 +3,7 @@
 </button>
 <mat-menu #menu="matMenu">
     <div *ngFor="let widget of widgets | async">
-    <button  mat-menu-item (click)="onAppClick.emit(widget.titleKey)" >
+    <button  mat-menu-item (click)="onAppClick.emit(widget)" >
         <img src={{widget.icon}} alt={{widget.titleKey}} class="img-menu-icon">
         <span class="area">{{widget.titleKey}}</span>
     </button>

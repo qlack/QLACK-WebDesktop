@@ -13,4 +13,5 @@ export class Widget {
     minimizable:boolean;
     draggable:boolean;
     showTitle:boolean;
+    multipleInstances:boolean;
 }
