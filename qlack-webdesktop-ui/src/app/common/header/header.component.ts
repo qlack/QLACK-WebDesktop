@@ -28,6 +28,9 @@ export class HeaderComponent {
     }
   }
   setApp(appTitle:string){
-    this.activeApps.push(appTitle);
+    if (!this.activeApps.includes(appTitle)){
+      this.activeApps.push(appTitle);
+    }
+
   }
 }

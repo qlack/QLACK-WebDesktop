@@ -3,4 +3,14 @@ export class Widget {
     titleKey: string;
     icon: string;
     iconSmall: string;
+    closable: boolean;
+    maximizable:boolean;
+    width:number;
+    height:number;
+    minWidth:number;
+    minHeight:number;
+    resizable:boolean;
+    minimizable:boolean;
+    draggable:boolean;
+    show_title:boolean;
 }

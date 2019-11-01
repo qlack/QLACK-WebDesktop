@@ -5,18 +5,18 @@
         <app-widget
 
                 [isActive]="true"
-                [isDraggable]="true"
-                [isMinimizable]="true"
-                [isMaximizable]="true"
-                [isClosable]="true"
-                [isResizable]="true"
-                [width]="400"
-                [height]="400"
-                [minWidth]="400"
-                [minHeight]="400"
+                [isDraggable]=widget.draggable
+                [isMinimizable]=widget.minimizable
+                [isMaximizable]=widget.maximizable
+                [isClosable]=widget.closable
+                [isResizable]=widget.resizable
+                [width]=widget.width
+                [height]=widget.height
+                [minWidth]=widget.minWidth
+                [minHeight]=widget.minHeight
                 title={{widget.titleKey}}
                 (onClose)="removeApp(widget.titleKey)"
-                iconImageSrc="assets/img/favicon.ico"
+                iconImageSrc={{widget.icon}}
                 appUrl={{widget.appIndex}}>
         </app-widget>
 

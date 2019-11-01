@@ -32,8 +32,8 @@ export class WidgetComponent implements OnChanges,OnInit {
   @Input() title: string = "Title";
   @Input() width?: number;
   @Input() height?: number;
-  @Input() minHeight?: string;
-  @Input() minWidth?: string;
+  @Input() minHeight?: number;
+  @Input() minWidth?: number;
   @Input() iconImageSrc?: string;
   @Input() appUrl?: string;
 
