@@ -79,7 +79,7 @@
 
   position: relative;
   top: 0px;
-  cursor: move;
+  cursor: move !important;
   height: 2em;
   width: 100%;
   background-color: grey;
@@ -95,6 +95,7 @@
 
 .iconsContainer {
   float: right;
+  margin-top: 5px;
 }
 
 .headerIcon {

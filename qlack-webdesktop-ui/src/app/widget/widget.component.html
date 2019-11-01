@@ -14,7 +14,7 @@
     </div>
 
     <div *ngIf="!isMinimized || isSmallScreen">
-        <div class="header" cdkDragHandle>
+        <div class="header" cdkDragHandle (click)="zIndexPlusOne()">
             <img *ngIf="!!iconImageSrc" class="image" [src]="safeIconImageSrc">
 
             <div *ngIf="showTitle" class="title" style.left="{{!(!!iconImageSrc) && '5px'}}">{{title}}</div>

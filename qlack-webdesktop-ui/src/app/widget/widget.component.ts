@@ -97,7 +97,6 @@ export class WidgetComponent implements OnChanges,OnInit {
   }
 
   dragStart(event) {
-    this.zIndex=WidgetComponent.zIndexCounter++;
     this.displayIframe=false;
     this.onDragStart.emit(event);
   }
@@ -210,6 +209,9 @@ export class WidgetComponent implements OnChanges,OnInit {
 
   }
 
+  zIndexPlusOne(){
+    this.zIndex=WidgetComponent.zIndexCounter++;
+  }
 
 }
 
