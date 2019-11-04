@@ -2,10 +2,19 @@
     <mat-icon>apps</mat-icon>
 </button>
 <mat-menu #menu="matMenu">
-    <div *ngFor="let widget of widgets | async">
-    <button  mat-menu-item (click)="onAppClick.emit(widget)" >
-        <img src={{widget.icon}} alt={{widget.titleKey}} class="img-menu-icon">
-        <span class="area">{{widget.titleKey}}</span>
-    </button>
+    <!--    <div *ngFor="let widget of widgets | async">-->
+    <!--    <button  mat-menu-item (click)="onAppClick.emit(widget)" >-->
+    <!--        <img src={{widget.icon}} alt={{widget.titleKey}} class="img-menu-icon">-->
+    <!--        <span class="area">{{widget.titleKey}}</span>-->
+    <!--    </button>-->
+    <!--    </div>-->
+    <div id="iconPlay">
+        <ul>
+            <li *ngFor="let widget of widgets | async" class="actionIcon" (click)="onAppClick.emit(widget)">
+                <span class="fa"><img src={{widget.icon}} alt={{widget.titleKey}}></span>
+                <h3>{{widget.titleKey}}</h3>
+                <small>{{widget.descriptionKey}}</small>
+            </li>
+        </ul>
     </div>
 </mat-menu>
