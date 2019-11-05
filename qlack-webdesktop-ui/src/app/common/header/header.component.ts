@@ -19,7 +19,11 @@ export class HeaderComponent {
     removeApp(widget: Widget) {
         const index = this.widgets.indexOf(widget, 0);
         if (index > -1) {
-            this.widgets.splice(index, 1);
+            if (this.widgets.includes(widget)) {
+                if (!widget.multipleInstances) {
+                    this.widgets.splice(index, 1);
+                }
+            }
         }
     }
 
