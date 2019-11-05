@@ -54,8 +54,6 @@ export class WidgetComponent implements OnChanges,OnInit {
   yPosition?: string;
   tempWidth:number;
   tempHeight:number;
-  widgetWidthPercent?: string;
-  widgetHeightPercent?: string;
   displayIframe: boolean = false;
   zIndex?: number = 2;
   static zIndexCounter?: number = 3;
@@ -82,6 +80,7 @@ export class WidgetComponent implements OnChanges,OnInit {
     this.safeIconImageSrc = this.iconImageSrc && this.sanitizer.bypassSecurityTrustResourceUrl(this.iconImageSrc)
     this.safeAppUrl = this.appUrl && this.sanitizer.bypassSecurityTrustResourceUrl(this.appUrl)
     this.initDraggableValue=this.isDraggable;
+    this.zIndex=this.zIndex = ++WidgetComponent.zIndexCounter;
   }
 
   ngOnChanges(event: SimpleChanges) {
@@ -133,12 +132,9 @@ export class WidgetComponent implements OnChanges,OnInit {
     else{
 
       this.xPosition="0px";
-
       this.yPosition="0px";
       this.widgetPosition = {x:  0 , y: 60};
       this.zIndex=10000000;
-      this.widgetWidthPercent="198";
-      this.widgetHeightPercent="100";
       this.isDraggable=false;
 
     }
@@ -179,14 +175,12 @@ export class WidgetComponent implements OnChanges,OnInit {
 
     }else{
       this.xPosition="0px";
-
       this.yPosition="0px";
       this.widgetPosition = {x:  0 , y: 60};
-      this.zIndex=this.zIndex=10000000;
+      this.zIndex=this.zIndex=100000;
       this.tempWidth=this.width;
       this.tempHeight=this.height;
-      this.widgetWidthPercent="198";
-      this.widgetHeightPercent="100";
+
       this.isDraggable=false;
 
 
@@ -210,7 +204,10 @@ export class WidgetComponent implements OnChanges,OnInit {
   }
 
   zIndexPlusOne(){
-    this.zIndex=WidgetComponent.zIndexCounter++;
+    if (!this.isMaximized) {
+      this.zIndex=WidgetComponent.zIndexCounter++;
+    }
+
   }
 
 }

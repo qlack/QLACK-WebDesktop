@@ -1,13 +1,13 @@
 <!-- img icon stays at init widget position-->
-<div *ngIf="!!iconImageSrc &&  isActive"  class="position"   (click)="widgetMinimized($event)" >
-    <img     [src]="safeIconImageSrc">
+<div *ngIf="!!iconImageSrc &&  isActive" class="position" (click)="widgetMinimized($event)">
+    <img [src]="safeIconImageSrc">
 </div>
 
-<div    resizeBorder [style.top]="xPosition" [style.left]="yPosition"
-        class="widget" cdkDragBoundary=".widget-boundary" cdkDrag [class.widgetMinimized]="isMinimized && !isSmallScreen"
-        *ngIf="isActive"   [style.z-index]="zIndex" [cdkDragFreeDragPosition]="widgetPosition"
-        [cdkDragDisabled]="isSmallScreen || !isDraggable" (cdkDragStarted)="dragStart($event)"
-        (cdkDragEnded)="dragEnd($event)" (cdkDragReleased)="dragReleased($event)" (cdkDragMoved)="dragMoved($event)">
+<div resizeBorder [style.top]="xPosition" [style.left]="yPosition"
+     class="widget" cdkDragBoundary=".widget-boundary" cdkDrag [class.widgetMinimized]="isMinimized && !isSmallScreen"
+     *ngIf="isActive" [style.z-index]="zIndex" [cdkDragFreeDragPosition]="widgetPosition"
+     [cdkDragDisabled]="isSmallScreen || !isDraggable" (cdkDragStarted)="dragStart($event)"
+     (cdkDragEnded)="dragEnd($event)" (cdkDragReleased)="dragReleased($event)" (cdkDragMoved)="dragMoved($event)">
 
     <div *ngIf="isMinimized && !isSmallScreen" class="widgetAsIcon" (click)="widgetClicked($event)">
         <div *ngIf="!(!!iconImageSrc)">{{title}}</div>
@@ -24,10 +24,12 @@
                    matTooltip="minimize">
                     remove
                 </i>
-                <i *ngIf="isMaximizable && !isMaximized" class="material-icons headerIcon" (click)="widgetMaximized($event)" matTooltip="fullscreen">
+                <i *ngIf="isMaximizable && !isMaximized" class="material-icons headerIcon"
+                   (click)="widgetMaximized($event)" matTooltip="fullscreen">
                     fullscreen
                 </i>
-                <i *ngIf="isMaximizable && isMaximized" class="material-icons headerIcon" (click)="widgetMaximized($event)" matTooltip="fullscreen exit">
+                <i *ngIf="isMaximizable && isMaximized" class="material-icons headerIcon"
+                   (click)="widgetMaximized($event)" matTooltip="fullscreen exit">
                     fullscreen_exit
                 </i>
 
@@ -36,18 +38,16 @@
                 </i>
             </div>
         </div>
-        <div  *ngIf="!isMinimized && !isMaximized" class="content " [style.width.px]="width" [style.height.px]="height" [style.min-height.px]="minHeight" [style.min-width.px]="minWidth"
-              resizeBorder [resizeBottom]="isResizable"  [resizeRight]="isResizable" [offset]="8" (resized)="onResized($event)">
-            <div class="iframe-container" [style.min-height.px]="minHeight" [style.min-width.px]="minWidth">
-                <iframe [src]="safeAppUrl"  [style.display]="displayIframe ? 'block' : 'none'" ></iframe>
-            </div>
-        </div>
-        <div  *ngIf="!isMinimized && isMaximized" class="content " [style.width.vh]="widgetWidthPercent" [style.height.vh]="widgetHeightPercent"
-              resizeBorder [resizeBottom]="isResizable"  [resizeRight]="isResizable" [offset]="8" (resized)="onResized($event)" >
-            <div  class="iframe-container"  >
-                <iframe [src]="safeAppUrl"   ></iframe>
-            </div>
-        </div>
     </div>
+        <div  class="content" [class.fullScreenSize]="isMaximized && !isSmallScreen" [class.displayContent]="isMinimized" [style.width.px]="width"
+             [style.height.px]="height" [style.min-height.px]="minHeight" [style.min-width.px]="minWidth"
+             resizeBorder [resizeBottom]="isResizable" [resizeRight]="isResizable" [offset]="8"
+             (resized)="onResized($event)">
+            <div class="iframe-container" [style.min-height.px]="minHeight" [style.min-width.px]="minWidth">
+                <iframe [src]="safeAppUrl" [style.display]="displayIframe ? 'block' : 'none'"></iframe>
+            </div>
+        </div>
+
+
 
 </div>

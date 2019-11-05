@@ -21,6 +21,7 @@
   width: 42px;
   height: 42px;
 
+
   //position: absolute;
 
   &:hover {
@@ -36,7 +37,6 @@
 
 }
 
-
 .content {
   //padding: 15px;
   padding: 0px;
@@ -44,8 +44,20 @@
   min-height: 182px;
 
 
+
 }
 
+.fullScreenSize {
+
+  width: calc(200vh - 19px)!important;
+  height: calc(100vh - 80px)!important;
+
+}
+
+.displayContent{
+  display: none;
+  z-index: -10;
+}
 
 
 .iframe-container {
