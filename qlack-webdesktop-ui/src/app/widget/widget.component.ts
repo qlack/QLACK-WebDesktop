@@ -1,6 +1,5 @@
 import { Component, Input, Output, EventEmitter, OnChanges, SimpleChanges, OnInit } from "@angular/core";
 import { DomSanitizer } from '@angular/platform-browser';
-import { BreakpointObserver, Breakpoints } from "@angular/cdk/layout";
 import { CdkDragEnd } from '@angular/cdk/drag-drop';
 import { ResizedEvent } from 'angular-resize-event';
 
@@ -121,7 +120,7 @@ export class WidgetComponent implements OnChanges,OnInit {
       this.xPosition="0px";
       this.yPosition="0px";
       this.widgetPosition = {x:  0 , y: 41};
-      this.zIndex=10000000;
+      this.zIndex=WidgetComponent.zIndexCounter++;
       this.isDraggable=false;
 
     }
@@ -164,7 +163,7 @@ export class WidgetComponent implements OnChanges,OnInit {
       this.xPosition="0px";
       this.yPosition="0px";
       this.widgetPosition = {x:  0 , y: 41};
-      this.zIndex=this.zIndex=100000;
+      this.zIndex=WidgetComponent.zIndexCounter++;
       this.tempWidth=this.width;
       this.tempHeight=this.height;
 
