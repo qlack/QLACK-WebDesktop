@@ -120,7 +120,7 @@ export class WidgetComponent implements OnChanges,OnInit {
 
       this.xPosition="0px";
       this.yPosition="0px";
-      this.widgetPosition = {x:  0 , y: 60};
+      this.widgetPosition = {x:  0 , y: 41};
       this.zIndex=10000000;
       this.isDraggable=false;
 
@@ -163,7 +163,7 @@ export class WidgetComponent implements OnChanges,OnInit {
     }else{
       this.xPosition="0px";
       this.yPosition="0px";
-      this.widgetPosition = {x:  0 , y: 60};
+      this.widgetPosition = {x:  0 , y: 41};
       this.zIndex=this.zIndex=100000;
       this.tempWidth=this.width;
       this.tempHeight=this.height;
