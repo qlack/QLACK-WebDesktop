@@ -43,11 +43,11 @@ public class WdApplication extends QlackBaseModel {
   private String version;
 
   /**
-   * Path
+   * Reverse proxy path
    */
   @Basic
-  @Column(name = "path", nullable = false, length = 256)
-  private String path;
+  @Column(name = "proxy_path", length = 256)
+  private String proxyPath;
 
   /**
    * Presentation order index No.
@@ -210,4 +210,17 @@ public class WdApplication extends QlackBaseModel {
   @Column(name = "checksum", nullable = false, length = 256)
   private String checksum; 
 
+  /**
+   * Strip reverse proxy path prefix when forwarding to the matching url (appIndex)
+   */
+  @Basic
+  @Column(name = "strip_prefix", nullable = false)
+  private boolean stripPrefix;
+
+  /**
+   * Sensitive headers that the reverse proxy should allow for authentication or other reasons
+   */
+  @Basic
+  @Column(name = "sensitive_headers", length = 256)
+  private String sensitiveHeaders;
 }

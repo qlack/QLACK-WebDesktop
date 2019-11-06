@@ -2,6 +2,9 @@ package com.eurodyn.qlack.webdesktop.dto;
 
 import java.util.Date;
 
+import javax.persistence.Basic;
+import javax.persistence.Column;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -35,9 +38,9 @@ public class WdApplicationDTO {
   private String version;
 
   /**
-   * Path
+   * Reverse proxy path
    */
-  private String path;
+  private String proxyPath;
 
   /**
    * Presentation order index No.

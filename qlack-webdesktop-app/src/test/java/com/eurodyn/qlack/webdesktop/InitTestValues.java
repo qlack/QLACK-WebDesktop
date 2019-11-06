@@ -21,7 +21,7 @@ public class InitTestValues {
     wdApplication.setTitleKey("application_title");
     wdApplication.setDescriptionKey("application_description");
     wdApplication.setAppIndex("apps/usermanagement/");
-    wdApplication.setPath("a_path");
+    wdApplication.setProxyPath("a_path");
 
     wdApplication.setAddedOn(new Long("2121545432165"));
     wdApplication.setLastDeployedOn(new Long("2121545432165"));
@@ -58,7 +58,7 @@ public class InitTestValues {
     wdApplicationDTO.setTitleKey("application_title");
     wdApplicationDTO.setDescriptionKey("application_description");
     wdApplicationDTO.setAppIndex("apps/usermanagement/");
-    wdApplicationDTO.setPath("a_path");
+    wdApplicationDTO.setProxyPath("a_path");
 
     wdApplicationDTO.setAddedOn(new Long("2121545432165"));
     wdApplicationDTO.setLastDeployedOn(new Long("2121545432165"));
