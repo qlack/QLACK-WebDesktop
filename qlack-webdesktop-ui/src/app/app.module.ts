@@ -41,7 +41,9 @@ import {StartMenuComponent} from "./common/start-menu/start-menu.component";
         HttpClientModule
     ],
     providers: [WidgetService],
-    bootstrap: [AppComponent]
+    bootstrap: [AppComponent],
+    entryComponents: [WidgetComponent]
+
 })
 export class AppModule {
 }

@@ -1,29 +1,32 @@
 <mat-toolbar class="navigation-bar border-line">
-    <app-start-menu (onAppClick)="setApp($event)"></app-start-menu>
+    <app-start-menu (onAppClick)="initWidget($event)"></app-start-menu>
 
-    <div *ngFor="let widget of widgets">
 
-        <app-widget
+    <ng-template #widgetcontainer></ng-template>
 
-                [isActive]="true"
-                [isDraggable]=widget.draggable
-                [isMinimizable]=widget.minimizable
-                [isMaximizable]=widget.maximizable
-                [isClosable]=widget.closable
-                [isResizable]=widget.resizable
-                [multipleInstances]=widget.multipleInstances
-                [width]=widget.width
-                [height]=widget.height
-                [minWidth]=widget.minWidth
-                [minHeight]=widget.minHeight
-                [showTitle]=widget.showTitle
-                title={{widget.titleKey}}
-                (onClose)="removeApp(widget)"
-                iconImageSrc={{widget.icon}}
-                appUrl={{widget.appIndex}}>
-        </app-widget>
+<!--    <div *ngFor="let widget of widgets">-->
 
-    </div>
+<!--        <app-widget-->
+
+<!--                [isActive]="true"-->
+<!--                [isDraggable]=widget.draggable-->
+<!--                [isMinimizable]=widget.minimizable-->
+<!--                [isMaximizable]=widget.maximizable-->
+<!--                [isClosable]=widget.closable-->
+<!--                [isResizable]=widget.resizable-->
+<!--                [multipleInstances]=widget.multipleInstances-->
+<!--                [width]=widget.width-->
+<!--                [height]=widget.height-->
+<!--                [minWidth]=widget.minWidth-->
+<!--                [minHeight]=widget.minHeight-->
+<!--                [showTitle]=widget.showTitle-->
+<!--                title={{widget.titleKey}}-->
+<!--                (onClose)="removeApp(widget)"-->
+<!--                iconImageSrc={{widget.icon}}-->
+<!--                appUrl={{widget.appIndex}}>-->
+<!--        </app-widget>-->
+
+<!--    </div>-->
     <div class="right-side-area">
         <button mat-button [routerLink]="'/login'">
             <mat-icon>account_circle</mat-icon>

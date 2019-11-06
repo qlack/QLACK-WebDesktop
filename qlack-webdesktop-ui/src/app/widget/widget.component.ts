@@ -23,17 +23,18 @@ export class WidgetComponent implements OnChanges,OnInit {
   @Output() onWidgetClicked = new EventEmitter();
 
 
-  @Input() isActive: boolean = false;
-  @Input() isDraggable: boolean;
+  @Input() isActive: boolean = true;
+  @Input() isDraggable: boolean = true;
   @Input() isMinimizable: boolean = true;
-  @Input() isMaximizable: boolean = false;
-  @Input() isClosable: boolean = false;
+  @Input() isMaximizable: boolean = true;
+  @Input() isClosable: boolean = true;
   @Input() isResizable: boolean = true;
   @Input() title: string = "Title";
   @Input() width?: number;
   @Input() height?: number;
   @Input() minHeight?: number;
   @Input() minWidth?: number;
+  @Input() Id?: number;
   @Input() iconImageSrc?: string;
   @Input() appUrl?: string;
   @Input() showTitle: boolean = false;
@@ -117,7 +118,7 @@ export class WidgetComponent implements OnChanges,OnInit {
 
   close(event) {
     this.isActive = false;
-    this.onClose.emit(event);
+    this.onClose.emit(this.Id);
   }
 
   widgetClicked(event) {
@@ -144,7 +145,7 @@ export class WidgetComponent implements OnChanges,OnInit {
   }
 
 
-  widgetMinimized(event){
+  widgetMinimized(){
     if(!this.isMaximized){
       this.tempWidth=this.width;
       this.tempHeight=this.height;
@@ -157,7 +158,7 @@ export class WidgetComponent implements OnChanges,OnInit {
     this.widgetPosition= this.widgetMinimizedPosition;
     this.isDraggable=false;
     this.isMinimized = !this.isMinimized;
-    this.onMinimize.emit(event);
+    this.onMinimize.emit();
   }
 
   widgetMaximized(event){
