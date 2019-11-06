@@ -9,7 +9,7 @@
      [cdkDragDisabled]="isSmallScreen || !isDraggable" (cdkDragStarted)="dragStart($event)"
      (cdkDragEnded)="dragEnd($event)" (cdkDragReleased)="dragReleased($event)" (cdkDragMoved)="dragMoved($event)">
 
-    <div *ngIf="isMinimized && !isSmallScreen" class="widgetAsIcon" (click)="widgetClicked($event)">
+    <div *ngIf="isMinimized && !isSmallScreen" class="widgetAsIcon" (click)="widgetClicked()">
         <div *ngIf="!(!!iconImageSrc)">{{title}}</div>
     </div>
 
@@ -20,7 +20,7 @@
             <div *ngIf="showTitle" class="title" style.left="{{!(!!iconImageSrc) && '5px'}}">{{title}}</div>
 
             <div class="iconsContainer">
-                <i *ngIf="isMinimizable" class="material-icons headerIcon" (click)="widgetMinimized($event)"
+                <i *ngIf="isMinimizable" class="material-icons headerIcon" (click)="widgetMinimized()"
                    matTooltip="minimize">
                     remove
                 </i>
@@ -33,7 +33,7 @@
                     fullscreen_exit
                 </i>
 
-                <i *ngIf="isClosable" class="material-icons headerIcon" (click)="close($event)" matTooltip="close">
+                <i *ngIf="isClosable" class="material-icons headerIcon" (click)="close()" matTooltip="close">
                     cancel
                 </i>
             </div>

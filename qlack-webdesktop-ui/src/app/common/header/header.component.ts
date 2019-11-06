@@ -32,7 +32,7 @@ export class HeaderComponent {
                     this.createWidget(widget);
 
                 }else if(this.activeWidgetComponents[index].instance.isMinimized){
-                    this.activeWidgetComponents[index].instance.widgetMinimized();
+                    this.activeWidgetComponents[index].instance.widgetClicked();
                 }
             }
             else {

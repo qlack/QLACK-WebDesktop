@@ -60,21 +60,7 @@ export class WidgetComponent implements OnChanges,OnInit {
   static zIndexCounter?: number = 3;
   initDraggableValue: boolean;
 
-  constructor(breakpointObserver: BreakpointObserver,
-              private sanitizer: DomSanitizer, ) {
-    breakpointObserver.observe([
-      '(max-width: 200px)',
-      Breakpoints.XSmall,
-      Breakpoints.Web
-    ]).subscribe(result => {
-      if (result.matches) {
-        if (result.breakpoints['(max-width: 200px)']) {
-          this.isSmallScreen = true;
-        }
-        else
-          this.isSmallScreen = false;
-      }
-    });
+  constructor(private sanitizer: DomSanitizer, ) {
   }
 
   ngOnInit() {
@@ -116,12 +102,12 @@ export class WidgetComponent implements OnChanges,OnInit {
     this.onDragReleased.emit(event);
   }
 
-  close(event) {
+  close() {
     this.isActive = false;
     this.onClose.emit(this.Id);
   }
 
-  widgetClicked(event) {
+  widgetClicked() {
     if(!this.isMaximized){
       this.width= this.tempWidth ;
       this.height= this.tempHeight ;
@@ -141,7 +127,7 @@ export class WidgetComponent implements OnChanges,OnInit {
     }
 
     this.isMinimized = !this.isMinimized;
-    this.onWidgetClicked.emit(event);
+    this.onWidgetClicked.emit();
   }
 
 
@@ -193,7 +179,7 @@ export class WidgetComponent implements OnChanges,OnInit {
   }
 
 
-  //needs better implementation
+
   onResized(event: ResizedEvent) {
     this.displayIframe = false;
     setTimeout(()=>{
