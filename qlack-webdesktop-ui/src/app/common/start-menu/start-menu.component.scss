@@ -1,5 +1,5 @@
 .mat-menu-panel {
-  background: rgba(255,255,255,0.22) !important;
+  background: rgb(255, 255, 255) !important;
   overflow: hidden !important;
   max-width: 400px !important;
 }
@@ -40,20 +40,20 @@ a:hover { text-decoration:none; }
   }
 
   ul {
+    display: flex;
     list-style-type: none;
     padding: 0;
   }
   li {
     text-align: center;
-    float: left;
     width: 100px;
-    height: 100px;
+    height: auto;
   }
 
   h3, img {
     font-size: .8em;
     line-height: 1;
-    color: white;
+    color: #000000;
   }
   h3 {
     margin: 0;
@@ -69,7 +69,7 @@ h3, small {
 small {
   font-size: 60%;
   line-height: 1;
-  color: white;
+  color: #000000;
   -webkit-transition: 0.15s ease; /* Safari prior 6.1 */
   transition: 0.15s ease;
 }
@@ -80,4 +80,14 @@ img {
   margin-left: auto;
   margin-right: auto;
   font-size: .8em;
+}
+
+.dropdown-header {
+  display: block;
+  padding: 5px;
+  margin-bottom: 0;
+  font-size: .9em;
+  font-weight: 600;
+  color: #6c757d;
+  white-space: nowrap;
 }

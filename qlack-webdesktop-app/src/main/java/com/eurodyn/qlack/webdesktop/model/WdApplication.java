@@ -208,6 +208,13 @@ public class WdApplication extends QlackBaseModel {
    */
   @Basic
   @Column(name = "checksum", nullable = false, length = 256)
-  private String checksum; 
+  private String checksum;
+
+  /**
+   * The name of the group that might the application belongs to.
+   */
+  @Basic
+  @Column(name = "group_name", nullable = false, length = 256)
+  private String groupName;
 
 }

@@ -154,6 +154,11 @@ public class WdApplicationDTO {
    */
   private String checksum;
 
+  /***
+   * The name of the group that might the application belongs to.
+   */
+  private String groupName;
+
   /**
    * Set the {@link java.util.Date} based on a long value
    * @param addedOn the date as a {@link Long} value

@@ -1,6 +1,6 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
-import {MatToolbarModule, MatButtonModule, MatSidenavModule, MatListModule} from '@angular/material';
+import {MatToolbarModule, MatButtonModule, MatSidenavModule, MatListModule, MatDividerModule} from '@angular/material';
 import {MatInputModule, MatGridListModule, MatIconModule, MatMenuModule, MatTooltipModule} from '@angular/material';
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
@@ -13,6 +13,7 @@ import {AngularResizedEventModule} from 'angular-resize-event';
 import {HttpClientModule} from '@angular/common/http';
 import {WidgetService} from "./widget.service";
 import {StartMenuComponent} from "./common/start-menu/start-menu.component";
+import { GroupByPipe } from './group-by.pipe';
 
 
 @NgModule({
@@ -20,7 +21,8 @@ import {StartMenuComponent} from "./common/start-menu/start-menu.component";
         AppComponent,
         HeaderComponent,
         WidgetComponent,
-        StartMenuComponent
+        StartMenuComponent,
+        GroupByPipe
     ],
     imports: [
         BrowserModule,
@@ -38,7 +40,8 @@ import {StartMenuComponent} from "./common/start-menu/start-menu.component";
         MatIconModule,
         MatMenuModule,
         AngularResizedEventModule,
-        HttpClientModule
+        HttpClientModule,
+        MatDividerModule
     ],
     providers: [WidgetService],
     bootstrap: [AppComponent],
