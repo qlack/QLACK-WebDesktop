@@ -11,6 +11,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @EntityScan({"com.eurodyn.qlack.webdesktop.model"})
 @ComponentScan(basePackages = {
         "com.eurodyn.qlack.webdesktop.configuration",
+        "com.eurodyn.qlack.webdesktop.security",
         "com.eurodyn.qlack.webdesktop.controller",
         "com.eurodyn.qlack.webdesktop.mapper",
         "com.eurodyn.qlack.webdesktop.service",

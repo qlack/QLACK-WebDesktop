@@ -37,7 +37,7 @@ public class WdApplicationConfig implements ApplicationRunner {
             + "The application will be created / updated.";
     private static final String NO_URL_MSG = "No urls have been provided. No application will be integrated with Qlack WebDesktop.";
     private static final String USAGE_MSG = "Usage: --apps.url=http://www.myurl.com,https://www.myurl2.com, etc.";
-    private static final String APP_UPDATE_MSG = "The Web Desktop Application configuration file url has been "
+    private static final String APP_UPDATE_MSG = "The Web Desktop Application configuration file has been "
             + "changed. The application will be updated.";
     private static final String INPUT_ERROR_MSG = "One of the provided urls returns a malformed YAML Web Desktop "
             + "Application file or no yaml file at all. Please check again your command line arguments. : %s";
