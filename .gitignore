@@ -3,3 +3,5 @@ target/
 *.iml
 node_modules/
 node/
+*.log
+*.gz

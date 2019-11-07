@@ -35,9 +35,9 @@ public class WdApplicationDTO {
   private String version;
 
   /**
-   * Path
+   * Reverse proxy path
    */
-  private String path;
+  private String proxyPath;
 
   /**
    * Presentation order index No.

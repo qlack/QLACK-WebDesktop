@@ -2,6 +2,7 @@ package com.eurodyn.qlack.webdesktop.configuration;
 
 import java.net.URL;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -9,6 +10,8 @@ import org.apache.commons.validator.routines.UrlValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
+import org.springframework.cloud.netflix.zuul.filters.ZuulProperties;
+import org.springframework.cloud.netflix.zuul.filters.discovery.DiscoveryClientRouteLocator;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
 
@@ -22,7 +25,8 @@ import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 import lombok.extern.java.Log;
 
 /**
- * Loads and creates Web Desktop application from .yaml configuration files provided as url endpoints.
+ * Loads and creates Web Desktop application from .yaml configuration files provided as url endpoints and also registers
+ * the routes for Zuul reverse proxy.
  *
  * @author European Dynamics SA.
  */
@@ -31,13 +35,14 @@ import lombok.extern.java.Log;
 @Configuration
 public class WdApplicationConfig implements ApplicationRunner {
 
+    private static final String COMMA_REGEX = ",";
     private static final String APPS_URL = "apps.url";
     private static final String VALID_URL_MSG = "The following valid urls have been provided:";
     private static final String APP_CREATION_MSG = "Web Desktop Application url found. "
             + "The application will be created / updated.";
     private static final String NO_URL_MSG = "No urls have been provided. No application will be integrated with Qlack WebDesktop.";
     private static final String USAGE_MSG = "Usage: --apps.url=http://www.myurl.com,https://www.myurl2.com, etc.";
-    private static final String APP_UPDATE_MSG = "The Web Desktop Application configuration file url has been "
+    private static final String APP_UPDATE_MSG = "The Web Desktop Application configuration file has been "
             + "changed. The application will be updated.";
     private static final String INPUT_ERROR_MSG = "One of the provided urls returns a malformed YAML Web Desktop "
             + "Application file or no yaml file at all. Please check again your command line arguments. : %s";
@@ -46,12 +51,15 @@ public class WdApplicationConfig implements ApplicationRunner {
 
     private WdApplicationRepository wdApplicationRepository;
     private CryptoDigestService cryptoDigestService;
+    private DiscoveryClientRouteLocator discoveryClientRouteLocator;
 
     @Autowired
     public WdApplicationConfig(
-            WdApplicationRepository wdApplicationRepository, CryptoDigestService cryptoDigestService) {
+            WdApplicationRepository wdApplicationRepository, CryptoDigestService cryptoDigestService,
+            DiscoveryClientRouteLocator discoveryClientRouteLocator) {
         this.wdApplicationRepository = wdApplicationRepository;
         this.cryptoDigestService = cryptoDigestService;
+        this.discoveryClientRouteLocator = discoveryClientRouteLocator;
     }
 
     /**
@@ -66,7 +74,7 @@ public class WdApplicationConfig implements ApplicationRunner {
     public void run(ApplicationArguments args) {
 
         if (args.containsOption(APPS_URL)) {
-            String[] urls = args.getOptionValues(APPS_URL).get(0).split(",");
+            String[] urls = args.getOptionValues(APPS_URL).get(0).split(COMMA_REGEX);
 
             List<String> validUrls = Arrays.stream(urls).filter(url -> UrlValidator.getInstance().isValid(url)).collect(
                     Collectors.toList());
@@ -104,6 +112,8 @@ public class WdApplicationConfig implements ApplicationRunner {
                     log.info(APP_UPDATE_MSG);
                     wdApplication.setId(existingWdApp.getId());
                     processWdApplication(wdApplication, sha256);
+                } else if (existingWdApp.getChecksum().equals(sha256)) {
+                    registerReverseProxyRouteFromWdApp(existingWdApp);
                 }
             } catch (MismatchedInputException mie) {
                 log.warning(String.format(INPUT_ERROR_MSG, mie.toString()));
@@ -114,7 +124,7 @@ public class WdApplicationConfig implements ApplicationRunner {
     }
 
     /**
-     * Updates the file's SHA-256 checksum and saves the Web Desktop application
+     * Updates the file's SHA-256 checksum, saves the Web Desktop application and registers
      *
      * @param wdApplication The Web Desktop application
      * @param checksum      The file's SHA-256 checksum
@@ -123,6 +133,35 @@ public class WdApplicationConfig implements ApplicationRunner {
         if (wdApplication != null) {
             wdApplication.setChecksum(checksum);
             wdApplicationRepository.save(wdApplication);
+            registerReverseProxyRouteFromWdApp(wdApplication);
         }
+    }
+
+    /**
+     * Registers a route for Zuul reverse proxy by extracting all the required values from a {@link
+     * com.eurodyn.qlack.webdesktop.model.WdApplication} object
+     *
+     * @param wdApplication the {@link com.eurodyn.qlack.webdesktop.model.WdApplication} object
+     */
+    private void registerReverseProxyRouteFromWdApp(WdApplication wdApplication) {
+        registerReverseProxyRoute(wdApplication.getProxyPath(), wdApplication.getAppIndex(),
+                                  wdApplication.isStripPrefix(),
+                                  wdApplication.getSensitiveHeaders().split(COMMA_REGEX)
+        );
+    }
+
+    /**
+     * Registers a route for Zuul reverse proxy
+     *
+     * @param path             the reverse proxy path
+     * @param url              the matching url
+     * @param stripPrefix      whether the path should be stripped off of the forwarding url
+     * @param sensitiveHeaders headers allowed to pass through Zuul reverse proxy
+     */
+    private void registerReverseProxyRoute(String path, String url, boolean stripPrefix, String[] sensitiveHeaders) {
+        ZuulProperties.ZuulRoute zuulRoute = new ZuulProperties.ZuulRoute(path, url);
+        zuulRoute.setStripPrefix(stripPrefix);
+        zuulRoute.setSensitiveHeaders(new HashSet<>(Arrays.asList(sensitiveHeaders)));
+        discoveryClientRouteLocator.addRoute(zuulRoute);
     }
 }

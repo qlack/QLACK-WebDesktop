@@ -28,7 +28,7 @@ databaseChangeLog:
                   constraints:
                     nullable: false
               - column:
-                  name: path
+                  name: proxy_path
                   type: varchar(256)
                   constraints:
                     nullable: false
@@ -157,4 +157,12 @@ databaseChangeLog:
                     nullable: false
               - column:
                   name: group_name
+                  type: varchar(255)
+              - column:
+                  name: strip_prefix
+                  type: boolean
+                  constraints:
+                    nullable: false
+              - column:
+                  name: sensitive_headers
                   type: varchar(255)
