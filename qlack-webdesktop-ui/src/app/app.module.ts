@@ -14,6 +14,7 @@ import {HttpClientModule} from '@angular/common/http';
 import {WidgetService} from "./widget.service";
 import {StartMenuComponent} from "./common/start-menu/start-menu.component";
 import { GroupByPipe } from './group-by.pipe';
+import { SortByPipe } from './sort-by.pipe';
 
 
 @NgModule({
@@ -22,7 +23,8 @@ import { GroupByPipe } from './group-by.pipe';
         HeaderComponent,
         WidgetComponent,
         StartMenuComponent,
-        GroupByPipe
+        GroupByPipe,
+        SortByPipe
     ],
     imports: [
         BrowserModule,

@@ -2,15 +2,16 @@
     <mat-icon>apps</mat-icon>
 </button>
 <mat-menu #menu="matMenu">
-    <div id="iconPlay" *ngFor="let widget of widgets | async | groupBy: 'groupName'; let lastItem = last">
+    <mat-grid-list id="iconPlay" cols="4"
+                   *ngFor="let widget of widgets | async | groupBy: 'groupName'; let lastItem = last">
         <span class="dropdown-header">{{widget.key}}</span>
-        <ul>
-            <li *ngFor="let subwidget of widget.value" class="actionIcon" (click)="onAppClick.emit(subwidget)">
-                <span class="fa"><img src={{subwidget.icon}} alt={{subwidget.titleKey}}></span>
-                <h3>{{subwidget.titleKey}}</h3>
-                <small>{{subwidget.descriptionKey}}</small>
-            </li>
-        </ul>
+        <mat-grid-tile class="actionIcon"
+                       *ngFor="let subwidget of widget.value | sortBy"
+                       (click)="onAppClick.emit(subwidget)">
+            <span class="fa"><img src={{subwidget.icon}} alt={{subwidget.titleKey}}></span>
+            <h3>{{subwidget.titleKey}}</h3>
+            <small>{{subwidget.descriptionKey}}</small>
+        </mat-grid-tile>
         <mat-divider *ngIf="!lastItem"></mat-divider>
-    </div>
+    </mat-grid-list>
 </mat-menu>

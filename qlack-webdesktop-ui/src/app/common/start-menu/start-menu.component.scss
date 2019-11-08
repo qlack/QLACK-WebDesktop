@@ -1,19 +1,42 @@
 .mat-menu-panel {
   background: rgb(255, 255, 255) !important;
   overflow: hidden !important;
-  max-width: 400px !important;
+  width: 450px;
+  max-width: 500px !important;
+  border-radius: unset !important;
 }
 
 .mat-menu-content {
-  height: 100% !important;
+  padding-bottom: 2px !important;
+  padding-left: 8px;
+  padding-right: 8px;
+  max-height: 600px;
+  overflow: auto;
+}
+
+.mat-grid-tile {
+  position: sticky !important;
+  margin-top: 0px !important;
+  display: inline-block !important;
+}
+
+.mat-grid-list {
+  padding-bottom: 4px !important;
+}
+
+.mat-figure {
+  display: list-item !important;
+  top: 15px !important;
+}
+
+.cdk-overlay-connected-position-bounding-box {
+  left: 20px !important;
 }
 
 a:hover { text-decoration:none; }
 .actionIcon { cursor: pointer; }
 
 #iconPlay {
-  position: relative;
-  width: 400px;
 
   .fa > img {
     display: block;
@@ -22,21 +45,23 @@ a:hover { text-decoration:none; }
     -webkit-transition: 0.2s ease-in-out; /* Safari prior 6.1 */
     transition: 0.2s ease;
   }
-  .actionIcon:hover > .fa > img{
+  .actionIcon:hover > .mat-figure > .fa > img {
     transform: scale(1.2) translateY(-25%);
     opacity: 1;
   }
 
-  .actionIcon:hover > h3 {
+  .actionIcon:hover > .mat-figure > h3 {
     transform: scale(1) translateY(10%);
     transition: 0.15s ease;
     opacity: 1
   }
 
-  .actionIcon:hover > small {
+  .actionIcon:hover > .mat-figure > small {
     transform: scale(1);
     transition: 0.15s ease;
     opacity: 1;
+    display: block;
+    text-align: center;
   }
 
   ul {
@@ -44,10 +69,12 @@ a:hover { text-decoration:none; }
     list-style-type: none;
     padding: 0;
   }
+
   li {
     text-align: center;
     width: 100px;
     height: auto;
+    padding: 10px;
   }
 
   h3, img {
@@ -55,23 +82,45 @@ a:hover { text-decoration:none; }
     line-height: 1;
     color: #000000;
   }
+
   h3 {
     margin: 0;
     transform: scale(1.2) translateY(45%);
     -webkit-transition: 0.3s ease; /* Safari prior 6.1 */
     transition: 0.3s ease;
+    max-width: min-content;
+    margin-right: auto;
+    margin-left: auto;
+
+    //if the title is too big, show only 3 lines of it
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
   }
 }
 
+img, h3 {
+  position: relative;
+}
 h3, small {
   opacity: 0;
+  text-align: center;
+  display: block;
 }
+
 small {
   font-size: 60%;
   line-height: 1;
   color: #000000;
   -webkit-transition: 0.15s ease; /* Safari prior 6.1 */
   transition: 0.15s ease;
+  padding: 6px;
+  //so as to hide big descriptions
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  width: 100px;
 }
 
 img {
@@ -84,7 +133,7 @@ img {
 
 .dropdown-header {
   display: block;
-  padding: 5px;
+  padding: 10px;
   margin-bottom: 0;
   font-size: .9em;
   font-weight: 600;

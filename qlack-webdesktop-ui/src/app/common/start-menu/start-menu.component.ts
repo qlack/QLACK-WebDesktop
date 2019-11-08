@@ -21,4 +21,6 @@ export class StartMenuComponent implements OnInit {
     ngOnInit() {
         this.widgets = this.widgetService.getActiveApplications();
     }
+
+
 }

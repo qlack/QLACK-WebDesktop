@@ -8,6 +8,6 @@ export class WidgetService {
   constructor(private http: HttpClient) { }
 
   getActiveApplications(): Observable<any> {
-    return this.http.get('/apps/all');
+    return this.http.get('/apps/filtered');
   }
 }
