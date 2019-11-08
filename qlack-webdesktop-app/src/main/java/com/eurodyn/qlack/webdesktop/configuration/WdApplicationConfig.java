@@ -1,11 +1,22 @@
 package com.eurodyn.qlack.webdesktop.configuration;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.eurodyn.qlack.common.exception.QAlreadyExistsException;
+import com.eurodyn.qlack.fuse.lexicon.dto.GroupDTO;
+import com.eurodyn.qlack.fuse.lexicon.dto.KeyDTO;
+import com.eurodyn.qlack.fuse.lexicon.dto.LanguageDTO;
+import com.eurodyn.qlack.fuse.lexicon.service.GroupService;
+import com.eurodyn.qlack.fuse.lexicon.service.KeyService;
+import com.eurodyn.qlack.fuse.lexicon.service.LanguageService;
+import com.eurodyn.qlack.webdesktop.model.Lexicon;
+import com.eurodyn.qlack.webdesktop.util.LanguagesEnum;
+import javassist.compiler.Lex;
 import org.apache.commons.validator.routines.UrlValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
@@ -35,8 +46,10 @@ import lombok.extern.java.Log;
 @Configuration
 public class WdApplicationConfig implements ApplicationRunner {
 
+
     private static final String COMMA_REGEX = ",";
     private static final String APPS_URL = "apps.url";
+    private static final String APPS_LANGUAGES = "apps.languages";
     private static final String VALID_URL_MSG = "The following valid urls have been provided:";
     private static final String APP_CREATION_MSG = "Web Desktop Application url found. "
             + "The application will be created / updated.";
@@ -52,14 +65,22 @@ public class WdApplicationConfig implements ApplicationRunner {
     private WdApplicationRepository wdApplicationRepository;
     private CryptoDigestService cryptoDigestService;
     private DiscoveryClientRouteLocator discoveryClientRouteLocator;
+    private LanguageService languageService;
+    private GroupService groupService;
+    private KeyService keyService;
 
     @Autowired
     public WdApplicationConfig(
             WdApplicationRepository wdApplicationRepository, CryptoDigestService cryptoDigestService,
-            DiscoveryClientRouteLocator discoveryClientRouteLocator) {
+            DiscoveryClientRouteLocator discoveryClientRouteLocator, LanguageService languageService,
+            GroupService groupService, KeyService keyService) {
+
         this.wdApplicationRepository = wdApplicationRepository;
         this.cryptoDigestService = cryptoDigestService;
         this.discoveryClientRouteLocator = discoveryClientRouteLocator;
+        this.languageService = languageService;
+        this.groupService = groupService;
+        this.keyService = keyService;
     }
 
     /**
@@ -73,17 +94,40 @@ public class WdApplicationConfig implements ApplicationRunner {
     @Override
     public void run(ApplicationArguments args) {
 
+
         if (args.containsOption(APPS_URL)) {
             String[] urls = args.getOptionValues(APPS_URL).get(0).split(COMMA_REGEX);
 
             List<String> validUrls = Arrays.stream(urls).filter(url -> UrlValidator.getInstance().isValid(url)).collect(
                     Collectors.toList());
 
+            if (args.containsOption(APPS_LANGUAGES)) {
+                List<String> languagesLocales = Arrays.asList(args.getOptionValues(APPS_LANGUAGES).get(0).trim().split("\\s*,\\s*"));
+
+                for (String languageLocale : languagesLocales) {
+                    if (isValidLocale(languageLocale)) {
+                        LanguageDTO languageDTO = new LanguageDTO();
+                        languageDTO.setLocale(languageLocale);
+                        languageDTO.setName(LanguagesEnum.valueOf(languageLocale.toUpperCase()).getLanguageName());
+                        languageDTO.setActive(true);
+                        try {
+                            languageService.createLanguageIfNotExists(languageDTO);
+                        } catch (QAlreadyExistsException e) {
+                            log.info(" Language: " + languageLocale + " already exists and will not be created.");
+                        }
+                    }
+                }
+            }
+
             loadWdApplicationConfig(validUrls);
+
         } else {
             log.warning(NO_URL_MSG);
             log.info(USAGE_MSG);
         }
+
+
+        //save LanguageService from parameters
 
 
     }
@@ -108,12 +152,18 @@ public class WdApplicationConfig implements ApplicationRunner {
                 if (existingWdApp == null) {
                     log.info(APP_CREATION_MSG);
                     processWdApplication(wdApplication, sha256);
+                    processLexiconValues(wdApplication.getLexicon(), wdApplication.getTranslationsGroup());
+
                 } else if (!existingWdApp.getChecksum().equals(sha256)) {
                     log.info(APP_UPDATE_MSG);
                     wdApplication.setId(existingWdApp.getId());
                     processWdApplication(wdApplication, sha256);
+                    processLexiconValues(wdApplication.getLexicon(), wdApplication.getTranslationsGroup());
+
                 } else if (existingWdApp.getChecksum().equals(sha256)) {
+                    processLexiconValues(wdApplication.getLexicon(), wdApplication.getTranslationsGroup());
                     registerReverseProxyRouteFromWdApp(existingWdApp);
+
                 }
             } catch (MismatchedInputException mie) {
                 log.warning(String.format(INPUT_ERROR_MSG, mie.toString()));
@@ -145,8 +195,8 @@ public class WdApplicationConfig implements ApplicationRunner {
      */
     private void registerReverseProxyRouteFromWdApp(WdApplication wdApplication) {
         registerReverseProxyRoute(wdApplication.getProxyPath(), wdApplication.getAppIndex(),
-                                  wdApplication.isStripPrefix(),
-                                  wdApplication.getSensitiveHeaders().split(COMMA_REGEX)
+                wdApplication.isStripPrefix(),
+                wdApplication.getSensitiveHeaders().split(COMMA_REGEX)
         );
     }
 
@@ -164,4 +214,51 @@ public class WdApplicationConfig implements ApplicationRunner {
         zuulRoute.setSensitiveHeaders(new HashSet<>(Arrays.asList(sensitiveHeaders)));
         discoveryClientRouteLocator.addRoute(zuulRoute);
     }
+
+    private void processLexiconValues(List<Lexicon> translations, String lexiconGroup) {
+
+        List<LanguageDTO> systemLanguages = languageService.getLanguages(true);
+
+        GroupDTO groupDTO = groupService.getGroupByTitle(lexiconGroup);
+        String groupId;
+        if (groupDTO == null) {
+
+            groupDTO = new GroupDTO();
+            groupDTO.setTitle(lexiconGroup);
+            groupDTO.setDescription("groupDescription");
+            groupId = groupService.createGroup(groupDTO);
+        } else {
+            groupId = groupDTO.getId();
+        }
+
+        for (LanguageDTO languageDTO : systemLanguages) {
+            for (Lexicon translation : translations) {
+                if (languageDTO.getLocale().equalsIgnoreCase(translation.getLanguage())) {
+                    KeyDTO keyDTO = keyService.getKeyByName(translation.getKey(), groupId, false);
+                    if (keyDTO == null) {
+                        keyDTO = new KeyDTO();
+                        keyDTO.setGroupId(groupId);
+                        keyDTO.setName(translation.getKey());
+                        String keyId = keyService.createKey(keyDTO, false);
+                        keyService.updateTranslationByLocale(keyId, translation.getLanguage(), translation.getValue());
+                    } else {
+
+                        keyService.updateTranslationByLocale(keyDTO.getId(), translation.getLanguage(), translation.getValue());
+                    }
+                }
+            }
+
+        }
+
+    }
+
+    private Boolean isValidLocale(String locale) {
+        for (LanguagesEnum value : LanguagesEnum.values()) {
+            if (value.name().equalsIgnoreCase(locale))
+                return true;
+        }
+        return false;
+    }
+
+
 }

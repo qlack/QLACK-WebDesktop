@@ -1,14 +1,13 @@
 package com.eurodyn.qlack.webdesktop.model;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 import com.eurodyn.qlack.common.model.QlackBaseModel;
 
 import lombok.Getter;
 import lombok.Setter;
+
+import java.util.List;
 
 /**
  * This class represents a Qlack Web Desktop application
@@ -160,6 +159,9 @@ public class WdApplication extends QlackBaseModel {
   @Basic
   @Column(name = "translations_group", nullable = false, length = 255)
   private String translationsGroup;
+
+  @Transient
+  private List<Lexicon> lexicon;
 
   /**
    * Symbolic name for the application bundle

@@ -53,6 +53,11 @@
       <version>${qlack.version}</version>
       <scope>compile</scope>
     </dependency>
+    <dependency>
+      <groupId>com.eurodyn.qlack.fuse</groupId>
+      <artifactId>qlack-fuse-lexicon</artifactId>
+      <version>${qlack.version}</version>
+    </dependency>
 
     <!-- Third-party dependencies -->
     <dependency>
