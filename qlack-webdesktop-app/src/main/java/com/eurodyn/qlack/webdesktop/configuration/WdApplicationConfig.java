@@ -1,7 +1,6 @@
 package com.eurodyn.qlack.webdesktop.configuration;
 
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
@@ -16,7 +15,6 @@ import com.eurodyn.qlack.fuse.lexicon.service.KeyService;
 import com.eurodyn.qlack.fuse.lexicon.service.LanguageService;
 import com.eurodyn.qlack.webdesktop.model.Lexicon;
 import com.eurodyn.qlack.webdesktop.util.LanguagesEnum;
-import javassist.compiler.Lex;
 import org.apache.commons.validator.routines.UrlValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
@@ -25,14 +23,12 @@ import org.springframework.cloud.netflix.zuul.filters.ZuulProperties;
 import org.springframework.cloud.netflix.zuul.filters.discovery.DiscoveryClientRouteLocator;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
-
 import com.eurodyn.qlack.fuse.crypto.service.CryptoDigestService;
 import com.eurodyn.qlack.webdesktop.model.WdApplication;
 import com.eurodyn.qlack.webdesktop.repository.WdApplicationRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.exc.MismatchedInputException;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
-
 import lombok.extern.java.Log;
 
 /**
@@ -94,6 +90,23 @@ public class WdApplicationConfig implements ApplicationRunner {
     @Override
     public void run(ApplicationArguments args) {
 
+        if (args.containsOption(APPS_LANGUAGES)) {
+            List<String> languagesLocales = Arrays.asList(args.getOptionValues(APPS_LANGUAGES).get(0).trim().split("\\s*,\\s*"));
+
+            for (String languageLocale : languagesLocales) {
+                if (isValidLocale(languageLocale)) {
+                    LanguageDTO languageDTO = new LanguageDTO();
+                    languageDTO.setLocale(languageLocale);
+                    languageDTO.setName(LanguagesEnum.valueOf(languageLocale.toUpperCase()).getLanguageName());
+                    languageDTO.setActive(true);
+                    try {
+                        languageService.createLanguageIfNotExists(languageDTO);
+                    } catch (QAlreadyExistsException e) {
+                        log.info(" Language: " + languageLocale + " already exists and will not be created.");
+                    }
+                }
+            }
+        }
 
         if (args.containsOption(APPS_URL)) {
             String[] urls = args.getOptionValues(APPS_URL).get(0).split(COMMA_REGEX);
@@ -101,23 +114,6 @@ public class WdApplicationConfig implements ApplicationRunner {
             List<String> validUrls = Arrays.stream(urls).filter(url -> UrlValidator.getInstance().isValid(url)).collect(
                     Collectors.toList());
 
-            if (args.containsOption(APPS_LANGUAGES)) {
-                List<String> languagesLocales = Arrays.asList(args.getOptionValues(APPS_LANGUAGES).get(0).trim().split("\\s*,\\s*"));
-
-                for (String languageLocale : languagesLocales) {
-                    if (isValidLocale(languageLocale)) {
-                        LanguageDTO languageDTO = new LanguageDTO();
-                        languageDTO.setLocale(languageLocale);
-                        languageDTO.setName(LanguagesEnum.valueOf(languageLocale.toUpperCase()).getLanguageName());
-                        languageDTO.setActive(true);
-                        try {
-                            languageService.createLanguageIfNotExists(languageDTO);
-                        } catch (QAlreadyExistsException e) {
-                            log.info(" Language: " + languageLocale + " already exists and will not be created.");
-                        }
-                    }
-                }
-            }
 
             loadWdApplicationConfig(validUrls);
 
@@ -220,6 +216,7 @@ public class WdApplicationConfig implements ApplicationRunner {
         List<LanguageDTO> systemLanguages = languageService.getLanguages(true);
 
         GroupDTO groupDTO = groupService.getGroupByTitle(lexiconGroup);
+        // we need groupId variable to get the generated Id of new group  from database
         String groupId;
         if (groupDTO == null) {
 
@@ -231,25 +228,22 @@ public class WdApplicationConfig implements ApplicationRunner {
             groupId = groupDTO.getId();
         }
 
-        for (LanguageDTO languageDTO : systemLanguages) {
-            for (Lexicon translation : translations) {
-                if (languageDTO.getLocale().equalsIgnoreCase(translation.getLanguage())) {
-                    KeyDTO keyDTO = keyService.getKeyByName(translation.getKey(), groupId, false);
-                    if (keyDTO == null) {
-                        keyDTO = new KeyDTO();
-                        keyDTO.setGroupId(groupId);
-                        keyDTO.setName(translation.getKey());
-                        String keyId = keyService.createKey(keyDTO, false);
-                        keyService.updateTranslationByLocale(keyId, translation.getLanguage(), translation.getValue());
-                    } else {
 
-                        keyService.updateTranslationByLocale(keyDTO.getId(), translation.getLanguage(), translation.getValue());
-                    }
+        for (Lexicon translation : translations) {
+            if (languageService.getLanguageByLocale(translation.getLanguage()) != null) {
+                KeyDTO keyDTO = keyService.getKeyByName(translation.getKey(), groupId, false);
+                if (keyDTO == null) {
+                    keyDTO = new KeyDTO();
+                    keyDTO.setGroupId(groupId);
+                    keyDTO.setName(translation.getKey());
+                    String keyId = keyService.createKey(keyDTO, false);
+                    keyService.updateTranslationByLocale(keyId, translation.getLanguage(), translation.getValue());
+                } else {
+
+                    keyService.updateTranslationByLocale(keyDTO.getId(), translation.getLanguage(), translation.getValue());
                 }
             }
-
         }
-
     }
 
     private Boolean isValidLocale(String locale) {
