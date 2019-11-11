@@ -22,12 +22,7 @@ export class GroupByPipe implements PipeTransform {
         }, {});
 
         // this will return an array of objects, each object containing a group of objects
-        return Object.keys(groupedCollection).map(key => ({key, value: groupedCollection[key]}))
-            .sort((a, b) => {
-                if (a.key > b.key) return 1
-                else if (a.key < b.key) return -1
-                else return 0
-            });
+        return Object.keys(groupedCollection).map(key => ({key, value: groupedCollection[key]}));
     }
 
 }

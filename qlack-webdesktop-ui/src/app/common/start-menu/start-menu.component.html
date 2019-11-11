@@ -3,10 +3,10 @@
 </button>
 <mat-menu #menu="matMenu">
     <mat-grid-list id="iconPlay" cols="4"
-                   *ngFor="let widget of widgets | async | groupBy: 'groupName'; let lastItem = last">
+                   *ngFor="let widget of widgets | async | groupBy: 'groupName' | sortBy: 'key'; let lastItem = last">
         <span class="dropdown-header">{{widget.key}}</span>
         <mat-grid-tile class="actionIcon"
-                       *ngFor="let subwidget of widget.value | sortBy"
+                       *ngFor="let subwidget of widget.value | sortBy: 'titleKey'"
                        (click)="onAppClick.emit(subwidget)">
             <span class="fa"><img src={{subwidget.icon}} alt={{subwidget.titleKey}}></span>
             <h3>{{subwidget.titleKey}}</h3>

@@ -4,13 +4,14 @@
   width: 450px;
   max-width: 500px !important;
   border-radius: unset !important;
+  min-height: 130px !important;
 }
 
 .mat-menu-content {
   padding-bottom: 2px !important;
   padding-left: 8px;
   padding-right: 8px;
-  max-height: 600px;
+  max-height: 500px;
   overflow: auto;
 }
 
@@ -61,20 +62,6 @@ a:hover { text-decoration:none; }
     transition: 0.15s ease;
     opacity: 1;
     display: block;
-    text-align: center;
-  }
-
-  ul {
-    display: flex;
-    list-style-type: none;
-    padding: 0;
-  }
-
-  li {
-    text-align: center;
-    width: 100px;
-    height: auto;
-    padding: 10px;
   }
 
   h3, img {
@@ -115,7 +102,9 @@ small {
   color: #000000;
   -webkit-transition: 0.15s ease; /* Safari prior 6.1 */
   transition: 0.15s ease;
-  padding: 6px;
+  padding-top: 6px;
+  margin-left: auto;
+  margin-right: auto;
   //so as to hide big descriptions
   text-overflow: ellipsis;
   white-space: nowrap;
