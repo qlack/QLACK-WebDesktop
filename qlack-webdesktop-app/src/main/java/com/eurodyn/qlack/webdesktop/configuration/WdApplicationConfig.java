@@ -57,6 +57,8 @@ public class WdApplicationConfig implements ApplicationRunner {
             + "Application file or no yaml file at all. Please check again your command line arguments. : %s";
     private static final String ERROR_MSG = "An error has occurred while initializing Web Desktop applications "
             + "configuration: %s";
+    private static final String NO_LANGUAGES_MSG = "No languages have been provided. Default language: english";
+    private static final String LANGUAGE_USAGE_MSG = "Languages_Usage: --apps.languages=el,de,fr, etc.";
 
     private WdApplicationRepository wdApplicationRepository;
     private CryptoDigestService cryptoDigestService;
@@ -90,6 +92,18 @@ public class WdApplicationConfig implements ApplicationRunner {
     @Override
     public void run(ApplicationArguments args) {
 
+        LanguageDTO defaultLanguage = new LanguageDTO();
+        defaultLanguage.setLocale("en");
+        defaultLanguage.setName("English");
+        defaultLanguage.setActive(true);
+        try {
+            languageService.createLanguageIfNotExists(defaultLanguage);
+        } catch (QAlreadyExistsException e) {
+            log.info("Default  language " + "en" + " already exists and will not be created.");
+        }
+
+
+
         if (args.containsOption(APPS_LANGUAGES)) {
             List<String> languagesLocales = Arrays.asList(args.getOptionValues(APPS_LANGUAGES).get(0).trim().split("\\s*,\\s*"));
 
@@ -106,6 +120,10 @@ public class WdApplicationConfig implements ApplicationRunner {
                     }
                 }
             }
+        }else
+        {
+            log.warning(NO_LANGUAGES_MSG);
+            log.info(LANGUAGE_USAGE_MSG);
         }
 
         if (args.containsOption(APPS_URL)) {
@@ -122,8 +140,6 @@ public class WdApplicationConfig implements ApplicationRunner {
             log.info(USAGE_MSG);
         }
 
-
-        //save LanguageService from parameters
 
 
     }
@@ -148,16 +164,16 @@ public class WdApplicationConfig implements ApplicationRunner {
                 if (existingWdApp == null) {
                     log.info(APP_CREATION_MSG);
                     processWdApplication(wdApplication, sha256);
-                    processLexiconValues(wdApplication.getLexicon(), wdApplication.getTranslationsGroup());
+                    processLexiconValues(wdApplication.getLexicon(), wdApplication);
 
                 } else if (!existingWdApp.getChecksum().equals(sha256)) {
                     log.info(APP_UPDATE_MSG);
                     wdApplication.setId(existingWdApp.getId());
                     processWdApplication(wdApplication, sha256);
-                    processLexiconValues(wdApplication.getLexicon(), wdApplication.getTranslationsGroup());
+                    processLexiconValues(wdApplication.getLexicon(), wdApplication);
 
                 } else if (existingWdApp.getChecksum().equals(sha256)) {
-                    processLexiconValues(wdApplication.getLexicon(), wdApplication.getTranslationsGroup());
+                    processLexiconValues(wdApplication.getLexicon(), wdApplication);
                     registerReverseProxyRouteFromWdApp(existingWdApp);
 
                 }
@@ -211,41 +227,53 @@ public class WdApplicationConfig implements ApplicationRunner {
         discoveryClientRouteLocator.addRoute(zuulRoute);
     }
 
-    private void processLexiconValues(List<Lexicon> translations, String lexiconGroup) {
+    /**
+     * Saves/Updates lexicon values from .yaml configuration files
+     *
+     * @param translations The lexicon from .yaml configuration files
+     * @param wdApplication  The webDesktop application
+     */
+    private void processLexiconValues(List<Lexicon> translations,  WdApplication wdApplication) {
 
-        List<LanguageDTO> systemLanguages = languageService.getLanguages(true);
 
-        GroupDTO groupDTO = groupService.getGroupByTitle(lexiconGroup);
+        GroupDTO groupDTO = groupService.getGroupByTitle(wdApplication.getTranslationsGroup());
         // we need groupId variable to get the generated Id of new group  from database
         String groupId;
         if (groupDTO == null) {
 
             groupDTO = new GroupDTO();
-            groupDTO.setTitle(lexiconGroup);
+            groupDTO.setTitle(wdApplication.getTranslationsGroup());
             groupDTO.setDescription("groupDescription");
             groupId = groupService.createGroup(groupDTO);
         } else {
             groupId = groupDTO.getId();
         }
 
+        addEnglishLexicon(translations,wdApplication.getTitleKey(),wdApplication.getDescriptionKey());
 
         for (Lexicon translation : translations) {
-            if (languageService.getLanguageByLocale(translation.getLanguage()) != null) {
+            if (languageService.getLanguageByLocale(translation.getLanguageLocale()) != null) {
                 KeyDTO keyDTO = keyService.getKeyByName(translation.getKey(), groupId, false);
                 if (keyDTO == null) {
                     keyDTO = new KeyDTO();
                     keyDTO.setGroupId(groupId);
                     keyDTO.setName(translation.getKey());
                     String keyId = keyService.createKey(keyDTO, false);
-                    keyService.updateTranslationByLocale(keyId, translation.getLanguage(), translation.getValue());
+                    keyService.updateTranslationByLocale(keyId, translation.getLanguageLocale(), translation.getValue());
                 } else {
 
-                    keyService.updateTranslationByLocale(keyDTO.getId(), translation.getLanguage(), translation.getValue());
+                    keyService.updateTranslationByLocale(keyDTO.getId(), translation.getLanguageLocale(), translation.getValue());
                 }
             }
         }
     }
 
+    /**
+     * checks if the input locale from command line is supported from system
+     *
+     * @param locale the locale from command line
+     * @return true if locale is valid else false
+     */
     private Boolean isValidLocale(String locale) {
         for (LanguagesEnum value : LanguagesEnum.values()) {
             if (value.name().equalsIgnoreCase(locale))
@@ -255,4 +283,16 @@ public class WdApplicationConfig implements ApplicationRunner {
     }
 
 
+    /**
+     * Adds default english lexicon
+     *
+     * @param translations the lexicon of app
+     * @param title the default title of app
+     * @param description the default description of app
+     */
+    private void addEnglishLexicon(List<Lexicon> translations,String title,String description){
+
+            translations.add(new Lexicon("en", "title", title));
+            translations.add(new Lexicon("en", "description", description));
+    }
 }

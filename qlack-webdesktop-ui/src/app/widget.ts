@@ -15,4 +15,5 @@ export class Widget {
     showTitle: boolean;
     multipleInstances: boolean;
     descriptionKey: string;
+    translationsGroup:string;
 }

@@ -1,10 +1,13 @@
 package com.eurodyn.qlack.webdesktop.controller;
 
 import java.util.List;
-
+import java.util.Map;
+import com.eurodyn.qlack.fuse.lexicon.service.GroupService;
+import com.eurodyn.qlack.fuse.lexicon.service.KeyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.eurodyn.qlack.webdesktop.dto.WdApplicationDTO;
@@ -24,6 +27,11 @@ import lombok.extern.java.Log;
 public class WdApplicationController {
 
     private WdApplicationService wdApplicationService;
+    @Autowired
+    KeyService keyService;
+
+    @Autowired
+    GroupService groupService;
 
     @Autowired
     public WdApplicationController(WdApplicationService wdApplicationService) {
@@ -46,6 +54,18 @@ public class WdApplicationController {
     @GetMapping(path = "/filtered")
     public List<WdApplicationDTO> getFilteredActiveApplications() {
         return wdApplicationService.findAllActiveApplicationsFilterGroupName();
+    }
+
+    /**
+     * Get all translations for a specific locale,groupby group title which is the translationsGroup from .yaml configuration file
+     * Every App has its own group.
+     * @param lang the language locale
+     * @return a list of translations for a specific locale
+     */
+
+    @RequestMapping("/translations")
+    public Map<String,  Map<String, String>>   getTranslations(@RequestParam String lang) {
+        return wdApplicationService.findTranslationsForLocale(lang);
     }
 
 }

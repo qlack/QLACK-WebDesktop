@@ -10,12 +10,20 @@ import {DragDropModule} from '@angular/cdk/drag-drop';
 import {ResizeBorderModule} from 'resize-border';
 import {HeaderComponent} from './common/header/header.component';
 import {AngularResizedEventModule} from 'angular-resize-event';
-import {HttpClientModule} from '@angular/common/http';
+import {HttpClientModule,HttpClient} from '@angular/common/http';
 import {WidgetService} from "./widget.service";
 import {StartMenuComponent} from "./common/start-menu/start-menu.component";
 import { GroupByPipe } from './group-by.pipe';
 import { SortByPipe } from './sort-by.pipe';
+import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
+import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 
+
+
+
+export function HttpLoaderFactory(http: HttpClient) {
+    return new TranslateHttpLoader(http, "/apps/translations?lang=","");
+}
 
 @NgModule({
     declarations: [
@@ -43,7 +51,14 @@ import { SortByPipe } from './sort-by.pipe';
         MatMenuModule,
         AngularResizedEventModule,
         HttpClientModule,
-        MatDividerModule
+        MatDividerModule,
+        TranslateModule.forRoot({
+            loader: {
+                provide: TranslateLoader,
+                useFactory: HttpLoaderFactory,
+                deps: [HttpClient]
+            }
+        })
     ],
     providers: [WidgetService],
     bootstrap: [AppComponent],
