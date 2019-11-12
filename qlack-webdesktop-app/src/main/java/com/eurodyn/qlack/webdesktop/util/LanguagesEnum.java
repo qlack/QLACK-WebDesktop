@@ -5,6 +5,7 @@ package com.eurodyn.qlack.webdesktop.util;
  */
 public enum LanguagesEnum {
 
+    EN("English"),
     EL("Greek"),
     FR("French"),
     DE("German"),

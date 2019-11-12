@@ -58,7 +58,7 @@ public class WdApplicationConfig implements ApplicationRunner {
     private static final String ERROR_MSG = "An error has occurred while initializing Web Desktop applications "
             + "configuration: %s";
     private static final String NO_LANGUAGES_MSG = "No languages have been provided. Default language: english";
-    private static final String LANGUAGE_USAGE_MSG = "Languages_Usage: --apps.languages=el,de,fr, etc.";
+    private static final String LANGUAGE_USAGE_MSG = "Languages_Usage: --apps.languages=en,el,de,fr, etc.";
 
     private WdApplicationRepository wdApplicationRepository;
     private CryptoDigestService cryptoDigestService;
@@ -91,17 +91,6 @@ public class WdApplicationConfig implements ApplicationRunner {
      */
     @Override
     public void run(ApplicationArguments args) {
-
-        LanguageDTO defaultLanguage = new LanguageDTO();
-        defaultLanguage.setLocale("en");
-        defaultLanguage.setName("English");
-        defaultLanguage.setActive(true);
-        try {
-            languageService.createLanguageIfNotExists(defaultLanguage);
-        } catch (QAlreadyExistsException e) {
-            log.info("Default  language " + "en" + " already exists and will not be created.");
-        }
-
 
 
         if (args.containsOption(APPS_LANGUAGES)) {
@@ -249,7 +238,6 @@ public class WdApplicationConfig implements ApplicationRunner {
             groupId = groupDTO.getId();
         }
 
-        addEnglishLexicon(translations,wdApplication.getTitleKey(),wdApplication.getDescriptionKey());
 
         for (Lexicon translation : translations) {
             if (languageService.getLanguageByLocale(translation.getLanguageLocale()) != null) {
@@ -282,17 +270,4 @@ public class WdApplicationConfig implements ApplicationRunner {
         return false;
     }
 
-
-    /**
-     * Adds default english lexicon
-     *
-     * @param translations the lexicon of app
-     * @param title the default title of app
-     * @param description the default description of app
-     */
-    private void addEnglishLexicon(List<Lexicon> translations,String title,String description){
-
-            translations.add(new Lexicon("en", "title", title));
-            translations.add(new Lexicon("en", "description", description));
-    }
 }
