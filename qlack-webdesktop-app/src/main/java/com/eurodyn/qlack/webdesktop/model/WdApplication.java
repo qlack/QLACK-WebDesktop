@@ -21,20 +21,6 @@ import java.util.List;
 public class WdApplication extends QlackBaseModel {
 
   /**
-   * Title
-   */
-  @Basic
-  @Column(name = "title_key", nullable = false, length = 256)
-  private String titleKey;
-
-  /**
-   * Description
-   */
-  @Basic
-  @Column(name = "description_key", nullable = false, length = 256)
-  private String descriptionKey;
-
-  /**
    * Version
    */
   @Basic
@@ -54,13 +40,6 @@ public class WdApplication extends QlackBaseModel {
   @Basic
   @Column(name = "app_index", nullable = false, length = 256)
   private String appIndex;
-
-  /**
-   * Background color
-   */
-  @Basic
-  @Column(name = "bg_color", nullable = false, length = 32)
-  private String bgColor;
 
   /**
    * Whether multiple instance of this application are allowed to run
@@ -162,13 +141,6 @@ public class WdApplication extends QlackBaseModel {
 
   @Transient
   private List<Lexicon> lexicon;
-
-  /**
-   * Symbolic name for the application bundle
-   */
-  @Basic
-  @Column(name = "bundle_symbolic_name", length = 255)
-  private String bundleSymbolicName;
 
   /**
    * Whether the application is active

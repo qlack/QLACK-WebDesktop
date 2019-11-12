@@ -28,7 +28,6 @@ export class WidgetComponent implements OnChanges,OnInit {
   @Input() isMaximizable: boolean = true;
   @Input() isClosable: boolean = true;
   @Input() isResizable: boolean = true;
-  @Input() title: string ;
   @Input() width?: number;
   @Input() height?: number;
   @Input() minHeight?: number;

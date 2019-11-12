@@ -19,15 +19,9 @@ public class WdApplicationDTO {
    */
   private String id;
 
-  /**
-   * Title
-   */
-  private String titleKey;
 
-  /**
-   * Description
-   */
-  private String descriptionKey;
+
+
 
   /**
    * Version
@@ -44,10 +38,7 @@ public class WdApplicationDTO {
    */
   private String appIndex;
 
-  /**
-   * Background color
-   */
-  private String bgColor;
+
 
   /**
    * Whether multiple instance of this application are allowed to run
@@ -119,10 +110,6 @@ public class WdApplicationDTO {
    */
   private String translationsGroup;
 
-  /**
-   * Symbolic name for the application bundle
-   */
-  private String bundleSymbolicName;
 
   /**
    * Whether the application is active

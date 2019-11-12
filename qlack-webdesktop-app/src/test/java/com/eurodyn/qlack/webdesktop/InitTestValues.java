@@ -18,16 +18,12 @@ public class InitTestValues {
     WdApplication wdApplication = new WdApplication();
 
     wdApplication.setId("0f9a2472-cde0-44a6-ba3d-8e60992904fb");
-    wdApplication.setTitleKey("application_title");
-    wdApplication.setDescriptionKey("application_description");
     wdApplication.setAppIndex("apps/usermanagement/");
     wdApplication.setProxyPath("a_path");
 
     wdApplication.setAddedOn(new Long("2121545432165"));
     wdApplication.setLastDeployedOn(new Long("2121545432165"));
     wdApplication.setVersion("2.0.0");
-    wdApplication.setBgColor("bg-indigo");
-    wdApplication.setBundleSymbolicName("com.eurodyn.qlack2.webdesktop.apps.qlack2-wdapps-user-management-imp");
     wdApplication.setTranslationsGroup("usermanagement");
 
     wdApplication.setIcon("{icon-square}mif-user");
@@ -55,16 +51,12 @@ public class InitTestValues {
     WdApplicationDTO wdApplicationDTO = new WdApplicationDTO();
 
     wdApplicationDTO.setId("0f9a2472-cde0-44a6-ba3d-8e60992904fb");
-    wdApplicationDTO.setTitleKey("application_title");
-    wdApplicationDTO.setDescriptionKey("application_description");
     wdApplicationDTO.setAppIndex("apps/usermanagement/");
     wdApplicationDTO.setProxyPath("a_path");
 
     wdApplicationDTO.setAddedOn(new Long("2121545432165"));
     wdApplicationDTO.setLastDeployedOn(new Long("2121545432165"));
     wdApplicationDTO.setVersion("2.0.0");
-    wdApplicationDTO.setBgColor("bg-indigo");
-    wdApplicationDTO.setBundleSymbolicName("com.eurodyn.qlack2.webdesktop.apps.qlack2-wdapps-user-management-imp");
     wdApplicationDTO.setTranslationsGroup("usermanagement");
 
     wdApplicationDTO.setIcon("{icon-square}mif-user");

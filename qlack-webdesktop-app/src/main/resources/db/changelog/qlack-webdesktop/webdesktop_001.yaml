@@ -13,16 +13,6 @@ databaseChangeLog:
                     primaryKey: true
                     nullable: false
               - column:
-                  name: title_key
-                  type: varchar(256)
-                  constraints:
-                    nullable: false
-              - column:
-                  name: description_key
-                  type: varchar(256)
-                  constraints:
-                    nullable: false
-              - column:
                   name: version
                   type: varchar(32)
                   constraints:
@@ -35,11 +25,6 @@ databaseChangeLog:
               - column:
                   name: app_index
                   type: varchar(256)
-                  constraints:
-                    nullable: false
-              - column:
-                  name: bg_color
-                  type: varchar(32)
                   constraints:
                     nullable: false
               - column:
@@ -118,12 +103,8 @@ databaseChangeLog:
                   name: translations_group
                   type: varchar(255)
                   constraints:
+                    unique: true
                     nullable: false
-              - column:
-                  name: bundle_symbolic_name
-                  type: varchar(255)
-                  constraints:
-                    nullable: true
               - column:
                   name: is_active
                   type: boolean

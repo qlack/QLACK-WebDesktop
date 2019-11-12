@@ -147,7 +147,7 @@ public class WdApplicationConfig implements ApplicationRunner {
             try {
                 ObjectMapper mapper = new ObjectMapper(new YAMLFactory());
                 WdApplication wdApplication = mapper.readValue(new URL(url), WdApplication.class);
-                WdApplication existingWdApp = wdApplicationRepository.findByTitleKey(wdApplication.getTitleKey());
+                WdApplication existingWdApp = wdApplicationRepository.findByTranslationsGroup(wdApplication.getTranslationsGroup());
                 String sha256 = cryptoDigestService.sha256(new URL(url).openStream());
 
                 if (existingWdApp == null) {

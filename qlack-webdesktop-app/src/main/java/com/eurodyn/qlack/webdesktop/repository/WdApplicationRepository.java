@@ -18,9 +18,9 @@ public interface WdApplicationRepository extends QlackBaseRepository<WdApplicati
   List<WdApplication> findByActiveIsTrue();
 
   /**
-   * Finds a Web Desktop application by its title key attribute
+   * Finds a Web Desktop application by its translation group key attribute
    *
    * @return a {@link WdApplication}
    */
-  WdApplication findByTitleKey(String title);
+  WdApplication findByTranslationsGroup(String translationGroup);
 }
