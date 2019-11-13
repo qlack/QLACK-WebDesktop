@@ -13,5 +13,5 @@ export class Widget {
     draggable: boolean;
     showTitle: boolean;
     multipleInstances: boolean;
-    translationsGroup:string;
+    applicationName:string;
 }

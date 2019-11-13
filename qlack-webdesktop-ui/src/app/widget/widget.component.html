@@ -10,14 +10,14 @@
      (cdkDragEnded)="dragEnd($event)" (cdkDragReleased)="dragReleased($event)" (cdkDragMoved)="dragMoved($event)">
 
     <div *ngIf="isMinimized && !isSmallScreen" class="widgetAsIcon" (click)="widgetClicked()">
-        <div *ngIf="!(!!iconImageSrc)">{{ translationsGroup+'.title' | translate  }}</div>
+        <div *ngIf="!(!!iconImageSrc)">{{ applicationName+'.title' | translate  }}</div>
     </div>
 
     <div *ngIf="!isMinimized || isSmallScreen">
         <div class="header" cdkDragHandle (click)="zIndexPlusOne()">
             <img *ngIf="!!iconImageSrc" class="image" [src]="safeIconImageSrc">
 
-            <div *ngIf="showTitle" class="title" style.left="{{!(!!iconImageSrc) && '5px'}}">{{ translationsGroup+'.title' | translate  }}</div>
+            <div *ngIf="showTitle" class="title" style.left="{{!(!!iconImageSrc) && '5px'}}">{{ applicationName+'.title' | translate  }}</div>
 
             <div class="iconsContainer">
                 <i *ngIf="isMinimizable" class="material-icons headerIcon" (click)="widgetMinimized()"

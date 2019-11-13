@@ -4,7 +4,6 @@ import com.eurodyn.qlack.webdesktop.dto.WdApplicationDTO;
 import com.eurodyn.qlack.webdesktop.model.WdApplication;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -24,7 +23,7 @@ public class InitTestValues {
     wdApplication.setAddedOn(new Long("2121545432165"));
     wdApplication.setLastDeployedOn(new Long("2121545432165"));
     wdApplication.setVersion("2.0.0");
-    wdApplication.setTranslationsGroup("usermanagement");
+    wdApplication.setApplicationName("usermanagement");
 
     wdApplication.setIcon("{icon-square}mif-user");
     wdApplication.setIconSmall("{icon}mif-user");
@@ -57,7 +56,7 @@ public class InitTestValues {
     wdApplicationDTO.setAddedOn(new Long("2121545432165"));
     wdApplicationDTO.setLastDeployedOn(new Long("2121545432165"));
     wdApplicationDTO.setVersion("2.0.0");
-    wdApplicationDTO.setTranslationsGroup("usermanagement");
+    wdApplicationDTO.setApplicationName("usermanagement");
 
     wdApplicationDTO.setIcon("{icon-square}mif-user");
     wdApplicationDTO.setIconSmall("{icon}mif-user");

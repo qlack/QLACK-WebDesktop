@@ -147,7 +147,7 @@ public class WdApplicationConfig implements ApplicationRunner {
             try {
                 ObjectMapper mapper = new ObjectMapper(new YAMLFactory());
                 WdApplication wdApplication = mapper.readValue(new URL(url), WdApplication.class);
-                WdApplication existingWdApp = wdApplicationRepository.findByTranslationsGroup(wdApplication.getTranslationsGroup());
+                WdApplication existingWdApp = wdApplicationRepository.findByApplicationName(wdApplication.getApplicationName());
                 String sha256 = cryptoDigestService.sha256(new URL(url).openStream());
 
                 if (existingWdApp == null) {
@@ -225,13 +225,13 @@ public class WdApplicationConfig implements ApplicationRunner {
     private void processLexiconValues(List<Lexicon> translations,  WdApplication wdApplication) {
 
 
-        GroupDTO groupDTO = groupService.getGroupByTitle(wdApplication.getTranslationsGroup());
+        GroupDTO groupDTO = groupService.getGroupByTitle(wdApplication.getApplicationName());
         // we need groupId variable to get the generated Id of new group  from database
         String groupId;
         if (groupDTO == null) {
 
             groupDTO = new GroupDTO();
-            groupDTO.setTitle(wdApplication.getTranslationsGroup());
+            groupDTO.setTitle(wdApplication.getApplicationName());
             groupDTO.setDescription("groupDescription");
             groupId = groupService.createGroup(groupDTO);
         } else {

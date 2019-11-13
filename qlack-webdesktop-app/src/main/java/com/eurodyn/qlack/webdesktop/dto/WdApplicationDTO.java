@@ -19,10 +19,6 @@ public class WdApplicationDTO {
    */
   private String id;
 
-
-
-
-
   /**
    * Version
    */
@@ -106,9 +102,9 @@ public class WdApplicationDTO {
   private boolean draggable;
 
   /**
-   * The translations group
+   * The application name
    */
-  private String translationsGroup;
+  private String applicationName;
 
 
   /**

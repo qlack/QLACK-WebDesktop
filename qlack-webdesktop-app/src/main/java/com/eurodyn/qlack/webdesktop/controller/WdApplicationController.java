@@ -57,7 +57,7 @@ public class WdApplicationController {
     }
 
     /**
-     * Get all translations for a specific locale,groupby group title which is the translationsGroup from .yaml configuration file
+     * Get all translations for a specific locale,groupby group title which is the applicationName from .yaml configuration file
      * Every App has its own group.
      * @param lang the language locale
      * @return a list of translations for a specific locale

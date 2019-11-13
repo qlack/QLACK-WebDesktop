@@ -90,7 +90,7 @@ export class HeaderComponent {
         this.tempWidgetComponent.instance.showTitle = widget.showTitle;
         this.tempWidgetComponent.instance.multipleInstances = widget.multipleInstances;
         this.tempWidgetComponent.instance.iconImageSrc = widget.icon;
-        this.tempWidgetComponent.instance.translationsGroup = widget.translationsGroup;
+        this.tempWidgetComponent.instance.applicationName = widget.applicationName;
         this.tempWidgetComponent.instance.appUrl = widget.appIndex;
         this.tempWidgetComponent.instance.Id = HeaderComponent.widgetId++;
         this.tempWidgetComponent.instance.onClose.subscribe(id => {

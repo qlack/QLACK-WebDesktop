@@ -37,7 +37,7 @@ export class WidgetComponent implements OnChanges,OnInit {
   @Input() appUrl?: string;
   @Input() showTitle: boolean = false;
   @Input() multipleInstances: boolean = false;
-  @Input() translationsGroup?: string;
+  @Input() applicationName?: string;
 
 
 

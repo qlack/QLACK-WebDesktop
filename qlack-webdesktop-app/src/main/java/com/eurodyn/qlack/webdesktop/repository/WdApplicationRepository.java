@@ -22,5 +22,5 @@ public interface WdApplicationRepository extends QlackBaseRepository<WdApplicati
    *
    * @return a {@link WdApplication}
    */
-  WdApplication findByTranslationsGroup(String translationGroup);
+  WdApplication findByApplicationName(String applicationName);
 }

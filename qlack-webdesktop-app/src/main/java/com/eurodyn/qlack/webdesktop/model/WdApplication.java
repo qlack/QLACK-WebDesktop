@@ -136,8 +136,8 @@ public class WdApplication extends QlackBaseModel {
    * The translations group
    */
   @Basic
-  @Column(name = "translations_group", nullable = false, length = 255)
-  private String translationsGroup;
+  @Column(name = "application_name", nullable = false)
+  private String applicationName;
 
   @Transient
   private List<Lexicon> lexicon;

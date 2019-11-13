@@ -65,7 +65,7 @@ public class WdApplicationService {
 
 
     /**
-     * Finds all translations from all groups for a specific locale,groupby group title which is the translationsGroup from .yaml configuration file
+     * Finds all translations from all groups for a specific locale,groupby group title which is the applicationName from .yaml configuration file
      * Every App has its own group.
      *
      * @param locale the language locale
