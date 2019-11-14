@@ -14,4 +14,5 @@ export class Widget {
     showTitle: boolean;
     multipleInstances: boolean;
     applicationName:string;
+    applicationTitle:string;
 }

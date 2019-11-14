@@ -11,6 +11,7 @@ export class AppComponent {
 
   constructor(private translate: TranslateService){
 
+    //TODO call user profile and get his/hers preferred language
     translate.setDefaultLang('en');
   }
 

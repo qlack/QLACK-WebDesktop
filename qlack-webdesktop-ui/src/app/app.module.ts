@@ -18,9 +18,6 @@ import { SortByPipe } from './sort-by.pipe';
 import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 
-
-
-
 export function HttpLoaderFactory(http: HttpClient) {
     return new TranslateHttpLoader(http, "/apps/translations?lang=","");
 }

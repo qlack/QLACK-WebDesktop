@@ -1,6 +1,6 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { WidgetComponent } from './widget.component';
+import {WidgetComponent} from './widget.component';
 
 describe('WidgetComponent', () => {
   let component: WidgetComponent;
@@ -8,7 +8,7 @@ describe('WidgetComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ WidgetComponent ]
+      declarations: [WidgetComponent]
     })
     .compileComponents();
   }));
