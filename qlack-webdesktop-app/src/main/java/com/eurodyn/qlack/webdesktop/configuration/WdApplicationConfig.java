@@ -13,6 +13,7 @@ import com.eurodyn.qlack.fuse.lexicon.dto.LanguageDTO;
 import com.eurodyn.qlack.fuse.lexicon.service.GroupService;
 import com.eurodyn.qlack.fuse.lexicon.service.KeyService;
 import com.eurodyn.qlack.fuse.lexicon.service.LanguageService;
+import com.eurodyn.qlack.webdesktop.model.LanguageData;
 import com.eurodyn.qlack.webdesktop.model.Lexicon;
 import com.eurodyn.qlack.webdesktop.util.LanguagesEnum;
 import org.apache.commons.validator.routines.UrlValidator;
@@ -97,7 +98,7 @@ public class WdApplicationConfig implements ApplicationRunner {
             List<String> languagesLocales = Arrays.asList(args.getOptionValues(APPS_LANGUAGES).get(0).trim().split("\\s*,\\s*"));
 
             for (String languageLocale : languagesLocales) {
-                if (isValidLocale(languageLocale)) {
+               if (isValidLocale(languageLocale)) {
                     LanguageDTO languageDTO = new LanguageDTO();
                     languageDTO.setLocale(languageLocale);
                     languageDTO.setName(LanguagesEnum.valueOf(languageLocale.toUpperCase()).getLanguageName());
@@ -241,27 +242,32 @@ public class WdApplicationConfig implements ApplicationRunner {
 
         for (Lexicon translation : translations) {
             if (languageService.getLanguageByLocale(translation.getLanguageLocale()) != null) {
-                KeyDTO keyDTO = keyService.getKeyByName(translation.getKey(), groupId, false);
-                if (keyDTO == null) {
-                    keyDTO = new KeyDTO();
-                    keyDTO.setGroupId(groupId);
-                    keyDTO.setName(translation.getKey());
-                    String keyId = keyService.createKey(keyDTO, false);
-                    keyService.updateTranslationByLocale(keyId, translation.getLanguageLocale(), translation.getValue());
-                } else {
+                for (LanguageData data : translation.getValues() ) {
+                    KeyDTO keyDTO = keyService.getKeyByName(data.getKey(), groupId, false);
+                    if (keyDTO == null) {
+                        keyDTO = new KeyDTO();
+                        keyDTO.setGroupId(groupId);
+                        keyDTO.setName(data.getKey());
+                        String keyId = keyService.createKey(keyDTO, false);
+                        keyService.updateTranslationByLocale(keyId, translation.getLanguageLocale(), data.getValue());
+                    } else {
 
-                    keyService.updateTranslationByLocale(keyDTO.getId(), translation.getLanguageLocale(), translation.getValue());
+                        keyService.updateTranslationByLocale(keyDTO.getId(), translation.getLanguageLocale(), data.getValue());
+                    }
+
+
                 }
+
             }
         }
     }
 
-    /**
-     * checks if the input locale from command line is supported from system
-     *
-     * @param locale the locale from command line
-     * @return true if locale is valid else false
-     */
+        /**
+         * checks if the input locale from command line is supported from system
+         *
+         * @param locale the locale from command line
+         * @return true if locale is valid else false
+         */
     private Boolean isValidLocale(String locale) {
         for (LanguagesEnum value : LanguagesEnum.values()) {
             if (value.name().equalsIgnoreCase(locale))

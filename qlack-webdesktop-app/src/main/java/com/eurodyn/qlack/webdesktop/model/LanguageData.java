@@ -5,18 +5,13 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.List;
-
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Lexicon {
+public class LanguageData {
 
-    /**
-     *  the language locale
-     */
-    private String languageLocale;
-    private List<LanguageData> values;
+    private String key;
+    private String value;
 
 }
