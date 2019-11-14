@@ -6,13 +6,10 @@
                    *ngFor="let widget of widgets | async | groupBy: 'groupName' | sortBy: 'key'; let lastItem = last">
         <span class="dropdown-header">{{widget.key}}</span>
         <mat-grid-tile class="actionIcon"
-                       *ngFor="let subwidget of widget.value | sortBy: 'titleKey'"
+                       *ngFor="let subwidget of widget.value | sortBy: 'title'"
                        (click)="onAppClick.emit(subwidget)">
             <span class="fa"><img src={{subwidget.icon}} alt={{subwidget.titleKey}}></span>
-            <!--  <h3>{{subwidget.titleKey}}</h3>
-              <small>{{subwidget.descriptionKey}}</small> -->
                <h3> {{ subwidget.applicationName+'.title' | translate  }}</h3>
-              <small>{{ subwidget.applicationName+'.description' | translate  }}</small>
         </mat-grid-tile>
         <mat-divider *ngIf="!lastItem"></mat-divider>
     </mat-grid-list>
