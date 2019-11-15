@@ -50,7 +50,7 @@ public class WdApplicationConfig implements ApplicationRunner {
   private static final String VALID_URL_MSG = "The following valid urls have been provided:";
   private static final String APP_CREATION_MSG = "Web Desktop Application url found. "
       + "The application will be created / updated.";
-  private static final String NO_URL_MSG = "No urls have been provided. No application will be integrated with Qlack WebDesktop.";
+  private static final String NO_URL_MSG = "No urls have been provided. No new application will be integrated with Qlack WebDesktop.";
   private static final String USAGE_MSG = "Usage: --apps.url=http://www.myurl.com,https://www.myurl2.com, etc.";
   private static final String APP_UPDATE_MSG =
       "The Web Desktop Application configuration file has been "
@@ -63,6 +63,7 @@ public class WdApplicationConfig implements ApplicationRunner {
           + "configuration: %s";
   private static final String NO_LANGUAGES_MSG = "No languages have been provided. Default language: english";
   private static final String LANGUAGE_USAGE_MSG = "Languages_Usage: --apps.languages=en,el,de,fr, etc.";
+  private static final String LOAD_ROUTES_FROM_DB_MSG = "Loading routes from database..";
 
   private WdApplicationRepository wdApplicationRepository;
   private CryptoDigestService cryptoDigestService;
@@ -133,7 +134,23 @@ public class WdApplicationConfig implements ApplicationRunner {
       log.info(USAGE_MSG);
     }
 
+    // Register Reverse Proxy Routes from database
+    for (WdApplication app : wdApplicationRepository.findByActiveIsTrue()) {
+      if (isNotNullOrEmpty(app.getProxyPath()) && isNotNullOrEmpty(app.getAppIndex())) {
+        log.info(LOAD_ROUTES_FROM_DB_MSG);
+        registerReverseProxyRouteFromWdApp(app);
+      }
+    }
+  }
 
+  /**
+   * Checks if provided {@param s} is not null or empty
+   *
+   * @param s the provided {@link String}
+   * @return true if it is false otherwise
+   */
+  private boolean isNotNullOrEmpty(String s) {
+    return s != null && !s.isEmpty();
   }
 
   /**
@@ -165,10 +182,6 @@ public class WdApplicationConfig implements ApplicationRunner {
           wdApplication.setId(existingWdApp.getId());
           processWdApplication(wdApplication, sha256);
           processLexiconValues(wdApplication.getLexicon(), wdApplication);
-
-        } else if (existingWdApp.getChecksum().equals(sha256)) {
-          processLexiconValues(wdApplication.getLexicon(), wdApplication);
-          registerReverseProxyRouteFromWdApp(existingWdApp);
 
         }
       } catch (MismatchedInputException mie) {
