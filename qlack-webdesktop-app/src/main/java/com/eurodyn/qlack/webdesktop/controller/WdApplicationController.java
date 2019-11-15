@@ -63,7 +63,7 @@ public class WdApplicationController {
    * @param lang the language locale
    * @return a list of translations for a specific locale
    */
-  @RequestMapping("/translations")
+  @GetMapping("/translations")
   public Map<String, Map<String, String>> getTranslations(@RequestParam String lang) {
     return wdApplicationService.findTranslationsForLocale(lang);
   }
