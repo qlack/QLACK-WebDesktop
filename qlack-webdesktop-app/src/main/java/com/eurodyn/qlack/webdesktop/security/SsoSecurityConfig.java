@@ -1,9 +1,12 @@
 package com.eurodyn.qlack.webdesktop.security;
 
+import com.eurodyn.qlack.webdesktop.filter.PostAuthFilter;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.web.access.intercept.FilterSecurityInterceptor;
 
 /**
  * Security configuration class for OAuth2 login
@@ -13,6 +16,13 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 @Configuration
 @Profile("sso")
 public class SsoSecurityConfig extends WebSecurityConfigurerAdapter {
+
+  private final PostAuthFilter postAuthFilter;
+
+  @Autowired
+  public SsoSecurityConfig(PostAuthFilter postAuthFilter) {
+    this.postAuthFilter = postAuthFilter;
+  }
 
   /**
    * Enables OAuth2 SSO authentication
@@ -27,7 +37,7 @@ public class SsoSecurityConfig extends WebSecurityConfigurerAdapter {
         .authorizeRequests()
         .antMatchers("/", "/login/**").permitAll()
         .anyRequest().authenticated()
-        .and()
+        .and().addFilterAfter(postAuthFilter, FilterSecurityInterceptor.class)
         .oauth2Login();
   }
 }
