@@ -126,6 +126,11 @@
       <groupId>com.eurodyn.qlack.fuse</groupId>
       <version>${qlack.version}</version>
     </dependency>
+    <dependency>
+      <artifactId>qlack-fuse-fileupload</artifactId>
+      <groupId>com.eurodyn.qlack.fuse</groupId>
+      <version>${qlack.version}</version>
+    </dependency>
 
     <!-- Third-party dependencies -->
     <dependency>
