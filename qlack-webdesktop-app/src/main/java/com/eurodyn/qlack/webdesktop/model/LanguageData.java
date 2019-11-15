@@ -11,7 +11,7 @@ import lombok.Setter;
 @AllArgsConstructor
 public class LanguageData {
 
-    private String key;
-    private String value;
+  private String key;
+  private String value;
 
 }

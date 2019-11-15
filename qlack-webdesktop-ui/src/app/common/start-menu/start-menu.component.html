@@ -1,14 +1,14 @@
-<button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Icon-button with a menu">
+<button [matMenuTriggerFor]="menu" aria-label="Icon-button with a menu" mat-icon-button>
   <mat-icon>apps</mat-icon>
 </button>
 
 <mat-menu #menu="matMenu">
-  <mat-grid-list id="iconPlay" cols="4"
-                 *ngFor="let widget of widgets | groupBy: 'groupName' | sortBy: 'key'; let lastItem = last">
+  <mat-grid-list *ngFor="let widget of widgets | groupBy: 'groupName' | sortBy: 'key'; let lastItem = last" cols="4"
+                 id="iconPlay">
     <span class="dropdown-header">{{widget.key}}</span>
-    <mat-grid-tile class="actionIcon"
+    <mat-grid-tile (click)="onAppClick.emit(subwidget)"
                    *ngFor="let subwidget of widget.value | sortBy: 'applicationTitle'"
-                   (click)="onAppClick.emit(subwidget)">
+                   class="actionIcon">
       <span class="fa"><img src={{subwidget.icon}}></span>
       <h3>{{subwidget.applicationTitle}}</h3>
     </mat-grid-tile>

@@ -1,6 +1,6 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { StartMenuComponent } from './start-menu.component';
+import {StartMenuComponent} from './start-menu.component';
 
 describe('StartMenuComponent', () => {
   let component: StartMenuComponent;
@@ -8,7 +8,7 @@ describe('StartMenuComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ StartMenuComponent ]
+      declarations: [StartMenuComponent]
     })
     .compileComponents();
   }));

@@ -2,7 +2,9 @@
 $light: #43c6ac;
 $dark: #2f2a9a;
 
-html, body { height: 100%; }
+html, body {
+  height: 100%;
+}
 
 body {
   background: linear-gradient(45deg, $light, $dark);
@@ -13,6 +15,6 @@ body {
 .widget-boundary {
   width: 99.8%;
   height: 100%;
- // border: dotted #ccc 2px;
+  // border: dotted #ccc 2px;
 }
 

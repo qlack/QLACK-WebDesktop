@@ -1,51 +1,57 @@
 <!-- img icon stays at init widget position-->
-<div *ngIf="!!iconImageSrc &&  isActive" class="position" (dblclick)="widgetMinimized()" (click)="zIndexPlusOne()">
+<div (click)="zIndexPlusOne()" (dblclick)="widgetMinimized()" *ngIf="!!iconImageSrc &&  isActive"
+     class="position">
   <img [src]="safeIconImageSrc">
 </div>
 
-<div resizeBorder [style.top]="xPosition" [style.left]="yPosition"
-     class="widget" cdkDragBoundary=".widget-boundary" cdkDrag [class.widgetMinimized]="isMinimized && !isSmallScreen"
-     *ngIf="isActive" [style.z-index]="zIndex" [cdkDragFreeDragPosition]="widgetPosition"
-     [cdkDragDisabled]="isSmallScreen || !isDraggable" (cdkDragStarted)="dragStart($event)"
-     (cdkDragEnded)="dragEnd($event)" (cdkDragReleased)="dragReleased($event)" (cdkDragMoved)="dragMoved($event)">
+<div (cdkDragEnded)="dragEnd($event)" (cdkDragMoved)="dragMoved($event)" (cdkDragReleased)="dragReleased($event)"
+     (cdkDragStarted)="dragStart($event)" *ngIf="isActive" [cdkDragDisabled]="isSmallScreen || !isDraggable"
+     [cdkDragFreeDragPosition]="widgetPosition"
+     [class.widgetMinimized]="isMinimized && !isSmallScreen" [style.left]="yPosition" [style.top]="xPosition"
+     [style.z-index]="zIndex" cdkDrag
+     cdkDragBoundary=".widget-boundary" class="widget"
+     resizeBorder>
 
-  <div *ngIf="isMinimized && !isSmallScreen" class="widgetAsIcon" (click)="widgetClicked()">
+  <div (click)="widgetClicked()" *ngIf="isMinimized && !isSmallScreen" class="widgetAsIcon">
     <div *ngIf="!(!!iconImageSrc)">{{ applicationName + '.title' | translate  }}</div>
   </div>
 
   <div *ngIf="!isMinimized || isSmallScreen">
-    <div class="header" cdkDragHandle (click)="zIndexPlusOne()">
-      <img *ngIf="!!iconImageSrc" class="image" [src]="safeIconImageSrc">
+    <div (click)="zIndexPlusOne()" cdkDragHandle class="header">
+      <img *ngIf="!!iconImageSrc" [src]="safeIconImageSrc" class="image">
 
-      <div *ngIf="showTitle" class="title" style.left="{{!(!!iconImageSrc) && '5px'}}">{{ applicationName
+      <div *ngIf="showTitle" class="title"
+           style.left="{{!(!!iconImageSrc) && '5px'}}">{{ applicationName
       + '.title' | translate  }}</div>
 
       <div class="iconsContainer">
-        <i *ngIf="isMinimizable" class="material-icons headerIcon" (click)="widgetMinimized()"
+        <i (click)="widgetMinimized()" *ngIf="isMinimizable" class="material-icons headerIcon"
            matTooltip="minimize">
           remove
         </i>
-        <i *ngIf="isMaximizable && !isMaximized" class="material-icons headerIcon"
-           (click)="widgetMaximized($event)" matTooltip="fullscreen">
+        <i (click)="widgetMaximized($event)" *ngIf="isMaximizable && !isMaximized"
+           class="material-icons headerIcon" matTooltip="fullscreen">
           fullscreen
         </i>
-        <i *ngIf="isMaximizable && isMaximized" class="material-icons headerIcon"
-           (click)="widgetMaximized($event)" matTooltip="fullscreen exit">
+        <i (click)="widgetMaximized($event)" *ngIf="isMaximizable && isMaximized"
+           class="material-icons headerIcon" matTooltip="fullscreen exit">
           fullscreen_exit
         </i>
 
-        <i *ngIf="isClosable" class="material-icons headerIcon" (click)="close()" matTooltip="close">
+        <i (click)="close()" *ngIf="isClosable" class="material-icons headerIcon"
+           matTooltip="close">
           cancel
         </i>
       </div>
     </div>
   </div>
-  <div class="content" [class.fullScreenSize]="isMaximized && !isSmallScreen" [class.displayContent]="isMinimized"
-       [style.width.px]="width"
-       [style.height.px]="height" [style.min-height.px]="minHeight" [style.min-width.px]="minWidth"
-       resizeBorder [resizeBottom]="isResizable" [resizeRight]="isResizable" [offset]="8"
-       (resized)="onResized($event)">
-    <div class="iframe-container" [style.min-height.px]="minHeight" [style.min-width.px]="minWidth">
+  <div (resized)="onResized($event)" [class.displayContent]="isMinimized"
+       [class.fullScreenSize]="isMaximized && !isSmallScreen"
+       [offset]="8"
+       [resizeBottom]="isResizable" [resizeRight]="isResizable" [style.height.px]="height"
+       [style.min-height.px]="minHeight" [style.min-width.px]="minWidth" [style.width.px]="width" class="content"
+       resizeBorder>
+    <div [style.min-height.px]="minHeight" [style.min-width.px]="minWidth" class="iframe-container">
       <iframe [src]="safeAppUrl" [style.display]="displayIframe ? 'block' : 'none'"></iframe>
     </div>
   </div>

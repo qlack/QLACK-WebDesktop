@@ -14,14 +14,15 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 @ConditionalOnMissingBean(SsoSecurityConfig.class)
 public class NoSecurityConfig extends WebSecurityConfigurerAdapter {
 
-    /**
-     * Permits access to all paths
-     *
-     * @param http the {@link org.springframework.security.config.annotation.web.builders.HttpSecurity} object
-     * @throws Exception if the security configuration cannot be applied
-     */
-    @Override
-    public void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests().antMatchers("/").permitAll();
-    }
+  /**
+   * Permits access to all paths
+   *
+   * @param http the {@link org.springframework.security.config.annotation.web.builders.HttpSecurity}
+   * object
+   * @throws Exception if the security configuration cannot be applied
+   */
+  @Override
+  public void configure(HttpSecurity http) throws Exception {
+    http.authorizeRequests().antMatchers("/").permitAll();
+  }
 }

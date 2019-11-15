@@ -1,11 +1,4 @@
-import {
-  Component,
-  ViewChild,
-  ViewContainerRef,
-  ComponentFactoryResolver,
-  ComponentRef,
-  ComponentFactory
-} from '@angular/core';
+import {Component, ComponentFactoryResolver, ViewChild, ViewContainerRef} from '@angular/core';
 import {Widget} from "../../widget";
 import {WidgetComponent} from "../../widget/widget.component";
 
@@ -18,10 +11,9 @@ import {WidgetComponent} from "../../widget/widget.component";
 export class HeaderComponent {
 
 
+  static widgetId: number = 0;
   activeWidgetComponents: any[] = new Array();
   tempWidgetComponent: any;
-  static widgetId: number = 0;
-
   @ViewChild('widgetcontainer', {static: true, read: ViewContainerRef}) entry: ViewContainerRef;
 
   constructor(private resolver: ComponentFactoryResolver) {

@@ -36,8 +36,13 @@
   top: 42px !important;
 }
 
-a:hover { text-decoration:none; }
-.actionIcon { cursor: pointer; }
+a:hover {
+  text-decoration: none;
+}
+
+.actionIcon {
+  cursor: pointer;
+}
 
 #iconPlay {
 
@@ -47,6 +52,7 @@ a:hover { text-decoration:none; }
     -webkit-transition: 0.2s ease-in-out; /* Safari prior 6.1 */
     transition: 0.2s ease;
   }
+
   .actionIcon:hover > .mat-figure > .fa > img {
     transform: scale(1.2) translateY(-25%);
   }
@@ -90,6 +96,7 @@ a:hover { text-decoration:none; }
 img, h3 {
   position: relative;
 }
+
 h3, small {
   opacity: 0;
   text-align: center;
@@ -132,10 +139,10 @@ img {
 }
 
 .app-box {
-  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
-  transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  transition: all 0.3s cubic-bezier(.25, .8, .25, 1);
 }
 
 .app-box:hover {
-  box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
 }

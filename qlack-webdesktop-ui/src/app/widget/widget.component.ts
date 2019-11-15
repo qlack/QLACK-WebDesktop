@@ -1,4 +1,12 @@
-import {Component, Input, Output, EventEmitter, OnChanges, SimpleChanges, OnInit} from "@angular/core";
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  OnInit,
+  Output,
+  SimpleChanges
+} from "@angular/core";
 import {DomSanitizer} from '@angular/platform-browser';
 import {CdkDragEnd} from '@angular/cdk/drag-drop';
 import {ResizedEvent} from 'angular-resize-event';
@@ -10,6 +18,7 @@ import {ResizedEvent} from 'angular-resize-event';
 })
 export class WidgetComponent implements OnChanges, OnInit {
 
+  static zIndexCounter?: number = 3;
   @Output() onOpen = new EventEmitter();
   @Output() onClose = new EventEmitter();
   @Output() onMinimize = new EventEmitter();
@@ -19,7 +28,6 @@ export class WidgetComponent implements OnChanges, OnInit {
   @Output() onDragMoved = new EventEmitter();
   @Output() onDragReleased = new EventEmitter();
   @Output() onWidgetClicked = new EventEmitter();
-
   @Input() isActive: boolean = true;
   @Input() isDraggable: boolean = true;
   @Input() isMinimizable: boolean = true;
@@ -36,7 +44,6 @@ export class WidgetComponent implements OnChanges, OnInit {
   @Input() showTitle: boolean = false;
   @Input() multipleInstances: boolean = false;
   @Input() applicationName?: string;
-
   widgetPosition = {x: 0, y: 150};
   // 42 is the height of the div of image icon
   widgetMinimizedPosition = {x: 0, y: -42};
@@ -52,14 +59,14 @@ export class WidgetComponent implements OnChanges, OnInit {
   tempHeight: number;
   displayIframe: boolean = false;
   zIndex?: number = 2;
-  static zIndexCounter?: number = 3;
   initDraggableValue: boolean;
 
   constructor(private sanitizer: DomSanitizer,) {
   }
 
   ngOnInit() {
-    this.safeIconImageSrc = this.iconImageSrc && this.sanitizer.bypassSecurityTrustResourceUrl(this.iconImageSrc)
+    this.safeIconImageSrc = this.iconImageSrc && this.sanitizer.bypassSecurityTrustResourceUrl(
+        this.iconImageSrc)
     this.safeAppUrl = this.appUrl && this.sanitizer.bypassSecurityTrustResourceUrl(this.appUrl)
     this.initDraggableValue = this.isDraggable;
     this.zIndex = this.zIndex = ++WidgetComponent.zIndexCounter;

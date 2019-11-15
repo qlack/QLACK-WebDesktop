@@ -21,10 +21,11 @@ export class StartMenuComponent implements OnInit {
   ngOnInit() {
     this.widgetService.getActiveApplications().subscribe(applicationsList => {
       applicationsList.forEach(application => {
-        this.translate.get(application.applicationName + '.title').subscribe((titleTranslated: string) => {
-          application.applicationTitle = titleTranslated;
-          this.widgets.push(application);
-        });
+        this.translate.get(application.applicationName + '.title').subscribe(
+            (titleTranslated: string) => {
+              application.applicationTitle = titleTranslated;
+              this.widgets.push(application);
+            });
       })
     });
   }

@@ -1,73 +1,73 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <parent>
-        <artifactId>qlack-webdesktop</artifactId>
-        <groupId>com.eurodyn.qlack.webdesktop</groupId>
-        <version>3.0.0-SNAPSHOT</version>
-    </parent>
-    <modelVersion>4.0.0</modelVersion>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns="http://maven.apache.org/POM/4.0.0"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <artifactId>qlack-webdesktop-ui</artifactId>
+  <build>
+    <plugins>
+      <plugin>
+        <artifactId>frontend-maven-plugin</artifactId>
+        <configuration>
+          <installDirectory>./</installDirectory>
+          <nodeDownloadRoot>http://nodejs.org/dist/</nodeDownloadRoot>
+          <nodeVersion>${node.version}</nodeVersion>
+          <npmDownloadRoot>http://registry.npmjs.org/npm/-/</npmDownloadRoot>
+          <npmVersion>${npm.version}</npmVersion>
+          <workingDirectory>./</workingDirectory>
+        </configuration>
+        <executions>
+          <execution>
+            <goals>
+              <goal>install-node-and-npm</goal>
+            </goals>
+            <id>install node and npm</id>
+            <phase>generate-resources</phase>
+          </execution>
+          <execution>
+            <configuration>
+              <arguments>ci --loglevel=error</arguments>
+            </configuration>
+            <goals>
+              <goal>npm</goal>
+            </goals>
+            <id>npm install</id>
+            <phase>generate-resources</phase>
+          </execution>
+          <execution>
+            <configuration>
+              <arguments>run-script build</arguments>
+            </configuration>
+            <goals>
+              <goal>npm</goal>
+            </goals>
+            <id>prod</id>
+            <phase>generate-resources</phase>
+          </execution>
+        </executions>
+        <groupId>com.github.eirslett</groupId>
+        <version>${frontend.maven.plugin}</version>
+      </plugin>
+    </plugins>
+  </build>
 
-    <artifactId>qlack-webdesktop-ui</artifactId>
-    <packaging>jar</packaging>
+  <modelVersion>4.0.0</modelVersion>
+  <packaging>jar</packaging>
 
-    <properties>
-        <sonar.sources>src/app</sonar.sources>
-        <sonar.exclusions>**/generated-sources/**</sonar.exclusions>
-        <sonar.jacoco.reportPath>${project.build.directory}/jacoco.exec</sonar.jacoco.reportPath>
-        <sonar.jacoco.itReportPath>${project.build.directory}/jacoco-it.exec</sonar.jacoco.itReportPath>
-        <sonar.coverage.exclusions>
-            src/assets/*
-        </sonar.coverage.exclusions>
-    </properties>
+  <parent>
+    <artifactId>qlack-webdesktop</artifactId>
+    <groupId>com.eurodyn.qlack.webdesktop</groupId>
+    <version>3.0.0-SNAPSHOT</version>
+  </parent>
 
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>com.github.eirslett</groupId>
-                <artifactId>frontend-maven-plugin</artifactId>
-                <version>${frontend.maven.plugin}</version>
-                <configuration>
-                    <workingDirectory>./</workingDirectory>
-                    <nodeVersion>${node.version}</nodeVersion>
-                    <npmVersion>${npm.version}</npmVersion>
-                    <nodeDownloadRoot>http://nodejs.org/dist/</nodeDownloadRoot>
-                    <npmDownloadRoot>http://registry.npmjs.org/npm/-/</npmDownloadRoot>
-                    <installDirectory>./</installDirectory>
-                </configuration>
-                <executions>
-                    <execution>
-                        <id>install node and npm</id>
-                        <goals>
-                            <goal>install-node-and-npm</goal>
-                        </goals>
-                        <phase>generate-resources</phase>
-                    </execution>
-                    <execution>
-                        <id>npm install</id>
-                        <goals>
-                            <goal>npm</goal>
-                        </goals>
-                        <phase>generate-resources</phase>
-                        <configuration>
-                            <arguments>ci --loglevel=error</arguments>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>prod</id>
-                        <goals>
-                            <goal>npm</goal>
-                        </goals>
-                        <configuration>
-                            <arguments>run-script build</arguments>
-                        </configuration>
-                        <phase>generate-resources</phase>
-                    </execution>
-                </executions>
-            </plugin>
-        </plugins>
-    </build>
+  <properties>
+    <sonar.coverage.exclusions>
+      src/assets/*
+    </sonar.coverage.exclusions>
+    <sonar.exclusions>**/generated-sources/**</sonar.exclusions>
+    <sonar.jacoco.itReportPath>${project.build.directory}/jacoco-it.exec</sonar.jacoco.itReportPath>
+    <sonar.jacoco.reportPath>${project.build.directory}/jacoco.exec</sonar.jacoco.reportPath>
+    <sonar.sources>src/app</sonar.sources>
+  </properties>
 
 
 </project>

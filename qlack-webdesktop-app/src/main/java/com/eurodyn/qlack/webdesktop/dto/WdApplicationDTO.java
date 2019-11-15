@@ -1,9 +1,9 @@
 package com.eurodyn.qlack.webdesktop.dto;
 
-import java.util.Date;
-
 import lombok.Getter;
 import lombok.Setter;
+
+import java.util.Date;
 
 /**
  * Data Transfer Object for WdApplication.
@@ -33,7 +33,6 @@ public class WdApplicationDTO {
    * Presentation order index No.
    */
   private String appIndex;
-
 
 
   /**
@@ -144,6 +143,7 @@ public class WdApplicationDTO {
 
   /**
    * Set the {@link java.util.Date} based on a long value
+   *
    * @param addedOn the date as a {@link Long} value
    */
   public void setAddedOn(Long addedOn) {
@@ -154,6 +154,7 @@ public class WdApplicationDTO {
 
   /**
    * Set the {@link java.util.Date} based on a long value
+   *
    * @param lastDeployedOn the date as a {@link Long} value
    */
   public void setLastDeployedOn(Long lastDeployedOn) {

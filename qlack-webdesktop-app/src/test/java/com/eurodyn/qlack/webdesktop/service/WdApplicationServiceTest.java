@@ -1,6 +1,8 @@
 package com.eurodyn.qlack.webdesktop.service;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -64,10 +66,11 @@ public class WdApplicationServiceTest {
     wdApplications.get(0).setGroupName(" ");
     when(wdApplicationRepository.findByActiveIsTrue()).thenReturn(wdApplications);
     when(wdApplicationMapper.mapToDTO(wdApplications)).thenReturn(wdApplicationsDTO);
-    List<WdApplicationDTO> activeAppsListDTO = wdApplicationService.findAllActiveApplicationsFilterGroupName();
+    List<WdApplicationDTO> activeAppsListDTO = wdApplicationService
+        .findAllActiveApplicationsFilterGroupName();
     wdApplicationsDTO.forEach(wdApplicationDTO1 ->
-            assertNull(wdApplicationDTO1.getGroupName()));
+        assertNull(wdApplicationDTO1.getGroupName()));
     activeAppsListDTO.forEach(wdApplicationDTO ->
-            assertTrue(wdApplicationDTO.getGroupName() == null));
+        assertTrue(wdApplicationDTO.getGroupName() == null));
   }
 }

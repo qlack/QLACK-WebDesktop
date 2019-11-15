@@ -13,10 +13,10 @@ import java.util.List;
 @AllArgsConstructor
 public class Lexicon {
 
-    /**
-     *  the language locale
-     */
-    private String languageLocale;
-    private List<LanguageData> values;
+  /**
+   * the language locale
+   */
+  private String languageLocale;
+  private List<LanguageData> values;
 
 }
