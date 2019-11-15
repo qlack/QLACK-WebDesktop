@@ -81,7 +81,7 @@ a:hover {
     transform: scale(1.2) translateY(45%);
     -webkit-transition: 0.3s ease; /* Safari prior 6.1 */
     transition: 0.3s ease;
-    max-width: min-content;
+    max-width: unset !important;
     margin-right: auto;
     margin-left: auto;
 
