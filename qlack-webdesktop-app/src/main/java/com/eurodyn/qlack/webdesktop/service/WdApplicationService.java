@@ -1,6 +1,5 @@
 package com.eurodyn.qlack.webdesktop.service;
 
-import com.eurodyn.qlack.fuse.lexicon.dto.GroupDTO;
 import com.eurodyn.qlack.fuse.lexicon.service.GroupService;
 import com.eurodyn.qlack.fuse.lexicon.service.KeyService;
 import com.eurodyn.qlack.webdesktop.dto.WdApplicationDTO;
@@ -10,11 +9,8 @@ import com.eurodyn.qlack.webdesktop.repository.WdApplicationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
-
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 /**
  * Provides Qlack Web Desktop application related functionality
@@ -29,8 +25,6 @@ public class WdApplicationService {
   private WdApplicationRepository wdApplicationRepository;
   @Autowired
   private KeyService keyService;
-  @Autowired
-  private GroupService groupService;
 
   @Autowired
   public WdApplicationService(WdApplicationMapper mapper,
@@ -64,19 +58,14 @@ public class WdApplicationService {
     return mapper.mapToDTO(wdApplicationList);
   }
 
-
   /**
-   * Finds all translations from all groups for a specific locale,groupby group title which is the
-   * applicationName from .yaml configuration file Every App has its own group.
+   * Finds all translations from all groups for a specific locale,groupby group title which is the applicationName from
+   * .yaml configuration file Every App has its own group.
    *
    * @param locale the language locale
    * @return a list of translations from all groups for a specific locale
    */
   public Map<String, Map<String, String>> findTranslationsForLocale(String locale) {
-
-
-
     return keyService.getTranslationsForLocaleGroupByGroupTitle(locale);
   }
-
 }
