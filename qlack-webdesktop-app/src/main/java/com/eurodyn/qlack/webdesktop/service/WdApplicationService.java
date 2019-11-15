@@ -74,15 +74,9 @@ public class WdApplicationService {
    */
   public Map<String, Map<String, String>> findTranslationsForLocale(String locale) {
 
-    Set<GroupDTO> groupDTOSet = groupService.getGroups();
-    Map<String, Map<String, String>> translations = new HashMap<>();
 
-    for (GroupDTO groupDTO : groupDTOSet) {
-      translations.put(groupDTO.getTitle(),
-          keyService.getTranslationsForGroupAndLocale(groupDTO.getId(), locale));
-    }
 
-    return translations;
+    return keyService.getTranslationsForLocaleGroupByGroupTitle(locale);
   }
 
 }
