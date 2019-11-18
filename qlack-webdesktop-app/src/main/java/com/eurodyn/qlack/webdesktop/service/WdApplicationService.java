@@ -1,6 +1,5 @@
 package com.eurodyn.qlack.webdesktop.service;
 
-import com.eurodyn.qlack.fuse.lexicon.service.GroupService;
 import com.eurodyn.qlack.fuse.lexicon.service.KeyService;
 import com.eurodyn.qlack.webdesktop.dto.WdApplicationDTO;
 import com.eurodyn.qlack.webdesktop.mapper.WdApplicationMapper;
@@ -9,6 +8,7 @@ import com.eurodyn.qlack.webdesktop.repository.WdApplicationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
+
 import java.util.List;
 import java.util.Map;
 
