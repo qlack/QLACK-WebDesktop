@@ -286,7 +286,7 @@ public class WdApplicationConfig implements ApplicationRunner {
    * @param locale the locale from command line
    * @return true if locale is valid else false
    */
-  private Boolean isValidLocale(String locale) {
+  private boolean isValidLocale(String locale) {
     for (LanguagesEnum value : LanguagesEnum.values()) {
       if (value.name().equalsIgnoreCase(locale)) {
         return true;
