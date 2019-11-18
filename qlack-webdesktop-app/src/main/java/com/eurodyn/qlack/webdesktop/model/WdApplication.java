@@ -141,8 +141,11 @@ public class WdApplication extends QlackBaseModel {
   @Column(name = "application_name", nullable = false)
   private String applicationName;
 
+  /**
+   * List of translations
+   */
   @Transient
-  private List<Lexicon> lexicon;
+  private transient List<Lexicon> lexicon;
 
   /**
    * Whether the application is active
