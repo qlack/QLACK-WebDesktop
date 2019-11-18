@@ -63,6 +63,7 @@ public class WdApplicationConfig implements ApplicationRunner {
           + "configuration: %s";
   private static final String NO_LANGUAGES_MSG = "No languages have been provided. Default language: english";
   private static final String LANGUAGE_USAGE_MSG = "Languages_Usage: --apps.languages=en,el,de,fr, etc.";
+  private static final String LANGUAGE_ALREADY_EXISTS_MSG = " Language: %s already exists and will not be created.";
   private static final String LOAD_ROUTES_FROM_DB_MSG = "Loading routes from database..";
 
   private WdApplicationRepository wdApplicationRepository;
@@ -101,20 +102,18 @@ public class WdApplicationConfig implements ApplicationRunner {
       List<String> languagesLocales = Arrays
           .asList(args.getOptionValues(APPS_LANGUAGES).get(0).trim().split("\\s*,\\s*"));
 
-      for (String languageLocale : languagesLocales) {
-        if (isValidLocale(languageLocale)) {
-          LanguageDTO languageDTO = new LanguageDTO();
-          languageDTO.setLocale(languageLocale);
-          languageDTO
-              .setName(LanguagesEnum.valueOf(languageLocale.toUpperCase()).getLanguageName());
-          languageDTO.setActive(true);
-          try {
-            languageService.createLanguageIfNotExists(languageDTO);
-          } catch (QAlreadyExistsException e) {
-            log.info(" Language: " + languageLocale + " already exists and will not be created.");
-          }
+      languagesLocales.stream().filter(this::isValidLocale).forEach(locale -> {
+        LanguageDTO languageDTO = new LanguageDTO();
+        languageDTO.setLocale(locale);
+        languageDTO
+            .setName(LanguagesEnum.valueOf(locale.toUpperCase()).getLanguageName());
+        languageDTO.setActive(true);
+        try {
+          languageService.createLanguageIfNotExists(languageDTO);
+        } catch (QAlreadyExistsException e) {
+          log.info(String.format(LANGUAGE_ALREADY_EXISTS_MSG, locale));
         }
-      }
+      });
     } else {
       log.warning(NO_LANGUAGES_MSG);
       log.info(LANGUAGE_USAGE_MSG);
