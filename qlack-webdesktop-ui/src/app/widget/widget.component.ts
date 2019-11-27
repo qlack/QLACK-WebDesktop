@@ -44,10 +44,12 @@ export class WidgetComponent implements OnChanges, OnInit {
   @Input() showTitle: boolean = false;
   @Input() multipleInstances: boolean = false;
   @Input() applicationName?: string;
+  @Input() iconSmallSrc?: string;
   widgetPosition = {x: 0, y: 150};
   // 42 is the height of the div of image icon
   widgetMinimizedPosition = {x: 0, y: -42};
   safeIconImageSrc;
+  safeSmallIconImageSrc;
   safeAppUrl;
   isMinimized = false;
   isSmallScreen = false;
@@ -66,7 +68,9 @@ export class WidgetComponent implements OnChanges, OnInit {
 
   ngOnInit() {
     this.safeIconImageSrc = this.iconImageSrc && this.sanitizer.bypassSecurityTrustResourceUrl(
-        this.iconImageSrc)
+        this.iconImageSrc);
+    this.safeSmallIconImageSrc = this.iconSmallSrc && this.sanitizer.bypassSecurityTrustResourceUrl(
+        this.iconSmallSrc);
     this.safeAppUrl = this.appUrl && this.sanitizer.bypassSecurityTrustResourceUrl(this.appUrl)
     this.initDraggableValue = this.isDraggable;
     this.zIndex = this.zIndex = ++WidgetComponent.zIndexCounter;

@@ -75,6 +75,7 @@ export class HeaderComponent {
     this.tempWidgetComponent.instance.applicationName = widget.applicationName;
     this.tempWidgetComponent.instance.appUrl = widget.appIndex;
     this.tempWidgetComponent.instance.Id = HeaderComponent.widgetId++;
+    this.tempWidgetComponent.instance.iconSmallSrc = widget.iconSmall;
     this.tempWidgetComponent.instance.onClose.subscribe(id => {
       this.destroyWidget(id);
     });
