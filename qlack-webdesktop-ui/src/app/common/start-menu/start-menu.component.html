@@ -3,7 +3,8 @@
 </button>
 
 <mat-menu #menu="matMenu">
-  <mat-grid-list *ngFor="let widget of widgets | groupBy: 'groupName' | sortBy: 'key'; let lastItem = last" cols="4"
+  <mat-grid-list *ngFor="let widget of widgets | groupBy: 'groupTranslated' | sortBy: 'key'; let lastItem = last"
+                 cols="4"
                  id="iconPlay">
     <span class="dropdown-header">{{widget.key}}</span>
     <mat-grid-tile (click)="onAppClick.emit(subwidget)"

@@ -12,6 +12,7 @@ import {TranslateService} from '@ngx-translate/core';
 export class StartMenuComponent implements OnInit {
 
   widgets: Widget[] = [];
+  webDesktopUiLexiconGroup:string= 'webdesktop-ui';
 
   @Output() onAppClick = new EventEmitter();
 
@@ -24,6 +25,14 @@ export class StartMenuComponent implements OnInit {
         this.translate.get(application.applicationName + '.title').subscribe(
             (titleTranslated: string) => {
               application.applicationTitle = titleTranslated;
+            });
+      })
+    });
+    this.widgetService.getActiveApplications().subscribe(applicationsList => {
+      applicationsList.forEach(application => {
+        this.translate.get(this.webDesktopUiLexiconGroup + '.' + application.groupName).subscribe(
+            (groupTranslated: string) => {
+              application.groupTranslated = groupTranslated;
               this.widgets.push(application);
             });
       })

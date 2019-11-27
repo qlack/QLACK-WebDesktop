@@ -1,14 +1,11 @@
 package com.eurodyn.qlack.webdesktop.configuration;
 
-import com.eurodyn.qlack.common.exception.QAlreadyExistsException;
 import com.eurodyn.qlack.fuse.crypto.service.CryptoDigestService;
 import com.eurodyn.qlack.fuse.lexicon.dto.GroupDTO;
 import com.eurodyn.qlack.fuse.lexicon.dto.KeyDTO;
-import com.eurodyn.qlack.fuse.lexicon.dto.LanguageDTO;
 import com.eurodyn.qlack.fuse.lexicon.service.GroupService;
 import com.eurodyn.qlack.fuse.lexicon.service.KeyService;
 import com.eurodyn.qlack.fuse.lexicon.service.LanguageService;
-import com.eurodyn.qlack.fuse.lexicon.util.LanguagesEnum;
 import com.eurodyn.qlack.webdesktop.model.LanguageData;
 import com.eurodyn.qlack.webdesktop.model.Lexicon;
 import com.eurodyn.qlack.webdesktop.model.WdApplication;
@@ -33,8 +30,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * Loads and creates Web Desktop application from .yaml configuration files provided as url
- * endpoints and also registers the routes for Zuul reverse proxy.
+ * Loads and creates Web Desktop application from .yaml configuration files provided as url endpoints and also registers
+ * the routes for Zuul reverse proxy.
  *
  * @author European Dynamics SA.
  */
@@ -46,7 +43,6 @@ public class WdApplicationConfig implements ApplicationRunner {
 
   private static final String COMMA_REGEX = ",";
   private static final String APPS_URL = "apps.url";
-  private static final String APPS_LANGUAGES = "apps.languages";
   private static final String VALID_URL_MSG = "The following valid urls have been provided:";
   private static final String APP_CREATION_MSG = "Web Desktop Application url found. "
       + "The application will be created / updated.";
@@ -61,9 +57,6 @@ public class WdApplicationConfig implements ApplicationRunner {
   private static final String ERROR_MSG =
       "An error has occurred while initializing Web Desktop applications "
           + "configuration: %s";
-  private static final String NO_LANGUAGES_MSG = "No languages have been provided. Default language: english";
-  private static final String LANGUAGE_USAGE_MSG = "Languages_Usage: --apps.languages=en,el,de,fr, etc.";
-  private static final String LANGUAGE_ALREADY_EXISTS_MSG = " Language: %s already exists and will not be created.";
   private static final String LOAD_ROUTES_FROM_DB_MSG = "Loading routes from database..";
 
   private WdApplicationRepository wdApplicationRepository;
@@ -88,36 +81,15 @@ public class WdApplicationConfig implements ApplicationRunner {
   }
 
   /**
-   * Searches command line arguments for WebDesktop application configuration url endpoints. If
-   * found, the urls are validated and the configuration files are loaded as Web Desktop
-   * applications in the database. This methods overrides the {@link ApplicationRunner#run(org.springframework.boot.ApplicationArguments)}
-   * method to allow it to run just before the application starts.
+   * Searches command line arguments for WebDesktop application configuration url endpoints. If found, the urls are
+   * validated and the configuration files are loaded as Web Desktop applications in the database. This methods
+   * overrides the {@link ApplicationRunner#run(org.springframework.boot.ApplicationArguments)} method to allow it to
+   * run just before the application starts.
    *
    * @param args The command-line application arguments as loaded by Spring Boot
    */
   @Override
   public void run(ApplicationArguments args) {
-
-    if (args.containsOption(APPS_LANGUAGES)) {
-      List<String> languagesLocales = Arrays
-          .asList(args.getOptionValues(APPS_LANGUAGES).get(0).trim().split("\\s*,\\s*"));
-
-      languagesLocales.stream().filter(this::isValidLocale).forEach(locale -> {
-        LanguageDTO languageDTO = new LanguageDTO();
-        languageDTO.setLocale(locale);
-        languageDTO
-            .setName(LanguagesEnum.valueOf(locale.toUpperCase()).getLanguageName());
-        languageDTO.setActive(true);
-        try {
-          languageService.createLanguageIfNotExists(languageDTO);
-        } catch (QAlreadyExistsException e) {
-          log.info(String.format(LANGUAGE_ALREADY_EXISTS_MSG, locale));
-        }
-      });
-    } else {
-      log.warning(NO_LANGUAGES_MSG);
-      log.info(LANGUAGE_USAGE_MSG);
-    }
 
     if (args.containsOption(APPS_URL)) {
       String[] urls = args.getOptionValues(APPS_URL).get(0).split(COMMA_REGEX);
@@ -153,10 +125,9 @@ public class WdApplicationConfig implements ApplicationRunner {
   }
 
   /**
-   * Reads the .yaml files from the provided urls. If their content has already been persisted in
-   * the Web Desktop application table and no changes are found, nothing happens. If their content
-   * has changed the application is updated in the database. In case the current application does
-   * not exist it will be created.
+   * Reads the .yaml files from the provided urls. If their content has already been persisted in the Web Desktop
+   * application table and no changes are found, nothing happens. If their content has changed the application is
+   * updated in the database. In case the current application does not exist it will be created.
    *
    * @param urls The urls that return a yaml configuration file
    */
@@ -271,27 +242,9 @@ public class WdApplicationConfig implements ApplicationRunner {
             keyService.updateTranslationByLocale(keyDTO.getId(), translation.getLanguageLocale(),
                 data.getValue());
           }
-
-
         }
 
       }
     }
   }
-
-  /**
-   * checks if the input locale from command line is supported from system
-   *
-   * @param locale the locale from command line
-   * @return true if locale is valid else false
-   */
-  private boolean isValidLocale(String locale) {
-    for (LanguagesEnum value : LanguagesEnum.values()) {
-      if (value.name().equalsIgnoreCase(locale)) {
-        return true;
-      }
-    }
-    return false;
-  }
-
 }

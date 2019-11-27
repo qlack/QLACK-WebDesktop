@@ -15,4 +15,6 @@ export class Widget {
   multipleInstances: boolean;
   applicationName: string;
   applicationTitle: string;
+  groupName:string;
+  groupTranslated:string;
 }
