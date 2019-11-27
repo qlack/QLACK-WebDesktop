@@ -26,10 +26,6 @@ export class StartMenuComponent implements OnInit {
             (titleTranslated: string) => {
               application.applicationTitle = titleTranslated;
             });
-      })
-    });
-    this.widgetService.getActiveApplications().subscribe(applicationsList => {
-      applicationsList.forEach(application => {
         this.translate.get(this.webDesktopUiLexiconGroup + '.' + application.groupName).subscribe(
             (groupTranslated: string) => {
               application.groupTranslated = groupTranslated;
@@ -37,5 +33,6 @@ export class StartMenuComponent implements OnInit {
             });
       })
     });
+
   }
 }
