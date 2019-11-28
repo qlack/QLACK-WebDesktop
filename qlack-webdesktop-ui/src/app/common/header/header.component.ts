@@ -21,6 +21,11 @@ export class HeaderComponent {
 
 
   initWidget(widget: Widget) {
+    console.log("*****&&^^");
+    console.log(widget);
+
+
+
     if (this.activeWidgetIndex(widget) != -1) {
       const index = this.activeWidgetIndex(widget);
       if (this.activeWidgetComponents[index].instance.multipleInstances) {
