@@ -12,10 +12,8 @@ import {TranslateService} from '@ngx-translate/core';
 export class StartMenuComponent implements OnInit {
 
   widgets: Widget[] = [];
-  webDesktopUiLexiconGroup:string= 'webdesktop-ui';
+  webDesktopUiLexiconGroup: string = 'webdesktop-ui';
   sortedWidgets = new Array<Widget[]>();
-
-
 
   @Output() onAppClick = new EventEmitter();
 
@@ -24,38 +22,35 @@ export class StartMenuComponent implements OnInit {
 
   ngOnInit() {
     this.widgetService.getActiveApplications().subscribe(applicationsList => {
-      applicationsList.forEach(application => {
+      applicationsList.forEach((application, index) => {
+
         this.translate.get(application.applicationName + '.title').subscribe(
             (titleTranslated: string) => {
               application.applicationTitle = titleTranslated;
-            });
-        this.translate.get(this.webDesktopUiLexiconGroup + '.' + application.groupName).subscribe(
-            (groupTranslated: string) => {
-              application.groupTranslated = groupTranslated;
-              this.widgets.push(application);
-            });
+            }).add(() => {
+          this.translate.get(this.webDesktopUiLexiconGroup + '.' + application.groupName).subscribe(
+              (groupTranslated: string) => {
+                application.groupTranslated = groupTranslated;
+                this.widgets.push(application);
+              }).add(() => {
+
+            if (index == (applicationsList.length - 1)) {
+              this.widgets = this.widgets.sort((a, b) => (a.groupTranslated.toLowerCase() > b.groupTranslated.toLowerCase()) ? 1 : -1);
+              const groups = [...new Set(this.widgets.map(w => w.groupTranslated))];
+
+              groups.forEach(group => {
+                this.sortedWidgets.push(this.widgets.filter(w => w.groupTranslated === group));
+              });
+
+              this.sortedWidgets.forEach((widthArray, index) => {
+                this.sortedWidgets[index] = widthArray.sort((a, b) => {
+                  return a.applicationName.toLowerCase().localeCompare(b.applicationName.toLowerCase());
+                })
+              })
+            }
+          });
+        });
       })
-
-      this.widgets = this.widgets.sort((a,b) => (a.groupTranslated > b.groupTranslated) ? 1: -1);
-      const groups = [...new Set(this.widgets.map(w=> w.groupTranslated))];
-
-      groups.forEach(group =>{
-        this.sortedWidgets.push(this.widgets.filter(w => w.groupTranslated === group));
-      })
-
-      this.sortedWidgets.forEach( (widthArray,index) => {
-        this.sortedWidgets[index] = widthArray.sort((a,b)=>{
-          return a.applicationName.toLowerCase().localeCompare(b.applicationName.toLowerCase());
-        })
-      })
-
     });
-
   }
-
-  selectIcon(event){
-    console.log("Icon selected");
-    this.onAppClick.emit(event)
-  }
-
 }
