@@ -3,16 +3,16 @@
 </button>
 
 <mat-menu #menu="matMenu">
-  <mat-grid-list *ngFor="let widget of widgets | groupBy: 'groupTranslated' | sortBy: 'key'; let lastItem = last"
-                 cols="4"
-                 id="iconPlay">
-    <span class="dropdown-header">{{widget.key}}</span>
-    <mat-grid-tile (click)="onAppClick.emit(subwidget)"
-                   *ngFor="let subwidget of widget.value | sortBy: 'applicationTitle'"
-                   class="actionIcon">
-      <span class="fa"><img src={{subwidget.icon}}></span>
-      <h3>{{subwidget.applicationTitle}}</h3>
+  <mat-grid-list *ngFor="let widgets of sortedWidgets  let lastItem = last;" cols="4" id="iconPlay">
+    <span class="dropdown-header">{{widgets[0].groupTranslated}}</span>
+
+    <mat-grid-tile *ngFor="let widget of widgets"
+                   class="actionIcon" (click)="onAppClick.emit(widget)">
+      <span class="fa"><img src={{widget.icon}}></span>
+      <h3>{{widget.applicationTitle}}</h3>
     </mat-grid-tile>
     <mat-divider *ngIf="!lastItem"></mat-divider>
   </mat-grid-list>
 </mat-menu>
+
+

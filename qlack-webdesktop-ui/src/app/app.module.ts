@@ -23,8 +23,6 @@ import {AngularResizedEventModule} from 'angular-resize-event';
 import {HttpClient, HttpClientModule} from '@angular/common/http';
 import {WidgetService} from "./widget.service";
 import {StartMenuComponent} from "./common/start-menu/start-menu.component";
-import {GroupByPipe} from './group-by.pipe';
-import {SortByPipe} from './sort-by.pipe';
 import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 
@@ -38,8 +36,6 @@ export function HttpLoaderFactory(http: HttpClient) {
     HeaderComponent,
     WidgetComponent,
     StartMenuComponent,
-    GroupByPipe,
-    SortByPipe
   ],
   imports: [
     BrowserModule,
