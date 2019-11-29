@@ -2,7 +2,7 @@
   <mat-icon>apps</mat-icon>
 </button>
 
-<mat-menu #menu="matMenu">
+<mat-menu #menu="matMenu" class="scroll">
   <mat-grid-list *ngFor="let widgets of sortedWidgets  let lastItem = last;" cols="4" id="iconPlay">
     <span class="dropdown-header">{{widgets[0].groupTranslated}}</span>
 

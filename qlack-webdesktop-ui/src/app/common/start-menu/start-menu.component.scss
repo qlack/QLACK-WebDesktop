@@ -1,11 +1,11 @@
 .mat-menu-panel {
   background: rgb(238, 238, 238) !important;
-  overflow: hidden !important;
   width: 450px;
   max-width: 500px !important;
   min-height: 130px !important;
   border-bottom-left-radius: 4px;
   border-bottom-right-radius: 4px;
+  opacity: 0.85;
 }
 
 .mat-menu-content {
@@ -13,7 +13,6 @@
   padding-left: 8px;
   padding-right: 8px;
   max-height: 500px;
-  overflow: auto;
 }
 
 .mat-grid-tile {
@@ -28,7 +27,7 @@
 
 .mat-figure {
   display: list-item !important;
-  top: 15px !important;
+  top: 20px !important;
 }
 
 .cdk-overlay-connected-position-bounding-box {
@@ -55,6 +54,7 @@ a:hover {
 
   .actionIcon:hover > .mat-figure > .fa > img {
     transform: scale(1.2) translateY(-25%);
+    opacity: 1
   }
 
   .actionIcon:hover > .mat-figure > h3 {
@@ -121,8 +121,8 @@ small {
 }
 
 img {
-  width: 32px;
-  height: 32px;
+  width: 45px;
+  height: 45px;
   margin-left: auto;
   margin-right: auto;
   font-size: .8em;
@@ -146,3 +146,4 @@ img {
 .app-box:hover {
   box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
 }
+
