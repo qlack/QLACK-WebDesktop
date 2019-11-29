@@ -21,24 +21,16 @@ export class HeaderComponent {
 
 
   initWidget(widget: Widget) {
-    console.log("*****&&^^");
-    console.log(widget);
-
-
-
     if (this.activeWidgetIndex(widget) != -1) {
       const index = this.activeWidgetIndex(widget);
       if (this.activeWidgetComponents[index].instance.multipleInstances) {
-
         this.createWidget(widget);
-
       } else if (this.activeWidgetComponents[index].instance.isMinimized) {
         this.activeWidgetComponents[index].instance.widgetClicked();
       }
     } else {
       this.createWidget(widget);
     }
-
   }
 
   destroyWidget(id) {
@@ -48,8 +40,6 @@ export class HeaderComponent {
         this.activeWidgetComponents.splice(i, 1);
       }
     }
-
-
   }
 
   activeWidgetIndex(widget: Widget) {
