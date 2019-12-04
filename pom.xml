@@ -2,9 +2,22 @@
 <project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xmlns="http://maven.apache.org/POM/4.0.0"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <artifactId>qlack-webdesktop</artifactId>
+  <modelVersion>4.0.0</modelVersion>
 
-  <description>QLACK WebDesktop module</description>
+  <parent>
+    <artifactId>spring-boot-starter-parent</artifactId>
+    <groupId>org.springframework.boot</groupId>
+    <version>2.2.1.RELEASE</version>
+  </parent>
+
+  <groupId>com.eurodyn.qlack.webdesktop</groupId>
+  <artifactId>qlack-webdesktop</artifactId>
+  <version>3.0.0-SNAPSHOT</version>
+  <packaging>pom</packaging>
+
+  <name>QLACK-WebDesktop</name>
+  <description>QLACK WebDesktop</description>
+  <url>https://github.com/qlack/QLACK-WebDesktop</url>
 
   <developers>
     <developer>
@@ -14,7 +27,7 @@
       <organizationUrl>http://www.eurodyn.com</organizationUrl>
     </developer>
   </developers>
-  <groupId>com.eurodyn.qlack.webdesktop</groupId>
+
   <licenses>
     <license>
       <name>European Union Public Licence (EUPL v.1.1)</name>
@@ -23,26 +36,15 @@
       </url>
     </license>
   </licenses>
-  <modelVersion>4.0.0</modelVersion>
 
-  <modules>
-    <module>qlack-webdesktop-ui</module>
-    <module>qlack-webdesktop-app</module>
-  </modules>
-  <name>QLACK-WebDesktop</name>
-  <packaging>pom</packaging>
-  <parent>
-    <artifactId>spring-boot-starter-parent</artifactId>
-    <groupId>org.springframework.boot</groupId>
-    <relativePath/>
-    <version>2.1.4.RELEASE</version>
-  </parent>
   <properties>
+    <java.version>1.8</java.version>
+    <spring.boot.version>2.2.1.RELEASE</spring.boot.version>
+    <qlack.version>3.2.2</qlack.version>
     <commons.lang.version>3.4</commons.lang.version>
-    <frontend.maven.plugin>1.8.0</frontend.maven.plugin>
+    <frontend.maven.plugin.version>1.8.0</frontend.maven.plugin.version>
     <jackson.databind.version>2.10.0</jackson.databind.version>
     <jacoco.version>0.8.4</jacoco.version>
-    <java.version>1.8</java.version>
     <javax.inject.version>1</javax.inject.version>
     <lombok.version>1.18.6</lombok.version>
     <mapstruct.version>1.3.0.Final</mapstruct.version>
@@ -59,14 +61,15 @@
     <npm.version>6.12.0</npm.version>
     <powermockito.version>2.0.2</powermockito.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <qlack.version>3.2.2</qlack.version>
     <querydsl.version>4.2.1</querydsl.version>
-    <spring.boot.version>2.1.8.RELEASE</spring.boot.version>
+    <jackson.verion>2.3.0</jackson.verion>
+    <commons.validator.version>1.6</commons.validator.version>
+    <spring.netflix.zuul.version>2.1.3.RELEASE</spring.netflix.zuul.version>
   </properties>
 
-  <url>https://github.com/qlack/QLACK-WebDesktop</url>
-
-  <version>3.0.0-SNAPSHOT</version>
-
+  <modules>
+    <module>qlack-webdesktop-app</module>
+    <module>qlack-webdesktop-ui</module>
+  </modules>
 
 </project>

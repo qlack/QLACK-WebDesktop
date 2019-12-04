@@ -11,14 +11,13 @@ import com.eurodyn.qlack.webdesktop.dto.WdApplicationDTO;
 import com.eurodyn.qlack.webdesktop.mapper.WdApplicationMapper;
 import com.eurodyn.qlack.webdesktop.model.WdApplication;
 import com.eurodyn.qlack.webdesktop.repository.WdApplicationRepository;
+import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Spy;
 import org.mockito.junit.MockitoJUnitRunner;
-
-import java.util.List;
 
 /**
  * Test class for WdApplicationService

@@ -11,7 +11,7 @@ import org.mapstruct.ReportingPolicy;
  *
  * @author European Dynamics SA.
  */
-@Mapper(componentModel = "spring",  unmappedTargetPolicy = ReportingPolicy.IGNORE)
+@Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface WdApplicationMapper extends WdMapper<WdApplication, WdApplicationDTO> {
 
   @Override

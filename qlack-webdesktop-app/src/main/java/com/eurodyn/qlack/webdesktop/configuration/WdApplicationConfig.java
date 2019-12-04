@@ -13,6 +13,11 @@ import com.eurodyn.qlack.webdesktop.repository.WdApplicationRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.exc.MismatchedInputException;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
+import java.net.URL;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.List;
+import java.util.stream.Collectors;
 import lombok.extern.java.Log;
 import org.apache.commons.validator.routines.UrlValidator;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,15 +28,9 @@ import org.springframework.cloud.netflix.zuul.filters.discovery.DiscoveryClientR
 import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
 
-import java.net.URL;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
-import java.util.stream.Collectors;
-
 /**
- * Loads and creates Web Desktop application from .yaml configuration files provided as url endpoints and also registers
- * the routes for Zuul reverse proxy.
+ * Loads and creates Web Desktop application from .yaml configuration files provided as url
+ * endpoints and also registers the routes for Zuul reverse proxy.
  *
  * @author European Dynamics SA.
  */
@@ -81,10 +80,10 @@ public class WdApplicationConfig implements ApplicationRunner {
   }
 
   /**
-   * Searches command line arguments for WebDesktop application configuration url endpoints. If found, the urls are
-   * validated and the configuration files are loaded as Web Desktop applications in the database. This methods
-   * overrides the {@link ApplicationRunner#run(org.springframework.boot.ApplicationArguments)} method to allow it to
-   * run just before the application starts.
+   * Searches command line arguments for WebDesktop application configuration url endpoints. If
+   * found, the urls are validated and the configuration files are loaded as Web Desktop
+   * applications in the database. This methods overrides the {@link ApplicationRunner#run(org.springframework.boot.ApplicationArguments)}
+   * method to allow it to run just before the application starts.
    *
    * @param args The command-line application arguments as loaded by Spring Boot
    */
@@ -125,9 +124,10 @@ public class WdApplicationConfig implements ApplicationRunner {
   }
 
   /**
-   * Reads the .yaml files from the provided urls. If their content has already been persisted in the Web Desktop
-   * application table and no changes are found, nothing happens. If their content has changed the application is
-   * updated in the database. In case the current application does not exist it will be created.
+   * Reads the .yaml files from the provided urls. If their content has already been persisted in
+   * the Web Desktop application table and no changes are found, nothing happens. If their content
+   * has changed the application is updated in the database. In case the current application does
+   * not exist it will be created.
    *
    * @param urls The urls that return a yaml configuration file
    */

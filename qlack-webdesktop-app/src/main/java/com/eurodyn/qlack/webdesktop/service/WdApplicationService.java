@@ -5,12 +5,11 @@ import com.eurodyn.qlack.webdesktop.dto.WdApplicationDTO;
 import com.eurodyn.qlack.webdesktop.mapper.WdApplicationMapper;
 import com.eurodyn.qlack.webdesktop.model.WdApplication;
 import com.eurodyn.qlack.webdesktop.repository.WdApplicationRepository;
+import java.util.List;
+import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
-
-import java.util.List;
-import java.util.Map;
 
 /**
  * Provides Qlack Web Desktop application related functionality
@@ -59,8 +58,8 @@ public class WdApplicationService {
   }
 
   /**
-   * Finds all translations from all groups for a specific locale,groupby group title which is the applicationName from
-   * .yaml configuration file Every App has its own group.
+   * Finds all translations from all groups for a specific locale,groupby group title which is the
+   * applicationName from .yaml configuration file Every App has its own group.
    *
    * @param locale the language locale
    * @return a list of translations from all groups for a specific locale

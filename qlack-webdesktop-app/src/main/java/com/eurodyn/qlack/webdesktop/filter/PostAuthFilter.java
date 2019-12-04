@@ -2,6 +2,8 @@ package com.eurodyn.qlack.webdesktop.filter;
 
 import com.eurodyn.qlack.fuse.aaa.model.User;
 import com.eurodyn.qlack.fuse.aaa.service.LdapUserUtil;
+import java.io.IOException;
+import java.util.Date;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -13,9 +15,6 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.core.user.DefaultOAuth2User;
 import org.springframework.stereotype.Component;
-
-import java.io.IOException;
-import java.util.Date;
 
 
 /**

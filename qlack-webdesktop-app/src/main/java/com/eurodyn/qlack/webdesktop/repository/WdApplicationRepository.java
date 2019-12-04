@@ -2,7 +2,6 @@ package com.eurodyn.qlack.webdesktop.repository;
 
 import com.eurodyn.qlack.common.repository.QlackBaseRepository;
 import com.eurodyn.qlack.webdesktop.model.WdApplication;
-
 import java.util.List;
 
 /**

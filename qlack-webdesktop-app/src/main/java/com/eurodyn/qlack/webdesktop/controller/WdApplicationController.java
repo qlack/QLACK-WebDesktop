@@ -4,15 +4,14 @@ import com.eurodyn.qlack.fuse.lexicon.service.GroupService;
 import com.eurodyn.qlack.fuse.lexicon.service.KeyService;
 import com.eurodyn.qlack.webdesktop.dto.WdApplicationDTO;
 import com.eurodyn.qlack.webdesktop.service.WdApplicationService;
+import java.util.List;
+import java.util.Map;
 import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
-import java.util.Map;
 
 
 /**

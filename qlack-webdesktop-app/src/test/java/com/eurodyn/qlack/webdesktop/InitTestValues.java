@@ -2,7 +2,6 @@ package com.eurodyn.qlack.webdesktop;
 
 import com.eurodyn.qlack.webdesktop.dto.WdApplicationDTO;
 import com.eurodyn.qlack.webdesktop.model.WdApplication;
-
 import java.util.ArrayList;
 import java.util.List;
 

@@ -1,7 +1,6 @@
 package com.eurodyn.qlack.webdesktop.mapper;
 
 import com.eurodyn.qlack.common.model.QlackBaseModel;
-
 import java.util.Date;
 import java.util.List;
 
