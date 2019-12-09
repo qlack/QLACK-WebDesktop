@@ -68,8 +68,8 @@
   </properties>
 
   <modules>
-    <module>qlack-webdesktop-app</module>
     <module>qlack-webdesktop-ui</module>
+    <module>qlack-webdesktop-app</module>
   </modules>
 
 </project>

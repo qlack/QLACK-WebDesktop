@@ -4,7 +4,8 @@
 
 <mat-menu #menu="matMenu" class="scroll">
   <mat-grid-list *ngFor="let widgets of sortedWidgets  let lastItem = last;" cols="4" id="iconPlay">
-    <span class="dropdown-header">{{widgets[0].groupTranslated}}</span>
+    <span class="dropdown-header" *ngIf="widgets[0].groupTranslated">{{widgets[0].groupTranslated}}</span>
+    <span class="dropdown-header" *ngIf="!widgets[0].groupTranslated">{{'webdesktop-ui.groupOthers' | translate}}</span>
 
     <mat-grid-tile *ngFor="let widget of widgets"
                    class="actionIcon" (click)="onAppClick.emit(widget)">

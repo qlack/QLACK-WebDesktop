@@ -23,19 +23,22 @@ export class StartMenuComponent implements OnInit {
   ngOnInit() {
     this.widgetService.getActiveApplications().subscribe(applicationsList => {
       applicationsList.forEach((application, index) => {
-
         this.translate.get(application.applicationName + '.title').subscribe(
             (titleTranslated: string) => {
               application.applicationTitle = titleTranslated;
             }).add(() => {
           this.translate.get(this.webDesktopUiLexiconGroup + '.' + application.groupName).subscribe(
               (groupTranslated: string) => {
-                application.groupTranslated = groupTranslated;
+                if (groupTranslated == "webdesktop-ui."){
+                  application.groupTranslated = "";
+                } else {
+                  application.groupTranslated = groupTranslated;
+                }
                 this.widgets.push(application);
               }).add(() => {
 
             if (index == (applicationsList.length - 1)) {
-              this.widgets = this.widgets.sort((a, b) => (a.groupTranslated.toLowerCase() > b.groupTranslated.toLowerCase()) ? 1 : -1);
+              this.widgets = this.widgets.sort((a, b) => !a.groupTranslated ? 1 : (!b.groupTranslated ? -1 : (a.groupTranslated.toLowerCase().localeCompare(b.groupTranslated.toLowerCase()))));
               const groups = [...new Set(this.widgets.map(w => w.groupTranslated))];
 
               groups.forEach(group => {
