@@ -19,8 +19,6 @@
       src/main/java/com/eurodyn/qlack/webdesktop/dto/*
     </sonar.coverage.exclusions>
     <sonar.exclusions>**/generated-sources/**</sonar.exclusions>
-    <sonar.jacoco.itReportPath>${project.build.directory}/jacoco-it.exec</sonar.jacoco.itReportPath>
-    <sonar.jacoco.reportPath>${project.build.directory}/jacoco.exec</sonar.jacoco.reportPath>
     <sonar.sources>src/main/java</sonar.sources>
   </properties>
 
