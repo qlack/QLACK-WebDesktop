@@ -3,10 +3,10 @@
 </button>
 
 <mat-menu #menu="matMenu" class="scroll">
-  <mat-grid-list *ngFor="let widgets of sortedWidgets  let lastItem = last;" cols="4" id="iconPlay">
+  <mat-grid-list *ngFor="let widgets of sortedWidgets  let lastItem = last;" cols={{columns}}
+                 id="iconPlay">
     <span class="dropdown-header" *ngIf="widgets[0].groupTranslated">{{widgets[0].groupTranslated}}</span>
     <span class="dropdown-header" *ngIf="!widgets[0].groupTranslated">{{'webdesktop-ui.groupOthers' | translate}}</span>
-
     <mat-grid-tile *ngFor="let widget of widgets"
                    class="actionIcon" (click)="onAppClick.emit(widget)">
       <span class="fa"><img src={{widget.icon}}></span>
@@ -15,5 +15,3 @@
     <mat-divider *ngIf="!lastItem"></mat-divider>
   </mat-grid-list>
 </mat-menu>
-
-

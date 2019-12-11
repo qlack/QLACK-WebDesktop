@@ -14,6 +14,7 @@ export class StartMenuComponent implements OnInit {
   widgets: Widget[] = [];
   webDesktopUiLexiconGroup: string = 'webdesktop-ui';
   sortedWidgets = new Array<Widget[]>();
+  columns = 4;
 
   @Output() onAppClick = new EventEmitter();
 
@@ -44,8 +45,8 @@ export class StartMenuComponent implements OnInit {
               groups.forEach(group => {
                 this.sortedWidgets.push(this.widgets.filter(w => w.groupTranslated === group));
               });
-
               this.sortedWidgets.forEach((widthArray, index) => {
+                this.onCreateMenuColumns(widthArray.length);
                 this.sortedWidgets[index] = widthArray.sort((a, b) => {
                   return a.applicationName.toLowerCase().localeCompare(b.applicationName.toLowerCase());
                 })
@@ -54,6 +55,13 @@ export class StartMenuComponent implements OnInit {
           });
         });
       })
+
     });
+  }
+
+  onCreateMenuColumns(sortedWidgets : number) {
+    if (sortedWidgets > 4) {
+      this.columns = 5;
+    }
   }
 }
