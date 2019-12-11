@@ -2,7 +2,8 @@
 groups:
   - name: webdesktop-ui
     description: webdesktopUi description
-
+  - name: translations-management-ui
+    description: translations management description
 languages:
 - name: "English"
   locale: "en"
@@ -10,7 +11,7 @@ languages:
   locale: "el"
 - name: "Deutsch"
   locale: "de"
-- name: "français"
+- name: "Français"
   locale: "fr"
 
 translations:
@@ -18,8 +19,38 @@ translations:
   locale: en
   keys:
     - groupOthers: Others
+    - system: System
 - group: webdesktop-ui
   locale: el
   keys:
     - groupOthers: Άλλα
+    - system: Σύστημα
 
+- group: translations-management-ui
+  locale: en
+  keys:
+    - header: Translations Management
+    - languages: Languages
+    - translations: Translations
+    - activeLanguages: Active languages
+    - cancel: Cancel
+    - saveChanges: Save changes
+    - groupName: Group Name
+    - keyName: Key Name
+    - create: Create
+    - keyEdit: Key Edit
+    - save: Save
+- group: translations-management-ui
+  locale: el
+  keys:
+    - header: Διαχείριση Μεταφράσεων
+    - languages: Γλώσσες
+    - translations: Μεταφράσεις
+    - activeLanguages: Ενεργές γλώσσες
+    - cancel: Ακύρωση
+    - saveChanges: Αποθηκεύστε  τις αλλαγές
+    - groupName: Ονομα ομάδας
+    - keyName: Όνομα κλειδιού
+    - create: Δημιουργία
+    - keyEdit: Επεξεργασία κλειδιού
+    - save: Αποθήκευση
