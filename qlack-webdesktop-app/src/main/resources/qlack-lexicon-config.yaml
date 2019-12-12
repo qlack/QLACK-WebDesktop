@@ -32,13 +32,13 @@ translations:
     - header: Translations Management
     - languages: Languages
     - translations: Translations
-    - activeLanguages: Active languages
     - cancel: Cancel
     - saveChanges: Save changes
     - groupName: Group Name
     - keyName: Key Name
     - create: Create
     - keyEdit: Key Edit
+    - keyCreate: Key Create
     - save: Save
 - group: translations-management-ui
   locale: el
@@ -46,11 +46,11 @@ translations:
     - header: Διαχείριση Μεταφράσεων
     - languages: Γλώσσες
     - translations: Μεταφράσεις
-    - activeLanguages: Ενεργές γλώσσες
     - cancel: Ακύρωση
     - saveChanges: Αποθηκεύστε  τις αλλαγές
-    - groupName: Ονομα ομάδας
+    - groupName: Όνομα ομάδας
     - keyName: Όνομα κλειδιού
     - create: Δημιουργία
     - keyEdit: Επεξεργασία κλειδιού
+    - keyCreate: Δημιουργία κλειδιού
     - save: Αποθήκευση
