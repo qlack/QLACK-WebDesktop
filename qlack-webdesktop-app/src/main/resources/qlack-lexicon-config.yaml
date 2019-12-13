@@ -4,6 +4,8 @@ groups:
     description: webdesktopUi description
   - name: translations-management-ui
     description: translations management description
+  - name: management-app-ui
+    description: translations of management applications
 languages:
 - name: "English"
   locale: "en"
@@ -54,3 +56,34 @@ translations:
     - keyEdit: Επεξεργασία κλειδιού
     - keyCreate: Δημιουργία κλειδιού
     - save: Αποθήκευση
+
+- group: management-app-ui
+  locale: en
+  keys:
+    - header: Applications Management
+    - title: Name
+    - image: Image
+    - description: Description
+    - version: Version
+    - cancel: Cancel
+    - create: Create
+    - save: Save
+    - pagination: Items per page
+    - newApplication: New Application
+    - proxyPath: Proxy path
+    - url: URL
+- group: management-app-ui
+  locale: el
+  keys:
+    - header: Διαχείριση Εφαρμογών
+    - title: Όνομα
+    - image: Εικόνα
+    - description: Περιγραφή
+    - version: Έκδοση
+    - cancel: Άκυρο
+    - create: Δημιουργία
+    - save: Αποθήκευση
+    - pagination: Αποτελέσματα ανά σελίδα
+    - newApplication: Νέα εφαρμογή
+    - proxyPath: Proxy path
+    - url: URL

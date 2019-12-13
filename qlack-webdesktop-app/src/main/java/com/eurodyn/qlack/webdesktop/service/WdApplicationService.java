@@ -42,6 +42,15 @@ public class WdApplicationService {
   }
 
   /**
+   * Finds all Web Desktop applications
+   *
+   * @return a list of {@link com.eurodyn.qlack.webdesktop.dto.WdApplicationDTO}
+   */
+  public List<WdApplicationDTO> findAllApplications() {
+    return mapper.mapToDTO(wdApplicationRepository.findAll());
+  }
+
+  /**
    * Finds all active Web Desktop applications with trimmed group names.
    *
    * @return a list of {@link com.eurodyn.qlack.webdesktop.dto.WdApplicationDTO}

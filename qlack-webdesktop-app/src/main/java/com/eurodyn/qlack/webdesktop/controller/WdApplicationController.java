@@ -40,9 +40,19 @@ public class WdApplicationController {
    *
    * @return a list of the active Web Desktop applications
    */
-  @GetMapping(path = "/all")
+  @GetMapping(path = "/active")
   public List<WdApplicationDTO> getActiveApplications() {
     return wdApplicationService.findAllActiveApplications();
+  }
+
+  /**
+   * Get all Web Desktop applications
+   *
+   * @return a list of all Web Desktop applications
+   */
+  @GetMapping(path = "/all")
+  public List<WdApplicationDTO> getAllApplications() {
+    return wdApplicationService.findAllApplications();
   }
 
   /**
