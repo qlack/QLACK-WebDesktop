@@ -35,7 +35,26 @@
   padding: 0px;
   min-width: 300px;
   min-height: 182px;
+  //margin-bottom: 8px;
+  //margin-right: 8px;
 }
+.resize-handle-right {
+  position: absolute;
+  height: calc(100% - 2em);
+  cursor: col-resize;
+  width: 6px;
+  right: 0;
+  z-index: 9999999 !important;
+}
+.resize-handle-bottom{
+  position: absolute;
+  bottom: 0;
+  height: 6px;
+  cursor: row-resize;
+  width: 100%;
+  z-index: 9999999 !important;
+}
+
 
 .fullScreenSize {
   width: 100vw !important;

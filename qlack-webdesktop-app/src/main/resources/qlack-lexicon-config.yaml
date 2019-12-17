@@ -42,6 +42,8 @@ translations:
     - keyEdit: Key Edit
     - keyCreate: Key Create
     - save: Save
+    - itemsPerPage: items per page
+    - rangeLabel: of
 - group: translations-management-ui
   locale: el
   keys:
@@ -56,7 +58,8 @@ translations:
     - keyEdit: Επεξεργασία κλειδιού
     - keyCreate: Δημιουργία κλειδιού
     - save: Αποθήκευση
-
+    - itemsPerPage: αντικείμενα ανά σελίδα
+    - rangeLabel: από
 - group: management-app-ui
   locale: en
   keys:

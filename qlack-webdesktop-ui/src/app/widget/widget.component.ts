@@ -9,7 +9,7 @@ import {
 } from "@angular/core";
 import {DomSanitizer} from '@angular/platform-browser';
 import {CdkDragEnd} from '@angular/cdk/drag-drop';
-import {ResizedEvent} from 'angular-resize-event';
+import {ResizeEvent} from 'angular-resizable-element';
 
 @Component({
   selector: 'app-widget',
@@ -33,7 +33,7 @@ export class WidgetComponent implements OnChanges, OnInit {
   @Input() isMinimizable: boolean = true;
   @Input() isMaximizable: boolean = true;
   @Input() isClosable: boolean = true;
-  @Input() isResizable: boolean = true;
+  @Input() isResizable: boolean ;
   @Input() width?: number;
   @Input() height?: number;
   @Input() minHeight?: number;
@@ -169,18 +169,24 @@ export class WidgetComponent implements OnChanges, OnInit {
     this.onMaximize.emit(event);
   }
 
-  onResized(event: ResizedEvent) {
-    this.displayIframe = false;
-    setTimeout(() => {
-      this.displayIframe = true;
-    }, 1000);
-    this.width = event.newWidth;
-    this.height = event.newHeight;
-  }
-
   zIndexPlusOne() {
     if (!this.isMaximized) {
       this.zIndex = WidgetComponent.zIndexCounter++;
     }
   }
+
+  onResizeEnd($event: ResizeEvent) {
+    this.displayIframe = true;
+  }
+  onResizeStart($event: ResizeEvent) {
+    this.displayIframe = false;
+
+  }
+
+  onResize($event: ResizeEvent) {
+    this.width = $event.rectangle.width;
+    this.height = $event.rectangle.height;
+  }
+
+
 }

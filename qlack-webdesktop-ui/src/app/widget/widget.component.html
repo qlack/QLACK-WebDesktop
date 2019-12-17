@@ -9,8 +9,7 @@
      [cdkDragFreeDragPosition]="widgetPosition"
      [class.widgetMinimized]="isMinimized && !isSmallScreen" [style.left]="yPosition" [style.top]="xPosition"
      [style.z-index]="zIndex" cdkDrag
-     cdkDragBoundary=".widget-boundary" class="widget"
-     resizeBorder>
+     cdkDragBoundary=".widget-boundary" class="widget">
 
   <div (click)="widgetClicked()" *ngIf="isMinimized && !isSmallScreen" class="widgetAsIcon">
     <div *ngIf="!(!!iconImageSrc)">{{ applicationName + '.title' | translate  }}</div>
@@ -45,13 +44,24 @@
       </div>
     </div>
   </div>
-  <div (resized)="onResized($event)" [class.displayContent]="isMinimized"
+  <div  [class.displayContent]="isMinimized"
        [class.fullScreenSize]="isMaximized && !isSmallScreen"
-       [offset]="8"
-       [resizeBottom]="isResizable" [resizeRight]="isResizable" [style.height.px]="height"
+        [style.height.px]="height"
        [style.min-height.px]="minHeight" [style.min-width.px]="minWidth" [style.width.px]="width" class="content"
-       resizeBorder>
-    <div [style.min-height.px]="minHeight" [style.min-width.px]="minWidth" class="iframe-container">
+        mwlResizable
+        [enableGhostResize]="false"
+        (resizeEnd)="onResizeEnd($event)" (resizeStart)="onResizeStart($event)" (resizing)="onResize($event)">
+    <div
+        class="resize-handle-bottom"
+        mwlResizeHandle
+        [resizeEdges]="{ bottom: isResizable }"
+    ></div>
+    <div
+        class="resize-handle-right"
+        mwlResizeHandle
+        [resizeEdges]="{ right: isResizable }"
+    ></div>
+    <div  [style.min-height.px]="minHeight" [style.min-width.px]="minWidth" class="iframe-container" >
       <iframe [src]="safeAppUrl" [style.display]="displayIframe ? 'block' : 'none'"></iframe>
     </div>
   </div>

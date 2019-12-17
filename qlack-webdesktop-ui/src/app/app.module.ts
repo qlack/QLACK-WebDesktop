@@ -17,14 +17,13 @@ import {AppComponent} from './app.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {WidgetComponent} from './widget/widget.component';
 import {DragDropModule} from '@angular/cdk/drag-drop';
-import {ResizeBorderModule} from 'resize-border';
 import {HeaderComponent} from './common/header/header.component';
-import {AngularResizedEventModule} from 'angular-resize-event';
 import {HttpClient, HttpClientModule} from '@angular/common/http';
 import {WidgetService} from "./widget.service";
 import {StartMenuComponent} from "./common/start-menu/start-menu.component";
 import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
+import {ResizableModule} from 'angular-resizable-element';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, "/apps/translations?lang=", "");
@@ -48,11 +47,9 @@ export function HttpLoaderFactory(http: HttpClient) {
     MatInputModule,
     MatGridListModule,
     MatTooltipModule,
-    ResizeBorderModule,
     DragDropModule,
     MatIconModule,
     MatMenuModule,
-    AngularResizedEventModule,
     HttpClientModule,
     MatDividerModule,
     TranslateModule.forRoot({
@@ -61,7 +58,8 @@ export function HttpLoaderFactory(http: HttpClient) {
         useFactory: HttpLoaderFactory,
         deps: [HttpClient]
       }
-    })
+    }),
+    ResizableModule
   ],
   providers: [WidgetService],
   bootstrap: [AppComponent],
