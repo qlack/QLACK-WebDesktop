@@ -1,6 +1,6 @@
 <!-- img icon stays at init widget position-->
 <div (click)="zIndexPlusOne()" (dblclick)="widgetMinimized()" *ngIf="!!iconImageSrc &&  isActive"
-     class="position">
+     [class.widgetOnAppBar]="!isMinimized" [class.widgetOnAppBarMinimized]="isMinimized">
   <img [src]="safeIconImageSrc">
 </div>
 

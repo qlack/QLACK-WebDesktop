@@ -16,27 +16,40 @@
   }
 }
 
-.position {
+.widgetOnAppBar {
   width: 42px;
   height: 42px;
-
+  border-radius: 0px;
+  border-bottom: double black 2px;
+  //box-shadow: 0 11px 11px -3px rgb(65, 191, 169, 0.8), 0 8px 10px 1px rgb(65, 191, 169, 0.6), 0 3px 14px 2px rgb(65, 191, 169, 0.5);
   &:hover {
-    background-color: rgba(255, 255, 255, 0.3);
+    background-color: rgba(255, 255, 255, 0.15);
   }
 }
 
-.position img {
+.widgetOnAppBar img {
   transform: translate(40%, 40%);
   width: 24px;
   height: 24px;
 }
 
+.widgetOnAppBarMinimized {
+  width: 42px;
+  height: 42px;
+}
+
+.widgetOnAppBarMinimized img {
+  transform: translate(40%, 40%);
+  width: 24px;
+  height: 24px;
+}
+
+
+
 .content {
-  padding: 0px;
+  padding: 0;
   min-width: 300px;
   min-height: 182px;
-  //margin-bottom: 8px;
-  //margin-right: 8px;
 }
 .resize-handle-right {
   position: absolute;
@@ -133,9 +146,13 @@
   overflow: hidden;
   min-width: auto;
   background-color: transparent;
-  border-radius: 0px;
-  border-bottom: double black 2px;
-  box-shadow: 0 11px 11px -3px rgb(65, 191, 169, 0.8), 0 8px 10px 1px rgb(65, 191, 169, 0.6), 0 3px 14px 2px rgb(65, 191, 169, 0.5);
+  box-shadow: none;
+  border-radius: 0;
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.15);
+  }
+
+
 }
 
 .widgetAsIcon {
