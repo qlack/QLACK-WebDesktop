@@ -59,7 +59,7 @@ export class WidgetComponent implements OnChanges, OnInit {
   yPosition?: string;
   tempWidth: number;
   tempHeight: number;
-  displayIframe: boolean = false;
+  displayIframe: boolean = true;
   zIndex?: number = 2;
   initDraggableValue: boolean;
 
