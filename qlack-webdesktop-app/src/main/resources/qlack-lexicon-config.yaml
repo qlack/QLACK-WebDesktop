@@ -31,35 +31,51 @@ translations:
 - group: translations-management-ui
   locale: en
   keys:
-    - header: Translations Management
     - languages: Languages
     - translations: Translations
+    - copyTranslations: Copy translations
     - cancel: Cancel
     - saveChanges: Save changes
     - groupName: Group Name
     - keyName: Key Name
     - create: Create
     - keyEdit: Key Edit
-    - keyCreate: Key Create
     - save: Save
     - itemsPerPage: items per page
     - rangeLabel: of
+    - changes: Changes
+    - saved: Saved!
+    - error: Error!
+    - errorMessage: Something went wrong
+    - inactive-active: Inactive/Active
+    - languageCreate: Language create
+    - languageName: Language name
+    - languageLocale: Language locale
+    - none: None
 - group: translations-management-ui
   locale: el
   keys:
-    - header: Διαχείριση Μεταφράσεων
     - languages: Γλώσσες
     - translations: Μεταφράσεις
+    - copyTranslations: Aντιγράψτε μεταφράσεις
     - cancel: Ακύρωση
     - saveChanges: Αποθηκεύστε  τις αλλαγές
     - groupName: Όνομα ομάδας
     - keyName: Όνομα κλειδιού
     - create: Δημιουργία
     - keyEdit: Επεξεργασία κλειδιού
-    - keyCreate: Δημιουργία κλειδιού
     - save: Αποθήκευση
     - itemsPerPage: αντικείμενα ανά σελίδα
     - rangeLabel: από
+    - changes: Οι αλλαγές
+    - saved: Αποθηκεύτηκαν
+    - error: Σφάλμα!
+    - errorMessage: Κάτι πήγε στραβά
+    - inactive-active: Ανενεργή/Ενεργή
+    - languageCreate: Δημιουργία γλώσσας
+    - languageName: Όνομα  γλώσσας
+    - languageLocale: Τοπικό γλώσσας
+    - none: Καμία
 - group: management-app-ui
   locale: en
   keys:
