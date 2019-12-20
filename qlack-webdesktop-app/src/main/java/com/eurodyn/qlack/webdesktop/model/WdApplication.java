@@ -2,9 +2,11 @@ package com.eurodyn.qlack.webdesktop.model;
 
 import com.eurodyn.qlack.common.model.QlackBaseModel;
 import java.util.List;
+
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import lombok.Getter;
@@ -20,6 +22,12 @@ import lombok.Setter;
 @Getter
 @Setter
 public class WdApplication extends QlackBaseModel {
+
+  /**
+   * Id
+   */
+  @Id
+  private String id;
 
   /**
    * Version

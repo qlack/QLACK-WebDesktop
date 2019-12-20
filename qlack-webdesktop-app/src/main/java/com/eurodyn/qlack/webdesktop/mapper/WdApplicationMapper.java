@@ -15,7 +15,7 @@ import org.mapstruct.ReportingPolicy;
 public interface WdApplicationMapper extends WdMapper<WdApplication, WdApplicationDTO> {
 
   @Override
-  @Mapping(source = "id", target = "id", ignore = true)
+  @Mapping(source = "id", target = "id")
   @Mapping(source = "checksum", target = "checksum", ignore = true)
   WdApplicationDTO mapToDTO(WdApplication entity);
 }

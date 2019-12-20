@@ -6,9 +6,12 @@ import com.eurodyn.qlack.webdesktop.dto.WdApplicationDTO;
 import com.eurodyn.qlack.webdesktop.service.WdApplicationService;
 import java.util.List;
 import java.util.Map;
+
+import javax.validation.Valid;
 import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -77,4 +80,14 @@ public class WdApplicationController {
     return wdApplicationService.findTranslationsForLocale(lang);
   }
 
+  /**
+   * Get a signle Web Desktop application by id.
+   *
+   * @param id the application's id.
+   * @return a signle Web Desktop application.
+   */
+  @GetMapping("{id}")
+  public WdApplicationDTO getApplicationById(@Valid @PathVariable String id) {
+    return wdApplicationService.findApplicationById(id);
+  }
 }

@@ -81,7 +81,7 @@ translations:
   keys:
     - header: Applications Management
     - title: Name
-    - image: Image
+    - icon: Image
     - description: Description
     - version: Version
     - cancel: Cancel
@@ -89,14 +89,35 @@ translations:
     - save: Save
     - pagination: Items per page
     - newApplication: New Application
-    - proxyPath: Proxy path
-    - url: URL
+    - editApplication: Edit Application
+    - proxyPath: Proxy Path
+    - appIndex: Application Index
+    - iconSmall: Icon Small
+    - width: Width
+    - minWidth: Min Width
+    - height: Height
+    - minHeight: Min Height
+    - addedOn: Added On
+    - lastDeployedOn: Last Deployed On
+    - groupName: Group Name
+    - multipleInstances: Multiple Instances
+    - resizable: Resizable
+    - minimizable: Minimizable
+    - closable: Closable
+    - draggable: Draggable
+    - system: System
+    - showTitle: Show Title
+    - active: Active
+    - restrictAccess: Restrict Access
+    - newApp: New Application
+    - editApp: Edit Application
+
 - group: management-app-ui
   locale: el
   keys:
     - header: Διαχείριση Εφαρμογών
     - title: Όνομα
-    - image: Εικόνα
+    - icon: Εικόνα
     - description: Περιγραφή
     - version: Έκδοση
     - cancel: Άκυρο
@@ -104,5 +125,25 @@ translations:
     - save: Αποθήκευση
     - pagination: Αποτελέσματα ανά σελίδα
     - newApplication: Νέα εφαρμογή
-    - proxyPath: Proxy path
-    - url: URL
+    - editApplication: Επεξεργασία εφαρμογής
+    - proxyPath: Proxy Path
+    - appIndex: Application Index
+    - iconSmall: Μικρή εικόνα
+    - width: Μήκος
+    - minWidth: Ελάχιστο μήκος
+    - height: Ύψος
+    - minHeight: Ελάχιστο ύψος
+    - addedOn: Προστέθηκε
+    - lastDeployedOn: Τελευταία επεξεργασία
+    - groupName: Όνομα ομάδας
+    - multipleInstances: Πολλαπλά παράθυρα
+    - resizable: Αλλαγή διαστάσεων
+    - minimizable: Ελαχιστοποίηση
+    - closable: Closable
+    - draggable: Draggable
+    - system: Σύστημα
+    - showTitle: Εμφάνιση τίτλου
+    - active: Ενεργό
+    - restrictAccess: Περιορισμένη πρόσβαση
+    - newApp: Νέα εφαρμογή
+    - editApp: Επεξεργασία εφαρμογής

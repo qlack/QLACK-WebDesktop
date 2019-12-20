@@ -5,9 +5,12 @@ import com.eurodyn.qlack.webdesktop.dto.WdApplicationDTO;
 import com.eurodyn.qlack.webdesktop.mapper.WdApplicationMapper;
 import com.eurodyn.qlack.webdesktop.model.WdApplication;
 import com.eurodyn.qlack.webdesktop.repository.WdApplicationRepository;
+
 import java.util.List;
 import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
@@ -75,5 +78,35 @@ public class WdApplicationService {
    */
   public Map<String, Map<String, String>> findTranslationsForLocale(String locale) {
     return keyService.getTranslationsForLocaleGroupByGroupTitle(locale);
+  }
+
+  /**
+   * Finds a Web Desktop application by id.
+   *
+   * @param id the application id.
+   * @return a single web desktop application.
+   */
+  public WdApplicationDTO findApplicationById(String id) {
+    WdApplication wdApplication = wdApplicationRepository.fetchById(id);
+    return mapper.mapToDTO(wdApplication);
+  }
+
+  /**
+   * Saves a new wd application or updates an existing one.
+   *
+   * @param wdApplicationDTO the application to be saved/updated
+   * @return the response entity
+   */
+  public ResponseEntity<WdApplication> updateApplication(WdApplicationDTO wdApplicationDTO){
+    WdApplication existingWdApp =
+        wdApplicationRepository.findByApplicationName(wdApplicationDTO.getApplicationName());
+    if (existingWdApp != null){
+      existingWdApp.setActive(wdApplicationDTO.isActive());
+      existingWdApp.setRestrictAccess(wdApplicationDTO.isRestrictAccess());
+    } else {
+      existingWdApp = mapper.mapToEntity(wdApplicationDTO);
+    }
+    final WdApplication updatedEmployee = wdApplicationRepository.save(existingWdApp);
+    return ResponseEntity.ok(updatedEmployee);
   }
 }
