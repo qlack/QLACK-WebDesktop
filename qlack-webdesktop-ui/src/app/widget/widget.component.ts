@@ -64,7 +64,6 @@ export class WidgetComponent implements OnChanges, OnInit {
   zIndex?: number = 2;
   initDraggableValue: boolean;
 
-
   constructor(private sanitizer: DomSanitizer) {
   }
 
@@ -76,12 +75,10 @@ export class WidgetComponent implements OnChanges, OnInit {
     this.safeAppUrl = this.appUrl && this.sanitizer.bypassSecurityTrustResourceUrl(this.appUrl);
     this.initDraggableValue = this.isDraggable;
     this.zIndex = this.zIndex = ++WidgetComponent.zIndexCounter;
-    //this.widgetPosition =this.widgetCurrentPosition;
   }
 
   ngOnChanges(event: SimpleChanges) {
     if (event.isActive) {
-      let widgets: HTMLCollectionOf<Element> = document.getElementsByClassName("widget");
       if (event.isActive.currentValue == true) {
         this.onOpen.emit(event.isActive.currentValue);
       }
@@ -178,11 +175,9 @@ export class WidgetComponent implements OnChanges, OnInit {
 
   onResizeEnd($event: ResizeEvent) {
     this.displayIframe = true;
-    console.log($event.rectangle)
   }
   onResizeStart($event: ResizeEvent) {
     this.displayIframe = false;
-    console.log($event.rectangle)
 
   }
 
