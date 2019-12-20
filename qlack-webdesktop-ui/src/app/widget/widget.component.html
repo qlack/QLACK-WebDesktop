@@ -7,7 +7,7 @@
 <div (cdkDragEnded)="dragEnd($event)" (cdkDragMoved)="dragMoved($event)" (cdkDragReleased)="dragReleased($event)"
      (cdkDragStarted)="dragStart($event)" *ngIf="isActive" [cdkDragDisabled]="isSmallScreen || !isDraggable"
      [cdkDragFreeDragPosition]="widgetPosition"
-     [class.widgetMinimized]="isMinimized && !isSmallScreen" [style.left]="yPosition" [style.top]="xPosition"
+     [class.widgetMinimized]="isMinimized && !isSmallScreen" [style.top]="yPosition" [style.left]="xPosition"
      [style.z-index]="zIndex" cdkDrag
      cdkDragBoundary=".widget-boundary" class="widget">
 

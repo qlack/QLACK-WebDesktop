@@ -45,7 +45,7 @@ export class WidgetComponent implements OnChanges, OnInit {
   @Input() multipleInstances: boolean = false;
   @Input() applicationName?: string;
   @Input() iconSmallSrc?: string;
-  widgetPosition = {x: 0, y: 150};
+
   // 42 is the height of the div of image icon
   widgetMinimizedPosition = {x: 0, y: -42};
   safeIconImageSrc;
@@ -54,8 +54,9 @@ export class WidgetComponent implements OnChanges, OnInit {
   isMinimized = false;
   isSmallScreen = false;
   isMaximized = false;
+  widgetPosition = {x: 0, y: 150};
   widgetCurrentPosition = {x: 0, y: 150};
-  xPosition?: string;
+  xPosition?: string = '42px';
   yPosition?: string;
   tempWidth: number;
   tempHeight: number;
@@ -63,7 +64,8 @@ export class WidgetComponent implements OnChanges, OnInit {
   zIndex?: number = 2;
   initDraggableValue: boolean;
 
-  constructor(private sanitizer: DomSanitizer,) {
+
+  constructor(private sanitizer: DomSanitizer) {
   }
 
   ngOnInit() {
@@ -71,18 +73,16 @@ export class WidgetComponent implements OnChanges, OnInit {
         this.iconImageSrc);
     this.safeSmallIconImageSrc = this.iconSmallSrc && this.sanitizer.bypassSecurityTrustResourceUrl(
         this.iconSmallSrc);
-    this.safeAppUrl = this.appUrl && this.sanitizer.bypassSecurityTrustResourceUrl(this.appUrl)
+    this.safeAppUrl = this.appUrl && this.sanitizer.bypassSecurityTrustResourceUrl(this.appUrl);
     this.initDraggableValue = this.isDraggable;
     this.zIndex = this.zIndex = ++WidgetComponent.zIndexCounter;
+    //this.widgetPosition =this.widgetCurrentPosition;
   }
 
   ngOnChanges(event: SimpleChanges) {
     if (event.isActive) {
       let widgets: HTMLCollectionOf<Element> = document.getElementsByClassName("widget");
       if (event.isActive.currentValue == true) {
-
-        // this.yPosition = this.yPosition || `${Math.floor(Math.random() * 40) + 20}%`;
-        // this.xPosition = this.xPosition || `${Math.floor(Math.random() * 30) + 15}%`;
         this.onOpen.emit(event.isActive.currentValue);
       }
     }
@@ -114,6 +114,7 @@ export class WidgetComponent implements OnChanges, OnInit {
 
   widgetClicked() {
     if (!this.isMaximized) {
+      this.xPosition =  '42px';
       this.width = this.tempWidth;
       this.height = this.tempHeight;
       this.zIndex = WidgetComponent.zIndexCounter++;
@@ -148,7 +149,7 @@ export class WidgetComponent implements OnChanges, OnInit {
 
   widgetMaximized(event) {
     if (this.isMaximized) {
-      this.xPosition = undefined;
+      this.xPosition =  '42px';
       this.yPosition = undefined;
       this.widgetPosition = this.widgetCurrentPosition;
       this.zIndex = WidgetComponent.zIndexCounter++;
@@ -177,9 +178,11 @@ export class WidgetComponent implements OnChanges, OnInit {
 
   onResizeEnd($event: ResizeEvent) {
     this.displayIframe = true;
+    console.log($event.rectangle)
   }
   onResizeStart($event: ResizeEvent) {
     this.displayIframe = false;
+    console.log($event.rectangle)
 
   }
 
@@ -187,6 +190,5 @@ export class WidgetComponent implements OnChanges, OnInit {
     this.width = $event.rectangle.width;
     this.height = $event.rectangle.height;
   }
-
 
 }
