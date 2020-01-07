@@ -258,8 +258,9 @@ public class WdApplicationConfig implements ApplicationRunner {
         keyDTO.setGroupId(webDesktopUiGroupId);
         keyDTO.setName(appGroupName);
         String keyId = keyService.createKey(keyDTO, false);
+        String   modifiedGroupName = Character.toUpperCase(appGroupName.charAt(0)) + appGroupName.substring(1);
         keyService
-            .updateTranslationByLocale(keyId, DEFAULT_LANGUAGE_LOCALE, appGroupName);
+            .updateTranslationByLocale(keyId, DEFAULT_LANGUAGE_LOCALE, modifiedGroupName);
       }
     }
   }
