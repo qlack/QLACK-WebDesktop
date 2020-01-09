@@ -1,6 +1,7 @@
 import {Component, ComponentFactoryResolver, ViewChild, ViewContainerRef} from '@angular/core';
 import {Widget} from "../../widget";
 import {WidgetComponent} from "../../widget/widget.component";
+import {QNgPubSubService} from '@qlack/qng-pub-sub';
 
 
 @Component({
@@ -16,9 +17,13 @@ export class HeaderComponent {
   tempWidgetComponent: any;
   @ViewChild('widgetcontainer', {static: true, read: ViewContainerRef}) entry: ViewContainerRef;
 
-  constructor(private resolver: ComponentFactoryResolver) {
+  constructor(private resolver: ComponentFactoryResolver, private qPubSubService: QNgPubSubService) {
   }
 
+
+  publishTestMessage() {
+    this.qPubSubService.publish('QUserInfo','A test message!!!');
+  }
 
   initWidget(widget: Widget) {
     if (this.activeWidgetIndex(widget) != -1) {

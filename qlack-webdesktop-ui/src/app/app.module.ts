@@ -1,5 +1,5 @@
 import {BrowserModule} from '@angular/platform-browser';
-import {NgModule} from '@angular/core';
+import {NgModule, OnInit} from '@angular/core';
 import {
   MatButtonModule,
   MatDividerModule,
@@ -24,6 +24,7 @@ import {StartMenuComponent} from "./common/start-menu/start-menu.component";
 import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import {ResizableModule} from 'angular-resizable-element';
+import {QNgPubSubModule} from '@qlack/qng-pub-sub';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, "/apps/translations?lang=", "");
@@ -52,6 +53,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     MatMenuModule,
     HttpClientModule,
     MatDividerModule,
+    QNgPubSubModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,

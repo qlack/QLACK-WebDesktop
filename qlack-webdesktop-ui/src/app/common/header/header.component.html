@@ -4,6 +4,9 @@
   <ng-template #widgetcontainer></ng-template>
 
   <div class="right-side-area">
+    <button (click)="publishTestMessage()" mat-button>
+      <mat-icon>mail_outline</mat-icon>
+    </button>
     <button [routerLink]="'/login'" mat-button>
       <mat-icon>account_circle</mat-icon>
     </button>

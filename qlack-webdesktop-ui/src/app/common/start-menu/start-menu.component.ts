@@ -2,6 +2,7 @@ import {Component, EventEmitter, OnInit, Output, ViewEncapsulation} from '@angul
 import {Widget} from "../../widget";
 import {WidgetService} from "../../widget.service";
 import {TranslateService} from '@ngx-translate/core';
+import {QNgPubSubService} from '@qlack/qng-pub-sub';
 
 @Component({
   selector: 'app-start-menu',
@@ -15,15 +16,21 @@ export class StartMenuComponent implements OnInit {
   webDesktopUiLexiconGroup: string = 'webdesktop-ui';
   sortedWidgets = new Array<Widget[]>();
   columns = 4;
+  private allowedOrigins: string[] = [];
 
   @Output() onAppClick = new EventEmitter();
 
-  constructor(private widgetService: WidgetService, private translate: TranslateService) {
+  constructor(private widgetService: WidgetService, private translate: TranslateService, private qPubSubService: QNgPubSubService) {
   }
 
   ngOnInit() {
     this.widgetService.getActiveApplications().subscribe(applicationsList => {
+
       applicationsList.forEach((application, index) => {
+
+        // Add application url to the list of allowed origins for QPubSub
+        this.allowedOrigins.push(application.appIndex);
+
         this.translate.get(application.applicationName + '.title').subscribe(
             (titleTranslated: string) => {
               application.applicationTitle = titleTranslated;
@@ -56,6 +63,11 @@ export class StartMenuComponent implements OnInit {
         });
       })
 
+      // Add current host to QPubSub allowed origins
+      this.allowedOrigins.push(window.location.origin);
+      // Initialize QPubSub
+      this.qPubSubService.init('server', true, this.allowedOrigins);
+      this.qPubSubService.setLogActive(false);
     });
   }
 
