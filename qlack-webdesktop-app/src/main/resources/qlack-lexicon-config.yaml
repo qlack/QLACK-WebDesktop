@@ -3,9 +3,11 @@ groups:
   - name: webdesktop-ui
     description: webdesktopUi description
   - name: translations-management-ui
-    description: translations management description
+    description: translations of translations management application
   - name: management-app-ui
     description: translations of management applications
+  - name: user-profile-management-ui
+    description: translations of user profile management application
 languages:
 - name: "English"
   locale: "en"
@@ -147,3 +149,23 @@ translations:
     - restrictAccess: Περιορισμένη πρόσβαση
     - newApp: Νέα εφαρμογή
     - editApp: Επεξεργασία εφαρμογής
+
+- group: user-profile-management-ui
+  locale: en
+  keys:
+    - firstName: First Name
+    - lastName: Last Name
+    - defaultLanguage: Default Language
+    - profilePicture: Profile Picture
+    - backgroundImage: Background Image
+    - save: Save
+
+- group: user-profile-management-ui
+  locale: el
+  keys:
+    - firstName: Όνομα
+    - lastName: Επώνυμο
+    - defaultLanguage: Προεπιλεγμένη γλώσσα
+    - profilePicture: Εικόνα προφίλ
+    - backgroundImage: Εικόνα φόντου
+    - save: Αποθήκευση
