@@ -36,14 +36,14 @@ translations:
     - languages: Languages
     - translations: Translations
     - copyTranslations: Copy translations
-    - cancel: Cancel
+    - back: Back
     - saveChanges: Save changes
     - groupName: Group Name
     - keyName: Key Name
     - create: Create
     - keyEdit: Key Edit
     - save: Save
-    - itemsPerPage: items per page
+    - itemsPerPage: Items per page
     - rangeLabel: of
     - changes: Changes
     - saved: Saved!
@@ -60,14 +60,14 @@ translations:
     - languages: Γλώσσες
     - translations: Μεταφράσεις
     - copyTranslations: Aντιγράψτε μεταφράσεις
-    - cancel: Ακύρωση
+    - back: Επιστροφή
     - saveChanges: Αποθηκεύστε  τις αλλαγές
     - groupName: Όνομα ομάδας
     - keyName: Όνομα κλειδιού
     - create: Δημιουργία
     - keyEdit: Επεξεργασία κλειδιού
     - save: Αποθήκευση
-    - itemsPerPage: αντικείμενα ανά σελίδα
+    - itemsPerPage: Aντικείμενα ανά σελίδα
     - rangeLabel: από
     - changes: Οι αλλαγές
     - saved: Αποθηκεύτηκαν
@@ -76,7 +76,7 @@ translations:
     - inactive-active: Ανενεργή/Ενεργή
     - languageCreate: Δημιουργία γλώσσας
     - languageName: Όνομα  γλώσσας
-    - languageLocale: Τοπικό γλώσσας
+    - languageLocale: Locale γλώσσας
     - none: Καμία
 - group: management-app-ui
   locale: en
