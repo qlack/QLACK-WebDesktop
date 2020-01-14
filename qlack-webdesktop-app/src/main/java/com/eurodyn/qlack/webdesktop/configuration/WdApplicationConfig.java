@@ -150,6 +150,11 @@ public class WdApplicationConfig implements ApplicationRunner {
 
         } else if (!existingWdApp.getChecksum().equals(sha256)) {
           log.info(APP_UPDATE_MSG);
+
+          if (existingWdApp.isEditedByUI()){
+            wdApplication.setActive(existingWdApp.isActive());
+            wdApplication.setRestrictAccess(existingWdApp.isRestrictAccess());
+          }
           wdApplication.setId(existingWdApp.getId());
           processWdApplication(wdApplication, sha256);
           processLexiconValues(wdApplication.getLexicon(), wdApplication);

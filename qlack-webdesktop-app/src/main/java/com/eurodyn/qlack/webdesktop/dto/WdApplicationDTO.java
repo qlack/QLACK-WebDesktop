@@ -3,6 +3,11 @@ package com.eurodyn.qlack.webdesktop.dto;
 import java.util.Date;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.validator.constraints.UniqueElements;
+
+import javax.persistence.Column;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 
 /**
  * Data Transfer Object for WdApplication.
@@ -21,16 +26,19 @@ public class WdApplicationDTO {
   /**
    * Version
    */
+  @NotNull
   private String version;
 
   /**
    * Reverse proxy path
    */
+  @NotNull
   private String proxyPath;
 
   /**
    * Presentation order index No.
    */
+  @NotNull
   private String appIndex;
 
 
@@ -47,31 +55,37 @@ public class WdApplicationDTO {
   /**
    * Icon
    */
+  @NotNull
   private String icon;
 
   /**
    * Thumb icon
    */
+  @NotNull
   private String iconSmall;
 
   /**
    * Width of the application window
    */
+  @Min(value = 100)
   private int width;
 
   /**
    * Minimum width of the application window
    */
+  @Min(value = 100)
   private int minWidth;
 
   /**
    * Height of the application window
    */
+  @Min(value = 100)
   private int height;
 
   /**
    * Minimum height of the application window
    */
+  @Min(value = 100)
   private int minHeight;
 
   /**
@@ -102,6 +116,7 @@ public class WdApplicationDTO {
   /**
    * The application name
    */
+  @NotNull
   private String applicationName;
 
 
@@ -139,6 +154,21 @@ public class WdApplicationDTO {
    * The name of the group that might the application belongs to.
    */
   private String groupName;
+
+  /***
+   * If the application is created or edited by UI.
+   */
+  private boolean editedByUI;
+
+  /**
+   * Placeholder for title when created from UI.
+   */
+  private String title;
+
+  /**
+   * Placeholder for description when created from UI.
+   */
+  private String description;
 
   /**
    * Set the {@link java.util.Date} based on a long value

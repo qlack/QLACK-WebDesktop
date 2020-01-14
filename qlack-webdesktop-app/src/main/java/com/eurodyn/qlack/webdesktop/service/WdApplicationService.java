@@ -10,7 +10,6 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
@@ -92,21 +91,21 @@ public class WdApplicationService {
   }
 
   /**
-   * Saves a new wd application or updates an existing one.
+   * Finds and returns an application by applicationName field
    *
-   * @param wdApplicationDTO the application to be saved/updated
-   * @return the response entity
+   * @param name the applicationName field
+   * @return the application object
    */
-  public ResponseEntity<WdApplication> updateApplication(WdApplicationDTO wdApplicationDTO){
-    WdApplication existingWdApp =
-        wdApplicationRepository.findByApplicationName(wdApplicationDTO.getApplicationName());
-    if (existingWdApp != null){
-      existingWdApp.setActive(wdApplicationDTO.isActive());
-      existingWdApp.setRestrictAccess(wdApplicationDTO.isRestrictAccess());
-    } else {
-      existingWdApp = mapper.mapToEntity(wdApplicationDTO);
-    }
-    final WdApplication updatedEmployee = wdApplicationRepository.save(existingWdApp);
-    return ResponseEntity.ok(updatedEmployee);
+  public WdApplication findApplicationByName(String name){
+    return wdApplicationRepository.findByApplicationName(name);
+  }
+
+  /**
+   * Saves an application to database
+   *
+   * @param wdApplication the object to be saved
+   */
+  public void saveApplication(WdApplication wdApplication){
+    wdApplicationRepository.save(wdApplication);
   }
 }

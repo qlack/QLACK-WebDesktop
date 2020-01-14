@@ -2,10 +2,13 @@ package com.eurodyn.qlack.webdesktop.model;
 
 import com.eurodyn.qlack.common.model.QlackBaseModel;
 import java.util.List;
+import java.util.UUID;
 
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Transient;
@@ -22,12 +25,6 @@ import lombok.Setter;
 @Getter
 @Setter
 public class WdApplication extends QlackBaseModel {
-
-  /**
-   * Id
-   */
-  @Id
-  private String id;
 
   /**
    * Version
@@ -47,7 +44,7 @@ public class WdApplication extends QlackBaseModel {
    * Presentation order index No.
    */
   @Basic
-  @Column(name = "app_index", nullable = false, length = 256)
+  @Column(name = "app_index", length = 256)
   private String appIndex;
 
   /**
@@ -145,7 +142,7 @@ public class WdApplication extends QlackBaseModel {
    * The translations group
    */
   @Basic
-  @Column(name = "application_name", nullable = false)
+  @Column(name = "application_name", unique = true)
   private String applicationName;
 
   /**
@@ -216,4 +213,11 @@ public class WdApplication extends QlackBaseModel {
   @Basic
   @Column(name = "sensitive_headers", length = 256)
   private String sensitiveHeaders;
+
+  /**
+   * If the app is edited or created by UI.
+   */
+  @Basic
+  @Column(name = "edited_by_ui", nullable = false)
+  private boolean editedByUI;
 }

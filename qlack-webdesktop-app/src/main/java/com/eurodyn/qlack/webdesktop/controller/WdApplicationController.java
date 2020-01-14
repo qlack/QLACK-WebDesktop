@@ -87,7 +87,7 @@ public class WdApplicationController {
    * @return a signle Web Desktop application.
    */
   @GetMapping("{id}")
-  public WdApplicationDTO getApplicationById(@Valid @PathVariable String id) {
+  public WdApplicationDTO getApplicationById(@PathVariable String id) {
     return wdApplicationService.findApplicationById(id);
   }
 }

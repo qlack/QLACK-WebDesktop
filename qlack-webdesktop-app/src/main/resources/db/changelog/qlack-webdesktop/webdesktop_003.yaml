@@ -1,0 +1,14 @@
+databaseChangeLog:
+  - changeSet:
+      id: webdesktop_003
+      author: European Dynamics SA.
+      changes:
+        - addColumn:
+            tableName: wd_application
+            columns:
+              - column:
+                  name: edited_by_ui
+                  type: boolean
+                  defaultValue: false
+                  constraints:
+                    nullable: false

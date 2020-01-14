@@ -102,6 +102,7 @@ translations:
     - addedOn: Added On
     - lastDeployedOn: Last Deployed On
     - groupName: Group Name
+    - applicationName: Application Name
     - multipleInstances: Multiple Instances
     - resizable: Resizable
     - minimizable: Minimizable
@@ -113,6 +114,16 @@ translations:
     - restrictAccess: Restrict Access
     - newApp: New Application
     - editApp: Edit Application
+    - tableDescription: Applications List
+    - properties: Properties
+    - error: Error
+    - dismiss: Dismiss
+    - success: Success
+    - systemApp: System Applications
+    - applications: Applications
+    - users: Users
+    - upload: Upload
+    - uniqueMessage: Must be unique
 
 - group: management-app-ui
   locale: el
@@ -129,7 +140,7 @@ translations:
     - newApplication: Νέα εφαρμογή
     - editApplication: Επεξεργασία εφαρμογής
     - proxyPath: Proxy Path
-    - appIndex: Application Index
+    - appIndex: Διαδρομή εφαρμογής
     - iconSmall: Μικρή εικόνα
     - width: Μήκος
     - minWidth: Ελάχιστο μήκος
@@ -138,17 +149,28 @@ translations:
     - addedOn: Προστέθηκε
     - lastDeployedOn: Τελευταία επεξεργασία
     - groupName: Όνομα ομάδας
+    - applicationName: Όνομα εφαρμογής
     - multipleInstances: Πολλαπλά παράθυρα
     - resizable: Αλλαγή διαστάσεων
     - minimizable: Ελαχιστοποίηση
-    - closable: Closable
-    - draggable: Draggable
+    - closable: Κλεινόμενο
+    - draggable: Συρόμενο
     - system: Σύστημα
     - showTitle: Εμφάνιση τίτλου
     - active: Ενεργό
     - restrictAccess: Περιορισμένη πρόσβαση
     - newApp: Νέα εφαρμογή
     - editApp: Επεξεργασία εφαρμογής
+    - tableDescription: Λίστα εφαρμογών
+    - properties: Ιδιότητες
+    - error: Σφάλμα
+    - dismiss: Κλείσιμο
+    - success: Επιτυχία
+    - systemApp: Εφαρμογές Συστήματος
+    - applications: Εφαρμογές
+    - users: Χρήστες
+    - upload: Εισαγωγή αρχείου
+    - uniqueMessage: Πρέπει να είναι μοναδικό
 
 - group: user-profile-management-ui
   locale: en
