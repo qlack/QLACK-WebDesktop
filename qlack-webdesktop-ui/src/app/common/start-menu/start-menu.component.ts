@@ -29,7 +29,7 @@ export class StartMenuComponent implements OnInit {
       applicationsList.forEach((application, index) => {
 
         // Add application url to the list of allowed origins for QPubSub
-        this.allowedOrigins.push(application.appIndex);
+        this.allowedOrigins.push(application.appUrl);
 
         this.translate.get(application.applicationName + '.title').subscribe(
             (titleTranslated: string) => {

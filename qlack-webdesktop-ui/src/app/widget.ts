@@ -1,5 +1,5 @@
 export class Widget {
-  appIndex: string;
+  proxyAppUrl: string;
   icon: string;
   iconSmall: string;
   closable: boolean;

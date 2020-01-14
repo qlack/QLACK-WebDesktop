@@ -34,20 +34,6 @@ public class WdApplication extends QlackBaseModel {
   private String version;
 
   /**
-   * Reverse proxy path
-   */
-  @Basic
-  @Column(name = "proxy_path", length = 256)
-  private String proxyPath;
-
-  /**
-   * Presentation order index No.
-   */
-  @Basic
-  @Column(name = "app_index", length = 256)
-  private String appIndex;
-
-  /**
    * Whether multiple instance of this application are allowed to run
    */
   @Basic
@@ -201,7 +187,7 @@ public class WdApplication extends QlackBaseModel {
   private String groupName;
 
   /**
-   * Strip reverse proxy path prefix when forwarding to the matching url (appIndex)
+   * Strip reverse proxy path prefix when forwarding to the matching url (appUrl)
    */
   @Basic
   @Column(name = "strip_prefix", nullable = false)
@@ -220,4 +206,26 @@ public class WdApplication extends QlackBaseModel {
   @Basic
   @Column(name = "edited_by_ui", nullable = false)
   private boolean editedByUI;
+
+  /**
+   * Reverse proxy path rule
+   */
+  @Basic
+  @Column(name = "proxy_path", length = 256)
+  private String proxyPath;
+
+  /**
+   * Reverse proxy application url
+   */
+  @Basic
+  @Column(name = "proxy_app_url", length = 256)
+  private String proxyAppUrl;
+
+  /**
+   * Presentation order index No.
+   */
+  @Basic
+  @Column(name = "app_url", length = 256)
+  private String appUrl;
+
 }

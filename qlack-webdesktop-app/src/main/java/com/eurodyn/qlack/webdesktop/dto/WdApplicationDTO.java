@@ -1,6 +1,8 @@
 package com.eurodyn.qlack.webdesktop.dto;
 
 import java.util.Date;
+
+import javax.persistence.Basic;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.validator.constraints.UniqueElements;
@@ -28,19 +30,6 @@ public class WdApplicationDTO {
    */
   @NotNull
   private String version;
-
-  /**
-   * Reverse proxy path
-   */
-  @NotNull
-  private String proxyPath;
-
-  /**
-   * Presentation order index No.
-   */
-  @NotNull
-  private String appIndex;
-
 
   /**
    * Whether multiple instance of this application are allowed to run
@@ -169,6 +158,24 @@ public class WdApplicationDTO {
    * Placeholder for description when created from UI.
    */
   private String description;
+
+  /**
+   * Reverse proxy path
+   */
+  @NotNull
+  private String proxyPath;
+
+  /**
+   * Reverse proxy application url
+   */
+  @NotNull
+  private String proxyAppUrl;
+
+  /**
+   * Presentation order index No.
+   */
+  @NotNull
+  private String appUrl;
 
   /**
    * Set the {@link java.util.Date} based on a long value

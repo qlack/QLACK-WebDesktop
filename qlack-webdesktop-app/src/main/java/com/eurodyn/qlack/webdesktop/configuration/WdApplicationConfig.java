@@ -108,7 +108,7 @@ public class WdApplicationConfig implements ApplicationRunner {
 
     // Register Reverse Proxy Routes from database
     for (WdApplication app : wdApplicationRepository.findByActiveIsTrue()) {
-      if (isNotNullOrEmpty(app.getProxyPath()) && isNotNullOrEmpty(app.getAppIndex())) {
+      if (isNotNullOrEmpty(app.getProxyPath()) && isNotNullOrEmpty(app.getAppUrl())) {
         log.info(LOAD_ROUTES_FROM_DB_MSG);
         registerReverseProxyRouteFromWdApp(app);
       }
@@ -189,7 +189,7 @@ public class WdApplicationConfig implements ApplicationRunner {
    * @param wdApplication the {@link com.eurodyn.qlack.webdesktop.model.WdApplication} object
    */
   private void registerReverseProxyRouteFromWdApp(WdApplication wdApplication) {
-    registerReverseProxyRoute(wdApplication.getProxyPath(), wdApplication.getAppIndex(),
+    registerReverseProxyRoute(wdApplication.getProxyPath(), wdApplication.getAppUrl(),
         wdApplication.isStripPrefix(),
         wdApplication.getSensitiveHeaders().split(COMMA_REGEX)
     );

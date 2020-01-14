@@ -49,7 +49,7 @@ export class HeaderComponent {
 
   activeWidgetIndex(widget: Widget) {
     for (let i = 0; i < this.activeWidgetComponents.length; i++) {
-      if (this.activeWidgetComponents[i].instance.appUrl == widget.appIndex) {
+      if (this.activeWidgetComponents[i].instance.proxyAppUrl == widget.proxyAppUrl) {
         return i;
       }
     }
@@ -73,7 +73,7 @@ export class HeaderComponent {
     this.tempWidgetComponent.instance.multipleInstances = widget.multipleInstances;
     this.tempWidgetComponent.instance.iconImageSrc = widget.icon;
     this.tempWidgetComponent.instance.applicationName = widget.applicationName;
-    this.tempWidgetComponent.instance.appUrl = widget.appIndex;
+    this.tempWidgetComponent.instance.proxyAppUrl = widget.proxyAppUrl;
     this.tempWidgetComponent.instance.Id = HeaderComponent.widgetId++;
     this.tempWidgetComponent.instance.iconSmallSrc = widget.iconSmall;
     this.tempWidgetComponent.instance.onClose.subscribe(id => {

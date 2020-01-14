@@ -40,7 +40,7 @@ export class WidgetComponent implements OnChanges, OnInit {
   @Input() minWidth?: number;
   @Input() Id?: number;
   @Input() iconImageSrc?: string;
-  @Input() appUrl?: string;
+  @Input() proxyAppUrl?: string;
   @Input() showTitle: boolean = false;
   @Input() multipleInstances: boolean = false;
   @Input() applicationName?: string;
@@ -72,7 +72,7 @@ export class WidgetComponent implements OnChanges, OnInit {
         this.iconImageSrc);
     this.safeSmallIconImageSrc = this.iconSmallSrc && this.sanitizer.bypassSecurityTrustResourceUrl(
         this.iconSmallSrc);
-    this.safeAppUrl = this.appUrl && this.sanitizer.bypassSecurityTrustResourceUrl(this.appUrl);
+    this.safeAppUrl = this.proxyAppUrl && this.sanitizer.bypassSecurityTrustResourceUrl(this.proxyAppUrl);
     this.initDraggableValue = this.isDraggable;
     this.zIndex = this.zIndex = ++WidgetComponent.zIndexCounter;
   }
