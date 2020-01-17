@@ -2,6 +2,8 @@ import {Component, ComponentFactoryResolver, ViewChild, ViewContainerRef} from '
 import {Widget} from "../../widget";
 import {WidgetComponent} from "../../widget/widget.component";
 import {QNgPubSubService} from '@qlack/qng-pub-sub';
+import {QPubSub} from '@qlack/qpubsub';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 
 @Component({
@@ -17,12 +19,7 @@ export class HeaderComponent {
   tempWidgetComponent: any;
   @ViewChild('widgetcontainer', {static: true, read: ViewContainerRef}) entry: ViewContainerRef;
 
-  constructor(private resolver: ComponentFactoryResolver, private qPubSubService: QNgPubSubService) {
-  }
-
-
-  publishTestMessage() {
-    this.qPubSubService.publish('QUserInfo','A test message!!!');
+  constructor(private resolver: ComponentFactoryResolver) {
   }
 
   initWidget(widget: Widget) {

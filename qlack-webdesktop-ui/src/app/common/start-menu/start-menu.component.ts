@@ -3,6 +3,8 @@ import {Widget} from "../../widget";
 import {WidgetService} from "../../widget.service";
 import {TranslateService} from '@ngx-translate/core';
 import {QNgPubSubService} from '@qlack/qng-pub-sub';
+import {QPubSub} from '@qlack/qpubsub';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-start-menu',
@@ -20,7 +22,7 @@ export class StartMenuComponent implements OnInit {
 
   @Output() onAppClick = new EventEmitter();
 
-  constructor(private widgetService: WidgetService, private translate: TranslateService, private qPubSubService: QNgPubSubService) {
+  constructor(private widgetService: WidgetService, private translate: TranslateService, private qPubSubService: QNgPubSubService, private _snackBar: MatSnackBar) {
   }
 
   ngOnInit() {
@@ -37,7 +39,7 @@ export class StartMenuComponent implements OnInit {
             }).add(() => {
           this.translate.get(this.webDesktopUiLexiconGroup + '.' + application.groupName).subscribe(
               (groupTranslated: string) => {
-                if (groupTranslated == "webdesktop-ui."){
+                if (groupTranslated == "webdesktop-ui.") {
                   application.groupTranslated = "";
                 } else {
                   application.groupTranslated = groupTranslated;
@@ -68,10 +70,17 @@ export class StartMenuComponent implements OnInit {
       // Initialize QPubSub
       this.qPubSubService.init('server', true, this.allowedOrigins);
       this.qPubSubService.setLogActive(false);
+
+      // Subscribe to a predefined topic to read messages from WebDesktop
+      this.qPubSubService.subscribe('QNotifications', (message: QPubSub.Message) => {
+        this._snackBar.open(message.msg, 'Close', {
+          duration: 3000
+        });
+      });
     });
   }
 
-  onCreateMenuColumns(sortedWidgets : number) {
+  onCreateMenuColumns(sortedWidgets: number) {
     if (sortedWidgets > 4) {
       this.columns = 5;
     }

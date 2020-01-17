@@ -25,6 +25,7 @@ import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import {ResizableModule} from 'angular-resizable-element';
 import {QNgPubSubModule} from '@qlack/qng-pub-sub';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, "/apps/translations?lang=", "");
@@ -54,6 +55,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     HttpClientModule,
     MatDividerModule,
     QNgPubSubModule,
+    MatSnackBarModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
