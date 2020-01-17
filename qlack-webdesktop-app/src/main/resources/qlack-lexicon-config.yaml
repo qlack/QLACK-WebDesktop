@@ -124,6 +124,7 @@ translations:
     - users: Users
     - upload: Upload
     - uniqueMessage: Must be unique
+    - submit: Submit
 
 - group: management-app-ui
   locale: el
@@ -171,6 +172,19 @@ translations:
     - users: Χρήστες
     - upload: Εισαγωγή αρχείου
     - uniqueMessage: Πρέπει να είναι μοναδικό
+    - submit: Υποβολή
+    - Min.wdApplicationDTO.minWidth: Πρέπει να είναι μεγαλύτερο/ίσο του 50
+    - Min.wdApplicationDTO.width: Πρέπει να είναι μεγαλύτερο/ίσο του 50
+    - Min.wdApplicationDTO.minHeight: Πρέπει να είναι μεγαλύτερο/ίσο του 50
+    - Min.wdApplicationDTO.height: Πρέπει να είναι μεγαλύτερο/ίσο του 50
+    - NotNull.wdApplicationDTO.version: Δεν μπορεί να είναι κενό
+    - NotNull.wdApplicationDTO.proxyPath: Δεν μπορεί να είναι κενό
+    - NotNull.wdApplicationDTO.appIndex: Δεν μπορεί να είναι κενό
+    - NotNull.wdApplicationDTO.icon: Δεν μπορεί να είναι κενό
+    - NotNull.wdApplicationDTO.iconSmall: Δεν μπορεί να είναι κενό
+    - NotNull.wdApplicationDTO.applicationName: Δεν μπορεί να είναι κενό
+    - NotNull.wdApplicationDTO.title: Δεν μπορεί να είναι κενό
+    - NotNull.wdApplicationDTO.description: Δεν μπορεί να είναι κενό
 
 - group: user-profile-management-ui
   locale: en

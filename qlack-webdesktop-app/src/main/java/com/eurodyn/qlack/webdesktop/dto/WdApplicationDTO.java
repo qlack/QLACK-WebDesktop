@@ -56,25 +56,25 @@ public class WdApplicationDTO {
   /**
    * Width of the application window
    */
-  @Min(value = 100)
+  @Min(value = 50)
   private int width;
 
   /**
    * Minimum width of the application window
    */
-  @Min(value = 100)
+  @Min(value = 50)
   private int minWidth;
 
   /**
    * Height of the application window
    */
-  @Min(value = 100)
+  @Min(value = 50)
   private int height;
 
   /**
    * Minimum height of the application window
    */
-  @Min(value = 100)
+  @Min(value = 50)
   private int minHeight;
 
   /**
@@ -152,11 +152,13 @@ public class WdApplicationDTO {
   /**
    * Placeholder for title when created from UI.
    */
+  @NotNull
   private String title;
 
   /**
    * Placeholder for description when created from UI.
    */
+  @NotNull
   private String description;
 
   /**
