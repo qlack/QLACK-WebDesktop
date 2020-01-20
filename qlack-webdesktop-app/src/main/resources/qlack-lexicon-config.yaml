@@ -93,7 +93,7 @@ translations:
     - newApplication: New Application
     - editApplication: Edit Application
     - proxyPath: Proxy Path
-    - appIndex: Application Index
+    - appUrl: Application Url
     - iconSmall: Icon Small
     - width: Width
     - minWidth: Min Width
@@ -125,6 +125,9 @@ translations:
     - upload: Upload
     - uniqueMessage: Must be unique
     - submit: Submit
+    - proxyAppUrl: Proxy Application Url
+    - alreadyExistsCode: already exists
+    - the: The
 
 - group: management-app-ui
   locale: el
@@ -141,7 +144,7 @@ translations:
     - newApplication: Νέα εφαρμογή
     - editApplication: Επεξεργασία εφαρμογής
     - proxyPath: Proxy Path
-    - appIndex: Διαδρομή εφαρμογής
+    - appUrl: Διαδρομή εφαρμογής
     - iconSmall: Μικρή εικόνα
     - width: Μήκος
     - minWidth: Ελάχιστο μήκος
@@ -185,6 +188,9 @@ translations:
     - NotNull.wdApplicationDTO.applicationName: Δεν μπορεί να είναι κενό
     - NotNull.wdApplicationDTO.title: Δεν μπορεί να είναι κενό
     - NotNull.wdApplicationDTO.description: Δεν μπορεί να είναι κενό
+    - proxyAppUrl: Proxy Application Url
+    - alreadyExistsCode: υπάρχει ήδη
+    - the: Το
 
 - group: user-profile-management-ui
   locale: en
