@@ -1,0 +1,15 @@
+<mat-card>
+  <mat-card-header>File uploader</mat-card-header>
+  <mat-card-content>
+    <form [formGroup]="uploadForm">
+      <br>
+      <input type="file" accept=".yaml" (change)="changeListener($event)"/>
+      <br>
+    </form>
+  </mat-card-content>
+  <mat-card-actions>
+    <button type="submit" mat-button [disabled]="this.previewImageURL == null" (click)="submit()">{{'management-app-ui.submit' | translate}}</button>
+    <button mat-button (click)="this.close()">{{'management-app-ui.cancel' | translate}}</button>
+  </mat-card-actions>
+</mat-card>
+

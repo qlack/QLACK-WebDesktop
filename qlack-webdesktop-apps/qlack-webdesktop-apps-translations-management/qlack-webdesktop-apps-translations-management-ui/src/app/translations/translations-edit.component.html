@@ -1,0 +1,38 @@
+<mat-card>
+
+  <mat-card-title>{{'translations-management-ui.keyEdit' | translate}}</mat-card-title>
+  <mat-card-content>
+    <form #form="ngForm" (ngSubmit)="save(key)">
+      <div fxLayout="column">
+        <mat-form-field>
+          <mat-label>{{'translations-management-ui.groupName' | translate}}</mat-label>
+          <input matInput
+                 value="{{key.groupName}}" [(ngModel)]="key.groupName"
+                 name="groupName" [disabled]="true">
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>{{'translations-management-ui.keyName' | translate}}</mat-label>
+          <input matInput
+                 value="{{key.name}}" [(ngModel)]="key.name"
+                 name="keyName" [disabled]="true">
+        </mat-form-field>
+        <ng-container *ngFor="let language of languages">
+          <mat-form-field>
+            <mat-label>{{language.name}}</mat-label>
+            <input matInput
+                   value="{{key.translations[language.locale]}}" [(ngModel)]="key.translations[language.locale]"
+                   name="{{language.name}}">
+          </mat-form-field>
+        </ng-container>
+      </div>
+
+    </form>
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-button routerLink="/translations" type="button">{{'translations-management-ui.back' |
+        translate}}</button>
+    <button mat-button color="primary" type="submit"
+            [disabled]="!form.dirty">{{'translations-management-ui.save' |
+        translate}}</button>
+  </mat-card-actions>
+</mat-card>

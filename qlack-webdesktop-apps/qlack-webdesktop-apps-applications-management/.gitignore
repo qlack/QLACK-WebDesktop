@@ -1,0 +1,7 @@
+target/
+.idea/
+*.iml
+node_modules/
+node/
+*.log
+*.gz

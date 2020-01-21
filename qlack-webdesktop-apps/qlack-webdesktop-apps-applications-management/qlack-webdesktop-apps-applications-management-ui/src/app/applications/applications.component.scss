@@ -1,0 +1,35 @@
+@import "../shared/style/table-highlight-pointer";
+
+.profilePicImg {
+  width: 45px !important;
+  height: 45px !important;
+  margin-top: 5px !important;
+}
+
+span {
+  text-decoration: none;
+  display: inline-block;
+  border-radius: 4px;
+  transition: .3s;
+  padding: 8px 4px;
+}
+
+span:hover {
+  background-color: #ddd;
+  cursor: pointer;
+}
+
+button {
+  left: 24px;
+}
+
+.position {
+  padding: 8px 4px;
+  left: 8px;
+}
+
+.mat-card-title {
+  display: inline !important;
+  position: fixed;
+  left: 45px;
+}

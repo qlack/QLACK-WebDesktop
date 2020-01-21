@@ -1,0 +1,39 @@
+# application configuration
+---
+appUrl: 'http://localhost:4201/users'
+version: '3.0.0-SNAPSHOT'
+icon: 'http://localhost:8089/webdesktop/applications/management/icon/'
+iconSmall: 'http://localhost:8089/webdesktop/applications/management/icon/small/'
+width: '800'
+minWidth: '470'
+height: '500'
+minHeight: '450'
+active: true
+multipleInstances: false
+restrictAccess: false
+resizable: true
+draggable: true
+closable: true
+minimizable: true
+maximizable: true
+system: true
+showTitle: true
+stripPrefix: false
+sensitiveHeaders: 'aaa'
+proxyPath: 'aaa'
+applicationName: management
+editedByUI: false
+proxyAppUrl: 'aaa'
+lexicon:
+  - languageLocale: en
+    values:
+      - key: title
+        value: Applications/Users Management
+      - key: description
+        value: System application which manages the users and the applications.
+  - languageLocale: el
+    values:
+      - key: title
+        value: Διαχείρηση Εφαρμογών/Χρηστών
+      - key: description
+        value: Εφαρμογή συστήματος η οποία διαχειρίζεται τους χρήστες και τις εφαρμογές.

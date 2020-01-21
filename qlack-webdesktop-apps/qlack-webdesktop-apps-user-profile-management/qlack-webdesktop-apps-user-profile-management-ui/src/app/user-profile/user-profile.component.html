@@ -1,0 +1,62 @@
+<mat-card class="mat-card-padding">
+  <mat-card-content>
+    <div fxLayout="row wrap" fxLayout.lt-sm="column" fxLayoutAlign="flex-start" fxLayoutGap="15px">
+      <div fxFlex="0 1 calc(100%)" fxFlex.lt-md="0 1 calc(100%)" fxFlex.lt-sm="100%">
+        <img *ngIf="userDetailsDto.profileImage && !previewProfileImageURL"
+             src="data:image/png;base64,{{userDetailsDto.profileImage}}"
+             alt="profile Image" class="profileImage">
+        <img *ngIf="previewProfileImageURL"
+             [src]="previewProfileImageURL"
+             alt="profile Image" class="profileImage">
+        <img *ngIf="!userDetailsDto.profileImage && !previewProfileImageURL"
+             src="assets/img/empty.png"
+             alt="profile Image" class="profileImage">
+        <form [formGroup]="myForm" (ngSubmit)="save()">
+          <mat-form-field class="full-width-input">
+            <mat-label>{{'firstName' | translate}}</mat-label>
+            <input matInput
+                   formControlName="firstName">
+          </mat-form-field>
+          <br>
+          <mat-form-field class="full-width-input">
+            <mat-label>{{'lastName' | translate}}</mat-label>
+            <input matInput
+                   formControlName="lastName">
+          </mat-form-field>
+          <br>
+          <mat-form-field class="full-width-input">
+            <mat-label>{{'defaultLanguage' | translate}}</mat-label>
+            <mat-select formControlName="defaultLanguage">
+              <mat-option *ngFor="let language of languages" [value]="language.locale"
+              >{{language.name}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <br>
+          <mat-form-field class="full-width-input">
+            <ngx-mat-file-input #removableInput (change)="showProfileImagePreview($event)"
+                                placeholder="{{'profilePicture' | translate}}"></ngx-mat-file-input>
+            <button mat-icon-button matSuffix *ngIf="!removableInput.empty"
+                    (click)="removableInput.clear($event); clearProfileImagePreview()">
+              <mat-icon>clear</mat-icon>
+            </button>
+          </mat-form-field>
+          <br>
+          <div class="imagePreview" *ngIf="previewBackgroundImageURL">
+            <img [src]="previewBackgroundImageURL" width="150" height="150">
+          </div>
+          <mat-form-field class="full-width-input">
+            <ngx-mat-file-input #removableInput1 (change)="showBackgroundImagePreview($event)"
+                                placeholder="{{'backgroundImage' | translate}}"></ngx-mat-file-input>
+            <button mat-icon-button matSuffix *ngIf="!removableInput1.empty" (click)="removableInput1.clear($event);
+            clearBackgroundImagePreview()">
+              <mat-icon>clear</mat-icon>
+            </button>
+          </mat-form-field>
+          <br>
+          <button type="submit" mat-button [disabled]="">{{'save' | translate}}</button>
+        </form>
+      </div>
+    </div>
+  </mat-card-content>
+</mat-card>
+

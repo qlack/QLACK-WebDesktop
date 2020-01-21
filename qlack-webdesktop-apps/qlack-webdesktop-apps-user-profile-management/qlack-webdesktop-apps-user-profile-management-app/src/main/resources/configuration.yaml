@@ -1,0 +1,37 @@
+appUrl: "http://localhost:8083"
+proxyAppUrl: "http://localhost:8083"
+version: "3.0.0-SNAPSHOT"
+icon: "http://localhost:8083/webdesktop/user/profile/management/icon"
+iconSmall: "http://localhost:8081/webdesktop/user/profile/management/icon/small"
+width: "800"
+minWidth: "470"
+height: "500"
+minHeight: "450"
+active: true
+multipleInstances: false
+restrictAccess: false
+resizable: true
+draggable: true
+closable: true
+minimizable: true
+maximizable: true
+system: true
+showTitle: true
+stripPrefix: false
+sensitiveHeaders: ""
+proxyPath: a_path
+applicationName: User Profile Management
+groupName: system
+lexicon:
+  - languageLocale: en
+    values:
+      - key: title
+        value: User Profile Management
+      - key: description
+        value: System application which manages the user profile .
+  - languageLocale: el
+    values:
+      - key: title
+        value: Διαχείρηση Προφίλ Χρήστη
+      - key: description
+        value: Εφαρμογή συστήματος η οποία διαχειρίζεται το προφίλ χρήστη .

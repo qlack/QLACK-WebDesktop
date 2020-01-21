@@ -1,0 +1,33 @@
+/* You can add global styles to this file, and also import other style files */
+
+html, body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.custom-text {
+  color: #585858;
+  font-weight: 600;
+}
+
+.slidePadding {
+  padding: 5px;
+}
+
+.custom-slide-text {
+  margin-left: 10px;
+  font-size: 1.1em;
+  font-weight: 500;
+  color: #6c757d;
+  white-space: nowrap;
+}
+.position{
+  width: 100%;
+  padding-left: 16px;
+}
+
+
