@@ -11,12 +11,12 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @SpringBootApplication
 @EnableZuulProxy
 @EnableJpaRepositories({
-    "com.eurodyn.qlack.webdesktop.repository",
+    "com.eurodyn.qlack.webdesktop.common.repository",
     "com.eurodyn.qlack.fuse.aaa.repository",
     "com.eurodyn.qlack.fuse.lexicon.repository"
 })
 @EntityScan({
-    "com.eurodyn.qlack.webdesktop.model",
+    "com.eurodyn.qlack.webdesktop.common.model",
     "com.eurodyn.qlack.fuse.aaa.model",
     "com.eurodyn.qlack.fuse.lexicon.model"
 })
@@ -24,8 +24,8 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
     "com.eurodyn.qlack.webdesktop.configuration",
     "com.eurodyn.qlack.webdesktop.security",
     "com.eurodyn.qlack.webdesktop.controller",
-    "com.eurodyn.qlack.webdesktop.mapper",
-    "com.eurodyn.qlack.webdesktop.service",
+    "com.eurodyn.qlack.webdesktop.common.mapper",
+    "com.eurodyn.qlack.webdesktop.common.service",
     "com.eurodyn.qlack.webdesktop.filter",
     "com.eurodyn.qlack.fuse.crypto.service",
     "com.eurodyn.qlack.fuse.lexicon",
