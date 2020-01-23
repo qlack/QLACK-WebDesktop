@@ -32,7 +32,6 @@ export class ApplicationsService extends CrudService<ApplicationDto> {
 
   // Save application
   save(application: ApplicationDto) {
-    console.log(this.resource)
     return this.http.post(`${AppConstants.API_ROOT}/${this.resource}`, JSON.stringify(application),
       {headers: {'Content-Type': 'application/json'}, observe: 'response'});
   }

@@ -7,6 +7,6 @@ export class UserDto extends BaseDto {
   lastname: string;
   status: number;
   roles: string;
-  // profilepic: FileDto;
+  profilepic: string;
   // extraInfo: ExtraInfoDto;
 }

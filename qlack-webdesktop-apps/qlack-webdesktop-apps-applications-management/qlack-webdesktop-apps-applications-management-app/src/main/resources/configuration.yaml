@@ -2,8 +2,8 @@
 ---
 appUrl: 'http://localhost:4201/users'
 version: '3.0.0-SNAPSHOT'
-icon: 'http://localhost:8089/webdesktop/applications/management/icon/'
-iconSmall: 'http://localhost:8089/webdesktop/applications/management/icon/small/'
+icon: 'http://icons.iconarchive.com/icons/franksouza183/fs/64/Categories-preferences-system-icon.png'
+iconSmall: 'http://icons.iconarchive.com/icons/franksouza183/fs/24/Categories-preferences-system-icon.png'
 width: '800'
 minWidth: '470'
 height: '500'

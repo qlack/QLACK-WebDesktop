@@ -16,6 +16,10 @@ export const routing: ModuleWithProviders = RouterModule.forRoot([
       path: 'users',
       loadChildren: () => import('./users/users.module').then(m => m.UsersModule)
     },
+    {
+      path: 'usergroup',
+      loadChildren: () => import('./user-group/user-group.module').then(m => m.UserGroupModule)
+    },
   ],
   {
     enableTracing: false

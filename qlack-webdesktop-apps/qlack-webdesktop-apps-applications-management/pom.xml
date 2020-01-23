@@ -43,7 +43,6 @@
     <maven.compiler.version>3.7.0</maven.compiler.version>
     <powermockito.version>2.0.2</powermockito.version>
     <mysql.connector.version>8.0.17</mysql.connector.version>
-    <qlack.version>3.2.4-SNAPSHOT</qlack.version>
     <frontend.maven.plugin>1.8.0</frontend.maven.plugin>
     <node.version>v10.16.3</node.version>
     <npm.version>6.12.0</npm.version>

@@ -1,0 +1,24 @@
+<mat-card>
+  <mat-card-title>{{(isEdit ? 'management-app-ui.editGroup' : 'management-app-ui.newGroup' )| translate}}</mat-card-title>
+  <mat-card-content>
+    <form novalidate [formGroup]="form">
+      <div fxLayout="column">
+        <mat-form-field>
+          <input matInput placeholder="{{'management-app-ui.title' |
+            translate}}"
+                 formControlName="name">
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput placeholder="{{'management-app-ui.description' |
+            translate}}" formControlName="description">
+        </mat-form-field>
+      </div>
+    </form>
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-button routerLink="/usergroup">{{'management-app-ui.cancel' |
+      translate}}</button>
+    <button mat-button color="primary" (click)="save()" [disabled]="!form.valid || !form.dirty">{{'management-app-ui.save' | translate}}</button>
+    <button mat-button [disabled]="id == '0'" color="warn" (click)="delete()">{{'management-app-ui.delete' | translate}}</button>
+  </mat-card-actions>
+</mat-card>

@@ -8,14 +8,14 @@ import {FormGroup} from '@angular/forms';
  * A convenience CRUD service to be extended by concrete services to provide default CRUD methods.
  */
 export class CrudService<T> {
-  constructor(public http: HttpClient, private endpoint: string, public qForms: QFormsService) {
+  constructor(public http: HttpClient, protected endpoint: string, public qForms: QFormsService) {
   }
 
   save(object: T) {
-    return this.http.post(`${AppConstants.API_SECURED_ROOT}/${this.endpoint}`, object);
+    return this.http.post(`${AppConstants.API_ROOT}/${this.endpoint}`, object);
   }
 
-  getAll(queryString?: string, endPoint?: String): Observable<QPageableReply<T>> {
+  getAll(queryString?: string): Observable<QPageableReply<T>> {
     if (queryString) {
       return this.http.get<QPageableReply<T>>(`${AppConstants.API_ROOT}/${this.endpoint}` + `?${queryString}`);
     } else {
@@ -40,7 +40,7 @@ export class CrudService<T> {
   }
 
   delete(id: any): Observable<any> {
-    return this.http.delete(`${AppConstants.API_SECURED_ROOT}/${this.endpoint}/${id}`);
+    return this.http.delete(`${AppConstants.API_ROOT}/${this.endpoint}/${id}`);
   }
 
   deleteAll(): Observable<any> {

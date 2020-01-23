@@ -90,8 +90,6 @@ translations:
     - create: Create
     - save: Save
     - pagination: Items per page
-    - newApplication: New Application
-    - editApplication: Edit Application
     - proxyPath: Proxy Path
     - appUrl: Application Url
     - iconSmall: Icon Small
@@ -128,6 +126,15 @@ translations:
     - proxyAppUrl: Proxy Application Url
     - alreadyExistsCode: already exists
     - the: The
+    - delete: Delete
+    - deleteGroup: Delete Group
+    - deleteQuestion: Do you really want to delete this group?
+    - groups: Groups
+    - created: Group successfully created
+    - updated: Group successfully updated
+    - deleteSuccess: Group successfully deleted
+    - newGroup: New Group
+    - editGroup: Edit Group
 
 - group: management-app-ui
   locale: el
@@ -141,8 +148,6 @@ translations:
     - create: Δημιουργία
     - save: Αποθήκευση
     - pagination: Αποτελέσματα ανά σελίδα
-    - newApplication: Νέα εφαρμογή
-    - editApplication: Επεξεργασία εφαρμογής
     - proxyPath: Proxy Path
     - appUrl: Διαδρομή εφαρμογής
     - iconSmall: Μικρή εικόνα
@@ -191,6 +196,15 @@ translations:
     - proxyAppUrl: Proxy Application Url
     - alreadyExistsCode: υπάρχει ήδη
     - the: Το
+    - delete: Διαγραφή
+    - deleteGroup: Διαγραφή Ομάδας
+    - deleteQuestion: Θέλετε σίγουρα να διαγράψετε την ομάδα?
+    - groups: Ομάδες
+    - created: Επιτυχής δημιουργία
+    - updated: Επιτυχής ενημέρωση
+    - deleteSuccess: Επιτυχής διαγραφή
+    - newGroup: Νέα ομάδα
+    - editGroup: Επεξεργασία ομάδας
 
 - group: user-profile-management-ui
   locale: en

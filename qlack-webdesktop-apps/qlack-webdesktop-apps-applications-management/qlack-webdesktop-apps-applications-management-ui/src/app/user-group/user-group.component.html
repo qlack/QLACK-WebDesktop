@@ -1,0 +1,35 @@
+<mat-card>
+  <mat-card-content>
+    <div fxLayout="column">
+
+      <table mat-table #table [dataSource]="dataSource" class="mat-elevation-z0" fxFlex="grow"
+             matSort
+             matSortActive="name"
+             matSortDirection="asc"
+             matSortStart="asc"
+             matSortDisableClear>
+
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> {{'management-app-ui.title' | translate}} </th>
+          <td mat-cell *matCellDef="let element">{{element.name}}
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="description">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> {{'management-app-ui.description' | translate}}</th>
+          <td mat-cell *matCellDef="let element">{{element.description}}</td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; let element; columns: displayedColumns;"
+            [routerLink]="element.id"></tr>
+      </table>
+      <mat-paginator #paginator (page)="changePage()"
+                     [pageSize]="10"
+                     [pageSizeOptions]="[10, 30, 50]"
+                     [showFirstLastButtons]="true">
+      </mat-paginator>
+    </div>
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-button routerLink="0">{{'management-app-ui.create' | translate}}</button>
+  </mat-card-actions>
+</mat-card>

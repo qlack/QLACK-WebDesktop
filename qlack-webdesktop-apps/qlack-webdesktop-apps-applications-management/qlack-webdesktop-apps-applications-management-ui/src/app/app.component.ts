@@ -16,7 +16,8 @@ export class AppComponent extends BaseComponent implements OnInit {
   title = 'qlack-webdesktop-management-app-ui';
   navLinks: { path: string, label: string }[] = [
     {path: '/applications', label: 'header'},
-    {path: '/users', label: 'users'}
+    {path: '/users', label: 'users'},
+    {path: '/usergroup', label: 'groups'}
   ];
   //Logger
   private log = Log.create('AppComponent');
@@ -31,8 +32,8 @@ export class AppComponent extends BaseComponent implements OnInit {
   constructor(private router: Router, private dialog: MatDialog,
               private translate: TranslateService) {
     super();
-    translate.setDefaultLang('en');
-    translate.use('en');
+    translate.setDefaultLang('el');
+    translate.use('el');
   }
 
   toggleSidebar() {
