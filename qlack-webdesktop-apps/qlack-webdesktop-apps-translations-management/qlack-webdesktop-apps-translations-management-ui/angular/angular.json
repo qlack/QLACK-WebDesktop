@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "webDesktop": {
+    "translationManagement": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "target/dist",
+            "outputPath": "../target/dist",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -68,18 +68,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "webDesktop:build"
+            "browserTarget": "translationManagement:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "webDesktop:build:production"
+              "browserTarget": "translationManagement:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "webDesktop:build"
+            "browserTarget": "translationManagement:build"
           }
         },
         "test": {
@@ -88,9 +88,9 @@
             "main": "src/test.ts",
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.spec.json",
-            "karmaConfig": "src/karma.conf.js",
+            "karmaConfig": "karma.conf.js",
             "assets": [
-              "src/img/favicon.ico",
+              "src/favicon.ico",
               "src/assets"
             ],
             "styles": [
@@ -117,16 +117,16 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "webDesktop:serve"
+            "devServerTarget": "translationManagement:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "webDesktop:serve:production"
+              "devServerTarget": "translationManagement:serve:production"
             }
           }
         }
       }
     }
   },
-  "defaultProject": "webDesktop"
+  "defaultProject": "translationManagement"
 }

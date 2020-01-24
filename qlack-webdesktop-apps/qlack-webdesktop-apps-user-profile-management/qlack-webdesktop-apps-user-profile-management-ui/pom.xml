@@ -22,12 +22,12 @@
       <plugin>
         <artifactId>frontend-maven-plugin</artifactId>
         <configuration>
-          <installDirectory>./</installDirectory>
+          <installDirectory>./angular</installDirectory>
           <nodeDownloadRoot>http://nodejs.org/dist/</nodeDownloadRoot>
           <nodeVersion>${node.version}</nodeVersion>
           <npmDownloadRoot>http://registry.npmjs.org/npm/-/</npmDownloadRoot>
           <npmVersion>${npm.version}</npmVersion>
-          <workingDirectory>./</workingDirectory>
+          <workingDirectory>./angular</workingDirectory>
         </configuration>
         <executions>
           <execution>

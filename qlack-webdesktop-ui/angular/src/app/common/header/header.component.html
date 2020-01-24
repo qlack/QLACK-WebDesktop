@@ -1,0 +1,13 @@
+<mat-toolbar class="navigation-bar border-line">
+  <app-start-menu (onAppClick)="initWidget($event)"></app-start-menu>
+
+  <ng-template #widgetcontainer></ng-template>
+
+  <div class="right-side-area">
+    <button [routerLink]="'/login'" mat-button>
+      <mat-icon>account_circle</mat-icon>
+    </button>
+    <button mat-button>Logout</button>
+  </div>
+</mat-toolbar>
+
