@@ -3,7 +3,6 @@ import {CommonModule} from '@angular/common';
 
 import {UsersRoutingModule} from './users-routing.module';
 import {UsersComponent} from './users.component';
-import {UserEditComponent} from './user-edit.component';
 import {FlexLayoutModule} from '@angular/flex-layout';
 import {MatButtonModule} from '@angular/material/button';
 import {MatCardModule} from '@angular/material/card';
@@ -23,7 +22,9 @@ import {MatTooltipModule} from '@angular/material/tooltip';
 @NgModule({
   declarations: [
     UsersComponent,
-    UserEditComponent,
+  ],
+  exports: [
+    UsersComponent
   ],
   imports: [
     CommonModule,
