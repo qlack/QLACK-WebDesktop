@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -42,14 +41,15 @@ public class UserProfileController {
   }
 
   @PostMapping("/user/details/save")
-  public void saveUserDetails(@ModelAttribute UserDetailsDTO userDetailsDTO, @RequestParam(value = "profileImage", required =
-      false) MultipartFile profileImage,
+  public void saveUserDetails(@ModelAttribute UserDetailsDTO userDetailsDTO,
+      @RequestParam(value = "profileImage", required =
+          false) MultipartFile profileImage,
       @RequestParam(value = "backgroundImage", required = false) MultipartFile backgroundImage) throws IOException {
-         userProfileService.saveDetails(userDetailsDTO,profileImage,backgroundImage);
+    userProfileService.saveDetails(userDetailsDTO, profileImage, backgroundImage);
   }
 
-  @GetMapping("/user/details/{userId}")
-  public  Map<String,UserAttributeDTO> getUserDetails(@PathVariable String userId){
-    return userProfileService.findUserDetails(userId);
+  @GetMapping("/user/details")
+  public Map<String, UserAttributeDTO> getUserDetails() {
+    return userProfileService.findUserDetails();
   }
 }

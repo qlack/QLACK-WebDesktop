@@ -25,7 +25,7 @@ export class UserProfileService extends CrudService<FileDto> {
     return this.qForms.uploadForm(this.http, form, AppConstants.API_ROOT + `/${this.resource}/details/save`, false);
   }
 
-  getAllDetails(id: any): Observable<any> {
-    return this.http.get(AppConstants.API_ROOT + '/' + this.resource + `/details/${id}`);
+  getAllDetails(): Observable<any> {
+    return this.http.get(AppConstants.API_ROOT + '/' + this.resource + `/details`);
   }
 }

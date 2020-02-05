@@ -19,15 +19,11 @@ export class UserProfileComponent implements OnInit {
   previewBackgroundImageURL: string;
   languages: LanguageDto[] = [];
   userDetailsDto: any = new UserDetailsDto();
-  userId: string;
   myForm: FormGroup;
 
   constructor(private userProfileService: UserProfileService, private dialog: MatDialog,
               private fb: FormBuilder, private qForms: QFormsService,
               private utilityService: UtilityService, private languageService: LanguageService) {
-
-    this.userId = sessionStorage.getItem('userId');
-
   }
 
   ngOnInit(): void {
@@ -45,7 +41,7 @@ export class UserProfileComponent implements OnInit {
       backgroundImage: [undefined]
     });
 
-    this.userProfileService.getAllDetails(this.userId).subscribe(userAttributeList => {
+    this.userProfileService.getAllDetails().subscribe(userAttributeList => {
       if (userAttributeList.firstName != null) {
         this.userDetailsDto.firstName = userAttributeList.firstName.data;
       }
@@ -95,7 +91,6 @@ export class UserProfileComponent implements OnInit {
 
   save() {
 
-    this.myForm.controls.id.setValue(this.userId);
     this.userProfileService.saveDetails(this.myForm).subscribe(onNext => {
       this.utilityService.popupSuccess('Saved!');
       this.clearBackgroundImagePreview();
