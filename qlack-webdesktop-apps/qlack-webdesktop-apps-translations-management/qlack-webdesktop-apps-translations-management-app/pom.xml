@@ -79,7 +79,7 @@
               <outputDirectory>${project.build.directory}/classes/resources/</outputDirectory>
               <resources>
                 <resource>
-                  <directory>${project.parent.basedir}/qlack-webdesktop-translations-management-ui/target/dist</directory>
+                  <directory>${project.parent.basedir}/qlack-webdesktop-apps-translations-management-ui/target/dist</directory>
                 </resource>
               </resources>
             </configuration>
