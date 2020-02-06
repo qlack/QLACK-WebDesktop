@@ -55,6 +55,7 @@ public class PostAuthFilter implements Filter {
     Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
     if (principal instanceof DefaultOAuth2User) {
+      ldapUserUtil.setLdapMappingAttrs("firstName-givenName,lastName-sn");
       User user = ldapUserUtil.syncUserWithAAA(((DefaultOAuth2User) principal).getName());
 
       if (user != null) {

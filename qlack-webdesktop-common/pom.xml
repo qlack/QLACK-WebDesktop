@@ -44,6 +44,11 @@
 
     <!-- Third-party deps -->
     <dependency>
+      <groupId>com.querydsl</groupId>
+      <artifactId>querydsl-jpa</artifactId>
+      <version>${querydsl.version}</version>
+    </dependency>
+    <dependency>
       <groupId>org.projectlombok</groupId>
       <artifactId>lombok</artifactId>
       <optional>true</optional>
@@ -76,7 +81,19 @@
                 <artifactId>lombok</artifactId>
                 <version>${lombok.version}</version>
               </annotationProcessorPath>
+              <annotationProcessorPath>
+                <groupId>com.querydsl</groupId>
+                <artifactId>querydsl-jpa-codegen</artifactId>
+                <version>${querydsl.version}</version>
+              </annotationProcessorPath>
+              <annotationProcessorPath>
+                <groupId>com.querydsl</groupId>
+                <artifactId>querydsl-apt</artifactId>
+                <classifier>jpa</classifier>
+                <version>${querydsl.version}</version>
+              </annotationProcessorPath>
             </annotationProcessorPaths>
+
             <compilerArgs>
               <!-- The -parameters argument is crucial for the correct function
                of the authentication interceptor, due to heavy use of the Reflection API -->
