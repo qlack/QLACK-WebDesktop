@@ -34,8 +34,8 @@ export class UserProfileComponent implements OnInit {
     });
     this.myForm = this.fb.group({
       id: [''],
-      firstName: [''],
-      lastName: [''],
+      firstName: [{value: '', disabled: true}],
+      lastName: [{value: '', disabled: true}],
       defaultLanguage: [''],
       profileImage: [undefined],
       backgroundImage: [undefined]

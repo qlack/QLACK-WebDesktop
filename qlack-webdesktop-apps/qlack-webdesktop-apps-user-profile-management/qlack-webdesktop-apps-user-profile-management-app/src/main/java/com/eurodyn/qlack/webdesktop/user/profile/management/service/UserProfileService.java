@@ -61,28 +61,6 @@ public class UserProfileService {
         defaultLanguageAttributeDTO.setData(userDetailsDTO.getDefaultLanguage());
         userService.updateAttribute(defaultLanguageAttributeDTO, false);
       }
-      UserAttributeDTO firstNameAttributeDTO = userService.getAttribute(userDetailsDTO.getId(), "firstName");
-      if (firstNameAttributeDTO == null) {
-        firstNameAttributeDTO = new UserAttributeDTO();
-        firstNameAttributeDTO.setName("firstName");
-        firstNameAttributeDTO.setData(userDetailsDTO.getFirstName());
-        firstNameAttributeDTO.setUserId(userDetailsDTO.getId());
-        userService.updateAttribute(firstNameAttributeDTO, true);
-      } else {
-        firstNameAttributeDTO.setData(userDetailsDTO.getFirstName());
-        userService.updateAttribute(firstNameAttributeDTO, false);
-      }
-      UserAttributeDTO lastNameAttributeDTO = userService.getAttribute(userDetailsDTO.getId(), "lastName");
-      if (lastNameAttributeDTO == null) {
-        lastNameAttributeDTO = new UserAttributeDTO();
-        lastNameAttributeDTO.setName("lastName");
-        lastNameAttributeDTO.setData(userDetailsDTO.getLastName());
-        lastNameAttributeDTO.setUserId(userDetailsDTO.getId());
-        userService.updateAttribute(lastNameAttributeDTO, true);
-      } else {
-        lastNameAttributeDTO.setData(userDetailsDTO.getLastName());
-        userService.updateAttribute(lastNameAttributeDTO, false);
-      }
       if (profileImage != null) {
         UserAttributeDTO profileImageAttributeDTO = userService.getAttribute(userDetailsDTO.getId(), "profileImage");
         if (profileImageAttributeDTO == null) {
