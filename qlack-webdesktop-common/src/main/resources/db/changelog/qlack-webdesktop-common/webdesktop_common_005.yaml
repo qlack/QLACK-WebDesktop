@@ -1,0 +1,20 @@
+databaseChangeLog:
+  - changeSet:
+      id: webdesktop_005
+      author: European Dynamics SA.
+      changes:
+        - insert:
+            tableName: aaa_user_group
+            columns:
+              - column:
+                  name: id
+                  value: "1ac775eb-d01f-4ac3-913b-c8d283b57fff"
+              - column:
+                  name: name
+                  value: "superAdmin"
+              - column:
+                  name: description
+                  value: "The Administrator's default group"
+              - column:
+                  name: dbversion
+                  value: "1"
