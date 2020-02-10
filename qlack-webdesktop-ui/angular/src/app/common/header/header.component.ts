@@ -1,9 +1,7 @@
 import {Component, ComponentFactoryResolver, ViewChild, ViewContainerRef} from '@angular/core';
 import {Widget} from "../../widget";
 import {WidgetComponent} from "../../widget/widget.component";
-import {QNgPubSubService} from '@qlack/qng-pub-sub';
-import {QPubSub} from '@qlack/qpubsub';
-import {MatSnackBar} from '@angular/material/snack-bar';
+
 
 
 @Component({
