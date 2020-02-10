@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
 import {TranslateService} from '@ngx-translate/core';
-import {QNgPubSubService} from '@qlack/qng-pub-sub';
+import {QngPubsubService} from '@qlack/qng-pubsub';
 
 @Component({
   selector: 'app-root',
@@ -10,7 +10,7 @@ import {QNgPubSubService} from '@qlack/qng-pub-sub';
 export class AppComponent {
   title = 'webDesktop';
 
-  constructor(private translate: TranslateService, private qPubSubService: QNgPubSubService) {
+  constructor(private translate: TranslateService, private qPubSubService: QngPubsubService) {
 
     //TODO call user profile and get his/hers preferred language
     translate.setDefaultLang('en');

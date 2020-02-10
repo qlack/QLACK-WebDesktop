@@ -2,7 +2,7 @@ import {Component, EventEmitter, OnInit, Output, ViewEncapsulation} from '@angul
 import {Widget} from "../../widget";
 import {WidgetService} from "../../widget.service";
 import {TranslateService} from '@ngx-translate/core';
-import {QNgPubSubService} from '@qlack/qng-pub-sub';
+import {QngPubsubService} from '@qlack/qng-pubsub';
 import {QPubSub} from '@qlack/qpubsub';
 import {MatSnackBar} from '@angular/material/snack-bar';
 
@@ -22,7 +22,7 @@ export class StartMenuComponent implements OnInit {
 
   @Output() onAppClick = new EventEmitter();
 
-  constructor(private widgetService: WidgetService, private translate: TranslateService, private qPubSubService: QNgPubSubService, private _snackBar: MatSnackBar) {
+  constructor(private widgetService: WidgetService, private translate: TranslateService, private qPubSubService: QngPubsubService, private _snackBar: MatSnackBar) {
   }
 
   ngOnInit() {

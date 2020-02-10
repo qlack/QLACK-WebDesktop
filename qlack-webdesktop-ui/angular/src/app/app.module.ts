@@ -24,7 +24,7 @@ import {StartMenuComponent} from "./common/start-menu/start-menu.component";
 import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import {ResizableModule} from 'angular-resizable-element';
-import {QNgPubSubModule} from '@qlack/qng-pub-sub';
+import {QngPubsubModule} from '@qlack/qng-pubsub';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 
 export function HttpLoaderFactory(http: HttpClient) {
@@ -54,7 +54,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     MatMenuModule,
     HttpClientModule,
     MatDividerModule,
-    QNgPubSubModule,
+    QngPubsubModule,
     MatSnackBarModule,
     TranslateModule.forRoot({
       loader: {
