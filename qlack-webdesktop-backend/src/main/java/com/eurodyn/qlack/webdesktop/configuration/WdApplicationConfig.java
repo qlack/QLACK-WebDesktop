@@ -1,5 +1,8 @@
 package com.eurodyn.qlack.webdesktop.configuration;
 
+import com.eurodyn.qlack.fuse.aaa.model.User;
+import com.eurodyn.qlack.fuse.aaa.repository.UserRepository;
+import com.eurodyn.qlack.fuse.aaa.service.LdapUserUtil;
 import com.eurodyn.qlack.fuse.crypto.service.CryptoDigestService;
 import com.eurodyn.qlack.fuse.lexicon.dto.GroupDTO;
 import com.eurodyn.qlack.fuse.lexicon.dto.KeyDTO;
@@ -16,6 +19,7 @@ import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 import lombok.extern.java.Log;
 import org.apache.commons.validator.routines.UrlValidator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.cloud.netflix.zuul.filters.ZuulProperties;
@@ -27,6 +31,7 @@ import java.net.URL;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
@@ -66,12 +71,16 @@ public class WdApplicationConfig implements ApplicationRunner {
   private LanguageService languageService;
   private GroupService groupService;
   private KeyService keyService;
+  private  UserRepository userRepository;
+  private  LdapUserUtil ldapUserUtil;
+  @Value("${wd.admin}")
+  private String wdAdmin;
 
   @Autowired
   public WdApplicationConfig(
       WdApplicationRepository wdApplicationRepository, CryptoDigestService cryptoDigestService,
       DiscoveryClientRouteLocator discoveryClientRouteLocator, LanguageService languageService,
-      GroupService groupService, KeyService keyService) {
+      GroupService groupService, KeyService keyService,UserRepository userRepository,LdapUserUtil ldapUserUtil) {
 
     this.wdApplicationRepository = wdApplicationRepository;
     this.cryptoDigestService = cryptoDigestService;
@@ -79,6 +88,8 @@ public class WdApplicationConfig implements ApplicationRunner {
     this.languageService = languageService;
     this.groupService = groupService;
     this.keyService = keyService;
+    this.userRepository = userRepository;
+    this.ldapUserUtil = ldapUserUtil;
   }
 
   /**
@@ -86,11 +97,23 @@ public class WdApplicationConfig implements ApplicationRunner {
    * validated and the configuration files are loaded as Web Desktop applications in the database. This methods
    * overrides the {@link ApplicationRunner#run(org.springframework.boot.ApplicationArguments)} method to allow it to
    * run just before the application starts.
-   *
+   * Also creates superAdmin user if not exists.
    * @param args The command-line application arguments as loaded by Spring Boot
    */
   @Override
   public void run(ApplicationArguments args) {
+
+      if (userRepository.findByUsername(wdAdmin) == null){
+        ldapUserUtil.setLdapMappingAttrs("firstName-givenName,lastName-sn");
+        User user = ldapUserUtil.syncUserWithAAA(wdAdmin);
+        if(user != null) {
+          user.setSuperadmin(true);
+          userRepository.save(user);
+          log.info("Admin  successfully created");
+        }else{
+          log.warning("Could not sync Admin  with AAA.");
+        }
+      }
 
     if (args.containsOption(APPS_URL)) {
       String[] urls = args.getOptionValues(APPS_URL).get(0).split(COMMA_REGEX);
