@@ -15,7 +15,7 @@
 
   <properties>
     <sonar.sources>src/app</sonar.sources>
-    <sonar.coverage.exclusions>**/src/app/**/*</sonar.coverage.exclusions>
+    <sonar.coverage.exclusions>**/angular/src/app/**/*</sonar.coverage.exclusions>
   </properties>
 
   <build>
