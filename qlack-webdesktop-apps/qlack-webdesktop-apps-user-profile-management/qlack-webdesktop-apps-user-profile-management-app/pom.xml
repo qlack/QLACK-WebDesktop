@@ -21,7 +21,7 @@
     <dependency>
       <groupId>com.eurodyn.qlack.fuse</groupId>
       <artifactId>qlack-fuse-aaa</artifactId>
-      <version>3.2.4-SNAPSHOT</version>
+      <version>${qlack.version}</version>
     </dependency>
 
     <!-- Spring boot -->
