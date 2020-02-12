@@ -9,7 +9,7 @@
     <span class="dropdown-header" *ngIf="!widgets[0].groupTranslated">{{'webdesktop-ui.groupOthers' | translate}}</span>
     <mat-grid-tile *ngFor="let widget of widgets"
                    class="actionIcon" (click)="onAppClick.emit(widget)">
-      <span class="fa"><img src={{widget.icon}}></span>
+      <span class="fa"><img src={{widget.icon}} alt="application icon"></span>
       <h3>{{widget.applicationTitle}}</h3>
     </mat-grid-tile>
     <mat-divider *ngIf="!lastItem"></mat-divider>

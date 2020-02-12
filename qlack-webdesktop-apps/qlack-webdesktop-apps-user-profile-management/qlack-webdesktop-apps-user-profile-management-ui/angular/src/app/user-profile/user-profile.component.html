@@ -42,7 +42,7 @@
           </mat-form-field>
           <br>
           <div class="imagePreview" *ngIf="previewBackgroundImageURL">
-            <img [src]="previewBackgroundImageURL" width="150" height="150">
+            <img [src]="previewBackgroundImageURL" width="150" height="150" alt="preview background image">
           </div>
           <mat-form-field class="full-width-input">
             <ngx-mat-file-input #removableInput1 (change)="showBackgroundImagePreview($event)"

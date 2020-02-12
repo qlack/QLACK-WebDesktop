@@ -1,6 +1,7 @@
 <mat-card>
   <mat-card-content>
     <div fxLayout="column">
+      <!-- the table for translation data   -->
       <table mat-table #table [dataSource]="dataSource" class="mat-elevation-z0" fxFlex="grow"
              matSort
              matSortActive="id"
@@ -9,17 +10,17 @@
              matSortDisableClear>
 
         <ng-container matColumnDef="groupId">
-          <th mat-header-cell *matHeaderCellDef> {{'translations-management-ui.groupName' | translate}}</th>
+          <th mat-header-cell *matHeaderCellDef id="groupName"> {{'translations-management-ui.groupName' | translate}}</th>
           <td mat-cell *matCellDef="let element">{{element.groupName}}</td>
         </ng-container>
         <ng-container matColumnDef="name">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header id="keyName">
             {{'translations-management-ui.keyName' | translate}}</th>
           <td mat-cell *matCellDef="let element">{{element.name}}</td>
         </ng-container>
         <div *ngFor="let language of languages">
           <ng-container matColumnDef="translations.{{language.locale}}">
-            <th mat-header-cell *matHeaderCellDef> {{language.name}}</th>
+            <th mat-header-cell *matHeaderCellDef id="languageName"> {{language.name}}</th>
             <td mat-cell *matCellDef="let element">{{element.translations[language.locale]}}</td>
           </ng-container>
         </div>
