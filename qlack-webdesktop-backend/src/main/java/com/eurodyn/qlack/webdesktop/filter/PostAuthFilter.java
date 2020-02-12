@@ -8,32 +8,27 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.core.user.DefaultOAuth2User;
-import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.util.Date;
 
 
 /**
- * SSO / LDAP / AAA Integration filter After SSO user authentication the username is queried against
- * a user provided LDAP service to ensure the user exists. If this is the case the users is created
- * if not already in the local AAA users database. The filter should be registered at the Spring
- * Security Filter chain.
+ * SSO / LDAP / AAA Integration filter After SSO user authentication the username is queried against a user provided
+ * LDAP service to ensure the user exists. If this is the case the users is created if not already in the local AAA
+ * users database. The filter should be registered at the Spring Security Filter chain.
  *
  * @author European Dynamics SA.
  */
 @Slf4j
-@Component
 @Profile("sso")
 public class PostAuthFilter implements Filter {
 
-  private final LdapUserUtil ldapUserUtil;
+  private LdapUserUtil ldapUserUtil;
 
-  @Autowired
   public PostAuthFilter(LdapUserUtil ldapUserUtil) {
     this.ldapUserUtil = ldapUserUtil;
   }
