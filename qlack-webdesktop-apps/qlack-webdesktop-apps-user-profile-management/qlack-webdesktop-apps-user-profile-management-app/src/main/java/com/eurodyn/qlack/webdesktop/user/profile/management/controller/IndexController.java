@@ -40,7 +40,7 @@ public class IndexController {
               resourceLoader.getResource("classpath:configuration.yaml").getInputStream());
     } catch (IOException e) {
       log.error(e.getLocalizedMessage());
-      return null;
+      return new byte[0];
     }
   }
 
@@ -57,7 +57,7 @@ public class IndexController {
           .copyToByteArray(resourceLoader.getResource("classpath:icon.png").getInputStream());
     } catch (IOException e) {
       log.error(e.getLocalizedMessage());
-      return null;
+      return new byte[0];
     }
   }
 
@@ -74,7 +74,7 @@ public class IndexController {
           .copyToByteArray(resourceLoader.getResource("classpath:icon_small.png").getInputStream());
     } catch (IOException e) {
       log.error(e.getLocalizedMessage());
-      return null;
+      return new byte[0];
     }
   }
 

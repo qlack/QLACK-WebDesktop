@@ -10,7 +10,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.web.access.intercept.FilterSecurityInterceptor;
 
 /**
  * Security configuration class for OAuth2 login
@@ -21,7 +20,6 @@ import org.springframework.security.web.access.intercept.FilterSecurityIntercept
 @Profile("sso")
 public class SsoSecurityConfig extends WebSecurityConfigurerAdapter {
 
-
   @Value("${logout.url}")
   private String logoutUrl;
   private LdapUserUtil ldapUserUtil;
@@ -30,7 +28,6 @@ public class SsoSecurityConfig extends WebSecurityConfigurerAdapter {
   public SsoSecurityConfig(LdapUserUtil ldapUserUtil) {
     this.ldapUserUtil = ldapUserUtil;
   }
-
 
   /**
    * Enables OAuth2 SSO authentication
@@ -65,7 +62,6 @@ public class SsoSecurityConfig extends WebSecurityConfigurerAdapter {
 
     return registrationBean;
   }
-
 
 }
 
