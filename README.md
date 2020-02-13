@@ -1,10 +1,10 @@
 # QLACK WebDesktop 
 
 <p align="center">
-    <a href="https://travis-ci.org/qlack/QLACK-Java" alt="TravisCI">
+    <a href="https://travis-ci.org/qlack/QLACK-WebDesktop" alt="TravisCI">
         <img src="https://travis-ci.org/qlack/QLACK-WebDesktop.svg?branch=master" />
     </a>
-    <a href="http://qlack.github.io/QLACK-Website/" alt="Website">
+    <a href="https://qlack.com/" alt="Website">
         <img src="https://img.shields.io/website-up-down-green-red/https/qlack.com" />
     </a>
 </p>
@@ -18,34 +18,34 @@ Application open in individual windows, supporting familiar features such as dra
 ## Code Quality
 
 <p align="center">
-	<a href="https://sonarcloud.io/dashboard?id=com.eurodyn.qlack%3Aqlack">
+	<a href="https://sonarcloud.io/dashboard?id=com.eurodyn.qlack.webdesktop%3Aqlack-webdesktop">
   		<img src="https://sonarcloud.io/api/project_badges/measure?project=com.eurodyn.qlack.webdesktop%3Aqlack-webdesktop&metric=security_rating" />
 	</a>
-	<a href="https://sonarcloud.io/dashboard?id=com.eurodyn.qlack%3Aqlack">
+	<a href="https://sonarcloud.io/dashboard?id=com.eurodyn.qlack.webdesktop%3Aqlack-webdesktop">
   		<img src="https://sonarcloud.io/api/project_badges/measure?project=com.eurodyn.qlack.webdesktop%3Aqlack-webdesktop&metric=reliability_rating" />
 	</a>
-	<a href="https://sonarcloud.io/dashboard?id=com.eurodyn.qlack%3Aqlack">
+	<a href="https://sonarcloud.io/dashboard?id=com.eurodyn.qlack.webdesktop%3Aqlack-webdesktop">
   		<img src="https://sonarcloud.io/api/project_badges/measure?project=com.eurodyn.qlack.webdesktop%3Aqlack-webdesktop&metric=sqale_rating" />
 	</a>
-	<a href="https://sonarcloud.io/dashboard?id=com.eurodyn.qlack%3Aqlack">
+	<a href="https://sonarcloud.io/dashboard?id=com.eurodyn.qlack.webdesktop%3Aqlack-webdesktop">
   		<img src="https://sonarcloud.io/api/project_badges/measure?project=com.eurodyn.qlack.webdesktop%3Aqlack-webdesktop&metric=sqale_index" />
 	</a>
-	<a href="https://sonarcloud.io/dashboard?id=com.eurodyn.qlack%3Aqlack">
+	<a href="https://sonarcloud.io/dashboard?id=com.eurodyn.qlack.webdesktop%3Aqlack-webdesktop">
   		<img src="https://sonarcloud.io/api/project_badges/measure?project=com.eurodyn.qlack.webdesktop%3Aqlack-webdesktop&metric=ncloc" />
 	</a>
-	<a href="https://sonarcloud.io/dashboard?id=com.eurodyn.qlack%3Aqlack">
+	<a href="https://sonarcloud.io/dashboard?id=com.eurodyn.qlack.webdesktop%3Aqlack-webdesktop">
   		<img src="https://sonarcloud.io/api/project_badges/measure?project=com.eurodyn.qlack.webdesktop%3Aqlack-webdesktop&metric=coverage" />
 	</a>
-	<a href="https://sonarcloud.io/dashboard?id=com.eurodyn.qlack%3Aqlack">
+	<a href="https://sonarcloud.io/dashboard?id=com.eurodyn.qlack.webdesktop%3Aqlack-webdesktop">
   		<img src="https://sonarcloud.io/api/project_badges/measure?project=com.eurodyn.qlack.webdesktop%3Aqlack-webdesktop&metric=duplicated_lines_density" />
 	</a>
-	<a href="https://sonarcloud.io/dashboard?id=com.eurodyn.qlack%3Aqlack">
+	<a href="https://sonarcloud.io/dashboard?id=com.eurodyn.qlack.webdesktop%3Aqlack-webdesktop">
   		<img src="https://sonarcloud.io/api/project_badges/measure?project=com.eurodyn.qlack.webdesktop%3Aqlack-webdesktop&metric=code_smells" />
 	</a>
-	<a href="https://sonarcloud.io/dashboard?id=com.eurodyn.qlack%3Aqlack">
+	<a href="https://sonarcloud.io/dashboard?id=com.eurodyn.qlack.webdesktop%3Aqlack-webdesktop">
   		<img src="https://sonarcloud.io/api/project_badges/measure?project=com.eurodyn.qlack.webdesktop%3Aqlack-webdesktop&metric=vulnerabilities" />
 	</a>
-	<a href="https://sonarcloud.io/dashboard?id=com.eurodyn.qlack%3Aqlack">
+	<a href="https://sonarcloud.io/dashboard?id=com.eurodyn.qlack.webdesktop%3Aqlack-webdesktop">
   		<img src="https://sonarcloud.io/api/project_badges/measure?project=com.eurodyn.qlack.webdesktop%3Aqlack-webdesktop&metric=bugs" />
 	</a>
 </p>
@@ -54,7 +54,7 @@ Application open in individual windows, supporting familiar features such as dra
 ## Contributors
 
 <p align="center">
-	<a href="https://github.com/qlack/qlack-java/graphs/contributors">
+	<a href="https://github.com/qlack/QLACK-WebDesktop/graphs/contributors">
   		<img src="https://contributors-img.firebaseapp.com/image?repo=qlack/qlack-webdesktop" />
 	</a>
 </p>
