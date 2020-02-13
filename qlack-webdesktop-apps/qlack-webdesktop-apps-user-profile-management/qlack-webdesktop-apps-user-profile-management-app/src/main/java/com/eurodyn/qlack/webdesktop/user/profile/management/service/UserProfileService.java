@@ -47,50 +47,14 @@ public class UserProfileService {
     Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
     if (principal instanceof DefaultOAuth2User) {
       String userName = ((DefaultOAuth2User) principal).getName();
-      userDetailsDTO.setId(userService.getUserByName(userName).getId());
+      String userId = userService.getUserByName(userName).getId();
 
-      UserAttributeDTO defaultLanguageAttributeDTO = userService
-          .getAttribute(userDetailsDTO.getId(), "defaultLanguage");
-      if (defaultLanguageAttributeDTO == null) {
-        defaultLanguageAttributeDTO = new UserAttributeDTO();
-        defaultLanguageAttributeDTO.setName("defaultLanguage");
-        defaultLanguageAttributeDTO.setData(userDetailsDTO.getDefaultLanguage());
-        defaultLanguageAttributeDTO.setUserId(userDetailsDTO.getId());
-        userService.updateAttribute(defaultLanguageAttributeDTO, true);
-      } else {
-        defaultLanguageAttributeDTO.setData(userDetailsDTO.getDefaultLanguage());
-        userService.updateAttribute(defaultLanguageAttributeDTO, false);
+      saveAttribute("defaultLanguage",userId,null,userDetailsDTO.getDefaultLanguage());
+      if(profileImage != null) {
+        saveAttribute("profileImage", userId, profileImage.getBytes(), null);
       }
-      if (profileImage != null) {
-        UserAttributeDTO profileImageAttributeDTO = userService.getAttribute(userDetailsDTO.getId(), "profileImage");
-        if (profileImageAttributeDTO == null) {
-          profileImageAttributeDTO = new UserAttributeDTO();
-          profileImageAttributeDTO.setName("profileImage");
-          profileImageAttributeDTO.setBindata(profileImage.getBytes());
-          profileImageAttributeDTO.setContentType(profileImage.getContentType());
-          profileImageAttributeDTO.setData(profileImage.getName());
-          profileImageAttributeDTO.setUserId(userDetailsDTO.getId());
-          userService.updateAttribute(profileImageAttributeDTO, true);
-        } else {
-          profileImageAttributeDTO.setBindata(profileImage.getBytes());
-          userService.updateAttribute(profileImageAttributeDTO, false);
-        }
-      }
-      if (backgroundImage != null) {
-        UserAttributeDTO backgroundImageAttributeDTO = userService
-            .getAttribute(userDetailsDTO.getId(), "backgroundImage");
-        if (backgroundImageAttributeDTO == null) {
-          backgroundImageAttributeDTO = new UserAttributeDTO();
-          backgroundImageAttributeDTO.setName("backgroundImage");
-          backgroundImageAttributeDTO.setBindata(backgroundImage.getBytes());
-          backgroundImageAttributeDTO.setContentType(backgroundImage.getContentType());
-          backgroundImageAttributeDTO.setData(backgroundImage.getName());
-          backgroundImageAttributeDTO.setUserId(userDetailsDTO.getId());
-          userService.updateAttribute(backgroundImageAttributeDTO, true);
-        } else {
-          backgroundImageAttributeDTO.setBindata(backgroundImage.getBytes());
-          userService.updateAttribute(backgroundImageAttributeDTO, false);
-        }
+      if(backgroundImage != null) {
+        saveAttribute("backgroundImage", userId, backgroundImage.getBytes(), null);
       }
     }
   }
@@ -107,6 +71,23 @@ public class UserProfileService {
       return attributeList;
     }
     return null;
+  }
+
+
+  private void saveAttribute(String attributeName,String userId,byte[] binData,String data){
+    UserAttributeDTO userAttributeDTO = userService.getAttribute(userId, attributeName);
+    if (userAttributeDTO == null) {
+      userAttributeDTO = new UserAttributeDTO();
+      userAttributeDTO.setName(attributeName);
+      userAttributeDTO.setBindata(binData);
+      userAttributeDTO.setData(data);
+      userAttributeDTO.setUserId(userId);
+      userService.updateAttribute(userAttributeDTO, true);
+    } else {
+      userAttributeDTO.setBindata(binData);
+      userAttributeDTO.setData(data);
+      userService.updateAttribute(userAttributeDTO, false);
+    }
   }
 
 }
