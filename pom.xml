@@ -67,6 +67,15 @@
     <spring.netflix.zuul.version>2.1.3.RELEASE</spring.netflix.zuul.version>
     <jacoco.version>0.8.5</jacoco.version>
     <sonar.version>3.7.0.1746</sonar.version>
+    <sonar.exclusions>**/generated-sources/**</sonar.exclusions>
+    <sonar.coverage.exclusions>
+      src/main/java/com/eurodyn/qlack/webdesktop/model/*,
+      src/main/java/com/eurodyn/qlack/webdesktop/dto/*,
+      src/main/java/com/eurodyn/qlack/webdesktop/repository/*
+      src/main/java/com/eurodyn/qlack/webdesktop/**/**/model/*,
+      src/main/java/com/eurodyn/qlack/webdesktop/**/**/dto/*,
+      src/main/java/com/eurodyn/qlack/webdesktop/**/**/repository/*
+    </sonar.coverage.exclusions>
   </properties>
 
   <modules>
