@@ -69,9 +69,9 @@
     <sonar.version>3.7.0.1746</sonar.version>
     <sonar.exclusions>**/generated-sources/**</sonar.exclusions>
     <sonar.coverage.exclusions>
-      src/main/java/com/eurodyn/qlack/webdesktop/model/*,
-      src/main/java/com/eurodyn/qlack/webdesktop/dto/*,
-      src/main/java/com/eurodyn/qlack/webdesktop/repository/*
+      src/main/java/com/eurodyn/qlack/webdesktop/common/model/*,
+      src/main/java/com/eurodyn/qlack/webdesktop/common/dto/*,
+      src/main/java/com/eurodyn/qlack/webdesktop/common/repository/*
       src/main/java/com/eurodyn/qlack/webdesktop/**/**/model/*,
       src/main/java/com/eurodyn/qlack/webdesktop/**/**/dto/*,
       src/main/java/com/eurodyn/qlack/webdesktop/**/**/repository/*
