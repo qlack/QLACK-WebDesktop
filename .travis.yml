@@ -15,6 +15,6 @@ script: mvn clean install sonar:sonar -Dsonar.projectKey=qlack_QLACK-WebDesktop
 notifications:
   email:
     recipients:
-      - qlack@eurodyn.com
+      secure: "ff6tJ1oRJj7vzD/fPMRS2HUrqni46nPI7PWlm+33BmBfYKLLVsxDSB2s/M0GRo1a9AoYgk+LPUX/DFi6sFYQ1wrLuVu0uBlKdWMtfVpnXQJtLiGcJkK3fzYBQrcFs6JMQqM/QlaPeqGJB8TWLoTT09eq95Vf6ZyIVVxywG8xQPn79jgzcJVnL49MYgZyxHEH8qFVj7hP4asiQpap4Lz6KM3lvMYdo+hDNVPnIWrDlJZuZybSdMzd+rtRsG7VbDxrjzM0K3v0jrnZp5SX1WUUihGjv2aCoPLY0pbOVHZH2g52vx+c9PaUnoKdz/+KpaYWcjplDTNfRD6WFF44yVQ5bac6g3qoQFMQtnP/eICrgmiT3sq/KflxcYS+a3cLgn9DvbVxFFhp0I4eXVKkqr9ctLtuqZqVj3zYtyQEC7Pr3vjztTXb2JNR3ILSGaQeD1/ZvXBL5KihZluu5gjMYyFHsPiLxfldTEiZHaTXfbbgvGAD+KsA+9N+v2dpjwzGwrQzoLKW+e8Pji9ADZEE7VRBa1GzhntUsBDemt1f/JcVSbEirOb3jc+cchBHBA47RV1VsY6BAxeS2aSg/YoJCBbIYkiuiLMEBTrQoBsgtZP8CQttROPd/MX51NXVx33UtbGUnpD4hRTHD94W2CoojwrHIG8JtaU1bghtHM9W0SW9AU4="
     on_success: change
     on_failure: change
