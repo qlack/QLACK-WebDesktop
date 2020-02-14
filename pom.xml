@@ -65,8 +65,8 @@
     <jackson.verion>2.3.0</jackson.verion>
     <commons.validator.version>1.6</commons.validator.version>
     <spring.netflix.zuul.version>2.1.3.RELEASE</spring.netflix.zuul.version>
-    <sonar.jacoco.itReportPath>${project.build.directory}/jacoco-it.exec</sonar.jacoco.itReportPath>
-    <sonar.jacoco.reportPath>${project.build.directory}/jacoco.exec</sonar.jacoco.reportPath>
+    <jacoco.version>0.8.5</jacoco.version>
+    <sonar.version>3.7.0.1746</sonar.version>
   </properties>
 
   <modules>
@@ -75,5 +75,59 @@
     <module>qlack-webdesktop-apps</module>
     <module>qlack-webdesktop-common</module>
   </modules>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.jacoco</groupId>
+        <artifactId>jacoco-maven-plugin</artifactId>
+        <version>${jacoco.version}</version>
+        <executions>
+          <execution>
+            <id>before-unit-test-execution</id>
+            <goals>
+              <goal>prepare-agent</goal>
+            </goals>
+            <configuration>
+              <destFile>${project.build.directory}/jacoco.exec</destFile>
+              <propertyName>argLine</propertyName>
+            </configuration>
+          </execution>
+          <execution>
+            <id>before-integration-test-execution</id>
+            <phase>pre-integration-test</phase>
+            <goals>
+              <goal>prepare-agent</goal>
+            </goals>
+            <configuration>
+              <destFile>${project.build.directory}/jacoco-it.exec</destFile>
+              <propertyName>failsafe.jacoco.args</propertyName>
+            </configuration>
+          </execution>
+          <execution>
+            <id>report</id>
+            <phase>test</phase>
+            <goals>
+              <goal>report</goal>
+            </goals>
+            <configuration>
+              <excludes>
+              </excludes>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <groupId>org.sonarsource.scanner.maven</groupId>
+          <artifactId>sonar-maven-plugin</artifactId>
+          <version>${sonar.version}</version>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+  </build>
 
 </project>
