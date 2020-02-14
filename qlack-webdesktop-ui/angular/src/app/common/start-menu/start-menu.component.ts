@@ -48,22 +48,23 @@ export class StartMenuComponent implements OnInit {
               }).add(() => {
 
             if (index == (applicationsList.length - 1)) {
-              this.widgets = this.widgets.sort((a, b) => !a.groupTranslated ? 1 : (!b.groupTranslated ? -1 : (a.groupTranslated.toLowerCase().localeCompare(b.groupTranslated.toLowerCase()))));
+               this.widgets.sort((a, b) => !a.groupTranslated ? 1 : (!b.groupTranslated ? -1 : (a.groupTranslated.toLowerCase().localeCompare(b.groupTranslated.toLowerCase()))));
               const groups = [...new Set(this.widgets.map(w => w.groupTranslated))];
 
               groups.forEach(group => {
                 this.sortedWidgets.push(this.widgets.filter(w => w.groupTranslated === group));
               });
-              this.sortedWidgets.forEach((widthArray, index) => {
+              this.sortedWidgets.forEach((widthArray, i) => {
                 this.onCreateMenuColumns(widthArray.length);
-                this.sortedWidgets[index] = widthArray.sort((a, b) => {
+                widthArray.sort((a, b) => {
                   return a.applicationName.toLowerCase().localeCompare(b.applicationName.toLowerCase());
-                })
+                });
+                this.sortedWidgets[i] = widthArray;
               })
             }
           });
         });
-      })
+      });
 
       // Add current host to QPubSub allowed origins
       this.allowedOrigins.push(window.location.origin);

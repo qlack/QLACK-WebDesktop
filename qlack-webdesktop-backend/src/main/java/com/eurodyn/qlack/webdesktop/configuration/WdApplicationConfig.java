@@ -76,6 +76,7 @@ public class WdApplicationConfig implements ApplicationRunner {
   private String wdAdmin;
 
   @Autowired
+  @SuppressWarnings("squid:S00107")
   public WdApplicationConfig(
       WdApplicationRepository wdApplicationRepository, CryptoDigestService cryptoDigestService,
       DiscoveryClientRouteLocator discoveryClientRouteLocator, LanguageService languageService,

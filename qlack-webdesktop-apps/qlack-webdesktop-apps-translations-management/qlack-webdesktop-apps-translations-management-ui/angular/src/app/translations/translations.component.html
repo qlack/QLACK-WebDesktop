@@ -1,14 +1,13 @@
 <mat-card>
   <mat-card-content>
     <div fxLayout="column">
-      <!-- the table for translation data   -->
       <table mat-table #table [dataSource]="dataSource" class="mat-elevation-z0" fxFlex="grow"
              matSort
              matSortActive="id"
              matSortDirection="asc"
              matSortStart="asc"
              matSortDisableClear>
-
+         <caption disabled="true">the table for translation data</caption>
         <ng-container matColumnDef="groupId">
           <th mat-header-cell *matHeaderCellDef id="groupName"> {{'translations-management-ui.groupName' | translate}}</th>
           <td mat-cell *matCellDef="let element">{{element.groupName}}</td>
