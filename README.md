@@ -18,35 +18,35 @@ Application open in individual windows, supporting familiar features such as dra
 ## Code Quality
 
 <p align="center">
-	<a href="https://sonarcloud.io/dashboard?id=com.eurodyn.qlack.webdesktop%3Aqlack-webdesktop">
-  		<img src="https://sonarcloud.io/api/project_badges/measure?project=com.eurodyn.qlack.webdesktop%3Aqlack-webdesktop&metric=security_rating" />
+	<a href="https://sonarcloud.io/dashboard?id=qlack_QLACK-WebDesktop">
+  		<img src="https://sonarcloud.io/api/project_badges/measure?project=qlack_QLACK-WebDesktop&metric=security_rating" />
 	</a>
-	<a href="https://sonarcloud.io/dashboard?id=com.eurodyn.qlack.webdesktop%3Aqlack-webdesktop">
-  		<img src="https://sonarcloud.io/api/project_badges/measure?project=com.eurodyn.qlack.webdesktop%3Aqlack-webdesktop&metric=reliability_rating" />
+	<a href="https://sonarcloud.io/dashboard?id=qlack_QLACK-WebDesktop">
+  		<img src="https://sonarcloud.io/api/project_badges/measure?project=qlack_QLACK-WebDesktop&metric=reliability_rating" />
 	</a>
-	<a href="https://sonarcloud.io/dashboard?id=com.eurodyn.qlack.webdesktop%3Aqlack-webdesktop">
-  		<img src="https://sonarcloud.io/api/project_badges/measure?project=com.eurodyn.qlack.webdesktop%3Aqlack-webdesktop&metric=sqale_rating" />
+	<a href="https://sonarcloud.io/dashboard?id=qlack_QLACK-WebDesktopp">
+  		<img src="https://sonarcloud.io/api/project_badges/measure?project=qlack_QLACK-WebDesktop&metric=sqale_rating" />
 	</a>
-	<a href="https://sonarcloud.io/dashboard?id=com.eurodyn.qlack.webdesktop%3Aqlack-webdesktop">
-  		<img src="https://sonarcloud.io/api/project_badges/measure?project=com.eurodyn.qlack.webdesktop%3Aqlack-webdesktop&metric=sqale_index" />
+	<a href="https://sonarcloud.io/dashboard?id=qlack_QLACK-WebDesktop">
+  		<img src="https://sonarcloud.io/api/project_badges/measure?project=qlack_QLACK-WebDesktop&metric=sqale_index" />
 	</a>
-	<a href="https://sonarcloud.io/dashboard?id=com.eurodyn.qlack.webdesktop%3Aqlack-webdesktop">
-  		<img src="https://sonarcloud.io/api/project_badges/measure?project=com.eurodyn.qlack.webdesktop%3Aqlack-webdesktop&metric=ncloc" />
+	<a href="https://sonarcloud.io/dashboard?id=qlack_QLACK-WebDesktop">
+  		<img src="https://sonarcloud.io/api/project_badges/measure?project=qlack_QLACK-WebDesktop&metric=ncloc" />
 	</a>
-	<a href="https://sonarcloud.io/dashboard?id=com.eurodyn.qlack.webdesktop%3Aqlack-webdesktop">
-  		<img src="https://sonarcloud.io/api/project_badges/measure?project=com.eurodyn.qlack.webdesktop%3Aqlack-webdesktop&metric=coverage" />
+	<a href="https://sonarcloud.io/dashboard?id=qlack_QLACK-WebDesktop">
+  		<img src="https://sonarcloud.io/api/project_badges/measure?project=qlack_QLACK-WebDesktop&metric=coverage" />
 	</a>
-	<a href="https://sonarcloud.io/dashboard?id=com.eurodyn.qlack.webdesktop%3Aqlack-webdesktop">
-  		<img src="https://sonarcloud.io/api/project_badges/measure?project=com.eurodyn.qlack.webdesktop%3Aqlack-webdesktop&metric=duplicated_lines_density" />
+	<a href="https://sonarcloud.io/dashboard?id=qlack_QLACK-WebDesktop">
+  		<img src="https://sonarcloud.io/api/project_badges/measure?project=qlack_QLACK-WebDesktop&metric=duplicated_lines_density" />
 	</a>
-	<a href="https://sonarcloud.io/dashboard?id=com.eurodyn.qlack.webdesktop%3Aqlack-webdesktop">
-  		<img src="https://sonarcloud.io/api/project_badges/measure?project=com.eurodyn.qlack.webdesktop%3Aqlack-webdesktop&metric=code_smells" />
+	<a href="https://sonarcloud.io/dashboard?id=qlack_QLACK-WebDesktop">
+  		<img src="https://sonarcloud.io/api/project_badges/measure?project=qlack_QLACK-WebDesktop&metric=code_smells" />
 	</a>
-	<a href="https://sonarcloud.io/dashboard?id=com.eurodyn.qlack.webdesktop%3Aqlack-webdesktop">
-  		<img src="https://sonarcloud.io/api/project_badges/measure?project=com.eurodyn.qlack.webdesktop%3Aqlack-webdesktop&metric=vulnerabilities" />
+	<a href="https://sonarcloud.io/dashboard?id=qlack_QLACK-WebDesktop">
+  		<img src="https://sonarcloud.io/api/project_badges/measure?project=qlack_QLACK-WebDesktop&metric=vulnerabilities" />
 	</a>
-	<a href="https://sonarcloud.io/dashboard?id=com.eurodyn.qlack.webdesktop%3Aqlack-webdesktop">
-  		<img src="https://sonarcloud.io/api/project_badges/measure?project=com.eurodyn.qlack.webdesktop%3Aqlack-webdesktop&metric=bugs" />
+	<a href="https://sonarcloud.io/dashboard?id=qlack_QLACK-WebDesktop">
+  		<img src="https://sonarcloud.io/api/project_badges/measure?project=qlack_QLACK-WebDesktop&metric=bugs" />
 	</a>
 </p>
 
