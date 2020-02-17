@@ -1,6 +1,12 @@
 <mat-card>
   <mat-card-content>
     <div fxLayout="column">
+      <div [formGroup]="filterForm" fxFlex="row" fxLayoutGap="10px">
+        <mat-form-field>
+          <input matInput placeholder="{{'management-app-ui.title' | translate}}" formControlName="name">
+        </mat-form-field>
+        <button mat-button (click)="clearFilter()">CLEAR</button>
+      </div>
 
       <table mat-table #table [dataSource]="dataSource" class="mat-elevation-z0" fxFlex="grow"
              matSort

@@ -116,10 +116,5 @@ export class ApplicationsComponent extends BaseComponent implements OnInit, Afte
     const dialogRef = this.dialog.open(FileuploadComponent, {
       width: '400px'
     });
-
-    // dialogRef.afterClosed().subscribe(result => {
-    //   console.log('The dialog was closed');
-    //   this.animal = result;
-    // });
   }
 }

@@ -9,7 +9,7 @@ import {UtilityService} from "../services/utility.service";
 import {QLACKTypescriptFormValidationService} from "@qlack/form-validation";
 
 @Component({
-  selector: 'app-user',
+  selector: 'app-applications-edit',
   templateUrl: './applications-edit.component.html',
   styleUrls: ['./applications-edit.component.scss'],
   encapsulation: ViewEncapsulation.None

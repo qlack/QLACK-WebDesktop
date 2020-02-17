@@ -29,6 +29,8 @@ import {MatPaginatorIntl} from "@angular/material/paginator";
 import {MatPaginatorIntlService} from "./mat-paginator-intl.service";
 import {MatSelectModule} from "@angular/material/select";
 import {MatTabsModule} from "@angular/material/tabs";
+import {MatTableModule} from "@angular/material/table";
+import {MatCheckboxModule} from "@angular/material/checkbox";
 
 export function getJwtToken(): string {
   return localStorage.getItem(AppConstants.JWT_STORAGE_NAME);
@@ -83,9 +85,10 @@ export function createCustomMatPaginatorIntl(
     }),
     MatSelectModule,
     FormsModule,
-    MatTabsModule
+    MatTabsModule,
+    MatTableModule,
+    MatCheckboxModule
   ],
-  exports: [],
   providers: [
     QFormsModule,
     {provide: MatPaginatorIntl, deps: [TranslateService], useFactory: createCustomMatPaginatorIntl}

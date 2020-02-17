@@ -3,6 +3,7 @@ import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {QFormsService, QPageableReply} from '@eurodyn/forms';
 import {FormGroup} from '@angular/forms';
+import {map} from "rxjs/operators";
 
 /**
  * A convenience CRUD service to be extended by concrete services to provide default CRUD methods.
@@ -50,5 +51,17 @@ export class CrudService<T> {
   upload(form: FormGroup): Observable<any> {
     return this.qForms.uploadForm(this.http, form,
       AppConstants.API_ROOT + '/apps/', false);
+  }
+
+  search(term: string, endpoint: string) {
+    return this.http.get<any[]>(`${AppConstants.API_ROOT}/${endpoint}/search/` + term)
+    .pipe(
+      map(
+        (data: any) => {
+          return (
+            data.length != 0 ? data.content as any[] : [{"Name": "Not Found"} as any]
+          );
+        }
+      ));
   }
 }

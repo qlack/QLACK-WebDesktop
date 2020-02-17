@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {ApplicationsService} from "../services/applications.service";
 import {ActivatedRoute, Router} from "@angular/router";
@@ -9,6 +9,11 @@ import {UtilityService} from "../services/utility.service";
 import {QLACKTypescriptFormValidationService} from "@qlack/form-validation";
 import {UserGroupService} from "../services/user-group.service";
 import {OkCancelModalComponent} from "../shared/component/display/ok-cancel-modal/ok-cancel-modal.component";
+import {UserDto} from "../dto/user-dto";
+import {MatPaginator} from "@angular/material/paginator";
+import {MatSort} from "@angular/material/sort";
+import {MatTableDataSource} from "@angular/material/table";
+import {UserService} from "../services/user.service";
 
 @Component({
   selector: 'app-user-group-edit',
@@ -20,35 +25,88 @@ export class UserGroupEditComponent implements OnInit {
   form: FormGroup;
   id: string;
   isEdit = false;
+  selector: any;
+  usersForm: FormGroup;
+  users: UserDto[] = [];
+  usersAdded: string[] = [];
+  usersRemoved: string[] = [];
+  usersInitList: UserDto[] = [];
+  private isUsersListChanged = false;
+  displayedColumns: string[] = ['profilepic', 'username', 'lastname', 'action'];
+  dataSource: MatTableDataSource<UserDto> = new MatTableDataSource<UserDto>();
+  options: any[];
+  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
+  @ViewChild(MatSort, {static: true}) sort: MatSort
 
   constructor(private fb: FormBuilder, private applicationsService: ApplicationsService,
               private route: ActivatedRoute,
               private qForms: QFormsService, private router: Router, private dialog: MatDialog,
               private translateService: TranslateService, private utilityService: UtilityService,
-              private validationService: QLACKTypescriptFormValidationService, private userGroupService: UserGroupService) {
+              private validationService: QLACKTypescriptFormValidationService, private userGroupService: UserGroupService,
+              private userService: UserService) {
+    this.usersForm = this.fb.group({
+      user: [{value: '', disabled: false}]
+    });
   }
 
   ngOnInit() {
     this.id = this.route.snapshot.paramMap.get('id');
     this.isEdit = (this.id !== '0');
-console.log(this.isEdit)
-console.log(this.id)
     // Setup the form.
     this.form = this.fb.group({
       id: ['0'],
       name: [{value: '', disabled: false}, [Validators.maxLength(1024)]],
       description: [{value: '', disabled: false}, [Validators.maxLength(1024)]],
+      usersAdded: [{value: '', disabled: false}, [Validators.maxLength(1024)]],
+      usersRemoved: [{value: '', disabled: false}, [Validators.maxLength(1024)]],
     });
-    console.log(this.id)
     // Fill-in the form with data if editing an existing item.
     if (this.isEdit) {
       this.userGroupService.get(this.id).subscribe(onNext => {
         this.form.patchValue(onNext);
       });
     }
+
+    this.usersForm.valueChanges.subscribe( term => {
+      if (term.user && term != '' && term.user.length > 1) {
+        this.userGroupService.search(term.user, "users").subscribe(
+          data => {
+            this.options = data;
+          });
+      }
+    });
+  }
+
+  ngAfterViewInit(): void {
+    // Initial fetch of data.
+    this.fetchData(0, this.paginator.pageSize, this.sort.active, this.sort.start);
+
+    // Each time the sorting changes, reset the page number.
+    this.sort.sortChange.subscribe(onNext => {
+      this.paginator.pageIndex = 0;
+      this.fetchData(0, this.paginator.pageSize, onNext.active, onNext.direction);
+    });
+  }
+
+  fetchData(page: number, size: number, sort: string, sortDirection: string) {
+    let filterValue = this.usersForm.value;
+    // Convert FormGroup to a query string to pass as a filter.
+    this.userGroupService.getUsersByGroupId(
+      this.qForms.makeQueryString(
+        this.fb.group({username: [filterValue.username]}), null, false, page,
+        size, sort, sortDirection), this.id)
+    .subscribe(onNext => {
+      this.dataSource.data = onNext.content;
+      this.users = onNext.content;
+      this.usersInitList = this.users.slice();
+      this.paginator.length = onNext.totalElements;
+      this.dataSource.sort = this.sort;
+    });
   }
 
   save() {
+    this.form.controls['usersAdded'].setValue(this.usersAdded);
+    this.form.controls['usersRemoved'].setValue(this.usersRemoved);
     this.userGroupService.save(this.qForms.cleanupForm(this.form)).subscribe(
       (response) => {
         this.utilityService.popupSuccess(
@@ -71,7 +129,7 @@ console.log(this.id)
           }
         } else {
           if (error.error === "alreadyExistsCode"){
-            this.utilityService.popupError(this.getMessageTranslations('management-app-ui.the') + " " + this.getMessageTranslations('management-app-ui.applicationName') +
+            this.utilityService.popupError(this.getMessageTranslations('management-app-ui.the') + " " + this.getMessageTranslations('management-app-ui.title') +
               " " + this.getMessageTranslations('management-app-ui.alreadyExistsCode'));
           } else {
             this.utilityService.popupError(error.error);
@@ -92,8 +150,8 @@ console.log(this.id)
     }).afterClosed().subscribe(result => {
       if (result) {
         this.userGroupService.delete(this.id).subscribe(onNext => {
+          this.router.navigate(["/usergroup"]);
           this.utilityService.popupSuccess(this.getMessageTranslations('management-app-ui.deleteSuccess'));
-          this.router.navigate(['usergroup']);
         });
       }
     });
@@ -106,5 +164,58 @@ console.log(this.id)
       translatedMessage = translation;
     });
     return translatedMessage;
+  }
+
+  addUser() {
+    let filterValue = this.usersForm.value;
+    this.userService.findUserByName(filterValue.user).subscribe(
+      (user) => {
+        if (!user) {
+          this.utilityService.popupError(this.getMessageTranslations('management-app-ui.notFound'));
+        } else if (this.itemExists(this.users, user.id)) {
+          this.utilityService.popupError(this.getMessageTranslations('management-app-ui.alreadyExistsCode'));
+        } else {
+          this.users.push(user);
+          //filtering, add user only if user has never been removed and added again.
+          if (!this.itemExists(this.usersInitList, user.id)){
+            this.usersAdded.push(user.id);
+          }
+          //filtering, if user has been removed and then added again remove him from usersRemoved.
+          this.usersRemoved = this.filterList(this.usersRemoved, user.id);
+          this.isUsersListChanged = true;
+          this.dataSource.data = this.users;
+        }
+        //cleans up input text
+        this.usersForm.controls['user'].reset();
+        this.options = [];
+      });
+  }
+
+  filterList(list: string[], data: string): string[]{
+    return list.filter(value => value != data);
+  }
+
+  //check if user exists
+  itemExists(list, userId): any {
+    return list.find( item => item.id === userId);
+  }
+
+  removeUser(row_obj) {
+    this.users = this.users.filter((value, key) => {
+      return value.id != row_obj.id;
+    });
+    this.dataSource.data = this.users;
+    this.isUsersListChanged = true;
+    //filtering, if user has been added and removed, remove him from usersAdded.
+    this.usersAdded = this.filterList(this.usersAdded, row_obj.id);
+    //filtering, add user only if user has never been removed and added again.
+    if (this.itemExists(this.usersInitList, row_obj.id)){
+      this.usersRemoved.push(row_obj.id);
+    }
+  }
+
+  changePage() {
+    this.fetchData(this.paginator.pageIndex, this.paginator.pageSize, this.sort.active,
+      this.sort.start);
   }
 }

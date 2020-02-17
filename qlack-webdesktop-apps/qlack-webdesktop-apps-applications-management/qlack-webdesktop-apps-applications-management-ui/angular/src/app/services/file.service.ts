@@ -25,6 +25,5 @@ export class FileService extends CrudService<FileDto>{
 
   getImage(id: any) {
     return AppConstants.API_SECURED_ROOT + '/' + this.resource +  `/${id}`;
-    // return this.http.get(`${AppConstants.API_SECURED_ROOT}/${this.resource}/${id}`, { responseType: 'blob' });
   }
 }

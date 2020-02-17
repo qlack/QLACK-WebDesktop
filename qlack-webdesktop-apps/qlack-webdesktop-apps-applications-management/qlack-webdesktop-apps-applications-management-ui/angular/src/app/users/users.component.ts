@@ -17,10 +17,9 @@ import {UserDto} from "../dto/user-dto";
   styleUrls: ['./users.component.scss']
 })
 export class UsersComponent extends BaseComponent implements OnInit, AfterViewInit {
-  displayedColumns = ['profilepic', 'email', 'firstname', 'lastname', 'status', 'roles'];
+  displayedColumns = ['profilepic', 'username', 'firstname', 'lastname'];
   dataSource: MatTableDataSource<UserDto> = new MatTableDataSource<UserDto>();
   filterForm: FormGroup;
-  enabled = [this.constants.USER_STATUS.ENABLED];
   // References to sorting and pagination.
   @ViewChild(MatSort, {static: true}) sort: MatSort;
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
@@ -29,8 +28,7 @@ export class UsersComponent extends BaseComponent implements OnInit, AfterViewIn
               private qForms: QFormsService, private fileService: FileService) {
     super();
     this.filterForm = this.fb.group({
-      email: [''],
-      status: [this.enabled]
+      username: ['']
     });
   }
 
@@ -46,41 +44,32 @@ export class UsersComponent extends BaseComponent implements OnInit, AfterViewIn
   }
 
   ngOnInit() {
-    // Listen for filter changes to fetch new data.
-    this.filterForm.valueChanges.debounceTime(500).subscribe(onNext => {
-      this.fetchData(this.paginator.pageIndex, this.paginator.pageSize, this.sort.active,
-        this.sort.start);
+    // Listen for filter changes to fetch new data with %like% operator.
+    this.filterForm.valueChanges.debounceTime(500).subscribe(term => {
+      if (term.username && term != '' && term.username.length > 0) {
+        this.userService.search(term.username, "users").subscribe(
+          data => {
+            this.dataSource.data = data;
+          });
+      } else {
+        this.fetchData(this.paginator.pageIndex, this.paginator.pageSize, this.sort.active,
+          this.sort.start);
+      }
     });
   }
 
   fetchData(page: number, size: number, sort: string, sortDirection: string) {
     let filterValue = this.filterForm.value;
-    let statusQueryString = this.geStatusQueryString(filterValue.status);
-
     // Convert FormGroup to a query string to pass as a filter.
     this.userService.getAll(
       this.qForms.makeQueryString(
-        this.fb.group({email: [filterValue.email], status: [statusQueryString]}), null, false, page,
+        this.fb.group({username: [filterValue.username]}), null, false, page,
         size, sort, sortDirection))
     .subscribe(onNext => {
       this.dataSource.data = onNext.content;
       this.paginator.length = onNext.totalElements;
+      this.dataSource.sort = this.sort;
     });
-  }
-
-  geStatusQueryString(status) {
-    let statusString = "";
-    if (status) {
-      if (status.length > 1) {
-        statusString = status[0];
-        for (let index = 1; index < status.length; index++) {
-          statusString += '&status=' + status[index];
-        }
-      } else {
-        statusString = status[0];
-      }
-    }
-    return statusString;
   }
 
   changePage() {

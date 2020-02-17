@@ -18,10 +18,14 @@ import {QFormsModule} from '@eurodyn/forms';
 import {ReactiveFormsModule} from '@angular/forms';
 import {DisplayModule} from '../shared/component/display/display.module';
 import {MatTooltipModule} from '@angular/material/tooltip';
+import {TranslateModule} from "@ngx-translate/core";
+import {UsersEditComponent} from './users-edit.component';
+import {MatAutocompleteModule} from "@angular/material/autocomplete";
 
 @NgModule({
   declarations: [
     UsersComponent,
+    UsersEditComponent,
   ],
   exports: [
     UsersComponent
@@ -43,8 +47,10 @@ import {MatTooltipModule} from '@angular/material/tooltip';
     MatSortModule,
     MatIconModule,
     DisplayModule,
-    MatTooltipModule
-  ]
+    MatTooltipModule,
+    TranslateModule,
+    MatAutocompleteModule
+  ],
 })
 export class UsersModule {
 }

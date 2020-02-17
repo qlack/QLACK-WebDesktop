@@ -4,7 +4,7 @@ import {Observable} from 'rxjs';
 import {AppConstants} from '../app.constants';
 import {UserDto} from '../dto/user-dto';
 import {CrudService} from './crud.service';
-import {QFormsService} from '@eurodyn/forms';
+import {QFormsService, QPageableReply} from '@eurodyn/forms';
 import {FormGroup} from '@angular/forms';
 
 /**
@@ -33,13 +33,24 @@ export class UserService extends CrudService<UserDto> {
 
   // Save user
   save(user: UserDto) {
-    return this.http.post(AppConstants.API_SECURED_ROOT + `/${this.resource}`, JSON.stringify(user),
+    return this.http.post(AppConstants.API_ROOT + `/${this.resource}`, JSON.stringify(user),
       {headers: {'Content-Type': 'application/json'}});
   }
 
   upload(form: FormGroup) {
     return this.qForms.uploadForm(this.http, form,
-      `${AppConstants.API_SECURED_ROOT}/${this.resource}/upload`, false);
+      `${AppConstants.API_ROOT}/${this.resource}/upload`, false);
   }
 
+  findUserByName(name: string): Observable<any> {
+    return this.http.get(`${AppConstants.API_ROOT}/${this.endpoint}/username/${name}`);
+  }
+
+  findGroupByName(name: string): Observable<any> {
+    return this.http.get(`${AppConstants.API_ROOT}/${this.endpoint}/groupname/${name}`);
+  }
+
+  getGroupsByUserId(queryString?: string, userId?: string): Observable<any> {
+    return this.http.get<QPageableReply<any>>(`${AppConstants.API_ROOT}/${this.endpoint}/groups/` + userId + `?${queryString}`);
+  }
 }

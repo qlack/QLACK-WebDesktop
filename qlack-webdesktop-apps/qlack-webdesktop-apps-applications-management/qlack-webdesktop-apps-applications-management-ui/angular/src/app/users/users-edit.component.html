@@ -1,0 +1,77 @@
+<mat-card>
+  <mat-card-title>{{ 'management-app-ui.editUser' | translate}}</mat-card-title>
+  <mat-card-content>
+    <form novalidate [formGroup]="form">
+      <div fxLayout="column">
+        <mat-form-field>
+          <input matInput placeholder="{{'management-app-ui.userName' |
+            translate}}"
+                 formControlName="username">
+          <mat-icon matSuffix color="warn"
+                    *ngIf="form.controls['username'].invalid"
+                    matTooltip="{{form.controls['username'].getError('message')}}"
+                    matTooltipPosition="above" matTooltipClass="error-tooltip"
+          >{{'warning'}}
+          </mat-icon>
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput placeholder="{{'management-app-ui.firstName' |
+            translate}}" formControlName="firstname">
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput placeholder="{{'management-app-ui.lastName' |
+            translate}}" formControlName="lastname">
+        </mat-form-field>
+      </div>
+    </form>
+    <form [formGroup]="groupForm">
+      <mat-form-field>
+        <input type="text" matInput placeholder="{{'management-app-ui.groups' | translate}}..." formControlName="name" [matAutocomplete]="auto">
+        <mat-autocomplete #auto="matAutocomplete">
+          <mat-option *ngFor="let group of options" [value]="group.name">
+            {{group.name}}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+      <button mat-button color="primary" (click)="addGroup()" [disabled]="!groupForm.controls['name'].dirty">{{'management-app-ui.add' | translate}}</button>
+    </form>
+    <div fxLayout="column">
+
+      <table mat-table #table [dataSource]="dataSource" class="mat-elevation-z0" fxFlex="grow"
+             matSort
+             matSortActive="name"
+             matSortDirection="asc"
+             matSortStart="asc"
+             matSortDisableClear>
+
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>{{'management-app-ui.title' | translate}}</th>
+          <td mat-cell *matCellDef="let element">{{element.name}}</td>
+        </ng-container>
+        <ng-container matColumnDef="description">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>{{'management-app-ui.description' | translate}}</th>
+          <td mat-cell *matCellDef="let element">{{element.description}}</td>
+        </ng-container>
+        <!-- Action Column -->
+        <ng-container matColumnDef="action">
+          <th mat-header-cell *matHeaderCellDef> </th>
+          <td mat-cell *matCellDef="let element" class="action-link">
+            <button mat-button color="warn" (click)="removeGroup(element)" class="move-right"><mat-icon>delete</mat-icon></button>
+          </td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; let element; columns: displayedColumns;"></tr>
+      </table>
+      <mat-paginator #paginator (page)="changePage()"
+                     [pageSize]="10"
+                     [pageSizeOptions]="[10, 30, 50]"
+                     [showFirstLastButtons]="true">
+      </mat-paginator>
+    </div>
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-button routerLink="/users">{{'management-app-ui.cancel' |
+      translate}}</button>
+    <button mat-button color="primary" (click)="save()" [disabled]="!form.dirty && !this.isGroupListChanged">{{'management-app-ui.save' | translate}}</button>
+  </mat-card-actions>
+</mat-card>

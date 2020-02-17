@@ -1,55 +1,39 @@
 <mat-card>
-<!--  <mat-card-title>Users</mat-card-title>-->
   <mat-card-content>
     <div fxLayout="column">
-<!--      <div [formGroup]="filterForm" fxFlex="row" fxLayoutGap="10px">-->
-<!--        <mat-form-field>-->
-<!--          <input matInput placeholder="Email" formControlName="email">-->
-<!--        </mat-form-field>-->
-<!--        <mat-form-field>-->
-<!--            <mat-select formControlName="status" multiple placeholder="Status">-->
-<!--              <mat-option *ngFor="let status of constants.USER_STATUS | keyvalue"-->
-<!--                          [value]="status.value">-->
-<!--                {{lookupByValue(constants.USER_STATUS, status.value)}}-->
-<!--              </mat-option>-->
-<!--            </mat-select>-->
-<!--        </mat-form-field>-->
-<!--        <button mat-button (click)="clearFilter()">CLEAR</button>-->
-<!--      </div>-->
+      <div [formGroup]="filterForm" fxFlex="row" fxLayoutGap="10px">
+        <mat-form-field>
+          <input matInput placeholder="{{'management-app-ui.userName' | translate}}" formControlName="username">
+        </mat-form-field>
+        <button mat-button (click)="clearFilter()">CLEAR</button>
+      </div>
 
       <table mat-table #table [dataSource]="dataSource" class="mat-elevation-z0" fxFlex="grow"
              matSort
-             matSortActive="id"
+             matSortActive="username"
              matSortDirection="asc"
              matSortStart="asc"
              matSortDisableClear>
 
         <ng-container matColumnDef="profilepic">
-          <th *matHeaderCellDef mat-header-cell>Profile Picture</th>
+          <th *matHeaderCellDef mat-header-cell>{{'management-app-ui.profilePicture' | translate}}</th>
           <td *matCellDef="let element" mat-cell>
-            <img class="profilePicImg" [attr.src]="getFileSrc(element.profilepic)" />
-          </td>
+            <span *ngFor="let item of element.userAttributes">
+            <img class="profilePicImg" *ngIf="item.name === 'image'" [attr.src]="item.data"/>
+            </span>
+          </td>l
         </ng-container>
-        <ng-container matColumnDef="email">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header> Email / User ID</th>
-          <td mat-cell *matCellDef="let element">{{element.email}}</td>
+        <ng-container matColumnDef="username">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>{{'management-app-ui.userName' | translate}}</th>
+          <td mat-cell *matCellDef="let element">{{element.username}}</td>
         </ng-container>
         <ng-container matColumnDef="firstname">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header> First Name</th>
-          <td mat-cell *matCellDef="let element">{{element.userAttributes[0].name}}</td>
+          <th mat-header-cell *matHeaderCellDef>{{'management-app-ui.firstName' | translate}}</th>
+          <td mat-cell *matCellDef="let element">{{element.firstname}}</td>
         </ng-container>
         <ng-container matColumnDef="lastname">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header> Last Name</th>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>{{'management-app-ui.lastName' | translate}}</th>
           <td mat-cell *matCellDef="let element">{{element.lastname}}</td>
-        </ng-container>
-        <ng-container matColumnDef="status">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header>Status</th>
-          <td mat-cell *matCellDef="let element">{{lookupByValue(constants.USER_STATUS,
-                element.status)}}</td>
-        </ng-container>
-        <ng-container matColumnDef="roles">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header>Roles</th>
-          <td mat-cell *matCellDef="let element">{{element.roles}}</td>
         </ng-container>
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; let element; columns: displayedColumns;"

@@ -30,7 +30,7 @@ export class UserGroupComponent extends BaseComponent implements OnInit, AfterVi
               private qForms: QFormsService, private fileService: FileService) {
     super();
     this.filterForm = this.fb.group({
-      groupName: ['']
+      name: ['']
     });
   }
 
@@ -41,16 +41,22 @@ export class UserGroupComponent extends BaseComponent implements OnInit, AfterVi
     // Each time the sorting changes, reset the page number.
     this.sort.sortChange.subscribe(onNext => {
       this.paginator.pageIndex = 0;
-      console.log(onNext)
       this.fetchData(0, this.paginator.pageSize, onNext.active, onNext.direction);
     });
   }
 
   ngOnInit() {
     // Listen for filter changes to fetch new data.
-    this.filterForm.valueChanges.debounceTime(500).subscribe(onNext => {
-      this.fetchData(this.paginator.pageIndex, this.paginator.pageSize, this.sort.active,
-        this.sort.start);
+    this.filterForm.valueChanges.debounceTime(500).subscribe(term => {
+      if (term.name && term != '' && term.name.length > 0) {
+        this.userGroupService.search(term.name, "usergroup").subscribe(
+          data => {
+            this.dataSource.data = data;
+          });
+      } else {
+        this.fetchData(this.paginator.pageIndex, this.paginator.pageSize, this.sort.active,
+          this.sort.start);
+      }
     });
   }
 
@@ -59,7 +65,7 @@ export class UserGroupComponent extends BaseComponent implements OnInit, AfterVi
     // Convert FormGroup to a query string to pass as a filter.
     this.userGroupService.getAll(
       this.qForms.makeQueryString(
-        this.fb.group({groupName: [filterValue.groupName]}), null, false, page,
+        this.fb.group({name: [filterValue.name]}), null, false, page,
         size, sort, sortDirection))
     .subscribe(onNext => {
       this.dataSource.data = onNext.content;

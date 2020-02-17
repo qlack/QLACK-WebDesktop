@@ -31,6 +31,9 @@ import {QLACKFormValidationModule} from "@qlack/form-validation";
     ApplicationsEditComponent,
     FileuploadComponent
   ],
+  exports: [
+    ApplicationsEditComponent
+  ],
   imports: [
     CommonModule,
     ApplicationsRoutingModule,
