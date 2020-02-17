@@ -38,6 +38,11 @@
       <artifactId>qlack-webdesktop-common</artifactId>
       <version>${project.version}</version>
     </dependency>
+    <dependency>
+      <artifactId>qlack-util-querydsl</artifactId>
+      <groupId>com.eurodyn.qlack.util</groupId>
+      <version>${qlack.version}</version>
+    </dependency>
 
     <!-- Spring Boot -->
     <dependency>
