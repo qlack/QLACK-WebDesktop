@@ -135,6 +135,14 @@ translations:
     - deleteSuccess: Group successfully deleted
     - newGroup: New Group
     - editGroup: Edit Group
+    - profilePicture: Profile Picture
+    - firstName: First Name
+    - lastName: Last Name
+    - add: Add
+    - search: Search
+    - notFound: Νot found
+    - userName: Username
+    - editUser: User edit
 
 - group: management-app-ui
   locale: el
@@ -205,6 +213,14 @@ translations:
     - deleteSuccess: Επιτυχής διαγραφή
     - newGroup: Νέα ομάδα
     - editGroup: Επεξεργασία ομάδας
+    - profilePicture: Εικόνα προφίλ
+    - firstName: Όνομα
+    - lastName: Επίθετο
+    - add: Προσθήκη
+    - search: Αναζήτηση
+    - notFound: Δεν βρέθηκε
+    - userName: Όνομα χρήστη
+    - editUser: Επεξεργασία χρήστη
 
 - group: user-profile-management-ui
   locale: en

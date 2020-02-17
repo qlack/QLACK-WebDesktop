@@ -3,6 +3,7 @@ package com.eurodyn.qlack.webdesktop.applications.management.controller;
 import com.eurodyn.qlack.webdesktop.applications.management.service.ApplicationsService;
 import com.eurodyn.qlack.webdesktop.common.dto.WdApplicationDTO;
 import com.eurodyn.qlack.webdesktop.common.model.WdApplication;
+import java.util.Map;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,8 +17,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
-
-import java.util.Map;
 
 /**
  * This Controller class contains all the endpoints related to the applications actions.
@@ -33,7 +32,7 @@ public class ApplicationsController {
   private ApplicationsService applicationsService;
 
   /**
-   * This method returns all the QLACK Web Desktop applications.
+   * Returns all the QLACK Web Desktop applications.
    *
    * @return a list containing all the applications
    */
@@ -42,10 +41,11 @@ public class ApplicationsController {
     return applicationsService.getApplications();
   }
 
+
   /**
-   * This method returns all the QLACK Web Desktop applications.
-   *
-   * @return a list containing all the applications
+   * Returns an application by given id.
+   * @param id the application's id
+   * @return a signle Web Desktop application.
    */
   @GetMapping(path = "{id}")
   public WdApplicationDTO getApplicationById(@PathVariable String id) {

@@ -29,7 +29,8 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
     "com.eurodyn.qlack.webdesktop.common.mapper",
     "com.eurodyn.qlack.fuse.lexicon",
     "com.eurodyn.qlack.fuse.crypto.service",
-    "com.eurodyn.qlack.fuse.aaa"
+    "com.eurodyn.qlack.fuse.aaa",
+    "com.eurodyn.qlack.util"
 })
 public class QlackWebDesktopApplicationsManagement {
 
