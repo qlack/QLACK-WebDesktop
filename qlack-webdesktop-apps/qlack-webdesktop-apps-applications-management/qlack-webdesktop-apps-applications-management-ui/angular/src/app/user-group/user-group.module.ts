@@ -24,7 +24,6 @@ import {MatDividerModule} from "@angular/material/divider";
 import {ApplicationsModule} from "../applications/applications.module";
 import {UsersModule} from "../users/users.module";
 import {MatCheckboxModule} from "@angular/material/checkbox";
-import {NgxMatSelectSearchModule} from "ngx-mat-select-search";
 import {MatAutocompleteModule} from "@angular/material/autocomplete";
 
 
@@ -58,7 +57,6 @@ import {MatAutocompleteModule} from "@angular/material/autocomplete";
     UsersModule,
     MatCheckboxModule,
     FormsModule,
-    NgxMatSelectSearchModule,
     MatAutocompleteModule
   ],
 })
