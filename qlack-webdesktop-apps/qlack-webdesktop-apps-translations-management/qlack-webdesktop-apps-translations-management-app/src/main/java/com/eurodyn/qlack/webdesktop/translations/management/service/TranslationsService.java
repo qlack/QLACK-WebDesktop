@@ -99,7 +99,7 @@ public class TranslationsService {
     }
   }
 
-  private String getTranslation(String keyId, String languageId) {
+  public String getTranslation(String keyId, String languageId) {
     Data data = dataRepository.findByKeyIdAndLanguageId(keyId, languageId);
     return data != null ? data.getValue() : null;
   }
