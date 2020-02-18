@@ -72,7 +72,7 @@ public class WdApplicationConfig implements ApplicationRunner {
   private KeyService keyService;
   private  UserRepository userRepository;
   private  LdapUserUtil ldapUserUtil;
-  @Value("${wd.admin}")
+  @Value("${wd.admin:#{null}}")
   private String wdAdmin;
 
   @Autowired
@@ -103,7 +103,7 @@ public class WdApplicationConfig implements ApplicationRunner {
   @Override
   public void run(ApplicationArguments args) {
 
-      if (userRepository.findByUsername(wdAdmin) == null){
+      if (userRepository.findByUsername(wdAdmin) == null && wdAdmin != null){
         ldapUserUtil.setLdapMappingAttrs("firstName-givenName,lastName-sn");
         User user = ldapUserUtil.syncUserWithAAA(wdAdmin);
         if(user != null) {
