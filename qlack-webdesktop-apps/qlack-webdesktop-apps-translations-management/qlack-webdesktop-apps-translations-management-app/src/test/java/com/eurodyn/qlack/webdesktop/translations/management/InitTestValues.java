@@ -6,6 +6,7 @@ import com.eurodyn.qlack.fuse.lexicon.model.Data;
 import com.eurodyn.qlack.fuse.lexicon.model.Group;
 import com.eurodyn.qlack.fuse.lexicon.model.Key;
 import com.eurodyn.qlack.fuse.lexicon.model.Language;
+import com.eurodyn.qlack.webdesktop.translations.management.dto.TmKeyDTO;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -90,6 +91,23 @@ public class InitTestValues {
 
     return keyDTO;
   }
+
+  public TmKeyDTO createTmKeyDTO() {
+    TmKeyDTO tmKeyDTO = new TmKeyDTO();
+    tmKeyDTO.setId("0f2f12f8-4902-4355-ae52-20ccf92db2f3");
+    tmKeyDTO.setGroupId(createGroup().getId());
+    tmKeyDTO.setName("attachment_desc");
+    tmKeyDTO.setGroupName("groupName");
+    Map<String, String> translations = new HashMap<>();
+    translations.put("777119b0-bda0-4e87-9d3b-08d80e9bb9e8",
+        "Add attachment description");
+    translations.put("71df58f1-be26-410a-94ca-cfc90ac955a4",
+        "Adicionar descrição do anexo");
+    tmKeyDTO.setTranslations(translations);
+
+    return tmKeyDTO;
+  }
+
 
   public List<KeyDTO> createKeysDTO() {
     List<KeyDTO> keysDTO = new ArrayList<>();

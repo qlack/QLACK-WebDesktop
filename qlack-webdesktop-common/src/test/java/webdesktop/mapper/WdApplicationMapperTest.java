@@ -2,6 +2,10 @@ package webdesktop.mapper;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.ArgumentMatchers.anyString;
 
 import com.eurodyn.qlack.webdesktop.common.dto.WdApplicationDTO;
 import com.eurodyn.qlack.webdesktop.common.mapper.WdApplicationMapperImpl;
@@ -27,6 +31,7 @@ public class WdApplicationMapperTest {
   private WdApplicationDTO wdApplicationDTO;
   private List<WdApplication> wdApplications;
   private List<WdApplicationDTO> wdApplicationDTOS;
+  private Long longDate = null;
 
 
   @Before
@@ -70,6 +75,21 @@ public class WdApplicationMapperTest {
   @Test
   public void mapTest() {
     Long date = wdApplicationMapperImpl.map(new Date());
+    assertNotNull(date);
+  }
+  @Test
+  public void mapNullTest() {
+    Long date = wdApplicationMapperImpl.map(null);
+    assertNull(date);
+  }
+  @Test
+  public void mapToDTONullTest() {
+    Date date = wdApplicationMapperImpl.mapToDTO(longDate);
+    assertNull(date);
+  }
+  @Test
+  public void mapToDtoTest() {
+    Date date = wdApplicationMapperImpl.mapToDTO(1220227200L);
     assertNotNull(date);
   }
 

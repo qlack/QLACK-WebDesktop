@@ -74,7 +74,8 @@
       src/main/java/com/eurodyn/qlack/webdesktop/common/repository/*
       src/main/java/com/eurodyn/qlack/webdesktop/**/**/model/*,
       src/main/java/com/eurodyn/qlack/webdesktop/**/**/dto/*,
-      src/main/java/com/eurodyn/qlack/webdesktop/**/**/repository/*
+      src/main/java/com/eurodyn/qlack/webdesktop/**/**/repository/*,
+      src/main/java/com/eurodyn/qlack/webdesktop/user/profile/management/security/SsoSecurityConfig.java
     </sonar.coverage.exclusions>
   </properties>
 

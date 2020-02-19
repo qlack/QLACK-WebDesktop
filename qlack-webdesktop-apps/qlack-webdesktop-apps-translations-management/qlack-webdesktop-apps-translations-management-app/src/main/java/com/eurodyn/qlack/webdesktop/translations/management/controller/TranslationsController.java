@@ -3,8 +3,6 @@ package com.eurodyn.qlack.webdesktop.translations.management.controller;
 import com.eurodyn.qlack.fuse.lexicon.dto.LanguageDTO;
 import com.eurodyn.qlack.webdesktop.translations.management.dto.TmKeyDTO;
 import com.eurodyn.qlack.webdesktop.translations.management.service.TranslationsService;
-import java.util.List;
-import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,25 +14,32 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+import java.util.Map;
+
 @RequestMapping("/api")
 @RestController
 public class TranslationsController {
 
-  @Autowired
-  TranslationsService translationsService;
+  private TranslationsService translationsService;
 
+  @Autowired
+  public TranslationsController(
+      TranslationsService translationsService) {
+    this.translationsService = translationsService;
+  }
 
   @GetMapping("/key")
   public Page<TmKeyDTO> getPagesForAllKeys(@RequestParam String page,
-    @RequestParam String size,
-    @RequestParam List<String> sort) {
+      @RequestParam String size,
+      @RequestParam List<String> sort) {
     return translationsService.findPagesForAllKeys(page, size, sort);
   }
 
   @PostMapping("/key/update")
   public void updateTranslationsForKey(@RequestBody TmKeyDTO tmKeyDto) {
     translationsService
-      .updateTranslationsForKey(tmKeyDto.getId(), tmKeyDto.getTranslations());
+        .updateTranslationsForKey(tmKeyDto.getId(), tmKeyDto.getTranslations());
   }
 
   @GetMapping("/languages/{includeInactive}")
@@ -54,7 +59,7 @@ public class TranslationsController {
 
   @GetMapping("/translations")
   public Map<String, Map<String, String>> getTranslations(
-    @RequestParam String lang) {
+      @RequestParam String lang) {
     return translationsService.findTranslationsForLocale(lang);
   }
 
