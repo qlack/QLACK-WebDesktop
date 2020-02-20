@@ -26,8 +26,13 @@ import java.io.IOException;
 @RequestMapping("/webdesktop/user/profile/management")
 public class IndexController {
 
-  @Autowired
+
   private ResourceLoader resourceLoader;
+
+  @Autowired
+  public IndexController(ResourceLoader resourceLoader) {
+    this.resourceLoader = resourceLoader;
+  }
 
   /**
    * This method returns the application configuration.

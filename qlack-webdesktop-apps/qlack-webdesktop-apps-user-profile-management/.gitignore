@@ -1,9 +1,0 @@
-target/
-dist/
-node/
-node_modules/
-.idea/
-*.iml
-*.versionsBackup
-*.log
-*.gz
