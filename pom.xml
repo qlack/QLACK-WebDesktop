@@ -76,7 +76,15 @@
       src/main/java/com/eurodyn/qlack/webdesktop/**/**/model/*,
       src/main/java/com/eurodyn/qlack/webdesktop/**/**/dto/*,
       src/main/java/com/eurodyn/qlack/webdesktop/**/**/repository/*,
+      src/main/java/com/eurodyn/qlack/webdesktop/security/NoSecurityConfig.java
+      src/main/java/com/eurodyn/qlack/webdesktop/security/SsoSecurityConfig.java
+      src/main/java/com/eurodyn/qlack/webdesktop/WebDesktopApplication.java
+      src/main/java/com/eurodyn/qlack/webdesktop/ServletInitializer.java
       src/main/java/com/eurodyn/qlack/webdesktop/user/profile/management/security/SsoSecurityConfig.java
+      src/main/java/com/eurodyn/qlack/webdesktop/applications/management/QlackWebDesktopApplicationsManagement.java
+      src/main/java/com/eurodyn/qlack/webdesktop/translations/management/QlackWebDesktopTranslationsManagement.java
+      src/main/java/com/eurodyn/qlack/webdesktop/user/profile/management/QlackWebdesktopUserProfileManagement.java
+
     </sonar.coverage.exclusions>
   </properties>
 
