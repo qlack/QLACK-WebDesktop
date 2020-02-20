@@ -1,9 +1,11 @@
 package com.eurodyn.qlack.webdesktop.controller;
 
+import com.eurodyn.qlack.fuse.aaa.dto.UserAttributeDTO;
 import com.eurodyn.qlack.fuse.lexicon.service.GroupService;
 import com.eurodyn.qlack.fuse.lexicon.service.KeyService;
 import com.eurodyn.qlack.webdesktop.common.dto.WdApplicationDTO;
 import com.eurodyn.qlack.webdesktop.common.service.WdApplicationService;
+import com.eurodyn.qlack.webdesktop.service.UserDetailsService;
 import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,7 +33,8 @@ public class WdApplicationController {
   @Autowired
   GroupService groupService;
   private WdApplicationService wdApplicationService;
-
+  @Autowired
+  private UserDetailsService userDetailsService;
   @Autowired
   public WdApplicationController(WdApplicationService wdApplicationService) {
     this.wdApplicationService = wdApplicationService;
@@ -89,4 +92,10 @@ public class WdApplicationController {
   public WdApplicationDTO getApplicationById(@PathVariable String id) {
     return wdApplicationService.findApplicationById(id);
   }
+
+  @GetMapping("/user/details")
+  public Map<String, UserAttributeDTO> getUserDetails() {
+    return userDetailsService.findUserDetails();
+  }
+
 }

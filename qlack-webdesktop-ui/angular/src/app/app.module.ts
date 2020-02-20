@@ -19,7 +19,7 @@ import {WidgetComponent} from './widget/widget.component';
 import {DragDropModule} from '@angular/cdk/drag-drop';
 import {HeaderComponent} from './common/header/header.component';
 import {HttpClient, HttpClientModule} from '@angular/common/http';
-import {WidgetService} from "./widget.service";
+import {WebdesktopService} from "./webdesktop.service";
 import {StartMenuComponent} from "./common/start-menu/start-menu.component";
 import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
@@ -65,7 +65,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     }),
     ResizableModule
   ],
-  providers: [WidgetService],
+  providers: [WebdesktopService],
   bootstrap: [AppComponent],
   entryComponents: [WidgetComponent]
 

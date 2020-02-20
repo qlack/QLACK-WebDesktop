@@ -3,7 +3,7 @@ import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 
 @Injectable()
-export class WidgetService {
+export class WebdesktopService {
 
   constructor(private http: HttpClient) {
   }
@@ -11,4 +11,8 @@ export class WidgetService {
   getActiveApplications(): Observable<any> {
     return this.http.get('/apps/filtered');
   }
+  getUserAttributes(): Observable<any> {
+    return this.http.get('/apps/user/details');
+  }
+
 }
