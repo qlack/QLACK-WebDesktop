@@ -98,7 +98,7 @@ public class IndexControllerTest {
   public void getSmallLogoNotFoundTest() throws Exception {
     when(resourceLoader.getResource(anyString())).thenReturn(mockResource);
     when(FileCopyUtils.copyToByteArray(mockResource.getInputStream())).thenThrow( new IOException());
-    mockMvc.perform(get("/webdesktop/user/profile/management/logo")
+    mockMvc.perform(get("/webdesktop/user/profile/management/logo/icon_small")
         .accept(MediaType.IMAGE_PNG_VALUE))
         .andExpect(status().isNotFound());
   }

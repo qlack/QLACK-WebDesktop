@@ -1,4 +1,4 @@
-package com.eurodyn.qlack.webdesktop.translations.management.controller;
+package com.eurodyn.qlack.webdesktop.applications.management.controller;
 
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
@@ -47,7 +47,7 @@ public class IndexControllerTest {
     when(mockResource.getInputStream()).thenReturn(inputStream);
     when(resourceLoader.getResource(anyString())).thenReturn(mockResource);
 
-    mockMvc.perform(get("/webdesktop/translations/management/configuration")
+    mockMvc.perform(get("/configuration")
         .accept(MediaType.ALL))
         .andExpect(status().isOk());
   }
@@ -57,7 +57,7 @@ public class IndexControllerTest {
 
     when(resourceLoader.getResource(anyString())).thenReturn(mockResource);
     when(FileCopyUtils.copyToByteArray(mockResource.getInputStream())).thenThrow(new IOException());
-    mockMvc.perform(get("/webdesktop/translations/management/configuration")
+    mockMvc.perform(get("/configuration")
         .accept(MediaType.ALL))
         .andExpect(status().isNotFound());
   }
@@ -68,7 +68,7 @@ public class IndexControllerTest {
     InputStream inputStream = new ByteArrayInputStream(mockFile.getBytes());
     when(mockResource.getInputStream()).thenReturn(inputStream);
     when(resourceLoader.getResource(anyString())).thenReturn(mockResource);
-    mockMvc.perform(get("/webdesktop/translations/management/logo/icon")
+    mockMvc.perform(get("/logo/icon")
         .accept(MediaType.IMAGE_PNG_VALUE))
         .andExpect(status().isOk());
   }
@@ -77,7 +77,7 @@ public class IndexControllerTest {
   public void getLogoNotFoundTest() throws Exception {
     when(resourceLoader.getResource(anyString())).thenReturn(mockResource);
     when(FileCopyUtils.copyToByteArray(mockResource.getInputStream())).thenThrow(new IOException());
-    mockMvc.perform(get("/webdesktop/translations/management/logo/icon")
+    mockMvc.perform(get("/logo/icon")
         .accept(MediaType.IMAGE_PNG_VALUE))
         .andExpect(status().isNotFound());
   }
@@ -88,7 +88,7 @@ public class IndexControllerTest {
     InputStream inputStream = new ByteArrayInputStream(mockFile.getBytes());
     when(mockResource.getInputStream()).thenReturn(inputStream);
     when(resourceLoader.getResource(anyString())).thenReturn(mockResource);
-    mockMvc.perform(get("/webdesktop/translations/management/logo/icon_small")
+    mockMvc.perform(get("/logo/icon_small")
         .accept(MediaType.IMAGE_PNG_VALUE))
         .andExpect(status().isOk());
   }
@@ -97,11 +97,9 @@ public class IndexControllerTest {
   public void getSmallLogoNotFoundTest() throws Exception {
     when(resourceLoader.getResource(anyString())).thenReturn(mockResource);
     when(FileCopyUtils.copyToByteArray(mockResource.getInputStream())).thenThrow(new IOException());
-    mockMvc.perform(get("/webdesktop/translations/management/logo/icon_small")
+    mockMvc.perform(get("/logo/icon_small")
         .accept(MediaType.IMAGE_PNG_VALUE))
         .andExpect(status().isNotFound());
   }
 
 }
-
-

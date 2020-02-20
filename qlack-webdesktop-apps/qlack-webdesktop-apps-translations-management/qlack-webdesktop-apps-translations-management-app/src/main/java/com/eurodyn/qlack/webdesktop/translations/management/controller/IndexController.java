@@ -25,8 +25,13 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/webdesktop/translations/management")
 public class IndexController {
 
-  @Autowired
+
   private ResourceLoader resourceLoader;
+
+  @Autowired
+  public IndexController(ResourceLoader resourceLoader) {
+    this.resourceLoader = resourceLoader;
+  }
 
   /**
    * This method returns the application configuration.
