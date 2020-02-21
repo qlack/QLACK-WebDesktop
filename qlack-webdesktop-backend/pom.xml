@@ -13,15 +13,6 @@
   <artifactId>qlack-webdesktop-backend</artifactId>
   <packaging>jar</packaging>
 
-  <properties>
-    <sonar.coverage.exclusions>
-      src/main/java/com/eurodyn/qlack/webdesktop/model/*,
-      src/main/java/com/eurodyn/qlack/webdesktop/dto/*
-    </sonar.coverage.exclusions>
-    <sonar.exclusions>**/generated-sources/**</sonar.exclusions>
-    <sonar.sources>src/main/java</sonar.sources>
-  </properties>
-
   <dependencies>
     <!-- QLACK dependencies  -->
     <dependency>

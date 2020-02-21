@@ -26,8 +26,6 @@ public class UserProfileService {
   private LanguageService languageService;
   private UserService userService;
 
-
-
   @Autowired
   public UserProfileService(KeyService keyService, LanguageService languageService,
       UserService userService) {
@@ -74,7 +72,6 @@ public class UserProfileService {
     }
     return null;
   }
-
 
   public void saveAttribute(String attributeName,String userId,byte[] binData,String data){
     UserAttributeDTO userAttributeDTO = userService.getAttribute(userId, attributeName);

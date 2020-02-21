@@ -1,5 +1,6 @@
 package com.eurodyn.qlack.webdesktop.translations.management;
 
+import com.eurodyn.qlack.fuse.lexicon.dto.GroupDTO;
 import com.eurodyn.qlack.fuse.lexicon.dto.KeyDTO;
 import com.eurodyn.qlack.fuse.lexicon.dto.LanguageDTO;
 import com.eurodyn.qlack.fuse.lexicon.model.Data;
@@ -158,4 +159,30 @@ public class InitTestValues {
 
     return dataList;
   }
+
+  public List<GroupDTO> createGroupsDTO() {
+    List<GroupDTO> groupsDTO = new ArrayList<>();
+    groupsDTO.add(createGroupDTO());
+
+    GroupDTO groupDTO2 = createGroupDTO();
+    groupDTO2.setId("07a68e66-d4fa-4070-ae49-826be4111eb52");
+    groupDTO2.setTitle("Application Reports");
+    groupsDTO.add(groupDTO2);
+
+    GroupDTO groupDTO3 = createGroupDTO();
+    groupDTO3.setId("12a68e66-d4fa-4070-ae49-826be4111eb10");
+    groupDTO3.setTitle("Application Appendix");
+    groupsDTO.add(groupDTO3);
+
+    return groupsDTO;
+  }
+
+  public GroupDTO createGroupDTO() {
+    GroupDTO groupDTO = new GroupDTO();
+    groupDTO.setId("06b68e66-d4fa-4070-ae49-826be499eb41");
+    groupDTO.setTitle("Application UI");
+    groupDTO.setDescription("description");
+    return groupDTO;
+  }
+
 }

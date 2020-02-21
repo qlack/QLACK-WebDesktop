@@ -1,19 +1,22 @@
 package com.eurodyn.qlack.webdesktop.user.profile.management.service;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyBoolean;
 import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import com.eurodyn.qlack.fuse.aaa.dto.UserAttributeDTO;
 import com.eurodyn.qlack.fuse.aaa.dto.UserDTO;
 import com.eurodyn.qlack.fuse.aaa.service.UserService;
 import com.eurodyn.qlack.fuse.lexicon.dto.LanguageDTO;
 import com.eurodyn.qlack.fuse.lexicon.service.KeyService;
 import com.eurodyn.qlack.fuse.lexicon.service.LanguageService;
+import com.eurodyn.qlack.webdesktop.user.profile.management.InitTestValues;
 import com.eurodyn.qlack.webdesktop.user.profile.management.dto.UserDetailsDTO;
 import org.junit.Before;
 import org.junit.Test;
@@ -28,8 +31,10 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.core.user.DefaultOAuth2User;
 
 import java.io.IOException;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 
 @RunWith(MockitoJUnitRunner.class)
@@ -58,24 +63,36 @@ public class UserProfileServiceTest {
   private SecurityContext securityContext;
   @Mock
   private UserDTO userDTO;
+  @Mock
+  private Object principal;
+
+  private InitTestValues initTestValues;
+  private Set<UserAttributeDTO> userAttributeDTOS;
+  private UserAttributeDTO userAttributeDTO;
 
   @Before
   public void onInit() {
+    initTestValues = new InitTestValues();
+    userAttributeDTOS = new HashSet<>(initTestValues.createUserAttributesDTO());
+    userAttributeDTO = initTestValues.createUserAttributeDTO();
   }
+
   @Test
   public void findTranslationsTest() {
     when(keyService.getTranslationsForGroupNameAndLocale(TRANSLATIONS_GROUP, "en")).thenReturn(mockedTranslations);
     Map<String, String> translations = userProfileService.findTranslationsForLocale("en");
     assertEquals(mockedTranslations, translations);
   }
+
   @Test
   public void findLanguagesTest() {
     when(languageService.getLanguages(true)).thenReturn(mockedLanguages);
     List<LanguageDTO> languages = userProfileService.findLanguages(true);
     assertEquals(mockedLanguages, languages);
   }
+
   @Test
-  public void saveDetailsTest() throws IOException {
+  public void saveDetailsSuccessTest() throws IOException {
     when(securityContext.getAuthentication()).thenReturn(authentication);
     SecurityContextHolder.setContext(securityContext);
     when(SecurityContextHolder.getContext().getAuthentication().getPrincipal()).thenReturn(defaultOAuth2User);
@@ -87,23 +104,75 @@ public class UserProfileServiceTest {
         "text/plain", "backgroundImage content".getBytes());
     userProfileService.saveDetails(userDetailsDTO, profileImage, backgroundImage);
     verify(userService, times(1)).getUserByName(anyString());
-    verify(userService, times(3)).updateAttribute(any(),anyBoolean());
+    verify(userService, times(3)).updateAttribute(any(), anyBoolean());
   }
+
   @Test
-  public void findUserDetailsTest(){
+  public void saveOnlyDefaultLanguageUserAttributeTest() throws IOException {
     when(securityContext.getAuthentication()).thenReturn(authentication);
     SecurityContextHolder.setContext(securityContext);
     when(SecurityContextHolder.getContext().getAuthentication().getPrincipal()).thenReturn(defaultOAuth2User);
     when(defaultOAuth2User.getName()).thenReturn("username");
     when(userService.getUserByName("username")).thenReturn(userDTO);
-    userProfileService.findUserDetails();
+    MockMultipartFile profileImage = null;
+    MockMultipartFile backgroundImage = null;
+    userProfileService.saveDetails(userDetailsDTO, profileImage, backgroundImage);
+    verify(userService, times(1)).getUserByName(anyString());
+    verify(userService, times(1)).updateAttribute(any(), anyBoolean());
+  }
+
+  @Test
+  public void saveDetailsFailTest() throws IOException {
+    when(securityContext.getAuthentication()).thenReturn(authentication);
+    SecurityContextHolder.setContext(securityContext);
+    when(SecurityContextHolder.getContext().getAuthentication().getPrincipal()).thenReturn(principal);
+    MockMultipartFile profileImage = new MockMultipartFile("data", "profileImage.jpg",
+        "text/plain", "profileImage content".getBytes());
+    MockMultipartFile backgroundImage = new MockMultipartFile("data", "backgroundImage.jpg",
+        "text/plain", "backgroundImage content".getBytes());
+    userProfileService.saveDetails(userDetailsDTO, profileImage, backgroundImage);
+    verify(userService, times(0)).getUserByName(anyString());
+    verify(userService, times(0)).updateAttribute(any(), anyBoolean());
+  }
+
+  @Test
+  public void findUserDetailsSuccessTest() {
+    when(securityContext.getAuthentication()).thenReturn(authentication);
+    SecurityContextHolder.setContext(securityContext);
+    when(SecurityContextHolder.getContext().getAuthentication().getPrincipal()).thenReturn(defaultOAuth2User);
+    when(defaultOAuth2User.getName()).thenReturn("username");
+    when(userService.getUserByName("username")).thenReturn(userDTO);
+    when(userDTO.getUserAttributes()).thenReturn(userAttributeDTOS);
+    Map<String, UserAttributeDTO> result = userProfileService.findUserDetails();
+    assertNotNull(result);
+    assertEquals(2, result.size());
     verify(userService, times(1)).getUserByName(anyString());
     verify(userDTO, times(1)).getUserAttributes();
+
   }
+
   @Test
-  public void saveAttributeTest(){
-    userProfileService.saveAttribute(anyString(),anyString(),new byte[0],"data");
-    verify(userService, times(1)).getAttribute(anyString(),anyString());
-    verify(userService, times(1)).updateAttribute(any(),anyBoolean());
+  public void findUserDetailsFailTest() {
+    when(securityContext.getAuthentication()).thenReturn(authentication);
+    SecurityContextHolder.setContext(securityContext);
+    when(SecurityContextHolder.getContext().getAuthentication().getPrincipal()).thenReturn(principal);
+    Map<String, UserAttributeDTO> result = userProfileService.findUserDetails();
+    assertNull(result);
   }
+
+  @Test
+  public void saveAttributeOnNewObjectTest() {
+    userProfileService.saveAttribute(anyString(), anyString(), new byte[0], "data");
+    verify(userService, times(1)).getAttribute(anyString(), anyString());
+    verify(userService, times(1)).updateAttribute(any(), anyBoolean());
+  }
+
+  @Test
+  public void saveAttributeOnExistingObjectTest() {
+    when(userService.getAttribute(anyString(), anyString())).thenReturn(userAttributeDTO);
+    userProfileService.saveAttribute(anyString(), anyString(), new byte[0], "data");
+    verify(userService, times(1)).getAttribute(anyString(), anyString());
+    verify(userService, times(1)).updateAttribute(any(), anyBoolean());
+  }
+
 }

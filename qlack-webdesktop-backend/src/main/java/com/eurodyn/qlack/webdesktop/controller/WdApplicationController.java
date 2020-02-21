@@ -1,8 +1,6 @@
 package com.eurodyn.qlack.webdesktop.controller;
 
 import com.eurodyn.qlack.fuse.aaa.dto.UserAttributeDTO;
-import com.eurodyn.qlack.fuse.lexicon.service.GroupService;
-import com.eurodyn.qlack.fuse.lexicon.service.KeyService;
 import com.eurodyn.qlack.webdesktop.common.dto.WdApplicationDTO;
 import com.eurodyn.qlack.webdesktop.common.service.WdApplicationService;
 import com.eurodyn.qlack.webdesktop.service.UserDetailsService;
@@ -28,16 +26,14 @@ import java.util.Map;
 @RequestMapping("/apps")
 public class WdApplicationController {
 
-  @Autowired
-  KeyService keyService;
-  @Autowired
-  GroupService groupService;
   private WdApplicationService wdApplicationService;
-  @Autowired
   private UserDetailsService userDetailsService;
+
   @Autowired
-  public WdApplicationController(WdApplicationService wdApplicationService) {
+  public WdApplicationController(WdApplicationService wdApplicationService,
+      UserDetailsService userDetailsService) {
     this.wdApplicationService = wdApplicationService;
+    this.userDetailsService = userDetailsService;
   }
 
   /**

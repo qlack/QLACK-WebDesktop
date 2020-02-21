@@ -11,14 +11,6 @@
 
   <artifactId>qlack-webdesktop-common</artifactId>
 
-  <properties>
-    <sonar.coverage.exclusions>
-      src/main/java/com/eurodyn/qlack/webdesktop/common/dto/*
-    </sonar.coverage.exclusions>
-    <sonar.exclusions>**/generated-sources/**</sonar.exclusions>
-    <sonar.sources>src/main/java</sonar.sources>
-  </properties>
-
   <dependencies>
     <!-- QLACK deps -->
     <dependency>

@@ -77,7 +77,7 @@ public class TranslationsServiceTest {
     data = initTestValues.createData();
     languagesDTO = initTestValues.createLanguagesDTO();
     pageableValues = new ArrayList<>(Arrays.asList("value", "asc"));
-    groupDTOS = new HashSet<>();
+    groupDTOS = new HashSet<>(initTestValues.createGroupsDTO());
   }
 
   @Test
@@ -95,6 +95,15 @@ public class TranslationsServiceTest {
     translationsService.createLanguage(mockedLanguageDTO);
     verify(keyService, times(0)).updateTranslationsForLanguage(any(), any());
   }
+  @Test
+  public void createLanguageWithoutTranslationsTest() {
+    when(mockedLanguageDTO.getId()).thenReturn("id");
+    when(keyRepository.findAll()).thenReturn(keys);
+    when(dataRepository.findByKeyIdAndLanguageId(any(), any())).thenReturn(null);
+    translationsService.createLanguage(mockedLanguageDTO);
+    verify(keyService, times(1)).updateTranslationsForLanguage(any(), any());
+  }
+
 
   @Test
   public void updateLanguagesTest() {
