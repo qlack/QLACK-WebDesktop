@@ -144,7 +144,7 @@ public class WdApplicationConfig implements ApplicationRunner {
    * @param s the provided {@link String}
    * @return true if it is false otherwise
    */
-  private boolean isNotNullOrEmpty(String s) {
+  public boolean isNotNullOrEmpty(String s) {
     return s != null && !s.isEmpty();
   }
 
@@ -197,7 +197,7 @@ public class WdApplicationConfig implements ApplicationRunner {
    * @param wdApplication The Web Desktop application
    * @param checksum The file's SHA-256 checksum
    */
-  private void processWdApplication(WdApplication wdApplication, String checksum) {
+  public void processWdApplication(WdApplication wdApplication, String checksum) {
     if (wdApplication != null) {
       wdApplication.setChecksum(checksum);
       wdApplicationRepository.save(wdApplication);
@@ -211,7 +211,7 @@ public class WdApplicationConfig implements ApplicationRunner {
    *
    * @param wdApplication the {@link WdApplication} object
    */
-  private void registerReverseProxyRouteFromWdApp(WdApplication wdApplication) {
+  public void registerReverseProxyRouteFromWdApp(WdApplication wdApplication) {
     registerReverseProxyRoute(wdApplication.getProxyPath(), wdApplication.getAppUrl(),
         wdApplication.isStripPrefix(),
         wdApplication.getSensitiveHeaders().split(COMMA_REGEX)
@@ -226,7 +226,7 @@ public class WdApplicationConfig implements ApplicationRunner {
    * @param stripPrefix whether the path should be stripped off of the forwarding url
    * @param sensitiveHeaders headers allowed to pass through Zuul reverse proxy
    */
-  private void registerReverseProxyRoute(String path, String url, boolean stripPrefix,
+  public void registerReverseProxyRoute(String path, String url, boolean stripPrefix,
       String[] sensitiveHeaders) {
     ZuulProperties.ZuulRoute zuulRoute = new ZuulProperties.ZuulRoute(path, url);
     zuulRoute.setStripPrefix(stripPrefix);
@@ -240,7 +240,7 @@ public class WdApplicationConfig implements ApplicationRunner {
    * @param translations The lexicon from .yaml configuration files
    * @param wdApplication The webDesktop application
    */
-  private void processLexiconValues(List<LexiconDTO> translations, WdApplication wdApplication) {
+  public void processLexiconValues(List<LexiconDTO> translations, WdApplication wdApplication) {
 
     GroupDTO groupDTO = groupService.getGroupByTitle(wdApplication.getApplicationName());
     // we need groupId variable to get the generated Id of new group  from database
@@ -278,7 +278,7 @@ public class WdApplicationConfig implements ApplicationRunner {
     createKeyForAppGroupName(wdApplication.getGroupName());
   }
 
-  private void createKeyForAppGroupName(String appGroupName) {
+  public void createKeyForAppGroupName(String appGroupName) {
     if (appGroupName != null) {
       String webDesktopUiGroupId = groupService.getGroupByTitle(WEBDESKTOP_UI_LEXICON_GROUP).getId();
       if (keyService.getKeyByName(appGroupName, webDesktopUiGroupId, false) == null) {
