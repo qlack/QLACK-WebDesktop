@@ -211,7 +211,7 @@ public class WdApplicationConfig implements ApplicationRunner {
    *
    * @param wdApplication the {@link WdApplication} object
    */
-  public void registerReverseProxyRouteFromWdApp(WdApplication wdApplication) {
+  private void registerReverseProxyRouteFromWdApp(WdApplication wdApplication) {
     registerReverseProxyRoute(wdApplication.getProxyPath(), wdApplication.getAppUrl(),
         wdApplication.isStripPrefix(),
         wdApplication.getSensitiveHeaders().split(COMMA_REGEX)
@@ -226,7 +226,7 @@ public class WdApplicationConfig implements ApplicationRunner {
    * @param stripPrefix whether the path should be stripped off of the forwarding url
    * @param sensitiveHeaders headers allowed to pass through Zuul reverse proxy
    */
-  public void registerReverseProxyRoute(String path, String url, boolean stripPrefix,
+  private void registerReverseProxyRoute(String path, String url, boolean stripPrefix,
       String[] sensitiveHeaders) {
     ZuulProperties.ZuulRoute zuulRoute = new ZuulProperties.ZuulRoute(path, url);
     zuulRoute.setStripPrefix(stripPrefix);
