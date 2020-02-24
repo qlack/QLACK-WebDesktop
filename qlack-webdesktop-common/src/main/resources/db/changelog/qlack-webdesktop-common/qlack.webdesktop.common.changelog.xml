@@ -14,5 +14,6 @@
   <include file="db/changelog/qlack-webdesktop-common/webdesktop_common_003.yaml"/>
   <include file="db/changelog/qlack-webdesktop-common/webdesktop_common_004.yaml"/>
   <include file="db/changelog/qlack-webdesktop-common/webdesktop_common_005.yaml"/>
+  <include file="db/changelog/qlack-webdesktop-common/webdesktop_common_006.yaml"/>
 
 </databaseChangeLog>

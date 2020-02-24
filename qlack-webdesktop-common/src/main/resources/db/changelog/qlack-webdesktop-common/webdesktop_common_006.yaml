@@ -1,0 +1,20 @@
+databaseChangeLog:
+  - changeSet:
+      id: webdesktop_006
+      author: European Dynamics SA.
+      changes:
+        - insert:
+            tableName: aaa_operation
+            columns:
+              - column:
+                  name: id
+                  value: "1ac775eb-d01f-4ac3-913b-c8d283b57fff"
+              - column:
+                  name: name
+                  value: "view"
+              - column:
+                  name: description
+                  value: "Access to specific applications"
+              - column:
+                  name: dbversion
+                  value: "1"
