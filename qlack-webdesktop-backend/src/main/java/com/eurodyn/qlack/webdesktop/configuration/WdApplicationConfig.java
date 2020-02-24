@@ -4,15 +4,13 @@ import com.eurodyn.qlack.fuse.aaa.model.User;
 import com.eurodyn.qlack.fuse.aaa.repository.UserRepository;
 import com.eurodyn.qlack.fuse.aaa.service.LdapUserUtil;
 import com.eurodyn.qlack.fuse.crypto.service.CryptoDigestService;
-import com.eurodyn.qlack.fuse.lexicon.dto.GroupDTO;
 import com.eurodyn.qlack.fuse.lexicon.dto.KeyDTO;
 import com.eurodyn.qlack.fuse.lexicon.service.GroupService;
 import com.eurodyn.qlack.fuse.lexicon.service.KeyService;
-import com.eurodyn.qlack.fuse.lexicon.service.LanguageService;
 import com.eurodyn.qlack.webdesktop.common.model.WdApplication;
-import com.eurodyn.qlack.webdesktop.common.dto.LanguageDataDTO;
 import com.eurodyn.qlack.webdesktop.common.dto.LexiconDTO;
 import com.eurodyn.qlack.webdesktop.common.repository.WdApplicationRepository;
+import com.eurodyn.qlack.webdesktop.common.service.WdApplicationService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.exc.MismatchedInputException;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
@@ -67,11 +65,11 @@ public class WdApplicationConfig implements ApplicationRunner {
   private WdApplicationRepository wdApplicationRepository;
   private CryptoDigestService cryptoDigestService;
   private DiscoveryClientRouteLocator discoveryClientRouteLocator;
-  private LanguageService languageService;
   private GroupService groupService;
   private KeyService keyService;
   private  UserRepository userRepository;
   private  LdapUserUtil ldapUserUtil;
+  private WdApplicationService wdApplicationService;
   @Value("${wd.admin:#{null}}")
   private String wdAdmin;
 
@@ -79,17 +77,17 @@ public class WdApplicationConfig implements ApplicationRunner {
   @SuppressWarnings("squid:S00107")
   public WdApplicationConfig(
       WdApplicationRepository wdApplicationRepository, CryptoDigestService cryptoDigestService,
-      DiscoveryClientRouteLocator discoveryClientRouteLocator, LanguageService languageService,
-      GroupService groupService, KeyService keyService,UserRepository userRepository,LdapUserUtil ldapUserUtil) {
+      DiscoveryClientRouteLocator discoveryClientRouteLocator,
+      GroupService groupService, KeyService keyService,UserRepository userRepository,LdapUserUtil ldapUserUtil,WdApplicationService wdApplicationService) {
 
     this.wdApplicationRepository = wdApplicationRepository;
     this.cryptoDigestService = cryptoDigestService;
     this.discoveryClientRouteLocator = discoveryClientRouteLocator;
-    this.languageService = languageService;
     this.groupService = groupService;
     this.keyService = keyService;
     this.userRepository = userRepository;
     this.ldapUserUtil = ldapUserUtil;
+    this.wdApplicationService = wdApplicationService;
   }
 
   /**
@@ -241,40 +239,7 @@ public class WdApplicationConfig implements ApplicationRunner {
    * @param wdApplication The webDesktop application
    */
   public void processLexiconValues(List<LexiconDTO> translations, WdApplication wdApplication) {
-
-    GroupDTO groupDTO = groupService.getGroupByTitle(wdApplication.getApplicationName());
-    // we need groupId variable to get the generated Id of new group  from database
-    String groupId;
-    if (groupDTO == null) {
-
-      groupDTO = new GroupDTO();
-      groupDTO.setTitle(wdApplication.getApplicationName());
-      groupDTO.setDescription("groupDescription");
-      groupId = groupService.createGroup(groupDTO);
-    } else {
-      groupId = groupDTO.getId();
-    }
-
-    for (LexiconDTO translation : translations) {
-      if (languageService.getLanguageByLocale(translation.getLanguageLocale()) != null) {
-        for (LanguageDataDTO data : translation.getValues()) {
-          KeyDTO keyDTO = keyService.getKeyByName(data.getKey(), groupId, false);
-          if (keyDTO == null) {
-            keyDTO = new KeyDTO();
-            keyDTO.setGroupId(groupId);
-            keyDTO.setName(data.getKey());
-            String keyId = keyService.createKey(keyDTO, false);
-            keyService
-                .updateTranslationByLocale(keyId, translation.getLanguageLocale(), data.getValue());
-          } else {
-
-            keyService.updateTranslationByLocale(keyDTO.getId(), translation.getLanguageLocale(),
-                data.getValue());
-          }
-        }
-
-      }
-    }
+    wdApplicationService.processLexiconValues(translations,wdApplication);
     createKeyForAppGroupName(wdApplication.getGroupName());
   }
 

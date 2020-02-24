@@ -1,7 +1,13 @@
 package com.eurodyn.qlack.webdesktop.common.service;
 
 
+import com.eurodyn.qlack.fuse.lexicon.dto.GroupDTO;
+import com.eurodyn.qlack.fuse.lexicon.dto.KeyDTO;
+import com.eurodyn.qlack.fuse.lexicon.service.GroupService;
 import com.eurodyn.qlack.fuse.lexicon.service.KeyService;
+import com.eurodyn.qlack.fuse.lexicon.service.LanguageService;
+import com.eurodyn.qlack.webdesktop.common.dto.LanguageDataDTO;
+import com.eurodyn.qlack.webdesktop.common.dto.LexiconDTO;
 import com.eurodyn.qlack.webdesktop.common.dto.WdApplicationDTO;
 import com.eurodyn.qlack.webdesktop.common.mapper.WdApplicationMapper;
 import com.eurodyn.qlack.webdesktop.common.model.WdApplication;
@@ -24,14 +30,20 @@ public class WdApplicationService {
 
   private WdApplicationMapper mapper;
   private WdApplicationRepository wdApplicationRepository;
-  @Autowired
+  private GroupService groupService;
   private KeyService keyService;
+  private LanguageService languageService;
+
 
   @Autowired
   public WdApplicationService(WdApplicationMapper mapper,
-      WdApplicationRepository wdApplicationRepository) {
+      WdApplicationRepository wdApplicationRepository,GroupService groupService,
+      LanguageService languageService,KeyService keyService) {
     this.mapper = mapper;
     this.wdApplicationRepository = wdApplicationRepository;
+    this.groupService = groupService;
+    this.keyService = keyService;
+    this.languageService = languageService;
   }
 
   /**
@@ -108,4 +120,41 @@ public class WdApplicationService {
   public void saveApplication(WdApplication wdApplication){
     wdApplicationRepository.save(wdApplication);
   }
+
+  public void processLexiconValues(List<LexiconDTO> translations, WdApplication wdApplication){
+    GroupDTO groupDTO = groupService.getGroupByTitle(wdApplication.getApplicationName());
+    // we need groupId variable to get the generated Id of new group  from database
+    String groupId;
+    if (groupDTO == null) {
+
+      groupDTO = new GroupDTO();
+      groupDTO.setTitle(wdApplication.getApplicationName());
+      groupDTO.setDescription("defaultDescription");
+      groupId = groupService.createGroup(groupDTO);
+    } else {
+      groupId = groupDTO.getId();
+    }
+
+    for (LexiconDTO translation : translations) {
+      if (languageService.getLanguageByLocale(translation.getLanguageLocale()) != null) {
+        for (LanguageDataDTO data : translation.getValues()) {
+          KeyDTO keyDTO = keyService.getKeyByName(data.getKey(), groupId, false);
+          if (keyDTO == null) {
+            keyDTO = new KeyDTO();
+            keyDTO.setGroupId(groupId);
+            keyDTO.setName(data.getKey());
+            String keyId = keyService.createKey(keyDTO, false);
+            keyService
+                .updateTranslationByLocale(keyId, translation.getLanguageLocale(), data.getValue());
+          } else {
+
+            keyService.updateTranslationByLocale(keyDTO.getId(), translation.getLanguageLocale(),
+                data.getValue());
+          }
+        }
+
+      }
+    }
+  }
+
 }

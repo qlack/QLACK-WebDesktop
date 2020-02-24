@@ -16,13 +16,12 @@ import com.eurodyn.qlack.fuse.aaa.service.LdapUserUtil;
 import com.eurodyn.qlack.fuse.crypto.service.CryptoDigestService;
 import com.eurodyn.qlack.fuse.lexicon.dto.GroupDTO;
 import com.eurodyn.qlack.fuse.lexicon.dto.KeyDTO;
-import com.eurodyn.qlack.fuse.lexicon.dto.LanguageDTO;
 import com.eurodyn.qlack.fuse.lexicon.service.GroupService;
 import com.eurodyn.qlack.fuse.lexicon.service.KeyService;
-import com.eurodyn.qlack.fuse.lexicon.service.LanguageService;
 import com.eurodyn.qlack.webdesktop.common.dto.LexiconDTO;
 import com.eurodyn.qlack.webdesktop.common.model.WdApplication;
 import com.eurodyn.qlack.webdesktop.common.repository.WdApplicationRepository;
+import com.eurodyn.qlack.webdesktop.common.service.WdApplicationService;
 import com.eurodyn.qlack.webdesktop.configuration.WdApplicationConfig;
 import org.junit.Before;
 import org.junit.Test;
@@ -50,8 +49,6 @@ public class WdApplicationConfigTest {
   @Mock
   private DiscoveryClientRouteLocator discoveryClientRouteLocator;
   @Mock
-  private LanguageService languageService;
-  @Mock
   private GroupService groupService;
   @Mock
   private ApplicationArguments args;
@@ -62,11 +59,10 @@ public class WdApplicationConfigTest {
   @Mock
   private LdapUserUtil ldapUserUtil;
   @Mock
-  private LanguageDTO languageDTO;
+  private WdApplicationService wdApplicationService;
 
-  private KeyDTO keyDTO;
   private List<LexiconDTO> translations;
-  private WdApplication wdApplication;
+  private KeyDTO keyDTO;
   private GroupDTO groupDTO;
   private User user;
   private List<String> urls;
@@ -77,52 +73,12 @@ public class WdApplicationConfigTest {
   @Before
   public void setup() {
     initTestValues = new InitTestValues();
-    wdApplication = initTestValues.createWdApplication("a_path","appUrl");
-    groupDTO = initTestValues.createGroupDTO();
     translations = initTestValues.createLexicon();
+    groupDTO = initTestValues.createGroupDTO();
     keyDTO = initTestValues.createKeyDTO();
     user = initTestValues.createUser();
     urls = initTestValues.createUrls();
     wdApplications = initTestValues.createWdApplications();
-  }
-
-  @Test
-  public void processLexiconValuesWehnKeyDTODoesNotExistTest() {
-    when(groupService.getGroupByTitle(anyString())).thenReturn(groupDTO);
-    when(languageService.getLanguageByLocale(anyString())).thenReturn(languageDTO);
-    when(keyService.getKeyByName(anyString(), anyString(), anyBoolean())).thenReturn(null);
-    when(keyService.createKey(any(), anyBoolean())).thenReturn("keyId");
-    when(languageService.getLanguageByLocale(anyString())).thenReturn(languageDTO);
-    wdApplicationConfig.processLexiconValues(translations, wdApplication);
-    verify(keyService, times(1)).updateTranslationByLocale(anyString(), anyString(), anyString());
-  }
-
-  @Test
-  public void processLexiconValuesWhenKeyDTOExistsTest() {
-    when(groupService.getGroupByTitle(anyString())).thenReturn(groupDTO);
-    when(languageService.getLanguageByLocale(anyString())).thenReturn(languageDTO);
-    when(keyService.getKeyByName(anyString(), anyString(), anyBoolean())).thenReturn(keyDTO);
-    when(languageService.getLanguageByLocale(anyString())).thenReturn(languageDTO);
-    wdApplicationConfig.processLexiconValues(translations, wdApplication);
-    verify(keyService, times(1)).updateTranslationByLocale(anyString(), anyString(), anyString());
-  }
-
-  @Test
-  public void processLexiconValuesWithWrongLanguageLocaleTest() {
-    when(languageService.getLanguageByLocale(anyString())).thenReturn(null);
-    wdApplicationConfig.processLexiconValues(translations, wdApplication);
-    verify(keyService, times(0)).updateTranslationByLocale(anyString(), anyString(), anyString());
-  }
-
-  @Test
-  public void processLexiconValuesAndCreateNewGroupDTOTest() {
-    when(groupService.getGroupByTitle(anyString())).thenReturn(null);
-    when(groupService.createGroup(any())).thenReturn("groupId");
-    when(languageService.getLanguageByLocale(anyString())).thenReturn(languageDTO);
-    when(keyService.getKeyByName(anyString(), anyString(), anyBoolean())).thenReturn(keyDTO);
-    when(languageService.getLanguageByLocale(anyString())).thenReturn(languageDTO);
-    wdApplicationConfig.processLexiconValues(translations, wdApplication);
-    verify(keyService, times(1)).updateTranslationByLocale(anyString(), anyString(), anyString());
   }
 
   @Test
@@ -212,5 +168,13 @@ public class WdApplicationConfigTest {
     verify(wdApplicationRepository, times(1)).findByActiveIsTrue();
     verify(discoveryClientRouteLocator, times(1)).addRoute(any());
   }
-
+  @Test
+  public void processLexiconValuesTest() {
+    when(groupService.getGroupByTitle(anyString())).thenReturn(groupDTO);
+    when(keyService.getKeyByName(anyString(), anyString(), anyBoolean())).thenReturn(null);
+    when(keyService.createKey(any(), anyBoolean())).thenReturn("keyId");
+    wdApplicationConfig.processLexiconValues(translations,wdApplications.get(0));
+    verify(wdApplicationService, times(1)).processLexiconValues(any(),any());
+    verify(keyService, times(1)).updateTranslationByLocale(anyString(), anyString(), anyString());
+  }
 }

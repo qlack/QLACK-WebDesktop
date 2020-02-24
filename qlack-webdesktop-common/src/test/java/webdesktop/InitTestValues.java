@@ -1,10 +1,17 @@
 package webdesktop;
 
+import com.eurodyn.qlack.fuse.lexicon.dto.GroupDTO;
+import com.eurodyn.qlack.fuse.lexicon.dto.KeyDTO;
+import com.eurodyn.qlack.fuse.lexicon.model.Group;
+import com.eurodyn.qlack.webdesktop.common.dto.LanguageDataDTO;
+import com.eurodyn.qlack.webdesktop.common.dto.LexiconDTO;
 import com.eurodyn.qlack.webdesktop.common.dto.WdApplicationDTO;
 import com.eurodyn.qlack.webdesktop.common.model.WdApplication;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Test values initialization class
@@ -90,4 +97,59 @@ public class InitTestValues {
     wdApplications.add(createWdApplication());
     return wdApplications;
   }
+
+  public List<LexiconDTO> createLexicon() {
+    List<LexiconDTO> lexiconDTOList = new ArrayList<>();
+    LexiconDTO lexiconDTO = new LexiconDTO();
+    lexiconDTO.setValues(createListOfLanguageData());
+    lexiconDTO.setLanguageLocale("en");
+    lexiconDTOList.add(lexiconDTO);
+    return lexiconDTOList;
+  }
+
+  public List<LanguageDataDTO> createListOfLanguageData() {
+    List<LanguageDataDTO> languageDataDTOList = new ArrayList<>();
+    LanguageDataDTO languageDataDTO = new LanguageDataDTO();
+    languageDataDTO.setKey("title");
+    languageDataDTO.setValue(" english title");
+    LanguageDataDTO languageDataDTO1 = new LanguageDataDTO();
+    languageDataDTO.setKey("description");
+    languageDataDTO.setValue(" english description");
+    languageDataDTOList.add(languageDataDTO);
+    languageDataDTOList.add(languageDataDTO1);
+    return languageDataDTOList;
+  }
+
+  public GroupDTO createGroupDTO() {
+    GroupDTO groupDTO = new GroupDTO();
+    groupDTO.setId("06b68e66-d4fa-4070-ae49-826be499eb41");
+    groupDTO.setTitle("Application UI");
+    groupDTO.setDescription("description");
+    return groupDTO;
+  }
+
+  public KeyDTO createKeyDTO() {
+    KeyDTO keyDTO = new KeyDTO();
+    keyDTO.setId("0f2f12f8-4902-4355-ae52-20ccf92db2f3");
+    keyDTO.setGroupId(createGroup().getId());
+    keyDTO.setName("attachment_desc");
+
+    Map<String, String> translations = new HashMap<>();
+    translations.put("777119b0-bda0-4e87-9d3b-08d80e9bb9e8",
+        "Add attachment description");
+    translations.put("71df58f1-be26-410a-94ca-cfc90ac955a4",
+        "Adicionar descrição do anexo");
+    keyDTO.setTranslations(translations);
+
+    return keyDTO;
+  }
+
+  public Group createGroup() {
+    Group group = new Group();
+    group.setId("06b68e66-d4fa-4070-ae49-826be499eb41");
+    group.setTitle("Application UI");
+    group.setDescription("description");
+    return group;
+  }
+
 }

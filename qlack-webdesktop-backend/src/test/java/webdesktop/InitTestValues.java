@@ -130,14 +130,13 @@ public class InitTestValues {
     wdApplication.setLastDeployedOn(new Long("2121545432165"));
     wdApplication.setVersion("2.0.0");
     wdApplication.setApplicationName("usermanagement");
-
+    wdApplication.setGroupName("groupName");
     wdApplication.setIcon("{icon-square}mif-user");
     wdApplication.setIconSmall("{icon}mif-user");
     wdApplication.setWidth(800);
     wdApplication.setMinWidth(470);
     wdApplication.setHeight(500);
     wdApplication.setMinHeight(450);
-
     wdApplication.setActive(true);
     wdApplication.setMultipleInstances(false);
     wdApplication.setRestrictAccess(true);
