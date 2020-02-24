@@ -59,5 +59,8 @@ import {MatAutocompleteModule} from "@angular/material/autocomplete";
     FormsModule,
     MatAutocompleteModule
   ],
+  exports: [
+    UserGroupEditComponent
+  ]
 })
 export class UserGroupModule { }

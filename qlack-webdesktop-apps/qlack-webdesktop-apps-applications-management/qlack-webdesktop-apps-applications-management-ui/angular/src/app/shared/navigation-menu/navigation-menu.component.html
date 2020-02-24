@@ -1,0 +1,13 @@
+<mat-card *ngIf="isVisible">
+  <mat-card-content>
+    <nav mat-tab-nav-bar>
+      <a mat-tab-link
+        *ngFor="let link of navLinks"
+        [routerLink]="link.path"
+        routerLinkActive #rla="routerLinkActive"
+        [active]="rla.isActive">
+        {{'management-app-ui.' + link.label | translate}}
+      </a>
+    </nav>
+  </mat-card-content>
+</mat-card>

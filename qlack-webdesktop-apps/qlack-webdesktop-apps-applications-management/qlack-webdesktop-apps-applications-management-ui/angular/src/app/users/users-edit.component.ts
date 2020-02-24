@@ -105,7 +105,6 @@ export class UsersEditComponent implements OnInit {
     });
   }
 
-  //TODO removedGroups
   save() {
     this.form.controls['groupsAdded'].setValue(this.groupsAdded);
     this.form.controls['groupsRemoved'].setValue(this.groupsRemoved);

@@ -2,8 +2,12 @@ package com.eurodyn.qlack.webdesktop.applications.management.dto;
 
 import com.eurodyn.qlack.fuse.aaa.dto.UserGroupDTO;
 import java.util.Collection;
+import javax.validation.constraints.NotNull;
 
 public class UserGroupManagementDTO extends UserGroupDTO {
+
+  @NotNull
+  private String userGroupName;
 
   private Collection<String> usersAdded;
   private Collection<String> usersRemoved;
@@ -24,6 +28,15 @@ public class UserGroupManagementDTO extends UserGroupDTO {
     this.usersRemoved = usersRemoved;
   }
 
+  public String getUserGroupName() {
+    this.userGroupName = getName();
+    return userGroupName;
+  }
+
+  public void setUserGroupName(String userGroupName) {
+    this.userGroupName = userGroupName;
+    setName(userGroupName);
+  }
   public UserGroupManagementDTO() {
   }
 }

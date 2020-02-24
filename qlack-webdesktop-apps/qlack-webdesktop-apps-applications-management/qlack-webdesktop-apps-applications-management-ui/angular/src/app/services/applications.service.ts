@@ -3,7 +3,7 @@ import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
 import {ApplicationDto} from '../dto/application-dto';
 import {CrudService} from './crud.service';
-import {QFormsService} from '@eurodyn/forms';
+import {QFormsService, QPageableReply} from '@eurodyn/forms';
 import {AppConstants} from '../app.constants';
 
 /**
@@ -43,7 +43,7 @@ export class ApplicationsService extends CrudService<ApplicationDto> {
 
   //edit an application
   getApplicationById(id): Observable<any> {
-    return this.http.get(AppConstants.API_ROOT + `/${this.resource}/` + id);
+    return this.http.get<QPageableReply<any>>(AppConstants.API_ROOT + `/${this.resource}/` + id);
   }
 
   //application Name validation

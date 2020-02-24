@@ -143,6 +143,7 @@ translations:
     - notFound: Νot found
     - userName: Username
     - editUser: User edit
+    - permissions: Permissions
 
 - group: management-app-ui
   locale: el
@@ -189,18 +190,18 @@ translations:
     - upload: Εισαγωγή αρχείου
     - uniqueMessage: Πρέπει να είναι μοναδικό
     - submit: Υποβολή
-    - Min.wdApplicationDTO.minWidth: Πρέπει να είναι μεγαλύτερο/ίσο του 50
-    - Min.wdApplicationDTO.width: Πρέπει να είναι μεγαλύτερο/ίσο του 50
-    - Min.wdApplicationDTO.minHeight: Πρέπει να είναι μεγαλύτερο/ίσο του 50
-    - Min.wdApplicationDTO.height: Πρέπει να είναι μεγαλύτερο/ίσο του 50
-    - NotNull.wdApplicationDTO.version: Δεν μπορεί να είναι κενό
-    - NotNull.wdApplicationDTO.proxyPath: Δεν μπορεί να είναι κενό
-    - NotNull.wdApplicationDTO.appIndex: Δεν μπορεί να είναι κενό
-    - NotNull.wdApplicationDTO.icon: Δεν μπορεί να είναι κενό
-    - NotNull.wdApplicationDTO.iconSmall: Δεν μπορεί να είναι κενό
-    - NotNull.wdApplicationDTO.applicationName: Δεν μπορεί να είναι κενό
-    - NotNull.wdApplicationDTO.title: Δεν μπορεί να είναι κενό
-    - NotNull.wdApplicationDTO.description: Δεν μπορεί να είναι κενό
+    - Min.wdApplicationManagementDTO.minWidth: Πρέπει να είναι μεγαλύτερο/ίσο του 50
+    - Min.wdApplicationManagementDTO.width: Πρέπει να είναι μεγαλύτερο/ίσο του 50
+    - Min.wdApplicationManagementDTO.minHeight: Πρέπει να είναι μεγαλύτερο/ίσο του 50
+    - Min.wdApplicationManagementDTO.height: Πρέπει να είναι μεγαλύτερο/ίσο του 50
+    - NotNull.wdApplicationManagementDTO.version: Δεν μπορεί να είναι κενό
+    - NotNull.wdApplicationManagementDTO.proxyPath: Δεν μπορεί να είναι κενό
+    - NotNull.wdApplicationManagementDTO.appIndex: Δεν μπορεί να είναι κενό
+    - NotNull.wdApplicationManagementDTO.icon: Δεν μπορεί να είναι κενό
+    - NotNull.wdApplicationManagementDTO.iconSmall: Δεν μπορεί να είναι κενό
+    - NotNull.wdApplicationManagementDTO.applicationName: Δεν μπορεί να είναι κενό
+    - NotNull.wdApplicationManagementDTO.title: Δεν μπορεί να είναι κενό
+    - NotNull.wdApplicationManagementDTO.description: Δεν μπορεί να είναι κενό
     - proxyAppUrl: Proxy Application Url
     - alreadyExistsCode: υπάρχει ήδη
     - the: Το
@@ -221,6 +222,8 @@ translations:
     - notFound: Δεν βρέθηκε
     - userName: Όνομα χρήστη
     - editUser: Επεξεργασία χρήστη
+    - permissions: Δικαιώματα
+    - NotNull.userGroupManagementDTO.userGroupName: Δεν μπορεί να είναι κενό
 
 - group: user-profile-management-ui
   locale: en

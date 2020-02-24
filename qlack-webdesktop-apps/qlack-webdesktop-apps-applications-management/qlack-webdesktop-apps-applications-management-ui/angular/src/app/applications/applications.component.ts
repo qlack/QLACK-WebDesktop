@@ -12,6 +12,7 @@ import {QFormsService} from '@eurodyn/forms';
 import {TranslateService} from '@ngx-translate/core';
 import {MatDialog} from "@angular/material/dialog";
 import {FileuploadComponent} from "../fileupload/fileupload.component";
+import {DataService} from "../services/data.service";
 
 @Component({
   selector: 'app-applications',
@@ -27,9 +28,10 @@ export class ApplicationsComponent extends BaseComponent implements OnInit, Afte
   @ViewChild(MatSort, {static: true}) sort: MatSort;
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   private loadFileUpload = false;
+  isVisible: boolean;
 
   constructor(private fb: FormBuilder, private router: Router, private applicationsService: ApplicationsService,
-              private qForms: QFormsService, private translateService: TranslateService, private dialog: MatDialog) {
+              private qForms: QFormsService, private translateService: TranslateService, private dialog: MatDialog, private data: DataService) {
     super();
     this.filterForm = this.fb.group({
       title: [''],
@@ -55,6 +57,12 @@ export class ApplicationsComponent extends BaseComponent implements OnInit, Afte
       this.fetchData(this.paginator.pageIndex, this.paginator.pageSize, this.sort.active,
         this.sort.start);
     });
+    this.data.currentMessage.subscribe(isVisible => this.isVisible = isVisible);
+  }
+
+  isNavBarVisible(value: boolean) {
+    this.isVisible = value;
+    this.data.isNavBarVisible(this.isVisible);
   }
 
   fetchData(page: number, size: number, sort: string, sortDirection: string) {

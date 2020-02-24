@@ -83,7 +83,7 @@ public class UserGroupManagementController {
   @GetMapping(path = "/search/{term}")
   public Page findGroupsByTerm(@PathVariable  String term) {
     UserGroupSearchCriteria userGroupSearchCriteria = UserGroupSearchCriteriaBuilder
-        .createCriteria().withName("%" + term + "%").build();
+        .createCriteria().withNameLike("%" + term + "%").build();
     return new PageImpl<>((List<UserGroupDTO>) userGroupService.findGroups(userGroupSearchCriteria));
   }
 

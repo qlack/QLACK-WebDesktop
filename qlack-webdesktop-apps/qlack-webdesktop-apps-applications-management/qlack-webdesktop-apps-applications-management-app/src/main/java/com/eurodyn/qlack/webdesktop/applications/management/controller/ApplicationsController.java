@@ -1,5 +1,6 @@
 package com.eurodyn.qlack.webdesktop.applications.management.controller;
 
+import com.eurodyn.qlack.webdesktop.applications.management.dto.WdApplicationManagementDTO;
 import com.eurodyn.qlack.webdesktop.applications.management.service.ApplicationsService;
 import com.eurodyn.qlack.webdesktop.common.dto.WdApplicationDTO;
 import com.eurodyn.qlack.webdesktop.common.model.WdApplication;
@@ -45,10 +46,10 @@ public class ApplicationsController {
   /**
    * Returns an application by given id.
    * @param id the application's id
-   * @return a signle Web Desktop application.
+   * @return a single Web Desktop application.
    */
   @GetMapping(path = "{id}")
-  public WdApplicationDTO getApplicationById(@PathVariable String id) {
+  public WdApplicationManagementDTO getApplicationById(@PathVariable String id) {
     return applicationsService.getApplicationById(id);
   }
 
@@ -81,8 +82,8 @@ public class ApplicationsController {
    */
   @PostMapping()
   public ResponseEntity updateApplication(
-      @Valid @RequestBody WdApplicationDTO wdApplicationDTO) {
-    return applicationsService.updateApplication(wdApplicationDTO);
+      @Valid @RequestBody WdApplicationManagementDTO wdApplicationManagementDTO) {
+    return applicationsService.updateApplication(wdApplicationManagementDTO);
   }
 
   /**

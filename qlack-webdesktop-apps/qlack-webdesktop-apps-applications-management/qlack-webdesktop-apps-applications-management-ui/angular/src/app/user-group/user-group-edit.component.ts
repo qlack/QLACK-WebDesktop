@@ -55,7 +55,7 @@ export class UserGroupEditComponent implements OnInit {
     // Setup the form.
     this.form = this.fb.group({
       id: ['0'],
-      name: [{value: '', disabled: false}, [Validators.maxLength(1024)]],
+      userGroupName: [{value: '', disabled: false}, [Validators.maxLength(1024)]],
       description: [{value: '', disabled: false}, [Validators.maxLength(1024)]],
       usersAdded: [{value: '', disabled: false}, [Validators.maxLength(1024)]],
       usersRemoved: [{value: '', disabled: false}, [Validators.maxLength(1024)]],
@@ -64,6 +64,7 @@ export class UserGroupEditComponent implements OnInit {
     if (this.isEdit) {
       this.userGroupService.get(this.id).subscribe(onNext => {
         this.form.patchValue(onNext);
+        this.form.controls['userGroupName'].setValue(onNext.name);
       });
     }
 

@@ -14,11 +14,6 @@ import {TranslateService} from '@ngx-translate/core';
 export class AppComponent extends BaseComponent implements OnInit {
 
   title = 'qlack-webdesktop-management-app-ui';
-  navLinks: { path: string, label: string }[] = [
-    {path: '/applications', label: 'header'},
-    {path: '/users', label: 'users'},
-    {path: '/usergroup', label: 'groups'}
-  ];
   //Logger
   private log = Log.create('AppComponent');
 

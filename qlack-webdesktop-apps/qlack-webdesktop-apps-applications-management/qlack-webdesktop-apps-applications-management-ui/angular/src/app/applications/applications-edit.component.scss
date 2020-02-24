@@ -45,3 +45,7 @@
 .mat-slide-toggle {
   max-width: min-content !important;
 }
+
+.mat-tab-body .mat-tab-body-content {
+  overflow: hidden;
+}

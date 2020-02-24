@@ -6,10 +6,10 @@
         <mat-form-field>
           <input matInput placeholder="{{'management-app-ui.title' |
             translate}}"
-                 formControlName="name">
+                 formControlName="userGroupName">
           <mat-icon matSuffix color="warn"
-                    *ngIf="form.controls['name'].invalid"
-                    matTooltip="{{form.controls['name'].getError('message')}}"
+                    *ngIf="form.controls['userGroupName'].invalid"
+                    matTooltip="{{form.controls['userGroupName'].getError('message')}}"
                     matTooltipPosition="above" matTooltipClass="error-tooltip"
           >{{'warning'}}
           </mat-icon>

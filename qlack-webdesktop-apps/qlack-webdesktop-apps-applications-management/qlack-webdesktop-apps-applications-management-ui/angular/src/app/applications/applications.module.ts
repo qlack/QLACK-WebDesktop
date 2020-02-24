@@ -24,15 +24,16 @@ import {FileuploadComponent} from "../fileupload/fileupload.component";
 import {MatDividerModule} from "@angular/material/divider";
 import {MatTooltipModule} from "@angular/material/tooltip";
 import {QLACKFormValidationModule} from "@qlack/form-validation";
+import {MatTabsModule} from "@angular/material/tabs";
+import {PermissionsComponent} from "./permissions/permissions.component";
+import {MatAutocompleteModule} from "@angular/material/autocomplete";
 
 @NgModule({
   declarations: [
     ApplicationsComponent,
     ApplicationsEditComponent,
-    FileuploadComponent
-  ],
-  exports: [
-    ApplicationsEditComponent
+    FileuploadComponent,
+    PermissionsComponent
   ],
   imports: [
     CommonModule,
@@ -56,7 +57,9 @@ import {QLACKFormValidationModule} from "@qlack/form-validation";
     MatDividerModule,
     FormsModule,
     MatTooltipModule,
-    QLACKFormValidationModule
+    QLACKFormValidationModule,
+    MatTabsModule,
+    MatAutocompleteModule,
   ]
 })
 export class ApplicationsModule {

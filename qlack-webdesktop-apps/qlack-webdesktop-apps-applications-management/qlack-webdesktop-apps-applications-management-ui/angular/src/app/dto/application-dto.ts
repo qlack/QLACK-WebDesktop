@@ -26,4 +26,6 @@ export interface ApplicationDto {
   active: boolean
   restrictAccess: boolean
   editedByUI: boolean
+  usersAdded: [];
+  usersRemoved: [];
 }

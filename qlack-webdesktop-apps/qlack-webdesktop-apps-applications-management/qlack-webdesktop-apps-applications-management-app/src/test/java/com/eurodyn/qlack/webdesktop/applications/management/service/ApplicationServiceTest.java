@@ -6,6 +6,7 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import com.eurodyn.qlack.webdesktop.applications.management.dto.WdApplicationManagementDTO;
 import com.eurodyn.qlack.webdesktop.common.dto.WdApplicationDTO;
 import com.eurodyn.qlack.webdesktop.common.model.WdApplication;
 import com.eurodyn.qlack.webdesktop.common.service.WdApplicationService;
@@ -25,6 +26,7 @@ public class ApplicationServiceTest {
   @Mock private ApplicationsService applicationsService;
   @Mock private WdApplicationService wdApplicationService;
   @Mock private WdApplicationDTO wdApplicationDTO;
+  private WdApplicationManagementDTO wdApplicationManagementDTO;
   private WdApplication wdApplication;
 
   @Before
@@ -34,13 +36,16 @@ public class ApplicationServiceTest {
 
     wdApplicationDTO = new WdApplicationDTO();
     wdApplicationDTO.setId(UUID.randomUUID().toString());
+
+    wdApplicationManagementDTO = new WdApplicationManagementDTO();
+    wdApplicationManagementDTO.setId(UUID.randomUUID().toString());
   }
 
   @Test
   public void getApplicationByIdTest(){
-    when(applicationsService.getApplicationById(anyString())).thenReturn(wdApplicationDTO);
+    when(applicationsService.getApplicationById(anyString())).thenReturn(wdApplicationManagementDTO);
     WdApplicationDTO wdApplicationNew = applicationsService
-        .getApplicationById(wdApplicationDTO.getId());
+        .getApplicationById(wdApplicationManagementDTO.getId());
     assertNotNull(wdApplicationNew);
   }
 

@@ -1,12 +1,18 @@
-import {Component, OnInit, ViewEncapsulation} from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ViewEncapsulation
+} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {QFormsService} from '@eurodyn/forms';
 import {MatDialog} from '@angular/material/dialog';
 import {ApplicationsService} from '../services/applications.service';
 import {TranslateService} from '@ngx-translate/core';
 import {UtilityService} from "../services/utility.service";
 import {QLACKTypescriptFormValidationService} from "@qlack/form-validation";
+import {DataService} from "../services/data.service";
+import {MatSlideToggleChange} from "@angular/material/slide-toggle";
 
 @Component({
   selector: 'app-applications-edit',
@@ -19,12 +25,18 @@ export class ApplicationsEditComponent implements OnInit {
   id: string;
   isEdit = false;
   componentTitle = 'editApp';
+  isVisible: boolean;
+  isDisabled: boolean;
+  usersAdded: string[];
+  usersRemoved: string[];
+  groupsAdded: string[];
+  groupsRemoved: string[];
 
   constructor(private fb: FormBuilder, private applicationsService: ApplicationsService,
               private route: ActivatedRoute,
               private qForms: QFormsService, private router: Router, private dialog: MatDialog,
               private translateService: TranslateService, private utilityService: UtilityService,
-              private validationService: QLACKTypescriptFormValidationService) {
+              private validationService: QLACKTypescriptFormValidationService, private data: DataService) {
   }
 
   ngOnInit() {
@@ -64,6 +76,8 @@ export class ApplicationsEditComponent implements OnInit {
       active: [{value: '', disabled: false}],
       restrictAccess: [{value: '', disabled: false}],
     });
+
+    this.data.isNavBarVisible(false);
   }
 
   ngAfterViewInit(): void {
@@ -71,19 +85,31 @@ export class ApplicationsEditComponent implements OnInit {
     if (this.componentTitle === 'editApp') {
       this.applicationsService.getApplicationById(this.id).subscribe(application => {
         this.form.disable();
-        this.updateApplicationContent(application, 'title');
-        this.updateApplicationContent(application, 'description');
-        for (var appProperty in application) {
+        this.updateApplicationContent(application.details, 'title');
+        this.updateApplicationContent(application.details, 'description');
+        for (var appProperty in application.details) {
           if (this.form.controls[appProperty]) {
-            this.form.controls[appProperty].setValue(application[appProperty]);
+            this.form.controls[appProperty].setValue(application.details[appProperty]);
           }
         }
         this.form.controls['active'].enable();
         this.form.controls['restrictAccess'].enable();
         this.form.controls['addedOn'].setValue(new Date(this.form.get('addedOn').value));
         this.form.controls['lastDeployedOn'].setValue(new Date(this.form.get('lastDeployedOn').value));
+        this.isDisabled = this.form.controls['restrictAccess'].value;
+
+        sessionStorage.setItem('usersAdded', JSON.stringify(application.usersAdded));
+        sessionStorage.setItem('usersRemoved', JSON.stringify(application.usersRemoved));
+        sessionStorage.setItem('groupsAdded', JSON.stringify(application.groupsAdded));
+        sessionStorage.setItem('groupsRemoved', JSON.stringify(application.groupsRemoved));
+        sessionStorage.setItem('users', JSON.stringify(application.users));
+        sessionStorage.setItem('userGroups', JSON.stringify(application.userGroups));
       });
     }
+  }
+
+  isNavBarVisible(value: boolean) {
+    this.data.isNavBarVisible(value);
   }
 
   updateApplicationContent(application, property) {
@@ -94,8 +120,29 @@ export class ApplicationsEditComponent implements OnInit {
   }
 
   save() {
+    let usersAdded;
+    let usersRemoved;
+    let groupsAdded;
+    let groupsRemoved;
     this.form.controls['addedOn'].setValue(new Date(this.form.get('addedOn').value).valueOf());
     this.form.controls['lastDeployedOn'].setValue(new Date(this.form.get('lastDeployedOn').value).valueOf());
+
+    try {
+      usersAdded = JSON.parse(sessionStorage.getItem('usersAdded'));
+      usersRemoved = JSON.parse(sessionStorage.getItem('usersRemoved'));
+      groupsAdded = JSON.parse(sessionStorage.getItem('groupsAdded'));
+      groupsRemoved = JSON.parse(sessionStorage.getItem('groupsRemoved'));
+    } catch (e) {
+      console.log(e)
+    }
+
+    this.form.addControl('details', new FormControl({value: this.qForms.cleanupForm(this.form), disabled: false}));
+    this.form.addControl('usersAdded', new FormControl({value: usersAdded, disabled: false}));
+    this.form.addControl('usersRemoved', new FormControl({value: usersRemoved, disabled: false}));
+    this.form.addControl('groupsAdded', new FormControl({value: groupsAdded, disabled: false}));
+    this.form.addControl('groupsRemoved', new FormControl({value: groupsRemoved, disabled: false}));
+
+
     this.applicationsService.save(this.qForms.cleanupForm(this.form)).subscribe(
       (response) => {
         this.utilityService.popupSuccessAction(
@@ -105,6 +152,7 @@ export class ApplicationsEditComponent implements OnInit {
             window.location.reload();
           }
         });
+        this.data.isNavBarVisible(true);
       }, error => {
 
         if (error.status == 400) {
@@ -129,6 +177,7 @@ export class ApplicationsEditComponent implements OnInit {
       });
     this.form.controls['addedOn'].setValue(new Date(this.form.get('addedOn').value));
     this.form.controls['lastDeployedOn'].setValue(new Date(this.form.get('lastDeployedOn').value));
+    sessionStorage.clear();
   }
 
   //translate snack bar messages
@@ -145,5 +194,13 @@ export class ApplicationsEditComponent implements OnInit {
     if (this.router.url.toLowerCase().endsWith('new')) {
       this.componentTitle = "newApp";
     }
+  }
+
+  goBack() {
+    this.router.navigate(["/applications"]).then( () => this.data.isNavBarVisible(true));
+  }
+
+  toggle($event: MatSlideToggleChange) {
+      this.isDisabled = $event.checked;
   }
 }

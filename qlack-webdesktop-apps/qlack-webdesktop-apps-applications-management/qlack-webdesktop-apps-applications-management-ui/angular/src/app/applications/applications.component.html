@@ -34,7 +34,7 @@
         </ng-container>
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; let element; columns: displayedColumns;"
-            [routerLink]="element.id"></tr>
+            [routerLink]="element.id" (click)="isNavBarVisible(false)"></tr>
       </table>
       <mat-paginator #paginator (page)="changePage()"
                      [pageSize]="10"
