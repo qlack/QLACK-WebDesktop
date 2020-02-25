@@ -112,6 +112,11 @@ public class WdApplicationService {
     return wdApplicationRepository.findByApplicationName(name);
   }
 
+  public WdApplicationDTO findApplicationDTOByName(String name){
+    WdApplication wdApplication = wdApplicationRepository.findByApplicationName(name);
+    return mapper.mapToDTO(wdApplication);
+  }
+
   /**
    * Saves an application to database
    *

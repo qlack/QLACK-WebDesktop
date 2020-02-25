@@ -22,11 +22,11 @@ export class StartMenuComponent implements OnInit {
 
   @Output() onAppClick = new EventEmitter();
 
-  constructor(private widgetService: WebdesktopService, private translate: TranslateService, private qPubSubService: QngPubsubService, private _snackBar: MatSnackBar) {
+  constructor(private webDesktopService: WebdesktopService, private translate: TranslateService, private qPubSubService: QngPubsubService, private _snackBar: MatSnackBar) {
   }
 
   ngOnInit() {
-    this.widgetService.getActiveApplications().subscribe(applicationsList => {
+    this.webDesktopService.getActiveApplications().subscribe(applicationsList => {
 
       applicationsList.forEach((application, index) => {
 

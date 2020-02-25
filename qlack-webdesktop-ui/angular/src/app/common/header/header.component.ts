@@ -1,6 +1,7 @@
-import {Component, ComponentFactoryResolver, ViewChild, ViewContainerRef} from '@angular/core';
+import {Component, ComponentFactoryResolver, ViewChild, ViewContainerRef,OnInit} from '@angular/core';
 import {Widget} from "../../widget";
 import {WidgetComponent} from "../../widget/widget.component";
+import {WebdesktopService} from '../../webdesktop.service';
 
 
 
@@ -9,15 +10,27 @@ import {WidgetComponent} from "../../widget/widget.component";
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
-export class HeaderComponent {
+export class HeaderComponent implements OnInit {
 
 
   static widgetId: number = 0;
   activeWidgetComponents: any[] = new Array();
   tempWidgetComponent: any;
+  profileImage: any[];
+  userProfileApplicationName: string = 'User Profile Management';
+  userProfileApplication: Widget;
   @ViewChild('widgetcontainer', {static: true, read: ViewContainerRef}) entry: ViewContainerRef;
 
-  constructor(private resolver: ComponentFactoryResolver) {
+  constructor(private resolver: ComponentFactoryResolver,private wedDesktopService: WebdesktopService) {
+  }
+
+  ngOnInit() {
+      this.wedDesktopService.getUserAttributeByName("profileImage").subscribe( attribute =>{
+        this.profileImage = attribute.bindata;
+      });
+      this.wedDesktopService.getApplicationByName(this.userProfileApplicationName).subscribe(application =>{
+        this.userProfileApplication =application;
+      })
   }
 
   initWidget(widget: Widget) {
@@ -77,4 +90,9 @@ export class HeaderComponent {
     this.activeWidgetComponents.push(this.tempWidgetComponent);
   }
 
+  openUserProfileApplication() {
+    if(this.userProfileApplication){
+      this.initWidget(this.userProfileApplication);
+    }
+  }
 }

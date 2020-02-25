@@ -4,10 +4,15 @@
   <ng-template #widgetcontainer></ng-template>
 
   <div class="right-side-area">
-    <button [routerLink]="'/login'" mat-button>
+
+    <a mat-button (click)="openUserProfileApplication()">
+      <img *ngIf="profileImage" src="data:image/png;base64,{{profileImage}}" alt="application icon"
+           class="profileImage-class">
+    </a>
+    <button mat-button *ngIf="!profileImage">
       <mat-icon>account_circle</mat-icon>
     </button>
-    <a href="/logout" mat-button >Logout</a>
+    <a href="/logout" mat-button>Logout</a>
   </div>
 </mat-toolbar>
 

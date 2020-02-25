@@ -19,7 +19,7 @@ public class UserDetailsService {
   @Autowired
   private UserService userService;
 
-  public Map<String, UserAttributeDTO> findUserDetails() {
+  public Map<String, UserAttributeDTO> findUserAttributes() {
     Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
     if (principal instanceof DefaultOAuth2User) {
       String userName = ((DefaultOAuth2User) principal).getName();
@@ -29,6 +29,20 @@ public class UserDetailsService {
         attributeList.put(attribute.getName(), attribute);
       }
       return attributeList;
+    }
+    return null;
+  }
+
+  public UserAttributeDTO findUserAttributeByName(String attributeName) {
+    Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    if (principal instanceof DefaultOAuth2User) {
+      String userName = ((DefaultOAuth2User) principal).getName();
+      UserDTO userDTO = userService.getUserByName(userName);
+      for (UserAttributeDTO attribute : userDTO.getUserAttributes()) {
+         if(attribute.getName().equalsIgnoreCase(attributeName)){
+           return  attribute;
+         }
+      }
     }
     return null;
   }

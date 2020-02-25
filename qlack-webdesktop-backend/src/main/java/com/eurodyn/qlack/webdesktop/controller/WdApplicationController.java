@@ -67,8 +67,8 @@ public class WdApplicationController {
   }
 
   /**
-   * Get all translations for a specific locale,groupby group title which is the applicationName
-   * from .yaml configuration file Every App has its own group.
+   * Get all translations for a specific locale,groupby group title which is the applicationName from .yaml
+   * configuration file Every App has its own group.
    *
    * @param lang the language locale
    * @return a list of translations for a specific locale
@@ -89,9 +89,19 @@ public class WdApplicationController {
     return wdApplicationService.findApplicationById(id);
   }
 
-  @GetMapping("/user/details")
-  public Map<String, UserAttributeDTO> getUserDetails() {
-    return userDetailsService.findUserDetails();
+  @GetMapping("/app/{name}")
+  public WdApplicationDTO getApplicationByName(@PathVariable String name) {
+    return wdApplicationService.findApplicationDTOByName(name);
+  }
+
+  @GetMapping("/user/attributes")
+  public Map<String, UserAttributeDTO> getUserAttributes() {
+    return userDetailsService.findUserAttributes();
+  }
+
+  @GetMapping("/user/attributes/{attributeName}")
+  public UserAttributeDTO getUserAttributeByName(@PathVariable String attributeName) {
+    return userDetailsService.findUserAttributeByName(attributeName);
   }
 
 }

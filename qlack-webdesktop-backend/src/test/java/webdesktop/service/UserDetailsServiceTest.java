@@ -58,14 +58,14 @@ public class UserDetailsServiceTest {
   }
 
   @Test
-  public void findUserDetailsSuccessTest(){
+  public void findUserAttributesSuccessTest(){
     when(securityContext.getAuthentication()).thenReturn(authentication);
     SecurityContextHolder.setContext(securityContext);
     when(SecurityContextHolder.getContext().getAuthentication().getPrincipal()).thenReturn(defaultOAuth2User);
     when(defaultOAuth2User.getName()).thenReturn("username");
     when(userService.getUserByName("username")).thenReturn(userDTO);
     when(userDTO.getUserAttributes()).thenReturn(userAttributeDTOS);
-    Map<String, UserAttributeDTO> result = userDetailsService.findUserDetails();
+    Map<String, UserAttributeDTO> result = userDetailsService.findUserAttributes();
     assertNotNull(result);
     assertEquals(2,result.size());
     verify(userService, times(1)).getUserByName(anyString());
@@ -74,12 +74,12 @@ public class UserDetailsServiceTest {
   }
 
   @Test
-  public void findUserDetailsFailTest(){
+  public void findUserAttributesFailTest(){
     when(securityContext.getAuthentication()).thenReturn(authentication);
     SecurityContextHolder.setContext(securityContext);
     when(SecurityContextHolder.getContext().getAuthentication().getPrincipal()).thenReturn(principal);
 
-    Map<String, UserAttributeDTO> result = userDetailsService.findUserDetails();
+    Map<String, UserAttributeDTO> result = userDetailsService.findUserAttributes();
     assertNull(result);
 
   }

@@ -11,8 +11,16 @@ export class WebdesktopService {
   getActiveApplications(): Observable<any> {
     return this.http.get('/apps/filtered');
   }
-  getUserAttributes(): Observable<any> {
-    return this.http.get('/apps/user/details');
+
+  getApplicationByName(applicationName: string): Observable<any> {
+    return this.http.get('/apps/app/'+applicationName);
   }
 
+  getUserAttributes(): Observable<any> {
+    return this.http.get('/apps/user/attributes');
+  }
+
+  getUserAttributeByName(attributeName: string): Observable<any> {
+    return this.http.get('/apps/user/attributes/' + attributeName);
+  }
 }
