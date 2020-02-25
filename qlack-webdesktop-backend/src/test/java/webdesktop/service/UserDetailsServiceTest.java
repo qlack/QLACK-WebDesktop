@@ -84,5 +84,45 @@ public class UserDetailsServiceTest {
 
   }
 
+  @Test
+  public void findUserAttributeByNameSuccessTest(){
+    when(securityContext.getAuthentication()).thenReturn(authentication);
+    SecurityContextHolder.setContext(securityContext);
+    when(SecurityContextHolder.getContext().getAuthentication().getPrincipal()).thenReturn(defaultOAuth2User);
+    when(defaultOAuth2User.getName()).thenReturn("username");
+    when(userService.getUserByName("username")).thenReturn(userDTO);
+    when(userDTO.getUserAttributes()).thenReturn(userAttributeDTOS);
+    UserAttributeDTO result = userDetailsService.findUserAttributeByName("company");
+    assertNotNull(result);
+    verify(userService, times(1)).getUserByName(anyString());
+    verify(userDTO, times(1)).getUserAttributes();
+
+  }
+
+  @Test
+  public void findUserAttributeByNameWithWrongNameTest(){
+    when(securityContext.getAuthentication()).thenReturn(authentication);
+    SecurityContextHolder.setContext(securityContext);
+    when(SecurityContextHolder.getContext().getAuthentication().getPrincipal()).thenReturn(defaultOAuth2User);
+    when(defaultOAuth2User.getName()).thenReturn("username");
+    when(userService.getUserByName("username")).thenReturn(userDTO);
+    when(userDTO.getUserAttributes()).thenReturn(userAttributeDTOS);
+    UserAttributeDTO result = userDetailsService.findUserAttributeByName("wrong name");
+    assertNull(result);
+    verify(userService, times(1)).getUserByName(anyString());
+    verify(userDTO, times(1)).getUserAttributes();
+
+  }
+
+  @Test
+  public void findUserAttributeByNameFailTest(){
+    when(securityContext.getAuthentication()).thenReturn(authentication);
+    SecurityContextHolder.setContext(securityContext);
+    when(SecurityContextHolder.getContext().getAuthentication().getPrincipal()).thenReturn(principal);
+
+    UserAttributeDTO result = userDetailsService.findUserAttributeByName("attributeName");
+    assertNull(result);
+
+  }
 
 }

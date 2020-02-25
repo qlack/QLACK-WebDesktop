@@ -64,8 +64,20 @@ public class WdApplicationControllerTest {
         .andExpect(status().isOk());
   }
   @Test
-  public void getUserDetailsTest() throws Exception {
-    mockMvc.perform(get("/apps/user/details")
+  public void getApplicationByNameTest() throws Exception {
+    mockMvc.perform(get("/apps/app/{name}","applicationName")
+        .accept(MediaType.APPLICATION_JSON))
+        .andExpect(status().isOk());
+  }
+  @Test
+  public void getUserAttributeByNameTest() throws Exception {
+    mockMvc.perform(get("/apps/user/attributes/{attributeName}","attributeName")
+        .accept(MediaType.APPLICATION_JSON))
+        .andExpect(status().isOk());
+  }
+  @Test
+  public void getUserAttributesTest() throws Exception {
+    mockMvc.perform(get("/apps/user/attributes")
         .accept(MediaType.APPLICATION_JSON))
         .andExpect(status().isOk());
   }

@@ -176,6 +176,14 @@ public class WdApplicationServiceTest {
   }
 
   @Test
+  public void findApplicationDTOByNameTest() {
+    when(wdApplicationRepository.findByApplicationName(anyString())).thenReturn(wdApplication);
+    when(wdApplicationMapper.mapToDTO(wdApplication)).thenReturn(wdApplicationDTO);
+    WdApplicationDTO wdApplicationDTO = wdApplicationService.findApplicationDTOByName(anyString());
+    assertNotNull(wdApplicationDTO);
+  }
+
+  @Test
   public void saveApplicationTest() {
     wdApplicationService.saveApplication(any());
     verify(wdApplicationRepository, times(1)).save(any());

@@ -89,7 +89,6 @@ public class ApplicationsController {
   /**
    * Saves a new wd application or updates an existing one.
    *
-   * @return the response entity.
    */
   @PostMapping(value = "/upload")
   public void uploadApplication(@RequestParam("file") MultipartFile file) {
