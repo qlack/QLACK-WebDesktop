@@ -38,7 +38,8 @@ export class UserProfileComponent implements OnInit {
       lastName: [{value: '', disabled: true}],
       defaultLanguage: [''],
       profileImage: [undefined],
-      backgroundImage: [undefined]
+      backgroundImage: [undefined],
+      deleteBackgroundImage: [false]
     });
 
     this.userProfileService.getAllDetails().subscribe(userAttributeList => {
@@ -113,5 +114,14 @@ export class UserProfileComponent implements OnInit {
     });
     this.myForm.get('profileImage').updateValueAndValidity();
     this.previewProfileImageURL = null;
+  }
+
+  deleteBackgroundImage() {
+    this.userDetailsDto.backgroundImage = null;
+    this.myForm.patchValue({
+      deleteBackgroundImage: true
+    });
+    this.myForm.get('deleteBackgroundImage').updateValueAndValidity();
+
   }
 }

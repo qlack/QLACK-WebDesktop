@@ -102,7 +102,7 @@ public class UserProfileServiceTest {
         "text/plain", "profileImage content".getBytes());
     MockMultipartFile backgroundImage = new MockMultipartFile("data", "backgroundImage.jpg",
         "text/plain", "backgroundImage content".getBytes());
-    userProfileService.saveDetails(userDetailsDTO, profileImage, backgroundImage);
+    userProfileService.saveDetails(userDetailsDTO, profileImage, backgroundImage,false);
     verify(userService, times(1)).getUserByName(anyString());
     verify(userService, times(3)).updateAttribute(any(), anyBoolean());
   }
@@ -116,7 +116,7 @@ public class UserProfileServiceTest {
     when(userService.getUserByName("username")).thenReturn(userDTO);
     MockMultipartFile profileImage = null;
     MockMultipartFile backgroundImage = null;
-    userProfileService.saveDetails(userDetailsDTO, profileImage, backgroundImage);
+    userProfileService.saveDetails(userDetailsDTO, profileImage, backgroundImage,false);
     verify(userService, times(1)).getUserByName(anyString());
     verify(userService, times(1)).updateAttribute(any(), anyBoolean());
   }
@@ -130,9 +130,20 @@ public class UserProfileServiceTest {
         "text/plain", "profileImage content".getBytes());
     MockMultipartFile backgroundImage = new MockMultipartFile("data", "backgroundImage.jpg",
         "text/plain", "backgroundImage content".getBytes());
-    userProfileService.saveDetails(userDetailsDTO, profileImage, backgroundImage);
+    userProfileService.saveDetails(userDetailsDTO, profileImage, backgroundImage,false);
     verify(userService, times(0)).getUserByName(anyString());
     verify(userService, times(0)).updateAttribute(any(), anyBoolean());
+  }
+  @Test
+  public void saveDetailsDeleteBackgroundImage() throws IOException {
+    when(securityContext.getAuthentication()).thenReturn(authentication);
+    SecurityContextHolder.setContext(securityContext);
+    when(SecurityContextHolder.getContext().getAuthentication().getPrincipal()).thenReturn(defaultOAuth2User);
+    when(defaultOAuth2User.getName()).thenReturn("username");
+    when(userService.getUserByName("username")).thenReturn(userDTO);
+    userProfileService.saveDetails(userDetailsDTO, null, null,true);
+    verify(userService, times(1)).getUserByName(anyString());
+    verify(userService, times(2)).updateAttribute(any(), anyBoolean());
   }
 
   @Test

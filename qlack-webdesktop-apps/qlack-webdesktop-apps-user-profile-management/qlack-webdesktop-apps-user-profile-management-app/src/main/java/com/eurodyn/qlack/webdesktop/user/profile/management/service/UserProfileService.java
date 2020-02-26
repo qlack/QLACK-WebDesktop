@@ -42,7 +42,8 @@ public class UserProfileService {
     return languageService.getLanguages(includeInactive);
   }
 
-  public void saveDetails(UserDetailsDTO userDetailsDTO, MultipartFile profileImage, MultipartFile backgroundImage)
+  public void saveDetails(UserDetailsDTO userDetailsDTO, MultipartFile profileImage, MultipartFile backgroundImage,
+      boolean deleteBackgroundImage)
       throws IOException {
     Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
     if (principal instanceof DefaultOAuth2User) {
@@ -55,6 +56,9 @@ public class UserProfileService {
       }
       if(backgroundImage != null) {
         saveAttribute("backgroundImage", userId, backgroundImage.getBytes(), null);
+      }
+      if(deleteBackgroundImage){
+        saveAttribute("backgroundImage", userId, null, null);
       }
     }
   }

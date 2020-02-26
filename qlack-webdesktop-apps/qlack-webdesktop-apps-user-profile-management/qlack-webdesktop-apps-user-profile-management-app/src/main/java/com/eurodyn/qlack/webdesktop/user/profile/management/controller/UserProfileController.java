@@ -44,8 +44,9 @@ public class UserProfileController {
   public void saveUserDetails(@ModelAttribute UserDetailsDTO userDetailsDTO,
       @RequestParam(value = "profileImage", required =
           false) MultipartFile profileImage,
-      @RequestParam(value = "backgroundImage", required = false) MultipartFile backgroundImage) throws IOException {
-    userProfileService.saveDetails(userDetailsDTO, profileImage, backgroundImage);
+      @RequestParam(value = "backgroundImage", required = false) MultipartFile backgroundImage,
+      boolean deleteBackgroundImage) throws IOException {
+    userProfileService.saveDetails(userDetailsDTO, profileImage, backgroundImage,deleteBackgroundImage);
   }
 
   @GetMapping("/user/details")

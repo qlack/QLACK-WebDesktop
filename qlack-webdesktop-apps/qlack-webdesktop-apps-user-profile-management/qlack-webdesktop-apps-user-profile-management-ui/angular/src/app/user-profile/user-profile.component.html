@@ -41,8 +41,15 @@
             </button>
           </mat-form-field>
           <br>
-          <div class="imagePreview" *ngIf="previewBackgroundImageURL">
-            <img [src]="previewBackgroundImageURL" width="150" height="150" alt="preview background image">
+          <div class="imagePreview" *ngIf="userDetailsDto.backgroundImage && !previewBackgroundImageURL">
+            <img src="data:image/png;base64,{{userDetailsDto.backgroundImage}}"
+                 width="150" height="150" alt="preview background image">
+            <button mat-button (click)="deleteBackgroundImage()">Delete image</button>
+          </div>
+            <div class="imagePreview" *ngIf="previewBackgroundImageURL">
+            <img *ngIf="previewBackgroundImageURL"
+                 [src]="previewBackgroundImageURL"
+                 width="150" height="150" alt="preview background image">
           </div>
           <mat-form-field class="full-width-input">
             <ngx-mat-file-input #removableInput1 (change)="showBackgroundImagePreview($event)"
