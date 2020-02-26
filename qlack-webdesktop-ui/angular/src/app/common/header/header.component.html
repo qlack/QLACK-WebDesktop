@@ -9,7 +9,7 @@
       <img *ngIf="profileImage" src="data:image/png;base64,{{profileImage}}" alt="application icon"
            class="profileImage-class">
     </a>
-    <button mat-button *ngIf="!profileImage">
+    <button mat-button *ngIf="!profileImage" (click)="openUserProfileApplication()">
       <mat-icon>account_circle</mat-icon>
     </button>
     <a href="/logout" mat-button>Logout</a>
