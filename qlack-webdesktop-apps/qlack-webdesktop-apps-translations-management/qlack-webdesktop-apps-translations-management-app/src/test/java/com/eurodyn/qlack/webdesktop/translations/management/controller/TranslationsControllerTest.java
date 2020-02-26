@@ -91,4 +91,11 @@ public class TranslationsControllerTest {
         .andExpect(status().isOk());
   }
 
+  @Test
+  public void getUserAttributeByNameTest() throws Exception {
+    mockMvc.perform(get("/api/user/attributes/{attributeName}","attributeName")
+        .accept(MediaType.APPLICATION_JSON))
+        .andExpect(status().isOk());
+  }
+
 }

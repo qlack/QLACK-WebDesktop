@@ -1,5 +1,8 @@
 package com.eurodyn.qlack.webdesktop.translations.management.service;
 
+import com.eurodyn.qlack.fuse.aaa.dto.UserAttributeDTO;
+import com.eurodyn.qlack.fuse.aaa.dto.UserDTO;
+import com.eurodyn.qlack.fuse.aaa.service.UserService;
 import com.eurodyn.qlack.fuse.lexicon.criteria.KeySearchCriteria;
 import com.eurodyn.qlack.fuse.lexicon.dto.GroupDTO;
 import com.eurodyn.qlack.fuse.lexicon.dto.KeyDTO;
@@ -17,6 +20,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.oauth2.core.user.DefaultOAuth2User;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -34,16 +39,17 @@ public class TranslationsService {
   private LanguageService languageService;
   private KeyRepository keyRepository;
   private DataRepository dataRepository;
-
+  private UserService userService;
   @Autowired
   public TranslationsService(GroupService groupService, KeyService keyService,
-    LanguageService languageService, KeyRepository keyRepository,
-    DataRepository dataRepository) {
+      LanguageService languageService, KeyRepository keyRepository,
+      DataRepository dataRepository, UserService userService) {
     this.groupService = groupService;
     this.keyService = keyService;
     this.languageService = languageService;
     this.keyRepository = keyRepository;
     this.dataRepository = dataRepository;
+    this.userService = userService;
   }
 
   public Page<TmKeyDTO> findPagesForAllKeys(String page, String size,
@@ -118,6 +124,20 @@ public class TranslationsService {
   public Map<String, Map<String, String>> findTranslationsForLocale(
     String locale) {
     return keyService.getTranslationsForLocaleGroupByGroupTitle(locale);
+  }
+
+  public UserAttributeDTO findUserAttributeByName(String attributeName) {
+    Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    if (principal instanceof DefaultOAuth2User) {
+      String userName = ((DefaultOAuth2User) principal).getName();
+      UserDTO userDTO = userService.getUserByName(userName);
+      for (UserAttributeDTO attribute : userDTO.getUserAttributes()) {
+        if(attribute.getName().equalsIgnoreCase(attributeName)){
+          return  attribute;
+        }
+      }
+    }
+    return null;
   }
 
 }

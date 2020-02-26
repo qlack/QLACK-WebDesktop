@@ -1,5 +1,6 @@
 import {Component} from '@angular/core';
 import {TranslateService} from '@ngx-translate/core';
+import {TranslationService} from './services/translation.service';
 
 @Component({
   selector: 'app-root',
@@ -13,10 +14,16 @@ export class AppComponent {
     {path: '/translations', label: 'translations'}
   ];
 
-  constructor(private translate: TranslateService) {
+  constructor(private translate: TranslateService, private translationService: TranslationService) {
 
-    // TODO call user profile and get his/hers preferred language
-    translate.setDefaultLang('el');
+    this.translationService.getUserAttributeByName("defaultLanguage").subscribe(attr => {
+      if(attr != null){
+        translate.setDefaultLang(attr.data);
+      }
+      else{
+        translate.setDefaultLang("en");
+      }
+    });
 
     translate.get([
       'translations-management-ui.changes',

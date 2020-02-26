@@ -4,6 +4,7 @@ import {CrudService} from './crud.service';
 import {QFormsService} from '@eurodyn/forms';
 import {KeyDto} from '../dto/key-dto';
 import {AppConstants} from '../app.constants';
+import {Observable} from 'rxjs';
 
 
 @Injectable({
@@ -20,5 +21,7 @@ export class TranslationService extends CrudService<KeyDto> {
     return this.http.post(`${AppConstants.API_ROOT}/${this.resource}/update`, key,
       {headers: {'Content-Type': 'application/json'}});
   }
-
+  getUserAttributeByName(attributeName: string): Observable<any> {
+    return this.http.get(AppConstants.API_ROOT + '/user/attributes/'+ attributeName);
+  }
 }

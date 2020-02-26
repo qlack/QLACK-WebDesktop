@@ -1,5 +1,6 @@
 package com.eurodyn.qlack.webdesktop.translations.management.controller;
 
+import com.eurodyn.qlack.fuse.aaa.dto.UserAttributeDTO;
 import com.eurodyn.qlack.fuse.lexicon.dto.LanguageDTO;
 import com.eurodyn.qlack.webdesktop.translations.management.dto.TmKeyDTO;
 import com.eurodyn.qlack.webdesktop.translations.management.service.TranslationsService;
@@ -61,6 +62,10 @@ public class TranslationsController {
   public Map<String, Map<String, String>> getTranslations(
       @RequestParam String lang) {
     return translationsService.findTranslationsForLocale(lang);
+  }
+  @GetMapping("/user/attributes/{attributeName}")
+  public UserAttributeDTO getUserAttributeByName(@PathVariable String attributeName) {
+    return translationsService.findUserAttributeByName(attributeName);
   }
 
 }

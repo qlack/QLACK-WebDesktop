@@ -11,15 +11,18 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @EnableCaching
 @EnableJpaRepositories({
   "com.eurodyn.qlack.fuse.lexicon.repository",
+    "com.eurodyn.qlack.fuse.aaa.repository"
 })
 @EntityScan({
   "com.eurodyn.qlack.fuse.lexicon.model",
-  "com.eurodyn.qlack.webdesktop.common.model"
+  "com.eurodyn.qlack.webdesktop.common.model",
+    "com.eurodyn.qlack.fuse.aaa.model"
 })
 @ComponentScan(basePackages = {
   "com.eurodyn.qlack.fuse.lexicon",
   "com.eurodyn.qlack.webdesktop.translations.management.controller",
   "com.eurodyn.qlack.webdesktop.translations.management.service",
+    "com.eurodyn.qlack.fuse.aaa"
 })
 public class QlackWebDesktopTranslationsManagement {
 

@@ -6,10 +6,14 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyBoolean;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import com.eurodyn.qlack.fuse.aaa.dto.UserAttributeDTO;
+import com.eurodyn.qlack.fuse.aaa.dto.UserDTO;
+import com.eurodyn.qlack.fuse.aaa.service.UserService;
 import com.eurodyn.qlack.fuse.lexicon.dto.GroupDTO;
 import com.eurodyn.qlack.fuse.lexicon.dto.KeyDTO;
 import com.eurodyn.qlack.fuse.lexicon.dto.LanguageDTO;
@@ -29,6 +33,10 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.data.domain.Page;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.oauth2.core.user.DefaultOAuth2User;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -61,6 +69,20 @@ public class TranslationsServiceTest {
   @Mock
   private KeyRepository keyRepository;
 
+  @Mock
+  private DefaultOAuth2User defaultOAuth2User;
+  @Mock
+  private Authentication authentication;
+  @Mock
+  private SecurityContext securityContext;
+  @Mock
+  private UserDTO userDTO;
+  @Mock
+  private Object principal;
+
+  @Mock
+  private UserService userService;
+
   private List<KeyDTO> keysDto;
   private List<Key> keys;
   private List<LanguageDTO> languagesDTO;
@@ -68,6 +90,8 @@ public class TranslationsServiceTest {
   private InitTestValues initTestValues;
   private List<String> pageableValues;
   private Set<GroupDTO> groupDTOS;
+  private Set<UserAttributeDTO> userAttributeDTOS;
+  private UserAttributeDTO userAttributeDTO;
 
   @Before
   public void onInit() {
@@ -78,6 +102,8 @@ public class TranslationsServiceTest {
     languagesDTO = initTestValues.createLanguagesDTO();
     pageableValues = new ArrayList<>(Arrays.asList("value", "asc"));
     groupDTOS = new HashSet<>(initTestValues.createGroupsDTO());
+    userAttributeDTOS = new HashSet<>(initTestValues.createUserAttributesDTO());
+    userAttributeDTO = initTestValues.createUserAttributeDTO();
   }
 
   @Test
@@ -158,4 +184,47 @@ public class TranslationsServiceTest {
     String result = translationsService.getTranslation(any(), any());
     assertNull(result);
   }
+
+  @Test
+  public void findUserAttributeByNameSuccessTest(){
+    when(securityContext.getAuthentication()).thenReturn(authentication);
+    SecurityContextHolder.setContext(securityContext);
+    when(SecurityContextHolder.getContext().getAuthentication().getPrincipal()).thenReturn(defaultOAuth2User);
+    when(defaultOAuth2User.getName()).thenReturn("username");
+    when(userService.getUserByName("username")).thenReturn(userDTO);
+    when(userDTO.getUserAttributes()).thenReturn(userAttributeDTOS);
+    UserAttributeDTO result = translationsService.findUserAttributeByName("company");
+    assertNotNull(result);
+    verify(userService, times(1)).getUserByName(anyString());
+    verify(userDTO, times(1)).getUserAttributes();
+
+  }
+
+  @Test
+  public void findUserAttributeByNameWithWrongNameTest(){
+    when(securityContext.getAuthentication()).thenReturn(authentication);
+    SecurityContextHolder.setContext(securityContext);
+    when(SecurityContextHolder.getContext().getAuthentication().getPrincipal()).thenReturn(defaultOAuth2User);
+    when(defaultOAuth2User.getName()).thenReturn("username");
+    when(userService.getUserByName("username")).thenReturn(userDTO);
+    when(userDTO.getUserAttributes()).thenReturn(userAttributeDTOS);
+    UserAttributeDTO result = translationsService.findUserAttributeByName("wrong name");
+    assertNull(result);
+    verify(userService, times(1)).getUserByName(anyString());
+    verify(userDTO, times(1)).getUserAttributes();
+
+  }
+
+  @Test
+  public void findUserAttributeByNameFailTest(){
+    when(securityContext.getAuthentication()).thenReturn(authentication);
+    SecurityContextHolder.setContext(securityContext);
+    when(SecurityContextHolder.getContext().getAuthentication().getPrincipal()).thenReturn(principal);
+
+    UserAttributeDTO result = translationsService.findUserAttributeByName("attributeName");
+    assertNull(result);
+
+  }
+
+
 }
