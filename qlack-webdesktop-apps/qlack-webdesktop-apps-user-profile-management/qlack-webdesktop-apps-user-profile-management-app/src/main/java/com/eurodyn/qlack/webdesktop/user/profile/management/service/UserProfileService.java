@@ -63,7 +63,7 @@ public class UserProfileService {
     }
   }
 
-  public Map<String, UserAttributeDTO> findUserDetails() {
+  public Map<String, UserAttributeDTO> findUserAttributes() {
     Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
     if (principal instanceof DefaultOAuth2User) {
       String userName = ((DefaultOAuth2User) principal).getName();
@@ -76,6 +76,21 @@ public class UserProfileService {
     }
     return null;
   }
+
+  public UserAttributeDTO findUserAttributeByName(String attributeName) {
+    Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    if (principal instanceof DefaultOAuth2User) {
+      String userName = ((DefaultOAuth2User) principal).getName();
+      UserDTO userDTO = userService.getUserByName(userName);
+      for (UserAttributeDTO attribute : userDTO.getUserAttributes()) {
+        if(attribute.getName().equalsIgnoreCase(attributeName)){
+          return  attribute;
+        }
+      }
+    }
+    return null;
+  }
+
 
   public void saveAttribute(String attributeName,String userId,byte[] binData,String data){
     UserAttributeDTO userAttributeDTO = userService.getAttribute(userId, attributeName);

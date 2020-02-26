@@ -42,7 +42,7 @@ export class UserProfileComponent implements OnInit {
       deleteBackgroundImage: [false]
     });
 
-    this.userProfileService.getAllDetails().subscribe(userAttributeList => {
+    this.userProfileService.getUserAttributes().subscribe(userAttributeList => {
       if (userAttributeList.firstName != null) {
         this.userDetailsDto.firstName = userAttributeList.firstName.data;
       }

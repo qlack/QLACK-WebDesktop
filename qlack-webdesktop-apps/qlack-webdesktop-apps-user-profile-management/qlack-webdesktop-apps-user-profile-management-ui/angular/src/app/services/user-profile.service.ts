@@ -15,17 +15,21 @@ import {FormGroup} from '@angular/forms';
   providedIn: 'root'
 })
 export class UserProfileService extends CrudService<FileDto> {
-  private resource = `user`;
+  private resource = `user/attributes`;
 
   constructor(http: HttpClient, qForms: QFormsService) {
     super(http, 'user', qForms);
   }
 
   public saveDetails(form: FormGroup) {
-    return this.qForms.uploadForm(this.http, form, AppConstants.API_ROOT + `/${this.resource}/details/save`, false);
+    return this.qForms.uploadForm(this.http, form, AppConstants.API_ROOT + `/${this.resource}/save`, false);
   }
 
-  getAllDetails(): Observable<any> {
-    return this.http.get(AppConstants.API_ROOT + '/' + this.resource + `/details`);
+  getUserAttributes(): Observable<any> {
+    return this.http.get(AppConstants.API_ROOT + '/' + this.resource);
+  }
+
+  getUserAttributeByName(attributeName: string): Observable<any> {
+    return this.http.get(AppConstants.API_ROOT + '/' + this.resource +'/'+ attributeName);
   }
 }

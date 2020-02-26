@@ -40,8 +40,8 @@ public class UserProfileController {
     return userProfileService.findTranslationsForLocale(lang);
   }
 
-  @PostMapping("/user/details/save")
-  public void saveUserDetails(@ModelAttribute UserDetailsDTO userDetailsDTO,
+  @PostMapping("/user/attributes/save")
+  public void saveUserAttributes(@ModelAttribute UserDetailsDTO userDetailsDTO,
       @RequestParam(value = "profileImage", required =
           false) MultipartFile profileImage,
       @RequestParam(value = "backgroundImage", required = false) MultipartFile backgroundImage,
@@ -49,8 +49,13 @@ public class UserProfileController {
     userProfileService.saveDetails(userDetailsDTO, profileImage, backgroundImage,deleteBackgroundImage);
   }
 
-  @GetMapping("/user/details")
-  public Map<String, UserAttributeDTO> getUserDetails() {
-    return userProfileService.findUserDetails();
+  @GetMapping("/user/attributes")
+  public Map<String, UserAttributeDTO> getUserAttributes() {
+    return userProfileService.findUserAttributes();
+  }
+
+  @GetMapping("/user/attributes/{attributeName}")
+  public UserAttributeDTO getUserAttributeByName(@PathVariable String attributeName) {
+    return userProfileService.findUserAttributeByName(attributeName);
   }
 }

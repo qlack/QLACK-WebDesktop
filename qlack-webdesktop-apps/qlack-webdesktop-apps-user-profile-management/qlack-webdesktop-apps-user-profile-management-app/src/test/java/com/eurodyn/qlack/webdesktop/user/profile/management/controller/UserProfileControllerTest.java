@@ -52,8 +52,10 @@ public class UserProfileControllerTest {
   }
 
   @Test
-  public void saveUserDetailsTest() throws Exception {
-    mockMvc.perform(post("/api/user/details/save").content(String.valueOf(userDetailsDTO))
+  public void saveUserAttributesTest() throws Exception {
+    mockMvc.perform(post("/api/user/attributes/save")
+        .content(String.valueOf(userDetailsDTO))
+        .content("false")
         .param("profileImage", String.valueOf(profileImage))
         .param("backgroundImage", String.valueOf(backgroundImage))
         .accept(MediaType.APPLICATION_JSON))
@@ -61,8 +63,15 @@ public class UserProfileControllerTest {
   }
 
   @Test
-  public void getUserDetailsTest() throws Exception {
-    mockMvc.perform(get("/api/user/details")
+  public void getUserAttributesTest() throws Exception {
+    mockMvc.perform(get("/api/user/attributes")
+        .accept(MediaType.APPLICATION_JSON))
+        .andExpect(status().isOk());
+  }
+
+  @Test
+  public void getUserAttributeByNameTest() throws Exception {
+    mockMvc.perform(get("/api/user/attributes/{attributeName}","attributeName")
         .accept(MediaType.APPLICATION_JSON))
         .andExpect(status().isOk());
   }
