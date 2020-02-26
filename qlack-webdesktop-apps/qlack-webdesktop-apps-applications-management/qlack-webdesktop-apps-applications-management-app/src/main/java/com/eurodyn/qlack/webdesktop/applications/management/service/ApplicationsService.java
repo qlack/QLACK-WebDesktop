@@ -19,6 +19,7 @@ import com.eurodyn.qlack.webdesktop.common.dto.WdApplicationDTO;
 import com.eurodyn.qlack.webdesktop.common.mapper.WdApplicationMapper;
 import com.eurodyn.qlack.webdesktop.common.model.WdApplication;
 import com.eurodyn.qlack.webdesktop.common.repository.WdApplicationRepository;
+import com.eurodyn.qlack.webdesktop.common.service.ResourceWdApplicationService;
 import com.eurodyn.qlack.webdesktop.common.service.WdApplicationService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
@@ -59,13 +60,14 @@ public class ApplicationsService {
   private OperationService operationService;
   private UserService userService;
   private UserGroupService userGroupService;
+  private ResourceWdApplicationService resourceWdApplicationService;
 
   @Autowired
   public ApplicationsService(WdApplicationService wdApplicationService,
       WdApplicationRepository wdApplicationRepository, ProcessLexiconUtil processLexiconUtil,
       CryptoDigestService cryptoDigestService, OperationService operationService,
       WdApplicationMapper mapper, ResourceService resourceService, UserService userService,
-      UserGroupService userGroupService) {
+      UserGroupService userGroupService, ResourceWdApplicationService resourceWdApplicationService) {
     this.wdApplicationService = wdApplicationService;
     this.wdApplicationRepository = wdApplicationRepository;
     this.cryptoDigestService = cryptoDigestService;
@@ -75,6 +77,7 @@ public class ApplicationsService {
     this.operationService = operationService;
     this.userService = userService;
     this.userGroupService = userGroupService;
+    this.resourceWdApplicationService = resourceWdApplicationService;
   }
 
   /**
@@ -99,7 +102,7 @@ public class ApplicationsService {
     ResourceDTO resourceDTO = resourceService.getResourceByObjectId(id);
     if (resourceDTO != null) {
       Set<String> usersOperationDTO = operationService
-          .getAllowedUsersForOperation("view", resourceDTO.getObjectId(), false);
+          .getAllowedUsersForOperationRemoveSuperAdmin("view", resourceDTO.getObjectId(), false);
       Set<String> userGroupsOperationDTO = operationService
           .getAllowedGroupsForOperation("view", resourceDTO.getObjectId(), false);
 
@@ -187,7 +190,7 @@ public class ApplicationsService {
         .findApplicationByName(wdApplicationManagementDTO.getDetails().getApplicationName());
     //create resourceId for new application
     if (newWdApplication != null && wdApplicationManagementDTO.getDetails().getId() ==  null){
-      resourceService.createResource(createResourceDTO(newWdApplication));
+      resourceWdApplicationService.createApplicationResource(newWdApplication);
     }
     ResourceDTO resourceDTO = resourceService
         .getResourceByObjectId(newWdApplication.getId());
@@ -299,14 +302,7 @@ public class ApplicationsService {
     if (wdApplication != null) {
       wdApplication.setChecksum(checksum);
       wdApplicationRepository.save(wdApplication);
-      resourceService.createResource(createResourceDTO(wdApplication));
+      resourceWdApplicationService.createApplicationResource(wdApplication);
     }
-  }
-
-  private ResourceDTO createResourceDTO(WdApplication wdApplication) {
-    ResourceDTO resourceDTO = new ResourceDTO();
-    resourceDTO.setObjectId(wdApplication.getId());
-    resourceDTO.setName(wdApplication.getApplicationName());
-    return resourceDTO;
   }
 }

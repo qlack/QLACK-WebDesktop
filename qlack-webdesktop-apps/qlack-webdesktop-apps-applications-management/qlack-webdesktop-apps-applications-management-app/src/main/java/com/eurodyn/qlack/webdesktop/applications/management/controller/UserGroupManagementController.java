@@ -15,7 +15,6 @@ import com.eurodyn.qlack.webdesktop.applications.management.service.UserGroupMan
 import com.querydsl.core.types.Predicate;
 import java.util.Collections;
 import java.util.List;
-import javax.transaction.Transactional;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;

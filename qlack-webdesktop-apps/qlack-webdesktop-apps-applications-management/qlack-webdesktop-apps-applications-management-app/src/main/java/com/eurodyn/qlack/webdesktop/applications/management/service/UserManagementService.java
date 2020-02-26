@@ -2,11 +2,9 @@ package com.eurodyn.qlack.webdesktop.applications.management.service;
 
 import com.eurodyn.qlack.fuse.aaa.dto.UserDTO;
 import com.eurodyn.qlack.fuse.aaa.dto.UserGroupDTO;
-import com.eurodyn.qlack.fuse.aaa.service.UserGroupService;
 import com.eurodyn.qlack.fuse.aaa.service.UserService;
 import com.eurodyn.qlack.webdesktop.applications.management.dto.UserManagementDTO;
-import java.util.ArrayList;
-import java.util.Collection;
+import com.eurodyn.qlack.webdesktop.common.service.WdApplicationService;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.collections.CollectionUtils;
@@ -22,7 +20,7 @@ public class UserManagementService {
   @Autowired
   private final UserService userService;
   @Autowired
-  private final UserGroupService userGroupService;
+  private WdApplicationService wdApplicationService;
 
   /**
    * Updates a user's userGroups. That means add or remove userGroups.
@@ -60,11 +58,6 @@ public class UserManagementService {
    * @return a list containing all the userGroups that belong to a user.
    */
   public List<UserGroupDTO> findUserGroupsIds(String userId) {
-    List<UserGroupDTO> userGroupList = new ArrayList<>();
-    Collection<String> userGroupsIds = userGroupService.getUserGroupsIds(userId);
-    userGroupsIds.forEach(userGroupId ->
-        userGroupList.add(userGroupService.getGroupByID(userGroupId, true)
-        ));
-    return userGroupList;
+    return wdApplicationService.findUserGroupsIds(userId);
   }
 }
