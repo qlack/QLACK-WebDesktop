@@ -1,6 +1,6 @@
 # application configuration
 ---
-appUrl: 'http://localhost:4201/users'
+appUrl: 'http://localhost:4201/applications'
 version: '3.0.0-SNAPSHOT'
 icon: 'http://icons.iconarchive.com/icons/franksouza183/fs/64/Categories-preferences-system-icon.png'
 iconSmall: 'http://icons.iconarchive.com/icons/franksouza183/fs/24/Categories-preferences-system-icon.png'
@@ -19,11 +19,11 @@ maximizable: true
 system: true
 showTitle: true
 stripPrefix: false
-sensitiveHeaders: 'aaa'
-proxyPath: 'aaa'
+sensitiveHeaders: 'management'
+proxyPath: 'http://localhost:4201/users'
 applicationName: management
 editedByUI: false
-proxyAppUrl: 'aaa'
+proxyAppUrl: 'http://localhost:4201/applications'
 lexicon:
   - languageLocale: en
     values:
