@@ -1,17 +1,17 @@
-<!-- img icon stays at init widget position-->
-<div (click)="zIndexPlusOne()" (dblclick)="widgetMinimized()" *ngIf="!!iconImageSrc &&  isActive"
-     [class.widgetOnAppBar]="!isMinimized" [class.widgetOnAppBarMinimized]="isMinimized">
+<!-- img icon stays at init application position-->
+<div (click)="zIndexPlusOne()" (dblclick)="applicationMinimized()" *ngIf="!!iconImageSrc &&  isActive"
+     [class.applicationOnAppBar]="!isMinimized" [class.applicationOnAppBarMinimized]="isMinimized">
   <img [src]="safeIconImageSrc" alt="application icon">
 </div>
 
 <div (cdkDragEnded)="dragEnd($event)" (cdkDragMoved)="dragMoved($event)" (cdkDragReleased)="dragReleased($event)"
      (cdkDragStarted)="dragStart($event)" *ngIf="isActive" [cdkDragDisabled]="isSmallScreen || !isDraggable"
-     [cdkDragFreeDragPosition]="widgetPosition"
-     [class.widgetMinimized]="isMinimized && !isSmallScreen" [style.top]="yPosition" [style.left]="xPosition"
+     [cdkDragFreeDragPosition]="applicationPosition"
+     [class.applicationMinimized]="isMinimized && !isSmallScreen" [style.top]="yPosition" [style.left]="xPosition"
      [style.z-index]="zIndex" cdkDrag
-     cdkDragBoundary=".widget-boundary" class="widget">
+     cdkDragBoundary=".widget-boundary" class="application">
 
-  <div (click)="widgetClicked()" *ngIf="isMinimized && !isSmallScreen" class="widgetAsIcon">
+  <div (click)="applicationClicked()" *ngIf="isMinimized && !isSmallScreen" class="applicationAsIcon">
     <div *ngIf="!(!!iconImageSrc)">{{ applicationName + '.title' | translate  }}</div>
   </div>
 
@@ -24,16 +24,16 @@
       + '.title' | translate  }}</div>
 
       <div class="iconsContainer">
-        <em (click)="widgetMinimized()" *ngIf="isMinimizable" class="material-icons headerIcon"
-           matTooltip="minimize">
+        <em (click)="applicationMinimized()" *ngIf="isMinimizable" class="material-icons headerIcon"
+            matTooltip="minimize">
           remove
         </em>
-        <em (click)="widgetMaximized($event)" *ngIf="isMaximizable && !isMaximized"
-           class="material-icons headerIcon" matTooltip="fullscreen">
+        <em (click)="applicationMaximized($event)" *ngIf="isMaximizable && !isMaximized"
+            class="material-icons headerIcon" matTooltip="fullscreen">
           fullscreen
         </em>
-        <em (click)="widgetMaximized($event)" *ngIf="isMaximizable && isMaximized"
-           class="material-icons headerIcon" matTooltip="fullscreen exit">
+        <em (click)="applicationMaximized($event)" *ngIf="isMaximizable && isMaximized"
+            class="material-icons headerIcon" matTooltip="fullscreen exit">
           fullscreen_exit
         </em>
 

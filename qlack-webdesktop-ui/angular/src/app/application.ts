@@ -1,4 +1,4 @@
-export class Widget {
+export class Application {
   proxyAppUrl: string;
   icon: string;
   iconSmall: string;

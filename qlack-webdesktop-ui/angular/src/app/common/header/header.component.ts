@@ -1,6 +1,6 @@
 import {Component, ComponentFactoryResolver, ViewChild, ViewContainerRef,OnInit} from '@angular/core';
-import {Widget} from "../../widget";
-import {WidgetComponent} from "../../widget/widget.component";
+import {Application} from "../../application";
+import {ApplicationComponent} from "../../application/application.component";
 import {WebdesktopService} from '../../webdesktop.service';
 
 
@@ -13,13 +13,13 @@ import {WebdesktopService} from '../../webdesktop.service';
 export class HeaderComponent implements OnInit {
 
 
-  static widgetId: number = 0;
-  activeWidgetComponents: any[] = new Array();
-  tempWidgetComponent: any;
+  static applicationId: number = 0;
+  activeApplicationsComponents: any[] = new Array();
+  tempApplicationComponent: any;
   profileImage: any[];
   userProfileApplicationName: string = 'User Profile Management';
-  userProfileApplication: Widget;
-  @ViewChild('widgetcontainer', {static: true, read: ViewContainerRef}) entry: ViewContainerRef;
+  userProfileApplication: Application;
+  @ViewChild('applicationContainer', {static: true, read: ViewContainerRef}) entry: ViewContainerRef;
 
   constructor(private resolver: ComponentFactoryResolver,private wedDesktopService: WebdesktopService) {
   }
@@ -33,66 +33,66 @@ export class HeaderComponent implements OnInit {
       })
   }
 
-  initWidget(widget: Widget) {
-    if (this.activeWidgetIndex(widget) != -1) {
-      const index = this.activeWidgetIndex(widget);
-      if (this.activeWidgetComponents[index].instance.multipleInstances) {
-        this.createWidget(widget);
-      } else if (this.activeWidgetComponents[index].instance.isMinimized) {
-        this.activeWidgetComponents[index].instance.widgetClicked();
+  initApplication(application: Application) {
+    if (this.activeApplicationIndex(application) != -1) {
+      const index = this.activeApplicationIndex(application);
+      if (this.activeApplicationsComponents[index].instance.multipleInstances) {
+        this.createApplication(application);
+      } else if (this.activeApplicationsComponents[index].instance.isMinimized) {
+        this.activeApplicationsComponents[index].instance.applicationClicked();
       }
     } else {
-      this.createWidget(widget);
+      this.createApplication(application);
     }
   }
 
-  destroyWidget(id) {
-    for (let i = 0; i < this.activeWidgetComponents.length; i++) {
-      if (this.activeWidgetComponents[i].instance.Id === id) {
-        this.activeWidgetComponents[i].destroy();
-        this.activeWidgetComponents.splice(i, 1);
+  destroyApplication(id) {
+    for (let i = 0; i < this.activeApplicationsComponents.length; i++) {
+      if (this.activeApplicationsComponents[i].instance.Id === id) {
+        this.activeApplicationsComponents[i].destroy();
+        this.activeApplicationsComponents.splice(i, 1);
       }
     }
   }
 
-  activeWidgetIndex(widget: Widget) {
-    for (let i = 0; i < this.activeWidgetComponents.length; i++) {
-      if (this.activeWidgetComponents[i].instance.proxyAppUrl == widget.proxyAppUrl) {
+  activeApplicationIndex(application: Application) {
+    for (let i = 0; i < this.activeApplicationsComponents.length; i++) {
+      if (this.activeApplicationsComponents[i].instance.proxyAppUrl == application.proxyAppUrl) {
         return i;
       }
     }
     return -1;
   }
 
-  createWidget(widget: Widget) {
-    const factory = this.resolver.resolveComponentFactory(WidgetComponent);
-    this.tempWidgetComponent = this.entry.createComponent(factory);
-    this.tempWidgetComponent.instance.isActive = true;
-    this.tempWidgetComponent.instance.isDraggable = widget.draggable;
-    this.tempWidgetComponent.instance.isMinimizable = widget.minimizable;
-    this.tempWidgetComponent.instance.isMaximizable = widget.maximizable;
-    this.tempWidgetComponent.instance.isClosable = widget.closable;
-    this.tempWidgetComponent.instance.isResizable = widget.resizable;
-    this.tempWidgetComponent.instance.height = widget.height;
-    this.tempWidgetComponent.instance.width = widget.width;
-    this.tempWidgetComponent.instance.minWidth = widget.minWidth;
-    this.tempWidgetComponent.instance.minHeight = widget.minHeight;
-    this.tempWidgetComponent.instance.showTitle = widget.showTitle;
-    this.tempWidgetComponent.instance.multipleInstances = widget.multipleInstances;
-    this.tempWidgetComponent.instance.iconImageSrc = widget.icon;
-    this.tempWidgetComponent.instance.applicationName = widget.applicationName;
-    this.tempWidgetComponent.instance.proxyAppUrl = widget.proxyAppUrl;
-    this.tempWidgetComponent.instance.Id = HeaderComponent.widgetId++;
-    this.tempWidgetComponent.instance.iconSmallSrc = widget.iconSmall;
-    this.tempWidgetComponent.instance.onClose.subscribe(id => {
-      this.destroyWidget(id);
+  createApplication(application: Application) {
+    const factory = this.resolver.resolveComponentFactory(ApplicationComponent);
+    this.tempApplicationComponent = this.entry.createComponent(factory);
+    this.tempApplicationComponent.instance.isActive = true;
+    this.tempApplicationComponent.instance.isDraggable = application.draggable;
+    this.tempApplicationComponent.instance.isMinimizable = application.minimizable;
+    this.tempApplicationComponent.instance.isMaximizable = application.maximizable;
+    this.tempApplicationComponent.instance.isClosable = application.closable;
+    this.tempApplicationComponent.instance.isResizable = application.resizable;
+    this.tempApplicationComponent.instance.height = application.height;
+    this.tempApplicationComponent.instance.width = application.width;
+    this.tempApplicationComponent.instance.minWidth = application.minWidth;
+    this.tempApplicationComponent.instance.minHeight = application.minHeight;
+    this.tempApplicationComponent.instance.showTitle = application.showTitle;
+    this.tempApplicationComponent.instance.multipleInstances = application.multipleInstances;
+    this.tempApplicationComponent.instance.iconImageSrc = application.icon;
+    this.tempApplicationComponent.instance.applicationName = application.applicationName;
+    this.tempApplicationComponent.instance.proxyAppUrl = application.proxyAppUrl;
+    this.tempApplicationComponent.instance.Id = HeaderComponent.applicationId++;
+    this.tempApplicationComponent.instance.iconSmallSrc = application.iconSmall;
+    this.tempApplicationComponent.instance.onClose.subscribe(id => {
+      this.destroyApplication(id);
     });
-    this.activeWidgetComponents.push(this.tempWidgetComponent);
+    this.activeApplicationsComponents.push(this.tempApplicationComponent);
   }
 
   openUserProfileApplication() {
     if(this.userProfileApplication){
-      this.initWidget(this.userProfileApplication);
+      this.initApplication(this.userProfileApplication);
     }
   }
 }

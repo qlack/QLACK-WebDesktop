@@ -15,7 +15,7 @@ import {
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {WidgetComponent} from './widget/widget.component';
+import {ApplicationComponent} from './application/application.component';
 import {DragDropModule} from '@angular/cdk/drag-drop';
 import {HeaderComponent} from './common/header/header.component';
 import {HttpClient, HttpClientModule} from '@angular/common/http';
@@ -43,7 +43,7 @@ export function webDesktopServiceFactory(webDesktopService: WebdesktopService,tr
   declarations: [
     AppComponent,
     HeaderComponent,
-    WidgetComponent,
+    ApplicationComponent,
     StartMenuComponent,
   ],
   imports: [
@@ -83,7 +83,7 @@ export function webDesktopServiceFactory(webDesktopService: WebdesktopService,tr
     }
   ],
   bootstrap: [AppComponent],
-  entryComponents: [WidgetComponent]
+  entryComponents: [ApplicationComponent]
 
 })
 export class AppModule {

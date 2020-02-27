@@ -1,22 +1,14 @@
-import {
-  Component,
-  EventEmitter,
-  Input,
-  OnChanges,
-  OnInit,
-  Output,
-  SimpleChanges
-} from "@angular/core";
+import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from "@angular/core";
 import {DomSanitizer} from '@angular/platform-browser';
 import {CdkDragEnd} from '@angular/cdk/drag-drop';
 import {ResizeEvent} from 'angular-resizable-element';
 
 @Component({
-  selector: 'app-widget',
-  templateUrl: './widget.component.html',
-  styleUrls: ['./widget.component.scss']
+  selector: 'app-application',
+  templateUrl: './application.component.html',
+  styleUrls: ['./application.component.scss']
 })
-export class WidgetComponent implements OnChanges, OnInit {
+export class ApplicationComponent implements OnChanges, OnInit {
 
   static zIndexCounter?: number = 3;
   @Output() onOpen = new EventEmitter();
@@ -27,13 +19,13 @@ export class WidgetComponent implements OnChanges, OnInit {
   @Output() onDragEnd = new EventEmitter();
   @Output() onDragMoved = new EventEmitter();
   @Output() onDragReleased = new EventEmitter();
-  @Output() onWidgetClicked = new EventEmitter();
+  @Output() onApplicationClicked = new EventEmitter();
   @Input() isActive: boolean = true;
   @Input() isDraggable: boolean = true;
   @Input() isMinimizable: boolean = true;
   @Input() isMaximizable: boolean = true;
   @Input() isClosable: boolean = true;
-  @Input() isResizable: boolean ;
+  @Input() isResizable: boolean;
   @Input() width?: number;
   @Input() height?: number;
   @Input() minHeight?: number;
@@ -47,15 +39,15 @@ export class WidgetComponent implements OnChanges, OnInit {
   @Input() iconSmallSrc?: string;
 
   // 42 is the height of the div of image icon
-  widgetMinimizedPosition = {x: 0, y: -42};
+  applicationMinimizedPosition = {x: 0, y: -42};
   safeIconImageSrc;
   safeSmallIconImageSrc;
   safeAppUrl;
   isMinimized = false;
   isSmallScreen = false;
   isMaximized = false;
-  widgetPosition = {x: 0, y: 150};
-  widgetCurrentPosition = {x: 0, y: 150};
+  applicationPosition = {x: 0, y: 150};
+  applicationCurrentPosition = {x: 0, y: 150};
   xPosition?: string = '42px';
   yPosition?: string;
   tempWidth: number;
@@ -68,13 +60,13 @@ export class WidgetComponent implements OnChanges, OnInit {
   }
 
   ngOnInit() {
-    this.safeIconImageSrc = this.iconImageSrc && this.sanitizer.bypassSecurityTrustResourceUrl(
+    this.safeIconImageSrc = this.sanitizer.bypassSecurityTrustResourceUrl(
         this.iconImageSrc);
-    this.safeSmallIconImageSrc = this.iconSmallSrc && this.sanitizer.bypassSecurityTrustResourceUrl(
+    this.safeSmallIconImageSrc = this.sanitizer.bypassSecurityTrustResourceUrl(
         this.iconSmallSrc);
-    this.safeAppUrl = this.proxyAppUrl && this.sanitizer.bypassSecurityTrustResourceUrl(this.proxyAppUrl);
+    this.safeAppUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.proxyAppUrl);
     this.initDraggableValue = this.isDraggable;
-    this.zIndex = this.zIndex = ++WidgetComponent.zIndexCounter;
+    this.zIndex = this.zIndex = ++ApplicationComponent.zIndexCounter;
   }
 
   ngOnChanges(event: SimpleChanges) {
@@ -92,7 +84,7 @@ export class WidgetComponent implements OnChanges, OnInit {
 
   dragEnd(event: CdkDragEnd) {
     this.displayIframe = true;
-    this.widgetCurrentPosition = event.source.getFreeDragPosition();
+    this.applicationCurrentPosition = event.source.getFreeDragPosition();
     this.onDragEnd.emit(event);
   }
 
@@ -109,55 +101,55 @@ export class WidgetComponent implements OnChanges, OnInit {
     this.onClose.emit(this.Id);
   }
 
-  widgetClicked() {
+  applicationClicked() {
     if (!this.isMaximized) {
-      this.xPosition =  '42px';
+      this.xPosition = '42px';
       this.width = this.tempWidth;
       this.height = this.tempHeight;
-      this.zIndex = WidgetComponent.zIndexCounter++;
-      this.widgetPosition = this.widgetCurrentPosition;
+      this.zIndex = ApplicationComponent.zIndexCounter++;
+      this.applicationPosition = this.applicationCurrentPosition;
       this.isDraggable = this.initDraggableValue;
     } else {
       this.xPosition = "0px";
       this.yPosition = "0px";
-      this.widgetPosition = {x: 0, y: 41};
-      this.zIndex = WidgetComponent.zIndexCounter++;
+      this.applicationPosition = {x: 0, y: 41};
+      this.zIndex = ApplicationComponent.zIndexCounter++;
       this.isDraggable = false;
     }
 
     this.isMinimized = !this.isMinimized;
-    this.onWidgetClicked.emit();
+    this.onApplicationClicked.emit();
   }
 
-  widgetMinimized() {
+  applicationMinimized() {
     if (!this.isMaximized) {
       this.tempWidth = this.width;
       this.tempHeight = this.height;
     }
     this.xPosition = undefined;
     this.yPosition = undefined;
-    this.zIndex = WidgetComponent.zIndexCounter++;
+    this.zIndex = ApplicationComponent.zIndexCounter++;
 
-    this.widgetPosition = this.widgetMinimizedPosition;
+    this.applicationPosition = this.applicationMinimizedPosition;
     this.isDraggable = false;
     this.isMinimized = !this.isMinimized;
     this.onMinimize.emit();
   }
 
-  widgetMaximized(event) {
+  applicationMaximized(event) {
     if (this.isMaximized) {
-      this.xPosition =  '42px';
+      this.xPosition = '42px';
       this.yPosition = undefined;
-      this.widgetPosition = this.widgetCurrentPosition;
-      this.zIndex = WidgetComponent.zIndexCounter++;
+      this.applicationPosition = this.applicationCurrentPosition;
+      this.zIndex = ApplicationComponent.zIndexCounter++;
       this.width = this.tempWidth;
       this.height = this.tempHeight;
       this.isDraggable = this.initDraggableValue;
     } else {
       this.xPosition = "0px";
       this.yPosition = "0px";
-      this.widgetPosition = {x: 0, y: 41};
-      this.zIndex = WidgetComponent.zIndexCounter++;
+      this.applicationPosition = {x: 0, y: 41};
+      this.zIndex = ApplicationComponent.zIndexCounter++;
       this.tempWidth = this.width;
       this.tempHeight = this.height;
       this.isDraggable = false;
@@ -169,13 +161,14 @@ export class WidgetComponent implements OnChanges, OnInit {
 
   zIndexPlusOne() {
     if (!this.isMaximized) {
-      this.zIndex = WidgetComponent.zIndexCounter++;
+      this.zIndex = ApplicationComponent.zIndexCounter++;
     }
   }
 
   onResizeEnd($event: ResizeEvent) {
     this.displayIframe = true;
   }
+
   onResizeStart($event: ResizeEvent) {
     this.displayIframe = false;
 

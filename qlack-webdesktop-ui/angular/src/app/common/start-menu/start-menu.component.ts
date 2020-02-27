@@ -1,5 +1,5 @@
 import {Component, EventEmitter, OnInit, Output, ViewEncapsulation} from '@angular/core';
-import {Widget} from "../../widget";
+import {Application} from "../../application";
 import {WebdesktopService} from "../../webdesktop.service";
 import {TranslateService} from '@ngx-translate/core';
 import {QngPubsubService} from '@qlack/qng-pubsub';
@@ -14,9 +14,9 @@ import {MatSnackBar} from '@angular/material/snack-bar';
 })
 export class StartMenuComponent implements OnInit {
 
-  widgets: Widget[] = [];
+  applications: Application[] = [];
   webDesktopUiLexiconGroup: string = 'webdesktop-ui';
-  sortedWidgets = new Array<Widget[]>();
+  sortedApplications = new Array<Application[]>();
   columns = 4;
   private allowedOrigins: string[] = [];
 
@@ -44,22 +44,22 @@ export class StartMenuComponent implements OnInit {
                 } else {
                   application.groupTranslated = groupTranslated;
                 }
-                this.widgets.push(application);
+                this.applications.push(application);
               }).add(() => {
 
             if (index == (applicationsList.length - 1)) {
-               this.widgets.sort((a, b) => !a.groupTranslated ? 1 : (!b.groupTranslated ? -1 : (a.groupTranslated.toLowerCase().localeCompare(b.groupTranslated.toLowerCase()))));
-              const groups = [...new Set(this.widgets.map(w => w.groupTranslated))];
+               this.applications.sort((a, b) => !a.groupTranslated ? 1 : (!b.groupTranslated ? -1 : (a.groupTranslated.toLowerCase().localeCompare(b.groupTranslated.toLowerCase()))));
+              const groups = [...new Set(this.applications.map(w => w.groupTranslated))];
 
               groups.forEach(group => {
-                this.sortedWidgets.push(this.widgets.filter(w => w.groupTranslated === group));
+                this.sortedApplications.push(this.applications.filter(w => w.groupTranslated === group));
               });
-              this.sortedWidgets.forEach((widthArray, i) => {
+              this.sortedApplications.forEach((widthArray, i) => {
                 this.onCreateMenuColumns(widthArray.length);
                 widthArray.sort((a, b) => {
                   return a.applicationName.toLowerCase().localeCompare(b.applicationName.toLowerCase());
                 });
-                this.sortedWidgets[i] = widthArray;
+                this.sortedApplications[i] = widthArray;
               })
             }
           });
@@ -81,8 +81,8 @@ export class StartMenuComponent implements OnInit {
     });
   }
 
-  onCreateMenuColumns(sortedWidgets: number) {
-    if (sortedWidgets > 4) {
+  onCreateMenuColumns(sortedApplications: number) {
+    if (sortedApplications > 4) {
       this.columns = 5;
     }
   }
