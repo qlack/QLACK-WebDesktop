@@ -37,6 +37,4 @@ public class UserGroupManagementDTO extends UserGroupDTO {
     this.userGroupName = userGroupName;
     setName(userGroupName);
   }
-  public UserGroupManagementDTO() {
-  }
 }

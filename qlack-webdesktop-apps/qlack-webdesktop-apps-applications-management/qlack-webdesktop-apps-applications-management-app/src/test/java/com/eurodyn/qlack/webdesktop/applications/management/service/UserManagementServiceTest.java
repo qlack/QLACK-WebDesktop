@@ -4,7 +4,6 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
-import com.eurodyn.qlack.fuse.aaa.service.UserGroupService;
 import com.eurodyn.qlack.fuse.aaa.service.UserService;
 import com.eurodyn.qlack.webdesktop.applications.management.dto.UserManagementDTO;
 import com.eurodyn.qlack.webdesktop.applications.management.util.InitTestValues;
@@ -21,7 +20,6 @@ public class UserManagementServiceTest {
 
   @InjectMocks UserManagementService userManagementService;
   @Mock UserService userService;
-  @Mock UserGroupService userGroupService;
   private UserManagementDTO userManagementDTO;
   private InitTestValues initTestValues;
   private Collection<String> groupDtos;
@@ -53,11 +51,5 @@ public class UserManagementServiceTest {
   public void findUserByNameTest(){
     userManagementService.findUserByName(userManagementDTO.getUsername());
     verify(userService, times(1)).getUserByName(userManagementDTO.getUsername());
-  }
-
-  @Test
-  public void findUserGroupsIdsTest(){
-    userManagementService.findUserGroupsIds(userManagementDTO.getId());
-    verify(userGroupService, times(1)).getUserGroupsIds(userManagementDTO.getId());
   }
 }

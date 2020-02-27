@@ -168,7 +168,7 @@ public class ApplicationsService {
     }
 
     //application exists but only 2 fields will be updated
-    if (wdApplicationManagementDTO.getDetails().getId() != null
+    if (wdApplicationByName != null && wdApplicationManagementDTO.getDetails().getId() != null
         && wdApplicationByName.getId() != null) {
       wdApplicationByName.setActive(wdApplicationManagementDTO.getDetails().isActive());
       wdApplicationByName
@@ -189,14 +189,17 @@ public class ApplicationsService {
     WdApplication newWdApplication = wdApplicationService
         .findApplicationByName(wdApplicationManagementDTO.getDetails().getApplicationName());
     //create resourceId for new application
-    if (newWdApplication != null && wdApplicationManagementDTO.getDetails().getId() ==  null){
-      resourceWdApplicationService.createApplicationResource(newWdApplication);
+    ResourceDTO resourceDTO = null;
+    if (newWdApplication != null){
+      if (wdApplicationManagementDTO.getDetails().getId() ==  null) {
+        resourceWdApplicationService.createApplicationResource(newWdApplication);
+      }
+      resourceDTO = resourceService
+          .getResourceByObjectId(newWdApplication.getId());
+      removeAllPermissions(wdApplicationManagementDTO, resourceDTO, initWdApplicationByName);
     }
-    ResourceDTO resourceDTO = resourceService
-        .getResourceByObjectId(newWdApplication.getId());
-    removeAllPermissions(wdApplicationManagementDTO, resourceDTO, initWdApplicationByName);
 
-    if (wdApplicationManagementDTO.getDetails().isRestrictAccess()){
+    if (wdApplicationManagementDTO.getDetails().isRestrictAccess() && resourceDTO != null){
       updatePermissions(wdApplicationManagementDTO, resourceDTO);
     }
     return ResponseEntity.status(HttpStatus.CREATED).body(wdApplicationByName);

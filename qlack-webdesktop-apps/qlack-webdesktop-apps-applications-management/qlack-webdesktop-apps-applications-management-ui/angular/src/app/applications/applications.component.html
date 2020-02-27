@@ -10,25 +10,25 @@
              matSortStart="asc"
              matSortDisableClear aria-describedby="tableDsc">
         <ng-container matColumnDef="iconsmall">
-          <th *matHeaderCellDef mat-header-cell>{{'management-app-ui.icon' | translate}}</th>
+          <th *matHeaderCellDef mat-header-cell scope="col">{{'management-app-ui.icon' | translate}}</th>
           <td *matCellDef="let element" mat-cell>
             <img class="profilePicImg" [attr.src]=element.icon alt="{{element.title}} {{'management-app-ui.icon' | translate}}">
           </td>
         </ng-container>
         <ng-container matColumnDef="title">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header>{{'management-app-ui.title' |
+          <th mat-header-cell *matHeaderCellDef mat-sort-header scope="col">{{'management-app-ui.title' |
             translate}}</th>
           <td mat-cell
               *matCellDef="let element">{{element.title}}</td>
         </ng-container>
         <ng-container matColumnDef="description">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header> {{'management-app-ui.description' |
+          <th mat-header-cell *matHeaderCellDef mat-sort-header scope="col"> {{'management-app-ui.description' |
             translate}}</th>
           <td mat-cell
               *matCellDef="let element">{{element.description}}</td>
         </ng-container>
         <ng-container matColumnDef="version">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header> {{'management-app-ui.version' |
+          <th mat-header-cell *matHeaderCellDef mat-sort-header scope="col"> {{'management-app-ui.version' |
             translate}}</th>
           <td mat-cell *matCellDef="let element">{{element.version}}</td>
         </ng-container>
