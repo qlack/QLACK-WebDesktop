@@ -1,5 +1,6 @@
 package webdesktop;
 
+import com.eurodyn.qlack.fuse.aaa.dto.UserDTO;
 import com.eurodyn.qlack.fuse.lexicon.dto.GroupDTO;
 import com.eurodyn.qlack.fuse.lexicon.dto.KeyDTO;
 import com.eurodyn.qlack.fuse.lexicon.model.Group;
@@ -9,6 +10,7 @@ import com.eurodyn.qlack.webdesktop.common.dto.WdApplicationDTO;
 import com.eurodyn.qlack.webdesktop.common.model.WdApplication;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -41,7 +43,7 @@ public class InitTestValues {
 
     wdApplication.setActive(true);
     wdApplication.setMultipleInstances(false);
-    wdApplication.setRestrictAccess(true);
+    wdApplication.setRestrictAccess(false);
     wdApplication.setResizable(true);
     wdApplication.setDraggable(true);
     wdApplication.setClosable(true);
@@ -86,6 +88,39 @@ public class InitTestValues {
     return wdApplicationDTO;
   }
 
+  public WdApplication createWdApplicationIsSystem() {
+    WdApplication wdApplication = new WdApplication();
+
+    wdApplication.setId("0f9a2472-cde0-44a6-ba3d-8e60992904fb");
+    wdApplication.setProxyAppUrl("apps/usermanagement/");
+    wdApplication.setProxyPath("a_path");
+
+    wdApplication.setAddedOn(new Long("2121545432165"));
+    wdApplication.setLastDeployedOn(new Long("2121545432165"));
+    wdApplication.setVersion("2.0.0");
+    wdApplication.setApplicationName("usermanagement");
+
+    wdApplication.setIcon("{icon-square}mif-user");
+    wdApplication.setIconSmall("{icon}mif-user");
+    wdApplication.setWidth(800);
+    wdApplication.setMinWidth(470);
+    wdApplication.setHeight(500);
+    wdApplication.setMinHeight(450);
+
+    wdApplication.setActive(true);
+    wdApplication.setMultipleInstances(false);
+    wdApplication.setRestrictAccess(true);
+    wdApplication.setResizable(true);
+    wdApplication.setDraggable(true);
+    wdApplication.setClosable(true);
+    wdApplication.setMinimizable(true);
+    wdApplication.setMaximizable(true);
+    wdApplication.setSystem(true);
+    wdApplication.setShowTitle(false);
+
+    return wdApplication;
+  }
+
   public List<WdApplicationDTO> createWdApplicationsDTO() {
     List<WdApplicationDTO> wdApplicationDTOs = new ArrayList<>();
     wdApplicationDTOs.add(createWdApplicationDTO());
@@ -97,6 +132,12 @@ public class InitTestValues {
     wdApplications.add(createWdApplication());
     return wdApplications;
   }
+  public List<WdApplication> createWdApplicationsIsSystem() {
+    List<WdApplication> wdApplications = new ArrayList<>();
+    wdApplications.add(createWdApplicationIsSystem());
+    return wdApplications;
+  }
+
 
   public List<LexiconDTO> createLexicon() {
     List<LexiconDTO> lexiconDTOList = new ArrayList<>();
@@ -150,6 +191,23 @@ public class InitTestValues {
     group.setTitle("Application UI");
     group.setDescription("description");
     return group;
+  }
+
+  public Collection<String> createUsersStringList() {
+    Collection<String> usersIds = new ArrayList<>();
+    usersIds.add(createUserDTO().getId());
+    return usersIds;
+  }
+
+  public UserDTO createUserDTO() {
+    UserDTO userDTO = new UserDTO();
+    userDTO.setId("57d30f8d-cf0c-4742-9893-09e2aa08c255");
+    userDTO.setUsername("Default User");
+    userDTO.setPassword("thisisaverysecurepassword");
+    userDTO.setStatus((byte) 1);
+    userDTO.setSuperadmin(true);
+    userDTO.setExternal(false);
+    return userDTO;
   }
 
 }

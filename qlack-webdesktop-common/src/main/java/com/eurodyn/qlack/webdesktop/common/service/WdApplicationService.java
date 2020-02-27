@@ -1,6 +1,11 @@
 package com.eurodyn.qlack.webdesktop.common.service;
 
 
+import com.eurodyn.qlack.fuse.aaa.dto.UserDTO;
+import com.eurodyn.qlack.fuse.aaa.dto.UserGroupDTO;
+import com.eurodyn.qlack.fuse.aaa.service.OperationService;
+import com.eurodyn.qlack.fuse.aaa.service.UserGroupService;
+import com.eurodyn.qlack.fuse.aaa.service.UserService;
 import com.eurodyn.qlack.fuse.lexicon.dto.GroupDTO;
 import com.eurodyn.qlack.fuse.lexicon.dto.KeyDTO;
 import com.eurodyn.qlack.fuse.lexicon.service.GroupService;
@@ -12,12 +17,16 @@ import com.eurodyn.qlack.webdesktop.common.dto.WdApplicationDTO;
 import com.eurodyn.qlack.webdesktop.common.mapper.WdApplicationMapper;
 import com.eurodyn.qlack.webdesktop.common.model.WdApplication;
 import com.eurodyn.qlack.webdesktop.common.repository.WdApplicationRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.validation.annotation.Validated;
-
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.oauth2.core.user.DefaultOAuth2User;
+import org.springframework.stereotype.Service;
+import org.springframework.validation.annotation.Validated;
 
 /**
  * Provides Qlack Web Desktop application related functionality
@@ -32,18 +41,25 @@ public class WdApplicationService {
   private WdApplicationRepository wdApplicationRepository;
   private GroupService groupService;
   private KeyService keyService;
+  private UserService userService;
+  private OperationService operationService;
+  private UserGroupService userGroupService;
   private LanguageService languageService;
 
 
   @Autowired
   public WdApplicationService(WdApplicationMapper mapper,
       WdApplicationRepository wdApplicationRepository,GroupService groupService,
-      LanguageService languageService,KeyService keyService) {
+      LanguageService languageService,KeyService keyService, UserService userService,
+      OperationService operationService, UserGroupService userGroupService) {
     this.mapper = mapper;
     this.wdApplicationRepository = wdApplicationRepository;
     this.groupService = groupService;
     this.keyService = keyService;
     this.languageService = languageService;
+    this.userService = userService;
+    this.userGroupService = userGroupService;
+    this.operationService = operationService;
   }
 
   /**
@@ -65,19 +81,62 @@ public class WdApplicationService {
   }
 
   /**
-   * Finds all active Web Desktop applications with trimmed group names.
+   * Finds all active Web Desktop applications and filters them based on user's permissions.
    *
-   * @return a list of {@link WdApplicationDTO}
+   * @return a list of filtered {@link WdApplicationDTO}
    */
   public List<WdApplicationDTO> findAllActiveApplicationsFilterGroupName() {
-    List<WdApplication> wdApplicationList = wdApplicationRepository.findByActiveIsTrue();
-    wdApplicationList.forEach(wdApplication -> {
+    UserDTO user = null;
+    //fetch the data from logged-in user
+    Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    if (principal instanceof DefaultOAuth2User) {
+      String userName = ((DefaultOAuth2User) principal).getName();
+      user = userService.getUserByName(userName);
+    }
+    //find all applications
+    List<WdApplication> wdApplicationList = wdApplicationRepository
+        .findBySystemAndActiveIsTrue(false);
+    //find system applications
+    List<WdApplication> wdApplicationListSystem = wdApplicationRepository
+        .findBySystemAndActiveIsTrue(true);
+    if (user!= null && user.isSuperadmin()){
+      wdApplicationList.addAll(wdApplicationListSystem);
+    }
+    //filter the application list based on user's permissions
+    UserDTO finalUser = user;
+    List<WdApplication> filteredWdList = wdApplicationList.stream()
+        .filter(app -> !app.isRestrictAccess() || getPermissions(app,
+            finalUser))
+        .collect(Collectors.toList());
+
+    //set groups in applications
+    filteredWdList.forEach(wdApplication -> {
       if (wdApplication.getGroupName() == null || "null".equals(wdApplication.getGroupName())) {
         wdApplication.setGroupName("");
       }
       wdApplication.setGroupName(wdApplication.getGroupName().trim());
     });
-    return mapper.mapToDTO(wdApplicationList);
+    return mapper.mapToDTO(filteredWdList);
+  }
+
+  private boolean getPermissions(WdApplication app, UserDTO finalUser) {
+    operationService.setPrioritisePositive(true);
+    return operationService.isPermitted(finalUser.getId(), "view", app.getId());
+  }
+
+  /**
+   * Retrieves the list of userGroups that belong to a user.
+   *
+   * @param userId the user's id to retrieve the userGroups.
+   * @return a list containing all the userGroups that belong to a user.
+   */
+  public List<UserGroupDTO> findUserGroupsIds(String userId) {
+    List<UserGroupDTO> userGroupList = new ArrayList<>();
+    Collection<String> userGroupsIds = userGroupService.getUserGroupsIds(userId);
+    userGroupsIds.forEach(userGroupId ->
+        userGroupList.add(userGroupService.getGroupByID(userGroupId, true)
+        ));
+    return userGroupList;
   }
 
   /**
@@ -108,7 +167,7 @@ public class WdApplicationService {
    * @param name the applicationName field
    * @return the application object
    */
-  public WdApplication findApplicationByName(String name){
+  public WdApplication findApplicationByName(String name) {
     return wdApplicationRepository.findByApplicationName(name);
   }
 
@@ -122,7 +181,7 @@ public class WdApplicationService {
    *
    * @param wdApplication the object to be saved
    */
-  public void saveApplication(WdApplication wdApplication){
+  public void saveApplication(WdApplication wdApplication) {
     wdApplicationRepository.save(wdApplication);
   }
 

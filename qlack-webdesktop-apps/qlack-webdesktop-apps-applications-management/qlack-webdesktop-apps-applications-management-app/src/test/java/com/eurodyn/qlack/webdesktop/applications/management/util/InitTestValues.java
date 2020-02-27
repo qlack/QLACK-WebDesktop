@@ -2,11 +2,11 @@ package com.eurodyn.qlack.webdesktop.applications.management.util;
 
 import com.eurodyn.qlack.fuse.aaa.dto.UserDTO;
 import com.eurodyn.qlack.fuse.aaa.dto.UserGroupDTO;
-import com.eurodyn.qlack.fuse.aaa.model.User;
 import com.eurodyn.qlack.webdesktop.applications.management.dto.UserGroupManagementDTO;
 import com.eurodyn.qlack.webdesktop.applications.management.dto.UserManagementDTO;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 public class InitTestValues {
 

@@ -12,16 +12,25 @@ import java.util.List;
 public interface WdApplicationRepository extends QlackBaseRepository<WdApplication, String> {
 
   /**
-   * Finds all active Web Desktop applications
+   * Finds all active Web Desktop applications.
    *
    * @return a list of {@link WdApplication}
    */
   List<WdApplication> findByActiveIsTrue();
 
   /**
-   * Finds a Web Desktop application by its translation group key attribute
+   * Finds a Web Desktop application by its translation group key attribute.
    *
    * @return a {@link WdApplication}
    */
   WdApplication findByApplicationName(String applicationName);
+
+  /**
+   * Finds all system Web Desktop applications.
+   *
+   * @param system a boolean value that corresponds to the question if the application is system or
+   *               not.
+   * @return a list of system applications.
+   */
+  List<WdApplication> findBySystemAndActiveIsTrue(Boolean system);
 }

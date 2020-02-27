@@ -7,10 +7,16 @@ import static org.junit.Assert.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyBoolean;
 import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import static org.powermock.api.mockito.PowerMockito.mockStatic;
 
+import com.eurodyn.qlack.fuse.aaa.dto.UserDTO;
+import com.eurodyn.qlack.fuse.aaa.service.OperationService;
+import com.eurodyn.qlack.fuse.aaa.service.UserGroupService;
+import com.eurodyn.qlack.fuse.aaa.service.UserService;
 import com.eurodyn.qlack.fuse.lexicon.dto.GroupDTO;
 import com.eurodyn.qlack.fuse.lexicon.dto.KeyDTO;
 import com.eurodyn.qlack.fuse.lexicon.dto.LanguageDTO;
@@ -23,17 +29,28 @@ import com.eurodyn.qlack.webdesktop.common.mapper.WdApplicationMapper;
 import com.eurodyn.qlack.webdesktop.common.model.WdApplication;
 import com.eurodyn.qlack.webdesktop.common.repository.WdApplicationRepository;
 import com.eurodyn.qlack.webdesktop.common.service.WdApplicationService;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.Map;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.Spy;
 import org.mockito.junit.MockitoJUnitRunner;
+import org.powermock.api.mockito.PowerMockito;
+import org.powermock.core.classloader.annotations.PowerMockIgnore;
+import org.powermock.core.classloader.annotations.PrepareForTest;
+import org.powermock.modules.junit4.PowerMockRunner;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.oauth2.core.user.DefaultOAuth2User;
+import org.springframework.util.FileCopyUtils;
 import webdesktop.InitTestValues;
-
-import java.util.List;
-import java.util.Map;
 
 /**
  * Test class for WdApplicationService
@@ -48,7 +65,6 @@ public class WdApplicationServiceTest {
 
   @Spy
   private WdApplicationMapper wdApplicationMapper;
-
   @Mock
   private WdApplicationRepository wdApplicationRepository;
   @Mock
@@ -61,6 +77,13 @@ public class WdApplicationServiceTest {
   private LanguageDTO languageDTO;
   @Mock
   private Map<String, Map<String, String>> mockGroupedTranslations;
+  @Mock
+  private DefaultOAuth2User principal;
+  @Mock private SecurityContext securityContext;
+  @Mock private Authentication authentication;
+  @Mock private UserService userService;
+  @Mock private OperationService operationService;
+  @Mock private UserGroupService userGroupService;
 
   private KeyDTO keyDTO;
   private List<LexiconDTO> translations;
@@ -70,6 +93,7 @@ public class WdApplicationServiceTest {
   private WdApplicationDTO wdApplicationDTO;
   private List<WdApplication> wdApplications;
   private List<WdApplicationDTO> wdApplicationsDTO;
+  private UserDTO userDTO;
 
   @Before
   public void init() {
@@ -81,6 +105,7 @@ public class WdApplicationServiceTest {
     translations = initTestValues.createLexicon();
     keyDTO = initTestValues.createKeyDTO();
     groupDTO = initTestValues.createGroupDTO();
+    userDTO = initTestValues.createUserDTO();
   }
 
   @Test
@@ -92,34 +117,12 @@ public class WdApplicationServiceTest {
   }
 
   @Test
-  public void testfindAllActiveApplicationsFilterGroupName() {
+  public void findAllActiveApplicationsFilterGroupNameTest() {
     wdApplications.get(0).setGroupName("groupName");
-    when(wdApplicationRepository.findByActiveIsTrue()).thenReturn(wdApplications);
-    when(wdApplicationMapper.mapToDTO(wdApplications)).thenReturn(wdApplicationsDTO);
-    List<WdApplicationDTO> activeAppsListDTO = wdApplicationService
-        .findAllActiveApplicationsFilterGroupName();
-    wdApplicationsDTO.forEach(wdApplicationDTO1 ->
-        assertNull(wdApplicationDTO1.getGroupName()));
-    activeAppsListDTO.forEach(wdApplicationDTO ->
-        assertTrue(wdApplicationDTO.getGroupName() == null));
-  }
-  @Test
-  public void testfindAllActiveApplicationsFilterGroupNameWithNullGroupName() {
-    wdApplications.get(0).setGroupName(null);
-    when(wdApplicationRepository.findByActiveIsTrue()).thenReturn(wdApplications);
-    when(wdApplicationMapper.mapToDTO(wdApplications)).thenReturn(wdApplicationsDTO);
-    List<WdApplicationDTO> activeAppsListDTO = wdApplicationService
-        .findAllActiveApplicationsFilterGroupName();
-    wdApplicationsDTO.forEach(wdApplicationDTO1 ->
-        assertNull(wdApplicationDTO1.getGroupName()));
-    activeAppsListDTO.forEach(wdApplicationDTO ->
-        assertTrue(wdApplicationDTO.getGroupName() == null));
-  }
-  @Test
-  public void testfindAllActiveApplicationsFilterGroupNameWithNullStringGroupName() {
-    wdApplications.get(0).setGroupName("null");
-    when(wdApplicationRepository.findByActiveIsTrue()).thenReturn(wdApplications);
-    when(wdApplicationMapper.mapToDTO(wdApplications)).thenReturn(wdApplicationsDTO);
+    when(securityContext.getAuthentication()).thenReturn(authentication);
+    SecurityContextHolder.setContext(securityContext);
+    when(authentication.getPrincipal()).thenReturn(principal);
+
     List<WdApplicationDTO> activeAppsListDTO = wdApplicationService
         .findAllActiveApplicationsFilterGroupName();
     wdApplicationsDTO.forEach(wdApplicationDTO1 ->
@@ -129,7 +132,56 @@ public class WdApplicationServiceTest {
   }
 
   @Test
-  public void processLexiconValuesWehnKeyDTODoesNotExistTest() {
+  public void findAllActiveApplicationsFilterGroupNameWithNullGroupNameTest() {
+    when(securityContext.getAuthentication()).thenReturn(authentication);
+    SecurityContextHolder.setContext(securityContext);
+    when(authentication.getPrincipal()).thenReturn(principal);
+    when(wdApplicationRepository.findBySystemAndActiveIsTrue(false)).thenReturn(wdApplications);
+    when(wdApplicationMapper.mapToDTO(wdApplications)).thenReturn(wdApplicationsDTO);
+
+    List<WdApplicationDTO> activeAppsListDTO = wdApplicationService
+        .findAllActiveApplicationsFilterGroupName();
+
+    wdApplicationsDTO.forEach(wdApplicationDTO1 ->
+        assertNull(wdApplicationDTO1.getGroupName()));
+    activeAppsListDTO.forEach(wdApplicationDTO ->
+        assertTrue(wdApplicationDTO.getGroupName() == null));
+  }
+
+  @Test
+  public void findAllActiveApplicationsFilterGroupNameIsPermittedUserTest() {
+    wdApplications.addAll(initTestValues.createWdApplicationsIsSystem());
+    when(securityContext.getAuthentication()).thenReturn(authentication);
+    SecurityContextHolder.setContext(securityContext);
+    when(authentication.getPrincipal()).thenReturn(principal);
+
+    when(userService.getUserByName(principal.getName())).thenReturn(userDTO);
+    when(wdApplicationRepository.findBySystemAndActiveIsTrue(false)).thenReturn(wdApplications);
+
+    List<WdApplicationDTO> activeAppsListDTO = wdApplicationService
+        .findAllActiveApplicationsFilterGroupName();
+
+    assertTrue(wdApplications.size() > activeAppsListDTO.size());
+    verify(wdApplicationRepository, times(2)).findBySystemAndActiveIsTrue(any());
+  }
+
+  @Test
+  public void testFindAllActiveApplicationsFilterGroupNameWithNullStringGroupName() {
+    wdApplications.get(0).setGroupName("null");
+    when(securityContext.getAuthentication()).thenReturn(authentication);
+    SecurityContextHolder.setContext(securityContext);
+    when(authentication.getPrincipal()).thenReturn(principal);
+
+    List<WdApplicationDTO> activeAppsListDTO = wdApplicationService
+        .findAllActiveApplicationsFilterGroupName();
+    wdApplicationsDTO.forEach(wdApplicationDTO1 ->
+        assertNull(wdApplicationDTO1.getGroupName()));
+    activeAppsListDTO.forEach(wdApplicationDTO ->
+        assertTrue(wdApplicationDTO.getGroupName() == null));
+  }
+
+  @Test
+  public void processLexiconValuesWhenKeyDTODoesNotExistTest() {
     when(groupService.getGroupByTitle(anyString())).thenReturn(groupDTO);
     when(languageService.getLanguageByLocale(anyString())).thenReturn(languageDTO);
     when(keyService.getKeyByName(anyString(), anyString(), anyBoolean())).thenReturn(null);
