@@ -23,7 +23,6 @@ export class ApplicationsComponent extends BaseComponent implements OnInit, Afte
   displayedColumns = ['iconsmall', 'title', 'description', 'version'];
   dataSource: MatTableDataSource<ApplicationDto> = new MatTableDataSource<ApplicationDto>();
   filterForm: FormGroup;
-  enabled = [this.constants.USER_STATUS.ENABLED];
   // References to sorting and pagination.
   @ViewChild(MatSort, {static: true}) sort: MatSort;
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;

@@ -40,7 +40,7 @@ export function getJwtToken(): string {
 }
 
 export function HttpLoaderFactory(http: HttpClient) {
-  return new TranslateHttpLoader(http, "/webdesktop/applications/management/applications/translations?lang=", "");
+  return new TranslateHttpLoader(http, "/api/translations?lang=", "");
 }
 
 export function createCustomMatPaginatorIntl(

@@ -12,7 +12,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
  *
  * @author EUROPEAN DYNAMICS SA
  */
-@SpringBootApplication(exclude = { SecurityAutoConfiguration.class})
+@SpringBootApplication
 @EnableJpaRepositories({
     "com.eurodyn.qlack.webdesktop.common.repository",
     "com.eurodyn.qlack.fuse.lexicon.repository",

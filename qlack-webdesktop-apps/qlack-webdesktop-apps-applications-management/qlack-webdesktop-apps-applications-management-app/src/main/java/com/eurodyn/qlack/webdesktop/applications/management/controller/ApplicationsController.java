@@ -25,7 +25,7 @@ import org.springframework.web.multipart.MultipartFile;
  * @author EUROPEAN DYNAMICS SA
  */
 @RestController
-@RequestMapping("/applications")
+@RequestMapping("/api")
 @RequiredArgsConstructor
 public class ApplicationsController {
 
@@ -37,7 +37,7 @@ public class ApplicationsController {
    *
    * @return a list containing all the applications
    */
-  @GetMapping()
+  @GetMapping("/applications")
   public Page<WdApplicationDTO> getApplications() {
     return applicationsService.getApplications();
   }
@@ -48,7 +48,7 @@ public class ApplicationsController {
    * @param id the application's id
    * @return a single Web Desktop application.
    */
-  @GetMapping(path = "{id}")
+  @GetMapping(path = "/applications/{id}")
   public WdApplicationManagementDTO getApplicationById(@PathVariable String id) {
     return applicationsService.getApplicationById(id);
   }
@@ -80,7 +80,7 @@ public class ApplicationsController {
    *
    * @return the response entity.
    */
-  @PostMapping()
+  @PostMapping("/applications")
   public ResponseEntity updateApplication(
       @Valid @RequestBody WdApplicationManagementDTO wdApplicationManagementDTO) {
     return applicationsService.updateApplication(wdApplicationManagementDTO);
