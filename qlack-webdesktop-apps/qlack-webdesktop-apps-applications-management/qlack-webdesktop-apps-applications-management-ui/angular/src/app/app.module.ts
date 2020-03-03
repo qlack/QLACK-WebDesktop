@@ -31,9 +31,8 @@ import {MatSelectModule} from "@angular/material/select";
 import {MatTabsModule} from "@angular/material/tabs";
 import {MatTableModule} from "@angular/material/table";
 import {MatCheckboxModule} from "@angular/material/checkbox";
-import { NavigationMenuComponent } from './shared/navigation-menu/navigation-menu.component';
+import {NavigationMenuComponent} from './shared/navigation-menu/navigation-menu.component';
 import {DataService} from "./services/data.service";
-import { PermissionsComponent } from './applications/permissions/permissions.component';
 
 export function getJwtToken(): string {
   return localStorage.getItem(AppConstants.JWT_STORAGE_NAME);

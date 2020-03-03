@@ -1,7 +1,6 @@
 package com.eurodyn.qlack.webdesktop.applications.management.util;
 
 import com.eurodyn.qlack.fuse.lexicon.dto.LanguageDTO;
-import com.eurodyn.qlack.fuse.lexicon.model.Language;
 import com.eurodyn.qlack.fuse.lexicon.service.LanguageService;
 import com.eurodyn.qlack.webdesktop.common.dto.LanguageDataDTO;
 import com.eurodyn.qlack.webdesktop.common.dto.LexiconDTO;
@@ -67,9 +66,9 @@ public class ProcessLexiconUtil {
   }
 
   private String getKeyValue(String key, WdApplicationDTO wdApplication) {
-    if (ProcessLexiconKeys.TITLE.toString().toLowerCase().equals(key)) {
+    if (ProcessLexiconKeys.TITLE.toString().equalsIgnoreCase(key)) {
       return wdApplication.getTitle();
-    } else if (ProcessLexiconKeys.DESCRIPTION.toString().toLowerCase().equals(key)) {
+    } else if (ProcessLexiconKeys.DESCRIPTION.toString().equalsIgnoreCase(key)) {
       return wdApplication.getDescription();
     }
     return key;

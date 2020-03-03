@@ -44,19 +44,19 @@ public class WdApplicationService {
   private UserService userService;
   private OperationService operationService;
   private UserGroupService userGroupService;
+  @Autowired
   private LanguageService languageService;
 
 
   @Autowired
   public WdApplicationService(WdApplicationMapper mapper,
-      WdApplicationRepository wdApplicationRepository,GroupService groupService,
-      LanguageService languageService,KeyService keyService, UserService userService,
+      WdApplicationRepository wdApplicationRepository, GroupService groupService,
+      KeyService keyService, UserService userService,
       OperationService operationService, UserGroupService userGroupService) {
     this.mapper = mapper;
     this.wdApplicationRepository = wdApplicationRepository;
     this.groupService = groupService;
     this.keyService = keyService;
-    this.languageService = languageService;
     this.userService = userService;
     this.userGroupService = userGroupService;
     this.operationService = operationService;

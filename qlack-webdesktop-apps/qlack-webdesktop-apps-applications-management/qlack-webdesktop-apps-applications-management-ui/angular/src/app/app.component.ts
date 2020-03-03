@@ -1,6 +1,4 @@
 import {Component, OnInit, ViewEncapsulation} from '@angular/core';
-import {Router} from '@angular/router';
-import {MatDialog} from '@angular/material/dialog';
 import {BaseComponent} from './shared/component/base-component';
 import {Log} from 'ng2-logger/browser';
 import {TranslateService} from '@ngx-translate/core';

@@ -17,7 +17,7 @@ export class FileuploadComponent implements OnInit {
   imageURL: string;
   uploadForm: FormGroup;
   files: FileDto[];
-  fileId: String
+  fileId: string;
 
   constructor(public fb: FormBuilder, private fileService: FileService,
               private route: ActivatedRoute,
