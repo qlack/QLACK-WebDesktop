@@ -147,7 +147,7 @@ export class ApplicationsEditComponent implements OnInit {
       (response) => {
         this.utilityService.popupSuccessAction(
           this.getMessageTranslations('management-app-ui.success') + "!", this.getMessageTranslations('management-app-ui.dismiss'));
-        this.router.navigate(["/applications"]).then( () => {
+        this.router.navigate(["/"]).then( () => {
           if (this.componentTitle === 'newApp') {
             window.location.reload();
           }

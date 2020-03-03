@@ -5,6 +5,7 @@ import com.eurodyn.qlack.fuse.aaa.criteria.UserGroupSearchCriteria.UserGroupSear
 import com.eurodyn.qlack.fuse.aaa.criteria.UserSearchCriteria;
 import com.eurodyn.qlack.fuse.aaa.criteria.UserSearchCriteria.UserSearchCriteriaBuilder;
 import com.eurodyn.qlack.fuse.aaa.dto.ResourceDTO;
+import com.eurodyn.qlack.fuse.aaa.dto.UserAttributeDTO;
 import com.eurodyn.qlack.fuse.aaa.dto.UserDTO;
 import com.eurodyn.qlack.fuse.aaa.dto.UserGroupDTO;
 import com.eurodyn.qlack.fuse.aaa.service.OperationService;
@@ -36,6 +37,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.oauth2.core.user.DefaultOAuth2User;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -80,7 +83,6 @@ public class ApplicationsService {
 
   /**
    * This method returns all the QLACK Web Desktop applications.
-   *
    * @return a list containing all the applications
    */
   public Page<WdApplicationDTO> getApplications() {
@@ -89,7 +91,6 @@ public class ApplicationsService {
 
   /**
    * This method returns a QLACK Web Desktop application by id.
-   *
    * @return a single application
    */
   public WdApplicationManagementDTO getApplicationById(String id) {
@@ -123,7 +124,6 @@ public class ApplicationsService {
 
   /**
    * Finds all translations from all groups for a specific locale
-   *
    * @param locale the language locale
    * @return a list of translations for a specific locale
    */
@@ -133,9 +133,8 @@ public class ApplicationsService {
 
   /**
    * Finds an application by giving the application Name.
-   *
    * @param applicationName the application Name field.
-   * @return the webdesktop application that has been retrieved.
+   * @return the webDesktop application that has been retrieved.
    */
   public WdApplication findApplicationByName(String applicationName) {
     return wdApplicationService.findApplicationByName(applicationName);
@@ -146,7 +145,6 @@ public class ApplicationsService {
    * application exists, if so only two fields are going to be updated. If id and name are not
    * existed, a new application is going to be saved. An extra check must be done, in order to make
    * sure that application Name is unique.
-   *
    * @param wdApplicationManagementDTO the application to be saved/updated
    * @return
    */
@@ -247,12 +245,11 @@ public class ApplicationsService {
 
   /**
    * Saves a new application in database from yaml file.
-   *
    * @param file the yaml file that has been uploaded.
    */
   public void saveApplicationFromYaml(MultipartFile file) {
     try {
-      //Map to wdapplication
+      //Map to wdApplication
       ObjectMapper wdMapper = new ObjectMapper(new YAMLFactory());
       WdApplication wdApplication = wdMapper.readValue(file.getInputStream(), WdApplication.class);
       handleWdApplication(file.getInputStream(), wdApplication);
@@ -287,7 +284,6 @@ public class ApplicationsService {
 
   /**
    * Updates the file's SHA-256 checksum, saves the Web Desktop application and registers
-   *
    * @param wdApplication The Web Desktop application
    * @param checksum      The file's SHA-256 checksum
    */
@@ -297,5 +293,24 @@ public class ApplicationsService {
       wdApplicationRepository.save(wdApplication);
       resourceWdApplicationService.createApplicationResource(wdApplication);
     }
+  }
+
+  /**
+   * Finds user's attribute by attribute name.
+   * @param attributeName the attribute name to search for.
+   * @return the responded userAttributeDTO.
+   */
+  public UserAttributeDTO findUserAttributeByName(String attributeName) {
+    Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    if (principal instanceof DefaultOAuth2User) {
+      String userName = ((DefaultOAuth2User) principal).getName();
+      UserDTO userDTO = userService.getUserByName(userName);
+      for (UserAttributeDTO attribute : userDTO.getUserAttributes()) {
+        if(attribute.getName().equalsIgnoreCase(attributeName)){
+          return  attribute;
+        }
+      }
+    }
+    return null;
   }
 }

@@ -50,4 +50,8 @@ export class ApplicationsService extends CrudService<ApplicationDto> {
   getApplicationByName(applicationName): Observable<any> {
     return this.http.get(AppConstants.API_ROOT + `/${this.resource}` +"/name", {params: new HttpParams().set('name', applicationName)});
   }
+
+  getUserAttributeByName(attributeName: string): Observable<any> {
+    return this.http.get(AppConstants.API_ROOT + '/user/attributes/'+ attributeName);
+  }
 }

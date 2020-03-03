@@ -1,5 +1,6 @@
 package com.eurodyn.qlack.webdesktop.applications.management.controller;
 
+import com.eurodyn.qlack.fuse.aaa.dto.UserAttributeDTO;
 import com.eurodyn.qlack.webdesktop.applications.management.dto.WdApplicationManagementDTO;
 import com.eurodyn.qlack.webdesktop.applications.management.service.ApplicationsService;
 import com.eurodyn.qlack.webdesktop.common.dto.WdApplicationDTO;
@@ -34,7 +35,6 @@ public class ApplicationsController {
 
   /**
    * Returns all the QLACK Web Desktop applications.
-   *
    * @return a list containing all the applications
    */
   @GetMapping("/applications")
@@ -55,7 +55,6 @@ public class ApplicationsController {
 
   /**
    * This method returns all the QLACK Web Desktop translations.
-   *
    * @return a list containing all the translations
    */
   @GetMapping("/translations")
@@ -66,9 +65,8 @@ public class ApplicationsController {
 
   /**
    * Get a signle Web Desktop application by application Name.
-   *
    * @param name the application's name.
-   * @return a signle Web Desktop application.
+   * @return a single Web Desktop application.
    */
   @GetMapping(path = "/name")
   public WdApplication getApplicationByApplicationName(@RequestParam String name) {
@@ -77,7 +75,7 @@ public class ApplicationsController {
 
   /**
    * Saves a new wd application or updates an existing one.
-   *
+   * @param wdApplicationManagementDTO
    * @return the response entity.
    */
   @PostMapping("/applications")
@@ -87,11 +85,21 @@ public class ApplicationsController {
   }
 
   /**
-   * Saves a new wd application or updates an existing one.
-   *
+   * Saves a new wd application or updates an existing one through yaml file.
+   * @param file the file to retrieve data from.
    */
   @PostMapping(value = "/upload")
   public void uploadApplication(@RequestParam("file") MultipartFile file) {
     applicationsService.saveApplicationFromYaml(file);
+  }
+
+  /**
+   * Retrieves user's attributes based on attribute name.
+   * @param attributeName the attribute to search for.
+   * @return the responded userAttributeDTO.
+   */
+  @GetMapping("/user/attributes/{attributeName}")
+  public UserAttributeDTO getUserAttributeByName(@PathVariable String attributeName) {
+    return applicationsService.findUserAttributeByName(attributeName);
   }
 }

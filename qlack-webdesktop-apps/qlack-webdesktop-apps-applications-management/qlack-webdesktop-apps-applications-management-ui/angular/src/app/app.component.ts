@@ -4,6 +4,7 @@ import {MatDialog} from '@angular/material/dialog';
 import {BaseComponent} from './shared/component/base-component';
 import {Log} from 'ng2-logger/browser';
 import {TranslateService} from '@ngx-translate/core';
+import {ApplicationsService} from "./services/applications.service";
 
 @Component({
   selector: 'app-root',
@@ -24,11 +25,16 @@ export class AppComponent extends BaseComponent implements OnInit {
     this.log.info('Initialising application.');
   }
 
-  constructor(private router: Router, private dialog: MatDialog,
-              private translate: TranslateService) {
+  constructor(private applicationService: ApplicationsService, private translate: TranslateService) {
     super();
-    translate.setDefaultLang('el');
-    translate.use('el');
+    this.applicationService.getUserAttributeByName("defaultLanguage").subscribe(attr => {
+      if(attr != null){
+        translate.setDefaultLang(attr.data);
+      }
+      else{
+        translate.setDefaultLang("en");
+      }
+    });
   }
 
   toggleSidebar() {

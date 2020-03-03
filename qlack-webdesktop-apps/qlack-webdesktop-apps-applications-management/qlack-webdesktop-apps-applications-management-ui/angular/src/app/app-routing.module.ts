@@ -22,5 +22,6 @@ export const routing: ModuleWithProviders = RouterModule.forRoot([
     },
   ],
   {
-    enableTracing: false
+    enableTracing: false,
+    useHash: true
   });
