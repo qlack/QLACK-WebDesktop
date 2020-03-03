@@ -8,20 +8,21 @@
         <button mat-button (click)="clearFilter()">CLEAR</button>
       </div>
 
+      <p id="tableDscUsergroup" aria-hidden="true" hidden>{{'management-app-ui.groups' | translate}}</p>
       <table mat-table #table [dataSource]="dataSource" class="mat-elevation-z0" fxFlex="grow"
              matSort
              matSortActive="name"
              matSortDirection="asc"
              matSortStart="asc"
-             matSortDisableClear>
+             matSortDisableClear aria-describedby="tableDscUsergroup">
 
         <ng-container matColumnDef="name">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header> {{'management-app-ui.title' | translate}} </th>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header scope="col"> {{'management-app-ui.title' | translate}} </th>
           <td mat-cell *matCellDef="let element">{{element.name}}
           </td>
         </ng-container>
         <ng-container matColumnDef="description">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header> {{'management-app-ui.description' | translate}}</th>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header scope="col"> {{'management-app-ui.description' | translate}}</th>
           <td mat-cell *matCellDef="let element">{{element.description}}</td>
         </ng-container>
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
