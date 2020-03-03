@@ -23,8 +23,10 @@ import com.eurodyn.qlack.webdesktop.common.service.ResourceWdApplicationService;
 import com.eurodyn.qlack.webdesktop.common.service.WdApplicationService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -33,6 +35,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -47,6 +50,7 @@ import org.springframework.web.multipart.MultipartFile;
  *
  * @author EUROPEAN DYNAMICS SA
  */
+@Log
 @Service
 @RequiredArgsConstructor
 public class ApplicationsService {
@@ -257,18 +261,13 @@ public class ApplicationsService {
    */
   public void saveApplicationFromYaml(MultipartFile file) {
     try {
-      byte[] bytes = file.getBytes();
-      Path path = Paths.get(file.getOriginalFilename());
-      path.toString();
-      Files.write(path, bytes);
-
       //Map to wdapplication
       ObjectMapper mapper = new ObjectMapper(new YAMLFactory());
       WdApplication wdApplication = mapper.readValue(file.getInputStream(), WdApplication.class);
       handleWdApplication(file.getInputStream(), wdApplication);
 
     } catch (IOException e) {
-      e.printStackTrace();
+     log.warning(e.getMessage());
     }
   }
 
