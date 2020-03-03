@@ -68,6 +68,6 @@ public class UserGroupManagementService {
   }
 
   private boolean existsByGroupName(String groupName) {
-    return userGroupService.getGroupByName(groupName, true) != null ? true : false;
+    return userGroupService.getGroupByName(groupName, true) != null;
   }
 }

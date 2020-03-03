@@ -23,13 +23,8 @@ import com.eurodyn.qlack.webdesktop.common.service.ResourceWdApplicationService;
 import com.eurodyn.qlack.webdesktop.common.service.WdApplicationService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.URL;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
@@ -62,16 +57,18 @@ public class ApplicationsService {
   private ProcessLexiconUtil processLexiconUtil;
   private ResourceService resourceService;
   private OperationService operationService;
+  @Autowired
   private UserService userService;
+  @Autowired
   private UserGroupService userGroupService;
+  @Autowired
   private ResourceWdApplicationService resourceWdApplicationService;
 
   @Autowired
   public ApplicationsService(WdApplicationService wdApplicationService,
       WdApplicationRepository wdApplicationRepository, ProcessLexiconUtil processLexiconUtil,
       CryptoDigestService cryptoDigestService, OperationService operationService,
-      WdApplicationMapper mapper, ResourceService resourceService, UserService userService,
-      UserGroupService userGroupService, ResourceWdApplicationService resourceWdApplicationService) {
+      WdApplicationMapper mapper, ResourceService resourceService) {
     this.wdApplicationService = wdApplicationService;
     this.wdApplicationRepository = wdApplicationRepository;
     this.cryptoDigestService = cryptoDigestService;
@@ -79,9 +76,6 @@ public class ApplicationsService {
     this.mapper = mapper;
     this.resourceService = resourceService;
     this.operationService = operationService;
-    this.userService = userService;
-    this.userGroupService = userGroupService;
-    this.resourceWdApplicationService = resourceWdApplicationService;
   }
 
   /**
@@ -160,7 +154,7 @@ public class ApplicationsService {
     WdApplication wdApplicationByName = findApplicationByName(
         wdApplicationManagementDTO.getDetails().getApplicationName());
     WdApplication initWdApplicationByName = new WdApplication();
-    if (wdApplicationByName != null){
+    if (wdApplicationByName != null) {
       initWdApplicationByName.setRestrictAccess(wdApplicationByName.isRestrictAccess());
     }
     //if the application is new but the application name already exists.
@@ -194,8 +188,8 @@ public class ApplicationsService {
         .findApplicationByName(wdApplicationManagementDTO.getDetails().getApplicationName());
     //create resourceId for new application
     ResourceDTO resourceDTO = null;
-    if (newWdApplication != null){
-      if (wdApplicationManagementDTO.getDetails().getId() ==  null) {
+    if (newWdApplication != null) {
+      if (wdApplicationManagementDTO.getDetails().getId() == null) {
         resourceWdApplicationService.createApplicationResource(newWdApplication);
       }
       resourceDTO = resourceService
@@ -203,7 +197,7 @@ public class ApplicationsService {
       removeAllPermissions(wdApplicationManagementDTO, resourceDTO, initWdApplicationByName);
     }
 
-    if (wdApplicationManagementDTO.getDetails().isRestrictAccess() && resourceDTO != null){
+    if (wdApplicationManagementDTO.getDetails().isRestrictAccess() && resourceDTO != null) {
       updatePermissions(wdApplicationManagementDTO, resourceDTO);
     }
     return ResponseEntity.status(HttpStatus.CREATED).body(wdApplicationByName);
@@ -216,41 +210,38 @@ public class ApplicationsService {
     Collection<String> userGroupsAdded = wdApplicationManagementDTO.getGroupsAdded();
     Collection<String> userGroupsRemoved = wdApplicationManagementDTO.getGroupsRemoved();
     if (usersRemoved != null) {
-      usersRemoved.forEach(userDTO -> {
-        operationService.removeOperationFromUser(userDTO, "view", resourceDTO.getId());
-      });
+      usersRemoved.forEach(userDTO -> operationService
+          .removeOperationFromUser(userDTO, "view", resourceDTO.getId()));
     }
     if (userGroupsRemoved != null) {
-      userGroupsRemoved.forEach(userGroupDTO -> {
-        operationService.removeOperationFromGroup(userGroupDTO, "view", resourceDTO.getId());
-      });
+      userGroupsRemoved.forEach(userGroupDTO -> operationService
+          .removeOperationFromGroup(userGroupDTO, "view", resourceDTO.getId()));
     }
     if (usersAdded != null) {
-      usersAdded.forEach(userDTO -> {
-        operationService.addOperationToUser(userDTO, "view", resourceDTO.getId(), false);
-      });
+      usersAdded.forEach(userDTO -> operationService
+          .addOperationToUser(userDTO, "view", resourceDTO.getId(), false));
     }
     if (userGroupsAdded != null) {
-      userGroupsAdded.forEach(userGroupDTO -> {
-        operationService.addOperationToGroup(userGroupDTO, "view", resourceDTO.getId(), false);
-      });
+      userGroupsAdded.forEach(userGroupDTO -> operationService
+          .addOperationToGroup(userGroupDTO, "view", resourceDTO.getId(), false));
     }
   }
 
-  private void removeAllPermissions(WdApplicationManagementDTO wdApplicationManagementDTO, ResourceDTO resourceDTO, WdApplication initWdApplicationByName) {
-    if (initWdApplicationByName != null && !wdApplicationManagementDTO.getDetails().isRestrictAccess() &&
-        wdApplicationManagementDTO.getDetails().isRestrictAccess() != initWdApplicationByName.isRestrictAccess()) {
+  private void removeAllPermissions(WdApplicationManagementDTO wdApplicationManagementDTO,
+      ResourceDTO resourceDTO, WdApplication initWdApplicationByName) {
+    if (initWdApplicationByName != null && !wdApplicationManagementDTO.getDetails()
+        .isRestrictAccess() &&
+        wdApplicationManagementDTO.getDetails().isRestrictAccess() != initWdApplicationByName
+            .isRestrictAccess()) {
       Set<String> usersOperationDTO = operationService
           .getAllowedUsersForOperation("view", resourceDTO.getObjectId(), false);
       Set<String> userGroupsOperationDTO = operationService
           .getAllowedGroupsForOperation("view", resourceDTO.getObjectId(), false);
 
-      usersOperationDTO.forEach(user -> {
-        operationService.removeOperationFromUser(user, "view", resourceDTO.getId());
-      });
-      userGroupsOperationDTO.forEach(userGroups -> {
-        operationService.removeOperationFromGroup(userGroups, "view", resourceDTO.getId());
-      });
+      usersOperationDTO.forEach(
+          user -> operationService.removeOperationFromUser(user, "view", resourceDTO.getId()));
+      userGroupsOperationDTO.forEach(userGroups -> operationService
+          .removeOperationFromGroup(userGroups, "view", resourceDTO.getId()));
     }
   }
 
@@ -262,12 +253,12 @@ public class ApplicationsService {
   public void saveApplicationFromYaml(MultipartFile file) {
     try {
       //Map to wdapplication
-      ObjectMapper mapper = new ObjectMapper(new YAMLFactory());
-      WdApplication wdApplication = mapper.readValue(file.getInputStream(), WdApplication.class);
+      ObjectMapper wdMapper = new ObjectMapper(new YAMLFactory());
+      WdApplication wdApplication = wdMapper.readValue(file.getInputStream(), WdApplication.class);
       handleWdApplication(file.getInputStream(), wdApplication);
 
     } catch (IOException e) {
-     log.warning(e.getMessage());
+      log.warning(e.getMessage());
     }
   }
 
