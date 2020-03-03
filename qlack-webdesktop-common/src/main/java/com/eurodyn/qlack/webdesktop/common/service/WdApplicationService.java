@@ -44,7 +44,6 @@ public class WdApplicationService {
   private UserService userService;
   private OperationService operationService;
   private UserGroupService userGroupService;
-  @Autowired
   private LanguageService languageService;
 
 
@@ -52,7 +51,7 @@ public class WdApplicationService {
   public WdApplicationService(WdApplicationMapper mapper,
       WdApplicationRepository wdApplicationRepository, GroupService groupService,
       KeyService keyService, UserService userService,
-      OperationService operationService, UserGroupService userGroupService) {
+      OperationService operationService, UserGroupService userGroupService, LanguageService languageService) {
     this.mapper = mapper;
     this.wdApplicationRepository = wdApplicationRepository;
     this.groupService = groupService;
@@ -60,6 +59,7 @@ public class WdApplicationService {
     this.userService = userService;
     this.userGroupService = userGroupService;
     this.operationService = operationService;
+    this.languageService = languageService;
   }
 
   /**
