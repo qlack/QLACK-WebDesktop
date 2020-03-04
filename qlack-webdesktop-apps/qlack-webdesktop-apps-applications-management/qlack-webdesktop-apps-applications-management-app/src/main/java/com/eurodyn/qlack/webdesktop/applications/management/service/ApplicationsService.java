@@ -60,18 +60,16 @@ public class ApplicationsService {
   private ProcessLexiconUtil processLexiconUtil;
   private ResourceService resourceService;
   private OperationService operationService;
-  @Autowired
   private UserService userService;
-  @Autowired
   private UserGroupService userGroupService;
-  @Autowired
   private ResourceWdApplicationService resourceWdApplicationService;
 
   @Autowired
   public ApplicationsService(WdApplicationService wdApplicationService,
       WdApplicationRepository wdApplicationRepository, ProcessLexiconUtil processLexiconUtil,
       CryptoDigestService cryptoDigestService, OperationService operationService,
-      WdApplicationMapper mapper, ResourceService resourceService) {
+      WdApplicationMapper mapper, ResourceService resourceService, ResourceWdApplicationService resourceWdApplicationService,
+      UserService userService, UserGroupService userGroupService) {
     this.wdApplicationService = wdApplicationService;
     this.wdApplicationRepository = wdApplicationRepository;
     this.cryptoDigestService = cryptoDigestService;
@@ -79,6 +77,9 @@ public class ApplicationsService {
     this.mapper = mapper;
     this.resourceService = resourceService;
     this.operationService = operationService;
+    this.resourceWdApplicationService = resourceWdApplicationService;
+    this.userGroupService = userGroupService;
+    this.userService = userService;
   }
 
   /**
