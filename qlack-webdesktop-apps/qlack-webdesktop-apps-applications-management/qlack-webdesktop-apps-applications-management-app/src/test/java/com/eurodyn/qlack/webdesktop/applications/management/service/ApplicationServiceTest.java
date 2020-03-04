@@ -1,17 +1,13 @@
 package com.eurodyn.qlack.webdesktop.applications.management.service;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyBoolean;
-import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import com.eurodyn.qlack.fuse.aaa.dto.ResourceDTO;
-import com.eurodyn.qlack.fuse.aaa.dto.UserDTO;
-import com.eurodyn.qlack.fuse.aaa.dto.UserGroupDTO;
 import com.eurodyn.qlack.fuse.aaa.service.OperationService;
 import com.eurodyn.qlack.fuse.aaa.service.ResourceService;
 import com.eurodyn.qlack.fuse.aaa.service.UserGroupService;
@@ -26,15 +22,13 @@ import com.eurodyn.qlack.webdesktop.common.repository.WdApplicationRepository;
 import com.eurodyn.qlack.webdesktop.common.service.ResourceWdApplicationService;
 import com.eurodyn.qlack.webdesktop.common.service.WdApplicationService;
 import com.google.common.io.Files;
-import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.UUID;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -43,10 +37,6 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mock.web.MockMultipartFile;
-
-import java.util.Map;
-import java.util.UUID;
-import org.springframework.test.context.TestExecutionListeners;
 
 @RunWith(MockitoJUnitRunner.class)
 public class ApplicationServiceTest {
@@ -215,8 +205,7 @@ public class ApplicationServiceTest {
 
   @Test
   public void saveApplicationFromYamlTest() throws IOException {
-    ClassLoader classLoader = new ApplicationServiceTest().getClass().getClassLoader();
-    File file = new File(classLoader.getResource("configurationTest.yaml").getFile());
+    File file = new File(this.getClass().getResource("/configurationTest.yaml").getFile());
     MockMultipartFile multipartFile = new MockMultipartFile("data", "configurationTest.yaml",
         "text/plain", Files.toByteArray(file));
     applicationsService.saveApplicationFromYaml(multipartFile);
@@ -226,8 +215,7 @@ public class ApplicationServiceTest {
 
   @Test
   public void saveApplicationFromYamlExistingWdAppTest() throws IOException {
-    ClassLoader classLoader = new ApplicationServiceTest().getClass().getClassLoader();
-    File file = new File(classLoader.getResource("configurationTest.yaml").getFile());
+    File file = new File(this.getClass().getResource("/configurationTest.yaml").getFile());
     MockMultipartFile multipartFile = new MockMultipartFile("data", "configurationTest.yaml",
         "text/plain", Files.toByteArray(file));
     wdApplication.setChecksum("checksum");
@@ -239,8 +227,7 @@ public class ApplicationServiceTest {
 
   @Test
   public void saveApplicationFromYamlExistingWdAppisEditedByUITest() throws IOException {
-    ClassLoader classLoader = new ApplicationServiceTest().getClass().getClassLoader();
-    File file = new File(classLoader.getResource("configurationTest.yaml").getFile());
+    File file = new File(this.getClass().getResource("/configurationTest.yaml").getFile());
     MockMultipartFile multipartFile = new MockMultipartFile("data", "configurationTest.yaml",
         "text/plain", Files.toByteArray(file));
     wdApplication.setChecksum("checksum");

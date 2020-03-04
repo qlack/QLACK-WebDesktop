@@ -30,8 +30,12 @@ import org.springframework.web.multipart.MultipartFile;
 @RequiredArgsConstructor
 public class ApplicationsController {
 
-  @Autowired
   private ApplicationsService applicationsService;
+
+  @Autowired
+  public ApplicationsController(ApplicationsService applicationsService) {
+    this.applicationsService = applicationsService;
+  }
 
   /**
    * Returns all the QLACK Web Desktop applications.
