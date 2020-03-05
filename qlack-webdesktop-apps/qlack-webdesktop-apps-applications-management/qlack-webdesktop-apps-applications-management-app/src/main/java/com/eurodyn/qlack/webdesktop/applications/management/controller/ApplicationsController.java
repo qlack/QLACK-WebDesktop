@@ -4,7 +4,6 @@ import com.eurodyn.qlack.fuse.aaa.dto.UserAttributeDTO;
 import com.eurodyn.qlack.webdesktop.applications.management.dto.WdApplicationManagementDTO;
 import com.eurodyn.qlack.webdesktop.applications.management.service.ApplicationsService;
 import com.eurodyn.qlack.webdesktop.common.dto.WdApplicationDTO;
-import com.eurodyn.qlack.webdesktop.common.model.WdApplication;
 import java.util.Map;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -68,24 +67,24 @@ public class ApplicationsController {
   }
 
   /**
-   * Get a signle Web Desktop application by application Name.
-   * @param name the application's name.
-   * @return a single Web Desktop application.
-   */
-  @GetMapping(path = "/name")
-  public WdApplication getApplicationByApplicationName(@RequestParam String name) {
-    return applicationsService.findApplicationByName(name);
-  }
-
-  /**
-   * Saves a new wd application or updates an existing one.
+   * Saves a new wd application.
    * @param wdApplicationManagementDTO
    * @return the response entity.
    */
   @PostMapping("/applications")
-  public ResponseEntity updateApplication(
+  public ResponseEntity save(
       @Valid @RequestBody WdApplicationManagementDTO wdApplicationManagementDTO) {
-    return applicationsService.updateApplication(wdApplicationManagementDTO);
+    return applicationsService.save(wdApplicationManagementDTO);
+  }
+
+  /**
+   * Updates a wd application.
+   * @param wdApplicationManagementDTO
+   * @return the response entity.
+   */
+  @PostMapping("/applications/{id}")
+  public ResponseEntity update(@Valid @RequestBody WdApplicationManagementDTO wdApplicationManagementDTO) {
+    return applicationsService.update(wdApplicationManagementDTO);
   }
 
   /**

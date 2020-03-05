@@ -1,9 +1,9 @@
-import {HttpClient, HttpParams} from '@angular/common/http';
+import {HttpClient} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
 import {ApplicationDto} from '../dto/application-dto';
 import {CrudService} from './crud.service';
-import {QFormsService, QPageableReply} from '@eurodyn/forms';
+import {QFormsService} from '@eurodyn/forms';
 import {AppConstants} from '../app.constants';
 
 /**
@@ -36,19 +36,10 @@ export class ApplicationsService extends CrudService<ApplicationDto> {
       {headers: {'Content-Type': 'application/json'}, observe: 'response'});
   }
 
-  //get all applications
-  getAplications(): Observable<any> {
-    return this.http.get(AppConstants.API_ROOT + `/${this.resource}`);
-  }
-
-  //edit an application
-  getApplicationById(id): Observable<any> {
-    return this.http.get<QPageableReply<any>>(AppConstants.API_ROOT + `/${this.resource}/` + id);
-  }
-
-  //application Name validation
-  getApplicationByName(applicationName): Observable<any> {
-    return this.http.get(AppConstants.API_ROOT + `/${this.resource}` +"/name", {params: new HttpParams().set('name', applicationName)});
+  // Save application
+  update(application: ApplicationDto, id: any) {
+    return this.http.post(`${AppConstants.API_ROOT}/${this.resource}/${id}`, JSON.stringify(application),
+      {headers: {'Content-Type': 'application/json'}, observe: 'response'});
   }
 
   getUserAttributeByName(attributeName: string): Observable<any> {

@@ -68,7 +68,8 @@ public class ApplicationsService {
   public ApplicationsService(WdApplicationService wdApplicationService,
       WdApplicationRepository wdApplicationRepository, ProcessLexiconUtil processLexiconUtil,
       CryptoDigestService cryptoDigestService, OperationService operationService,
-      WdApplicationMapper mapper, ResourceService resourceService, ResourceWdApplicationService resourceWdApplicationService,
+      WdApplicationMapper mapper, ResourceService resourceService,
+      ResourceWdApplicationService resourceWdApplicationService,
       UserService userService, UserGroupService userGroupService) {
     this.wdApplicationService = wdApplicationService;
     this.wdApplicationRepository = wdApplicationRepository;
@@ -84,6 +85,7 @@ public class ApplicationsService {
 
   /**
    * This method returns all the QLACK Web Desktop applications.
+   *
    * @return a list containing all the applications
    */
   public Page<WdApplicationDTO> getApplications() {
@@ -92,6 +94,7 @@ public class ApplicationsService {
 
   /**
    * This method returns a QLACK Web Desktop application by id.
+   *
    * @return a single application
    */
   public WdApplicationManagementDTO getApplicationById(String id) {
@@ -125,6 +128,7 @@ public class ApplicationsService {
 
   /**
    * Finds all translations from all groups for a specific locale
+   *
    * @param locale the language locale
    * @return a list of translations for a specific locale
    */
@@ -133,105 +137,106 @@ public class ApplicationsService {
   }
 
   /**
-   * Finds an application by giving the application Name.
-   * @param applicationName the application Name field.
-   * @return the webDesktop application that has been retrieved.
+   * Saves a new wd application. An extra check must be done, in order to make sure that application
+   * Name is unique.
+   *
+   * @param wdApplicationManagementDTO the application to be saved.
+   * @return the responded entity.
    */
-  public WdApplication findApplicationByName(String applicationName) {
-    return wdApplicationService.findApplicationByName(applicationName);
-  }
+  public ResponseEntity save(WdApplicationManagementDTO wdApplicationManagementDTO) {
 
-  /**
-   * Saves a new wd application or updates an existing one. Checks by id and by name if the
-   * application exists, if so only two fields are going to be updated. If id and name are not
-   * existed, a new application is going to be saved. An extra check must be done, in order to make
-   * sure that application Name is unique.
-   * @param wdApplicationManagementDTO the application to be saved/updated
-   * @return
-   */
-  public ResponseEntity updateApplication(WdApplicationManagementDTO wdApplicationManagementDTO) {
-    WdApplication wdApplicationByName = findApplicationByName(
+    WdApplication wdApplicationByName = wdApplicationService.findApplicationByName(
         wdApplicationManagementDTO.getDetails().getApplicationName());
-    WdApplication initWdApplicationByName = new WdApplication();
-    if (wdApplicationByName != null) {
-      initWdApplicationByName.setRestrictAccess(wdApplicationByName.isRestrictAccess());
-    }
+
     //if the application is new but the application name already exists.
-    if (wdApplicationManagementDTO.getDetails().getId() == null && wdApplicationByName != null
-        && wdApplicationManagementDTO
-        .getDetails().getApplicationName()
+    if (wdApplicationByName != null && wdApplicationManagementDTO.getDetails().getApplicationName()
         .equals(wdApplicationByName.getApplicationName())) {
       return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body("alreadyExistsCode");
     }
+    wdApplicationByName = mapper.mapToEntity(wdApplicationManagementDTO.getDetails());
 
-    //application exists but only 2 fields will be updated
-    if (wdApplicationByName != null && wdApplicationManagementDTO.getDetails().getId() != null
-        && wdApplicationByName.getId() != null) {
-      wdApplicationByName.setActive(wdApplicationManagementDTO.getDetails().isActive());
-      wdApplicationByName
-          .setRestrictAccess(wdApplicationManagementDTO.getDetails().isRestrictAccess());
-    } else {
-      wdApplicationByName = mapper.mapToEntity(wdApplicationManagementDTO.getDetails());
-    }
-
-    if (wdApplicationManagementDTO.getId() == null) {
-      List<LexiconDTO> lexiconValues = processLexiconUtil
-          .createLexiconList(wdApplicationManagementDTO.getDetails());
-      processLexiconUtil
-          .createLexiconValues(lexiconValues, wdApplicationManagementDTO.getDetails());
-    }
+    //create translations for all languages by default.
+    List<LexiconDTO> lexiconValues = processLexiconUtil
+        .createLexiconList(wdApplicationManagementDTO.getDetails());
+    processLexiconUtil
+        .createLexiconValues(lexiconValues, wdApplicationManagementDTO.getDetails());
 
     wdApplicationService.saveApplication(wdApplicationByName);
 
     WdApplication newWdApplication = wdApplicationService
         .findApplicationByName(wdApplicationManagementDTO.getDetails().getApplicationName());
-    //create resourceId for new application
-    ResourceDTO resourceDTO = null;
-    if (newWdApplication != null) {
-      if (wdApplicationManagementDTO.getDetails().getId() == null) {
-        resourceWdApplicationService.createApplicationResource(newWdApplication);
-      }
-      resourceDTO = resourceService
-          .getResourceByObjectId(newWdApplication.getId());
-      removeAllPermissions(wdApplicationManagementDTO, resourceDTO, initWdApplicationByName);
+
+    //after save, every new application must be connected to a resourceId.
+    String resourceId = resourceWdApplicationService.createApplicationResource(newWdApplication);
+
+    //if there are permissions along with the new application, save them as well.
+    if (wdApplicationManagementDTO.getDetails().isRestrictAccess()) {
+      updatePermissions(wdApplicationManagementDTO, resourceId);
     }
 
-    if (wdApplicationManagementDTO.getDetails().isRestrictAccess() && resourceDTO != null) {
-      updatePermissions(wdApplicationManagementDTO, resourceDTO);
-    }
     return ResponseEntity.status(HttpStatus.CREATED).body(wdApplicationByName);
   }
 
+  /**
+   * Updates an existing application.
+   *
+   * @param wdApplicationManagementDTO the application to be updated.
+   * @return the responded entity.
+   */
+  public ResponseEntity update(WdApplicationManagementDTO wdApplicationManagementDTO) {
+
+    WdApplication wdApplication = wdApplicationRepository
+        .fetchById(wdApplicationManagementDTO.getDetails().getId());
+    WdApplicationDTO initWdApplicationDTO = new WdApplicationDTO();
+    //hold the status of restrictAccess.
+    initWdApplicationDTO.setRestrictAccess(wdApplication.isRestrictAccess());
+    //only 2 fields is permitted to be updated by default.
+    wdApplication.setActive(wdApplicationManagementDTO.getDetails().isActive());
+    wdApplication
+        .setRestrictAccess(wdApplicationManagementDTO.getDetails().isRestrictAccess());
+
+    wdApplicationService.saveApplication(wdApplication);
+
+    ResourceDTO resourceDTO = resourceService
+        .getResourceByObjectId(wdApplication.getId());
+    //In case the new isRestrictAccess is false but the old is true, all permissions must be deleted.
+    if (initWdApplicationDTO.isRestrictAccess() && !wdApplicationManagementDTO.getDetails()
+        .isRestrictAccess()) {
+      removeAllPermissions(resourceDTO);
+    }
+
+    if (wdApplicationManagementDTO.getDetails().isRestrictAccess()) {
+      updatePermissions(wdApplicationManagementDTO, resourceDTO.getId());
+    }
+
+    return ResponseEntity.status(HttpStatus.OK).body(wdApplication);
+  }
+
   private void updatePermissions(WdApplicationManagementDTO wdApplicationManagementDTO,
-      ResourceDTO resourceDTO) {
+      String resourceId) {
     Collection<String> usersAdded = wdApplicationManagementDTO.getUsersAdded();
     Collection<String> usersRemoved = wdApplicationManagementDTO.getUsersRemoved();
     Collection<String> userGroupsAdded = wdApplicationManagementDTO.getGroupsAdded();
     Collection<String> userGroupsRemoved = wdApplicationManagementDTO.getGroupsRemoved();
     if (usersRemoved != null) {
       usersRemoved.forEach(userDTO -> operationService
-          .removeOperationFromUser(userDTO, "view", resourceDTO.getId()));
+          .removeOperationFromUser(userDTO, "view", resourceId));
     }
     if (userGroupsRemoved != null) {
       userGroupsRemoved.forEach(userGroupDTO -> operationService
-          .removeOperationFromGroup(userGroupDTO, "view", resourceDTO.getId()));
+          .removeOperationFromGroup(userGroupDTO, "view", resourceId));
     }
     if (usersAdded != null) {
       usersAdded.forEach(userDTO -> operationService
-          .addOperationToUser(userDTO, "view", resourceDTO.getId(), false));
+          .addOperationToUser(userDTO, "view", resourceId, false));
     }
     if (userGroupsAdded != null) {
       userGroupsAdded.forEach(userGroupDTO -> operationService
-          .addOperationToGroup(userGroupDTO, "view", resourceDTO.getId(), false));
+          .addOperationToGroup(userGroupDTO, "view", resourceId, false));
     }
   }
 
-  private void removeAllPermissions(WdApplicationManagementDTO wdApplicationManagementDTO,
-      ResourceDTO resourceDTO, WdApplication initWdApplicationByName) {
-    if (initWdApplicationByName != null && !wdApplicationManagementDTO.getDetails()
-        .isRestrictAccess() &&
-        wdApplicationManagementDTO.getDetails().isRestrictAccess() != initWdApplicationByName
-            .isRestrictAccess()) {
+  private void removeAllPermissions(ResourceDTO resourceDTO) {
       Set<String> usersOperationDTO = operationService
           .getAllowedUsersForOperation("view", resourceDTO.getObjectId(), false);
       Set<String> userGroupsOperationDTO = operationService
@@ -241,11 +246,11 @@ public class ApplicationsService {
           user -> operationService.removeOperationFromUser(user, "view", resourceDTO.getId()));
       userGroupsOperationDTO.forEach(userGroups -> operationService
           .removeOperationFromGroup(userGroups, "view", resourceDTO.getId()));
-    }
   }
 
   /**
    * Saves a new application in database from yaml file.
+   *
    * @param file the yaml file that has been uploaded.
    */
   public void saveApplicationFromYaml(MultipartFile file) {
@@ -285,6 +290,7 @@ public class ApplicationsService {
 
   /**
    * Updates the file's SHA-256 checksum, saves the Web Desktop application and registers
+   *
    * @param wdApplication The Web Desktop application
    * @param checksum      The file's SHA-256 checksum
    */
@@ -298,6 +304,7 @@ public class ApplicationsService {
 
   /**
    * Finds user's attribute by attribute name.
+   *
    * @param attributeName the attribute name to search for.
    * @return the responded userAttributeDTO.
    */
@@ -307,8 +314,8 @@ public class ApplicationsService {
       String userName = ((DefaultOAuth2User) principal).getName();
       UserDTO userDTO = userService.getUserByName(userName);
       for (UserAttributeDTO attribute : userDTO.getUserAttributes()) {
-        if(attribute.getName().equalsIgnoreCase(attributeName)){
-          return  attribute;
+        if (attribute.getName().equalsIgnoreCase(attributeName)) {
+          return attribute;
         }
       }
     }

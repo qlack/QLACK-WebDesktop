@@ -56,16 +56,17 @@ public class ApplicationsControllerTest {
   }
 
   @Test
-  public void getApplicationByApplicationNameTest() throws Exception {
-    mvc.perform(MockMvcRequestBuilders.get("/api/name")
-        .param("name", "applicationName")
+  public void saveApplicationInvalidObjectTest() throws Exception {
+    mvc.perform(MockMvcRequestBuilders.post("/api/applications")
+        .contentType(MediaType.APPLICATION_JSON)
+        .content(new ObjectMapper().writeValueAsString(new WdApplicationManagementDTO()))
         .accept(MediaType.ALL))
-        .andExpect(status().isOk());
+        .andExpect(status().isBadRequest());
   }
 
   @Test
   public void updateApplicationInvalidObjectTest() throws Exception {
-    mvc.perform(MockMvcRequestBuilders.post("/api/applications")
+    mvc.perform(MockMvcRequestBuilders.post("/api/applications/{id}", "id")
         .contentType(MediaType.APPLICATION_JSON)
         .content(new ObjectMapper().writeValueAsString(new WdApplicationManagementDTO()))
         .accept(MediaType.ALL))

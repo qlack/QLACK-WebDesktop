@@ -28,4 +28,9 @@ export interface ApplicationDto {
   editedByUI: boolean
   usersAdded: [];
   usersRemoved: [];
+  groupsAdded: [];
+  groupsRemoved: [];
+  details: [];
+  users:[];
+  userGroups: [];
 }

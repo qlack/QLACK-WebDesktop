@@ -1,8 +1,4 @@
-import {
-  Component,
-  OnInit,
-  ViewEncapsulation
-} from '@angular/core';
+import {Component, OnInit, ViewEncapsulation} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {QFormsService} from '@eurodyn/forms';
@@ -24,7 +20,7 @@ export class ApplicationsEditComponent implements OnInit {
   form: FormGroup;
   id: string;
   isEdit = false;
-  componentTitle = 'editApp';
+  componentTitle = 'newApp';
   isVisible: boolean;
   isDisabled: boolean;
   usersAdded: string[];
@@ -46,7 +42,7 @@ export class ApplicationsEditComponent implements OnInit {
     // Setup the form.
     this.checkNewOrEdit();
     this.form = this.fb.group({
-      id: [{value: '', disabled: false}, [Validators.maxLength(1024)]],
+      id: ['0'],
       title: [{value: '', disabled: false}, [Validators.maxLength(1024)]],
       description: [{value: '', disabled: false}, [Validators.maxLength(1024)]],
       version: [{value: '', disabled: false}, [Validators.maxLength(1024)]],
@@ -77,35 +73,29 @@ export class ApplicationsEditComponent implements OnInit {
       restrictAccess: [{value: '', disabled: false}],
     });
 
-    this.data.isNavBarVisible(false);
-  }
-
-  ngAfterViewInit(): void {
-    // Setup the form.
-    if (this.componentTitle === 'editApp') {
-      this.applicationsService.getApplicationById(this.id).subscribe(application => {
+    // Fill-in the form with data if editing an existing item.
+    if (this.isEdit) {
+      this.applicationsService.get(this.id).subscribe(onNext => {
         this.form.disable();
-        this.updateApplicationContent(application.details, 'title');
-        this.updateApplicationContent(application.details, 'description');
-        for (var appProperty in application.details) {
-          if (this.form.controls[appProperty]) {
-            this.form.controls[appProperty].setValue(application.details[appProperty]);
-          }
-        }
+        this.updateApplicationContent(onNext.details, 'title');
+        this.updateApplicationContent(onNext.details, 'description');
+        this.form.patchValue(onNext.details);
         this.form.controls['active'].enable();
         this.form.controls['restrictAccess'].enable();
         this.form.controls['addedOn'].setValue(new Date(this.form.get('addedOn').value));
         this.form.controls['lastDeployedOn'].setValue(new Date(this.form.get('lastDeployedOn').value));
         this.isDisabled = this.form.controls['restrictAccess'].value;
 
-        sessionStorage.setItem('usersAdded', JSON.stringify(application.usersAdded));
-        sessionStorage.setItem('usersRemoved', JSON.stringify(application.usersRemoved));
-        sessionStorage.setItem('groupsAdded', JSON.stringify(application.groupsAdded));
-        sessionStorage.setItem('groupsRemoved', JSON.stringify(application.groupsRemoved));
-        sessionStorage.setItem('users', JSON.stringify(application.users));
-        sessionStorage.setItem('userGroups', JSON.stringify(application.userGroups));
+        //prepare session storage to handle user and usergroup permissions
+        sessionStorage.setItem('usersAdded', JSON.stringify(onNext.usersAdded));
+        sessionStorage.setItem('usersRemoved', JSON.stringify(onNext.usersRemoved));
+        sessionStorage.setItem('groupsAdded', JSON.stringify(onNext.groupsAdded));
+        sessionStorage.setItem('groupsRemoved', JSON.stringify(onNext.groupsRemoved));
+        sessionStorage.setItem('users', JSON.stringify(onNext.users));
+        sessionStorage.setItem('userGroups', JSON.stringify(onNext.userGroups));
       });
     }
+    this.data.isNavBarVisible(false);
   }
 
   isNavBarVisible(value: boolean) {
@@ -114,19 +104,15 @@ export class ApplicationsEditComponent implements OnInit {
 
   updateApplicationContent(application, property) {
     this.translateService.get(application.applicationName + '.' + property).subscribe(
-      (titleTranslated: string) => {
-        application[property] = titleTranslated;
-      });
+      (titleTranslated: string) => application[property] = titleTranslated);
   }
 
-  save() {
+  //handle permissions before save or update
+  handlePermissions(){
     let usersAdded;
     let usersRemoved;
     let groupsAdded;
     let groupsRemoved;
-    this.form.controls['addedOn'].setValue(new Date(this.form.get('addedOn').value).valueOf());
-    this.form.controls['lastDeployedOn'].setValue(new Date(this.form.get('lastDeployedOn').value).valueOf());
-
     try {
       usersAdded = JSON.parse(sessionStorage.getItem('usersAdded'));
       usersRemoved = JSON.parse(sessionStorage.getItem('usersRemoved'));
@@ -141,17 +127,31 @@ export class ApplicationsEditComponent implements OnInit {
     this.form.addControl('usersRemoved', new FormControl({value: usersRemoved, disabled: false}));
     this.form.addControl('groupsAdded', new FormControl({value: groupsAdded, disabled: false}));
     this.form.addControl('groupsRemoved', new FormControl({value: groupsRemoved, disabled: false}));
+    sessionStorage.clear();
+  }
 
+  submit() {
+    this.form.controls['addedOn'].setValue(new Date(this.form.get('addedOn').value).valueOf());
+    this.form.controls['lastDeployedOn'].setValue(new Date(this.form.get('lastDeployedOn').value).valueOf());
 
+    this.handlePermissions();
+
+    if (this.isEdit){
+      this.update();
+    } else {
+      this.save();
+    }
+
+    this.form.controls['addedOn'].setValue(new Date(this.form.get('addedOn').value));
+    this.form.controls['lastDeployedOn'].setValue(new Date(this.form.get('lastDeployedOn').value));
+  }
+
+  save(){
     this.applicationsService.save(this.qForms.cleanupForm(this.form)).subscribe(
       (response) => {
         this.utilityService.popupSuccessAction(
           this.getMessageTranslations('management-app-ui.success') + "!", this.getMessageTranslations('management-app-ui.dismiss'));
-        this.router.navigate(["/"]).then( () => {
-          if (this.componentTitle === 'newApp') {
-            window.location.reload();
-          }
-        });
+        this.router.navigate(["/"]).then(() =>window.location.reload());
         this.data.isNavBarVisible(true);
       }, error => {
 
@@ -175,9 +175,21 @@ export class ApplicationsEditComponent implements OnInit {
           }
         }
       });
-    this.form.controls['addedOn'].setValue(new Date(this.form.get('addedOn').value));
-    this.form.controls['lastDeployedOn'].setValue(new Date(this.form.get('lastDeployedOn').value));
-    sessionStorage.clear();
+  }
+
+  update() {
+    this.applicationsService.update(this.qForms.cleanupForm(this.form), this.id).subscribe(
+      (response) => {
+        this.utilityService.popupSuccessAction(
+          this.getMessageTranslations('management-app-ui.success') + "!", this.getMessageTranslations('management-app-ui.dismiss'));
+        this.router.navigate(["/"]);
+        this.data.isNavBarVisible(true);
+      }, error => {
+
+        if (error.status == 400) {
+          this.utilityService.popupError(this.getMessageTranslations('management-app-ui.error'));
+        }
+      });
   }
 
   //translate snack bar messages
@@ -190,9 +202,9 @@ export class ApplicationsEditComponent implements OnInit {
   }
 
   checkNewOrEdit() {
-    this.componentTitle = "editApp";
-    if (this.router.url.toLowerCase().endsWith('new')) {
-      this.componentTitle = "newApp";
+    this.componentTitle = "newApp"
+    if (this.isEdit) {
+      this.componentTitle = "editApp";
     }
   }
 
@@ -203,4 +215,5 @@ export class ApplicationsEditComponent implements OnInit {
   toggle($event: MatSlideToggleChange) {
       this.isDisabled = $event.checked;
   }
+
 }

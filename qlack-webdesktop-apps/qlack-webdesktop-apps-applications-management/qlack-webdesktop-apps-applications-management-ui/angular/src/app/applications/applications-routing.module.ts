@@ -11,7 +11,6 @@ const routes: Routes = [
     children: [
       {path: "permissions", component: PermissionsComponent}
   ]},
-  {path: 'new', component: ApplicationsEditComponent},
   {path: 'upload', component: FileuploadComponent}
 ];
 
