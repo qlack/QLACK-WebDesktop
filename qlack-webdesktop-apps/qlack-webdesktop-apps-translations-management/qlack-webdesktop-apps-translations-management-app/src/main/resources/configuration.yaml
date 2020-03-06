@@ -1,4 +1,5 @@
-appIndex: "http://localhost:8081"
+appUrl: "http://localhost:8081"
+proxyAppUrl: "/translationsManagement/"
 version: "3.0.0-SNAPSHOT"
 icon: "http://localhost:8081/webdesktop/translations/management/logo/icon"
 iconSmall: "http://localhost:8081/webdesktop/translations/management/logo/icon_small"
@@ -16,9 +17,9 @@ minimizable: true
 maximizable: true
 system: true
 showTitle: true
-stripPrefix: false
+stripPrefix: true
 sensitiveHeaders: ""
-proxyPath: ""
+proxyPath: "/translationsManagement/**"
 applicationName: Translations Management
 groupName: system
 lexicon:

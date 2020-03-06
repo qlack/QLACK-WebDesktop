@@ -21,6 +21,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @ComponentScan(basePackages = {
   "com.eurodyn.qlack.fuse.lexicon",
   "com.eurodyn.qlack.webdesktop.translations.management.controller",
+    "com.eurodyn.qlack.webdesktop.translations.management.security",
   "com.eurodyn.qlack.webdesktop.translations.management.service",
     "com.eurodyn.qlack.fuse.aaa"
 })

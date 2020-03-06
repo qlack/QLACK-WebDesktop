@@ -18,12 +18,15 @@ export class AppComponent {
 
     this.translationService.getUserAttributeByName("defaultLanguage").subscribe(attr => {
       if(attr != null){
-        translate.setDefaultLang(attr.data);
+        if (attr.data != null){
+          translate.setDefaultLang(attr.data);
+        }
+
       }
       else{
         translate.setDefaultLang("en");
       }
-    });
+    },error => { translate.setDefaultLang("en");});
 
     translate.get([
       'translations-management-ui.changes',
