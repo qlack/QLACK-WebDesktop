@@ -24,6 +24,7 @@ proxyPath: 'http://localhost:8089'
 applicationName: management
 editedByUI: false
 proxyAppUrl: 'http://localhost:8089'
+groupName: system
 lexicon:
   - languageLocale: en
     values:
