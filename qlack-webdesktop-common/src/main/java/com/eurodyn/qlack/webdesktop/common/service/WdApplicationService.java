@@ -48,6 +48,7 @@ public class WdApplicationService {
 
 
   @Autowired
+  @SuppressWarnings("squid:S107")
   public WdApplicationService(WdApplicationMapper mapper,
       WdApplicationRepository wdApplicationRepository, GroupService groupService,
       KeyService keyService, UserService userService,

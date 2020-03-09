@@ -3,8 +3,7 @@ import {DataService} from "../../services/data.service";
 
 @Component({
   selector: 'app-navigation-menu',
-  templateUrl: './navigation-menu.component.html',
-  styleUrls: ['./navigation-menu.component.scss']
+  templateUrl: './navigation-menu.component.html'
 })
 export class NavigationMenuComponent implements OnInit {
 

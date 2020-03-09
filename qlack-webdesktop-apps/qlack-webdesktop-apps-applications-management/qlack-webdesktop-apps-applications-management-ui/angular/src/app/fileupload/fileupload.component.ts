@@ -9,8 +9,7 @@ import {UtilityService} from "../services/utility.service";
 
 @Component({
   selector: 'app-fileupload',
-  templateUrl: './fileupload.component.html',
-  styleUrls: ['./fileupload.component.scss']
+  templateUrl: './fileupload.component.html'
 })
 export class FileuploadComponent implements OnInit {
   previewImageURL: string;

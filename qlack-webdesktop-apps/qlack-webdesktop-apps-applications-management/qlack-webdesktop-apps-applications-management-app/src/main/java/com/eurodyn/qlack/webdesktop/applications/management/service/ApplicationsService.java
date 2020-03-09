@@ -65,6 +65,7 @@ public class ApplicationsService {
   private ResourceWdApplicationService resourceWdApplicationService;
 
   @Autowired
+  @SuppressWarnings("squid:S107")
   public ApplicationsService(WdApplicationService wdApplicationService,
       WdApplicationRepository wdApplicationRepository, ProcessLexiconUtil processLexiconUtil,
       CryptoDigestService cryptoDigestService, OperationService operationService,

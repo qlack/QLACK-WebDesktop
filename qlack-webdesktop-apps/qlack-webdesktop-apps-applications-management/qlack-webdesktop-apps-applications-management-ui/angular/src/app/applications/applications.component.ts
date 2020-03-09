@@ -120,7 +120,7 @@ export class ApplicationsComponent extends BaseComponent implements OnInit, Afte
 
   fileUpload() {
     this.loadFileUpload = true;
-    const dialogRef = this.dialog.open(FileuploadComponent, {
+    this.dialog.open(FileuploadComponent, {
       width: '400px'
     });
   }
