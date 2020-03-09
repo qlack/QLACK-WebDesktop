@@ -1,16 +1,10 @@
 <mat-card>
-  <mat-card-title>
-    <button mat-button>
-      <span class="material-icons" (click)="goBack()">arrow_back_ios</span>
-    </button>
-  </mat-card-title>
-
   <mat-tab-group>
 
     <mat-tab label="{{'management-app-ui.' + componentTitle | translate}}">
       <mat-card-content>
         <form novalidate [formGroup]="form">
-          <mat-card-subtitle>{{'management-app-ui.properties' | translate}}</mat-card-subtitle>
+          <mat-card-title>{{'management-app-ui.properties' | translate}}</mat-card-title>
           <div class="containerX">
             <div fxLayout="row" fxLayout.xs="column" fxLayout.sm="column" fxFlex
                  class="coloredContainerX box">
@@ -228,7 +222,7 @@
 
   <mat-card-actions>
     <button mat-button routerLink="/applications"
-            (click)="isNavBarVisible(true)">{{'management-app-ui.cancel' |
+            (click)="isNavBarVisible(true)">{{'management-app-ui.back' |
       translate}}</button>
     <button mat-button color="primary"
             (click)="submit()"

@@ -4,7 +4,7 @@
     <form [formGroup]="myForm" (ngSubmit)="save()">
       <div fxLayout="column">
         <mat-slide-toggle color="primary" formControlName="active">
-          <p > {{'translations-management-ui.inactive-active' | translate}} </p>
+          {{'translations-management-ui.inactive-active' | translate}}
         </mat-slide-toggle>
         <mat-form-field>
           <mat-label>{{'translations-management-ui.languageName' | translate}}</mat-label>

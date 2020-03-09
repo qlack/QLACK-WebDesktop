@@ -4,7 +4,7 @@
       <section class="" *ngFor="let language of languages">
         <mat-slide-toggle color="primary" [(ngModel)]="language.active"
                           class="slidePadding " name="{{language.active}}">
-          <p >{{language.name}}</p>
+          {{language.name}}
         </mat-slide-toggle>
       </section>
     </form>

@@ -144,6 +144,7 @@ translations:
     - userName: Username
     - editUser: User edit
     - permissions: Permissions
+    - back: Back
 
 - group: management-app-ui
   locale: el
@@ -224,6 +225,7 @@ translations:
     - editUser: Επεξεργασία χρήστη
     - permissions: Δικαιώματα
     - NotNull.userGroupManagementDTO.userGroupName: Δεν μπορεί να είναι κενό
+    - back: Επιστροφή
 
 - group: user-profile-management-ui
   locale: en

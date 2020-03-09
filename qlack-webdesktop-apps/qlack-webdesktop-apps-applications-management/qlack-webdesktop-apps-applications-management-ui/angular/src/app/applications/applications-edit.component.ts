@@ -208,10 +208,6 @@ export class ApplicationsEditComponent implements OnInit {
     }
   }
 
-  goBack() {
-    this.router.navigate(["/applications"]).then( () => this.data.isNavBarVisible(true));
-  }
-
   toggle($event: MatSlideToggleChange) {
       this.isDisabled = $event.checked;
   }
