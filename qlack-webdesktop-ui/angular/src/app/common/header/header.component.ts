@@ -26,10 +26,14 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit() {
       this.wedDesktopService.getUserAttributeByName("profileImage").subscribe( attribute =>{
-        this.profileImage = attribute.bindata;
+        if(attribute !=null){
+          this.profileImage = attribute.bindata;
+        }
       });
       this.wedDesktopService.getApplicationByName(this.userProfileApplicationName).subscribe(application =>{
-        this.userProfileApplication =application;
+        if(application != null){
+          this.userProfileApplication =application;
+        }
       })
   }
 
