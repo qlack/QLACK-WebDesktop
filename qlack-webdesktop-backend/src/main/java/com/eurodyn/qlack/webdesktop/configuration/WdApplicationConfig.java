@@ -233,8 +233,9 @@ public class WdApplicationConfig implements ApplicationRunner {
    */
   private void registerReverseProxyRoute(String path, String url, boolean stripPrefix,
       String[] sensitiveHeaders) {
-    ZuulProperties.ZuulRoute zuulRoute = new ZuulProperties.ZuulRoute(path, url);
-    zuulRoute.setStripPrefix(stripPrefix);
+    ZuulProperties.ZuulRoute zuulRoute = new ZuulProperties.ZuulRoute(path,url);
+    zuulRoute.setCustomSensitiveHeaders(true);
+    zuulRoute.setStripPrefix(true);
     zuulRoute.setSensitiveHeaders(new HashSet<>(Arrays.asList(sensitiveHeaders)));
     discoveryClientRouteLocator.addRoute(zuulRoute);
   }

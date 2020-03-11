@@ -43,7 +43,7 @@ public class SsoSecurityConfig extends WebSecurityConfigurerAdapter {
         .antMatchers("/login/**","/logout.html","/css/style.css").permitAll()
         .anyRequest().authenticated()
         .and().logout().invalidateHttpSession(true).clearAuthentication(true).logoutUrl("/logout").logoutSuccessUrl(
-        logoutUrl).deleteCookies("JSESSIONID").and()
+        logoutUrl).deleteCookies("JSESSIONID").and().headers().frameOptions().disable().and()
         .oauth2Login();
   }
 

@@ -12,13 +12,14 @@ export class AppComponent {
 
   constructor(private translate: TranslateService,private userProfileService: UserProfileService ) {
     this.userProfileService.getUserAttributeByName("defaultLanguage").subscribe(attr => {
-     if(attr != null){
-       translate.setDefaultLang(attr.data);
-     }
-     else{
-       translate.setDefaultLang("en");
-     }
-    });
-
+      if(attr != null){
+        if (attr.data != null){
+          translate.setDefaultLang(attr.data);
+        }
+      }
+      else{
+        translate.setDefaultLang("en");
+      }
+    },error => { translate.setDefaultLang("en");});
   }
 }
