@@ -3,7 +3,7 @@ export const AppConstants = {
   JWT_STORAGE_NAME: 'qlack-base-application-ui_platform',
 
   // The root URL of the API.
-  API_ROOT: '/api',
-  API_SECURED_ROOT: 'api/secured',
+  API_ROOT: '/applicationsManagement/api',
+  API_SECURED_ROOT: '/applicationsManagement/api/secured',
 };
 

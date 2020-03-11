@@ -17,8 +17,7 @@ public class NoSecurityConfig extends WebSecurityConfigurerAdapter {
   /**
    * Permits access to all paths
    *
-   * @param http the {@link HttpSecurity}
-   * object
+   * @param http the {@link HttpSecurity} object
    * @throws Exception if the security configuration cannot be applied
    */
   @Override
