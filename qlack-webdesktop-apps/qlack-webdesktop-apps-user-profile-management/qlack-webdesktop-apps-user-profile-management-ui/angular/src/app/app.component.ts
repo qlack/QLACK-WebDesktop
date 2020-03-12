@@ -9,8 +9,11 @@ import {UserProfileService} from './services/user-profile.service';
 })
 export class AppComponent {
   title = 'user-profile-management';
-
+  isSsoProfile: boolean ;
   constructor(private translate: TranslateService,private userProfileService: UserProfileService ) {
+    this.userProfileService.getActiveProfile().subscribe( isSsoProfile =>{
+         this.isSsoProfile = isSsoProfile;
+    });
     this.userProfileService.getUserAttributeByName("defaultLanguage").subscribe(attr => {
       if(attr != null){
         if (attr.data != null){
@@ -21,5 +24,6 @@ export class AppComponent {
         translate.setDefaultLang("en");
       }
     },error => { translate.setDefaultLang("en");});
+
   }
 }

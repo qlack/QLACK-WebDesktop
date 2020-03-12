@@ -20,11 +20,12 @@ import {MaterialFileInputModule} from 'ngx-material-file-input';
 import {MatIconModule} from '@angular/material/icon';
 import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
+import {AppConstants} from './app.constants';
 
 
 
 export function HttpLoaderFactory(http: HttpClient) {
-  return new TranslateHttpLoader(http, '/api/translations?lang=', '');
+  return new TranslateHttpLoader(http, AppConstants.API_ROOT+ '/translations?lang=', '');
 }
 
 @NgModule({

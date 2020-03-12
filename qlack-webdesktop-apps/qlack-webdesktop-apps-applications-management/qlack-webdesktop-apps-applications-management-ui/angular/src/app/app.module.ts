@@ -39,7 +39,7 @@ export function getJwtToken(): string {
 }
 
 export function HttpLoaderFactory(http: HttpClient) {
-  return new TranslateHttpLoader(http, "/applicationsManagement/api/translations?lang=", "");
+  return new TranslateHttpLoader(http, AppConstants.API_ROOT+"/translations?lang=", "");
 }
 
 export function createCustomMatPaginatorIntl(

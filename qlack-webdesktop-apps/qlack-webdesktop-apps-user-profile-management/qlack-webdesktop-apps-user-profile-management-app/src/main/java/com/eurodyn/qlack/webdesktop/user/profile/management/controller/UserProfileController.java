@@ -58,4 +58,8 @@ public class UserProfileController {
   public UserAttributeDTO getUserAttributeByName(@PathVariable String attributeName) {
     return userProfileService.findUserAttributeByName(attributeName);
   }
+  @GetMapping("/user/profile")
+  public boolean getActiveProfile(){
+    return userProfileService.isSsoProfile();
+  }
 }

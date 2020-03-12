@@ -28,10 +28,11 @@ import {MatPaginatorIntl} from '@angular/material/paginator';
 import {MyMatPaginatorIntl} from './my-mat-paginator-Intl ';
 import {MatTabsModule} from '@angular/material/tabs';
 import {MatSelectModule} from '@angular/material/select';
+import {AppConstants} from './app.constants';
 
 
 export function HttpLoaderFactory(http: HttpClient) {
-  return new TranslateHttpLoader(http, '/api/translations?lang=', '');
+  return new TranslateHttpLoader(http, AppConstants.API_ROOT+ '/translations?lang=', '');
 }
 
 export function createCustomMatPaginatorIntl(

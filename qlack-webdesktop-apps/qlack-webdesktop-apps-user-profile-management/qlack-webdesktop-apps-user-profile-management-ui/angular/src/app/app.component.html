@@ -1,1 +1,7 @@
-<app-user-profile></app-user-profile>
+<!-- there is async problem with  isSsoProfile var -->
+<div *ngIf="!isSsoProfile" class="fullDimensions" >
+  <p>you need to enable security profile to access tis application</p>
+</div>
+<app-user-profile *ngIf="isSsoProfile"></app-user-profile>
+
+

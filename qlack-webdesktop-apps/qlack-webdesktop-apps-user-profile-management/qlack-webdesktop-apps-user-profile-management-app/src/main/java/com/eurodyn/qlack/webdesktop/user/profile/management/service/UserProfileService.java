@@ -8,6 +8,7 @@ import com.eurodyn.qlack.fuse.lexicon.service.KeyService;
 import com.eurodyn.qlack.fuse.lexicon.service.LanguageService;
 import com.eurodyn.qlack.webdesktop.user.profile.management.dto.UserDetailsDTO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.core.user.DefaultOAuth2User;
 import org.springframework.stereotype.Service;
@@ -25,13 +26,15 @@ public class UserProfileService {
   private KeyService keyService;
   private LanguageService languageService;
   private UserService userService;
+  private Environment env;
 
   @Autowired
   public UserProfileService(KeyService keyService, LanguageService languageService,
-      UserService userService) {
+      UserService userService,Environment env) {
     this.keyService = keyService;
     this.languageService = languageService;
     this.userService = userService;
+    this.env = env;
   }
 
   public Map<String, String> findTranslationsForLocale(String locale) {
@@ -108,4 +111,12 @@ public class UserProfileService {
     }
   }
 
+  /**
+   * if spring boot profile is sso return true else false
+   * @return  true or false
+   */
+  public boolean isSsoProfile(){
+    return env.getActiveProfiles().length == 1;
+
+  }
 }

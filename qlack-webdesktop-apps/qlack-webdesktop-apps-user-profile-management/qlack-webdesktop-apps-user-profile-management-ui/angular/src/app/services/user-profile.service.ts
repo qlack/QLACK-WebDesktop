@@ -32,4 +32,7 @@ export class UserProfileService extends CrudService<FileDto> {
   getUserAttributeByName(attributeName: string): Observable<any> {
     return this.http.get(AppConstants.API_ROOT + '/' + this.resource +'/'+ attributeName);
   }
+  getActiveProfile(): Observable<any> {
+    return this.http.get(AppConstants.API_ROOT + '/user/profile');
+  }
 }
