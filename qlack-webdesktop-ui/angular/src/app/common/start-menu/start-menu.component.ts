@@ -5,6 +5,7 @@ import {TranslateService} from '@ngx-translate/core';
 import {QngPubsubService} from '@qlack/qng-pubsub';
 import {QPubSub} from '@qlack/qpubsub';
 import {MatSnackBar} from '@angular/material/snack-bar';
+import {UserDetailsDto} from "../../dto/user-details-dto";
 
 @Component({
   selector: 'app-start-menu',
@@ -22,7 +23,28 @@ export class StartMenuComponent implements OnInit {
 
   @Output() onAppClick = new EventEmitter();
 
+  userDetailsDto: any = new UserDetailsDto();
+
   constructor(private webDesktopService: WebdesktopService, private translate: TranslateService, private qPubSubService: QngPubsubService, private _snackBar: MatSnackBar) {
+    this.webDesktopService.getUserAttributes().subscribe(userAttributeList => {
+      if (userAttributeList.firstName != null) {
+        this.userDetailsDto.firstName = userAttributeList.firstName.data;
+      }
+      if (userAttributeList.lastName != null) {
+        this.userDetailsDto.lastName = userAttributeList.lastName.data;
+      }
+      if (userAttributeList.defaultLanguage != null) {
+        this.userDetailsDto.defaultLanguage = userAttributeList.defaultLanguage.data;
+      } else {
+        this.userDetailsDto.defaultLanguage = 'en';
+      }
+      if (userAttributeList.profileImage != null) {
+        this.userDetailsDto.profileImage = userAttributeList.profileImage.bindata;
+      }
+      if (userAttributeList.backgroundImage != null) {
+        this.userDetailsDto.backgroundImage = userAttributeList.backgroundImage.bindata;
+      }
+    });
   }
 
   ngOnInit() {
@@ -48,7 +70,7 @@ export class StartMenuComponent implements OnInit {
               }).add(() => {
 
             if (index == (applicationsList.length - 1)) {
-               this.applications.sort((a, b) => !a.groupTranslated ? 1 : (!b.groupTranslated ? -1 : (a.groupTranslated.toLowerCase().localeCompare(b.groupTranslated.toLowerCase()))));
+              this.applications.sort((a, b) => !a.groupTranslated ? 1 : (!b.groupTranslated ? -1 : (a.groupTranslated.toLowerCase().localeCompare(b.groupTranslated.toLowerCase()))));
               const groups = [...new Set(this.applications.map(w => w.groupTranslated))];
 
               groups.forEach(group => {
@@ -77,6 +99,11 @@ export class StartMenuComponent implements OnInit {
         this._snackBar.open(message.msg, 'Close', {
           duration: 3000
         });
+      });
+
+      // Subscribe to retrieve User Information requests and send the information back
+      this.qPubSubService.subscribe('QUserInformationRequest', () => {
+        this.qPubSubService.publish('QUserInformationResponse', this.userDetailsDto);
       });
     });
   }
