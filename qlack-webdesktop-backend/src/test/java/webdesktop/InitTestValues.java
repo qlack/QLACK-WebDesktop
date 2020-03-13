@@ -147,7 +147,6 @@ public class InitTestValues {
     wdApplication.setMaximizable(true);
     wdApplication.setSystem(false);
     wdApplication.setShowTitle(false);
-    wdApplication.setSensitiveHeaders("xmm");
     return wdApplication;
   }
 
