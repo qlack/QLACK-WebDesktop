@@ -1,7 +1,9 @@
 # application configuration
 ---
-appUrl: 'http://localhost:8089'
-version: '3.0.0-SNAPSHOT'
+applicationName: management
+groupName: system
+appUrl: 'http://localhost:8090'
+appPath: '/applicationsManagement/'
 icon: 'http://icons.iconarchive.com/icons/franksouza183/fs/64/Categories-preferences-system-icon.png'
 iconSmall: 'http://icons.iconarchive.com/icons/franksouza183/fs/24/Categories-preferences-system-icon.png'
 width: '800'
@@ -18,13 +20,9 @@ minimizable: true
 maximizable: true
 system: true
 showTitle: true
-stripPrefix: false
-sensitiveHeaders: 'management'
-proxyPath: 'http://localhost:8089'
-applicationName: management
-editedByUI: false
-proxyAppUrl: 'http://localhost:8089'
-groupName: system
+proxyAppUrl: '/applicationsManagement/'
+proxyAppPath: '/applicationsManagement/**'
+version: '3.0.0-SNAPSHOT'
 lexicon:
   - languageLocale: en
     values:

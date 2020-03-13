@@ -153,11 +153,6 @@ public class WdApplicationDTO {
   private String proxyAppUrl;
 
   /**
-   * Sensitive headers that the reverse proxy should allow for authentication or other reasons
-   */
-  private String sensitiveHeaders;
-
-  /**
    * File sha256 checksum
    */
   private String checksum;

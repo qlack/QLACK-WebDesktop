@@ -18,7 +18,6 @@ import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 import java.net.URL;
 import java.time.Instant;
 import java.util.Arrays;
-import java.util.HashSet;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.extern.java.Log;
@@ -224,9 +223,7 @@ public class WdApplicationConfig implements ApplicationRunner {
    */
   private void registerReverseProxyRouteFromWdApp(WdApplication wdApplication) {
     registerReverseProxyRoute(wdApplication.getProxyAppPath(),
-        wdApplication.getAppUrl() + wdApplication.getAppPath(),
-        wdApplication.getSensitiveHeaders().split(COMMA_REGEX)
-    );
+        wdApplication.getAppUrl() + wdApplication.getAppPath());
   }
 
   /**
@@ -234,13 +231,11 @@ public class WdApplicationConfig implements ApplicationRunner {
    *
    * @param path the reverse proxy path
    * @param url the matching url
-   * @param sensitiveHeaders headers allowed to pass through Zuul reverse proxy
    */
-  private void registerReverseProxyRoute(String path, String url, String[] sensitiveHeaders) {
+  private void registerReverseProxyRoute(String path, String url) {
     ZuulProperties.ZuulRoute zuulRoute = new ZuulProperties.ZuulRoute(path, url);
     zuulRoute.setCustomSensitiveHeaders(true);
     zuulRoute.setStripPrefix(true);
-    zuulRoute.setSensitiveHeaders(new HashSet<>(Arrays.asList(sensitiveHeaders)));
     discoveryClientRouteLocator.addRoute(zuulRoute);
   }
 

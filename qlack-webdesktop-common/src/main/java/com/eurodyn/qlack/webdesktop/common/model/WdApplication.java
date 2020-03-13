@@ -176,14 +176,6 @@ public class WdApplication extends QlackBaseModel {
   @Column(name = "proxy_app_url", length = 256)
   private String proxyAppUrl;
 
-
-  /**
-   * Sensitive headers that the reverse proxy should allow for authentication or other reasons
-   */
-  @Basic
-  @Column(name = "sensitive_headers", length = 256)
-  private String sensitiveHeaders;
-
   /**
    * File sha256 checksum
    */

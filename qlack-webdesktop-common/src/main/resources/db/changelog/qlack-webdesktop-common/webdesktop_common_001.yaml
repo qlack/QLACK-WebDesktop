@@ -126,9 +126,6 @@ databaseChangeLog:
                   name: proxy_app_path
                   type: varchar(256)
               - column:
-                  name: sensitive_headers
-                  type: varchar(255)
-              - column:
                   name: checksum
                   type: varchar(255)
                   constraints:

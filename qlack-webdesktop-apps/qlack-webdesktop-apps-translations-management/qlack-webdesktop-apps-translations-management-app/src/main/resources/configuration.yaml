@@ -1,8 +1,11 @@
-appUrl: "http://localhost:8081"
-proxyAppUrl: "/translationsManagement/"
-version: "3.0.0-SNAPSHOT"
-icon: "http://localhost:8081/webdesktop/translations/management/logo/icon"
-iconSmall: "http://localhost:8081/webdesktop/translations/management/logo/icon_small"
+# application configuration
+---
+applicationName: Translations Management
+groupName: system
+appUrl: "http://localhost:8091"
+appPath: '/translationsManagement/'
+icon: "http://localhost:8082/translationsManagement/webdesktop/translations/management/logo/icon"
+iconSmall: "http://localhost:8082/translationsManagement/webdesktop/translations/management/logo/icon_small"
 width: "800"
 minWidth: "470"
 height: "500"
@@ -17,11 +20,9 @@ minimizable: true
 maximizable: true
 system: true
 showTitle: true
-stripPrefix: true
-sensitiveHeaders: ""
-proxyPath: "/translationsManagement/**"
-applicationName: Translations Management
-groupName: system
+proxyAppUrl: "/translationsManagement/"
+proxyAppPath: "/translationsManagement/**"
+version: "3.0.0-SNAPSHOT"
 lexicon:
   - languageLocale: en
     values:
