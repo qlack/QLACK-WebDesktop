@@ -1,11 +1,10 @@
 package com.eurodyn.qlack.webdesktop.common.dto;
 
+import java.util.Date;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
-
-import java.util.Date;
 
 /**
  * Data Transfer Object for WdApplication.
@@ -22,20 +21,40 @@ public class WdApplicationDTO {
   private String id;
 
   /**
-   * Version
+   * Placeholder for title when created from UI.
    */
   @NotNull
-  private String version;
+  private String title;
 
   /**
-   * Whether multiple instance of this application are allowed to run
+   * Placeholder for description when created from UI.
    */
-  private boolean multipleInstances;
+  @NotNull
+  private String description;
+
 
   /**
-   * Whether the access is restricted for this application
+   * The application name
    */
-  private boolean restrictAccess;
+  @NotNull
+  private String applicationName;
+
+  /***
+   * The name of the group that might the application belongs to.
+   */
+  private String groupName;
+
+  /**
+   * The url in which the application is hosted
+   */
+  @NotNull
+  private String appUrl;
+
+  /**
+   * The path of the home page of the application
+   */
+  @NotNull
+  private String appPath;
 
   /**
    * Icon
@@ -99,16 +118,49 @@ public class WdApplicationDTO {
   private boolean draggable;
 
   /**
-   * The application name
+   * Whether multiple instance of this application are allowed to run
    */
-  @NotNull
-  private String applicationName;
+  private boolean multipleInstances;
 
+  /**
+   * Whether the title is shown on the application window
+   */
+  private boolean showTitle;
+
+  /**
+   * Whether the access is restricted for this application
+   */
+  private boolean restrictAccess;
 
   /**
    * Whether the application is active
    */
   private boolean active;
+
+  /**
+   * System
+   */
+  private boolean system;
+
+  /**
+   * Reverse proxy path
+   */
+  private String proxyAppPath;
+
+  /**
+   * Reverse proxy application url
+   */
+  private String proxyAppUrl;
+
+  /**
+   * Sensitive headers that the reverse proxy should allow for authentication or other reasons
+   */
+  private String sensitiveHeaders;
+
+  /**
+   * File sha256 checksum
+   */
+  private String checksum;
 
   /**
    * The date the application was added on
@@ -120,60 +172,16 @@ public class WdApplicationDTO {
    */
   private Date lastDeployedOn;
 
-  /**
-   * System
-   */
-  private boolean system;
-
-  /**
-   * Whether the title is shown on the application window
-   */
-  private boolean showTitle;
-
-  /**
-   * File sha256 checksum
-   */
-  private String checksum;
-
-  /***
-   * The name of the group that might the application belongs to.
-   */
-  private String groupName;
-
   /***
    * If the application is created or edited by UI.
    */
   private boolean editedByUI;
 
   /**
-   * Placeholder for title when created from UI.
+   * Version
    */
   @NotNull
-  private String title;
-
-  /**
-   * Placeholder for description when created from UI.
-   */
-  @NotNull
-  private String description;
-
-  /**
-   * Reverse proxy path
-   */
-  @NotNull
-  private String proxyPath;
-
-  /**
-   * Reverse proxy application url
-   */
-  @NotNull
-  private String proxyAppUrl;
-
-  /**
-   * Presentation order index No.
-   */
-  @NotNull
-  private String appUrl;
+  private String version;
 
   /**
    * Set the {@link java.util.Date} based on a long value

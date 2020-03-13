@@ -3,14 +3,13 @@ package com.eurodyn.qlack.webdesktop.service;
 import com.eurodyn.qlack.fuse.aaa.dto.UserAttributeDTO;
 import com.eurodyn.qlack.fuse.aaa.dto.UserDTO;
 import com.eurodyn.qlack.fuse.aaa.service.UserService;
+import java.util.HashMap;
+import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.core.user.DefaultOAuth2User;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
-
-import java.util.HashMap;
-import java.util.Map;
 
 @Service
 @Validated
@@ -39,9 +38,9 @@ public class UserDetailsService {
       String userName = ((DefaultOAuth2User) principal).getName();
       UserDTO userDTO = userService.getUserByName(userName);
       for (UserAttributeDTO attribute : userDTO.getUserAttributes()) {
-         if(attribute.getName().equalsIgnoreCase(attributeName)){
-           return  attribute;
-         }
+        if (attribute.getName().equalsIgnoreCase(attributeName)) {
+          return attribute;
+        }
       }
     }
     return null;

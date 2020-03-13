@@ -9,7 +9,7 @@ export class WebdesktopService {
   }
 
   getActiveApplications(): Observable<any> {
-    return this.http.get('/apps/filtered');
+    return this.http.get('/apps/');
   }
 
   getApplicationByName(applicationName: string): Observable<any> {

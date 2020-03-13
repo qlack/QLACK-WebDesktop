@@ -28,16 +28,19 @@ public class ProcessLexiconUtilTest {
   @InjectMocks
   private ProcessLexiconUtil processLexiconUtil;
 
-  @Mock private LanguageService languageService;
-  @Mock private WdApplicationService wdApplicationService;
-  @Mock private WdApplicationMapper wdApplicationMapper;
+  @Mock
+  private LanguageService languageService;
+  @Mock
+  private WdApplicationService wdApplicationService;
+  @Mock
+  private WdApplicationMapper wdApplicationMapper;
   private WdApplicationDTO wdApplicationDTO;
   private List<LanguageDTO> translationKeys = new ArrayList<>();
   private List<LexiconDTO> lexiconDTOS = new ArrayList<>();
   private LanguageDTO languageDTO;
 
   @Before
-  public void init(){
+  public void init() {
     wdApplicationDTO = new WdApplicationDTO();
     wdApplicationDTO.setId("wdApplicationId");
 
@@ -48,7 +51,7 @@ public class ProcessLexiconUtilTest {
   }
 
   @Test
-  public void createLexiconListTest(){
+  public void createLexiconListTest() {
     when(languageService.getLanguages(anyBoolean())).thenReturn(translationKeys);
 
     assertNotNull(processLexiconUtil.createLexiconList(wdApplicationDTO));
@@ -56,7 +59,7 @@ public class ProcessLexiconUtilTest {
   }
 
   @Test
-  public void createLexiconValuesTest(){
+  public void createLexiconValuesTest() {
     processLexiconUtil.createLexiconValues(lexiconDTOS, wdApplicationDTO);
     verify(wdApplicationService, times(1)).processLexiconValues(any(), any());
   }

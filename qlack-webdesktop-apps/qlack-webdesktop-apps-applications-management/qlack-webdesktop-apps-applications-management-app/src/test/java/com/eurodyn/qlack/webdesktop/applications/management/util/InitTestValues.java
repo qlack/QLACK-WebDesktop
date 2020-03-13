@@ -6,7 +6,6 @@ import com.eurodyn.qlack.webdesktop.applications.management.dto.UserGroupManagem
 import com.eurodyn.qlack.webdesktop.applications.management.dto.UserManagementDTO;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 
 public class InitTestValues {
 

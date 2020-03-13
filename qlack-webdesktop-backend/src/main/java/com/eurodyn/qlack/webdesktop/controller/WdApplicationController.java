@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-
 /**
  * Provides Web Desktop application REST service endpoints.
  *
@@ -36,38 +35,18 @@ public class WdApplicationController {
   }
 
   /**
-   * Get all the active Web Desktop applications
-   *
-   * @return a list of the active Web Desktop applications
-   */
-  @GetMapping(path = "/active")
-  public List<WdApplicationDTO> getActiveApplications() {
-    return wdApplicationService.findAllActiveApplications();
-  }
-
-  /**
-   * Get all Web Desktop applications
-   *
-   * @return a list of all Web Desktop applications
-   */
-  @GetMapping(path = "/all")
-  public List<WdApplicationDTO> getAllApplications() {
-    return wdApplicationService.findAllApplications();
-  }
-
-  /**
    * Get all the active Web Desktop applications filtered
    *
    * @return a list of the active Web Desktop applications
    */
-  @GetMapping(path = "/filtered")
+  @GetMapping(path = "/")
   public List<WdApplicationDTO> getFilteredActiveApplications() {
     return wdApplicationService.findAllActiveApplicationsFilterGroupName();
   }
 
   /**
-   * Get all translations for a specific locale,groupby group title which is the applicationName from .yaml
-   * configuration file Every App has its own group.
+   * Get all translations for a specific locale,groupby group title which is the applicationName
+   * from .yaml configuration file Every App has its own group.
    *
    * @param lang the language locale
    * @return a list of translations for a specific locale
@@ -78,7 +57,7 @@ public class WdApplicationController {
   }
 
   /**
-   * Get a signle Web Desktop application by id.
+   * Get a single Web Desktop application by id.
    *
    * @param id the application's id.
    * @return a signle Web Desktop application.

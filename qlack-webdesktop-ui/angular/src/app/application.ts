@@ -17,4 +17,7 @@ export class Application {
   applicationTitle: string;
   groupName:string;
   groupTranslated:string;
+  appUrl:string;
+  appPath:string;
+  indexPageUrl:string;
 }

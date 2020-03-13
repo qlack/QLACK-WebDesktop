@@ -238,15 +238,15 @@ public class ApplicationsService {
   }
 
   private void removeAllPermissions(ResourceDTO resourceDTO) {
-      Set<String> usersOperationDTO = operationService
-          .getAllowedUsersForOperation("view", resourceDTO.getObjectId(), false);
-      Set<String> userGroupsOperationDTO = operationService
-          .getAllowedGroupsForOperation("view", resourceDTO.getObjectId(), false);
+    Set<String> usersOperationDTO = operationService
+        .getAllowedUsersForOperation("view", resourceDTO.getObjectId(), false);
+    Set<String> userGroupsOperationDTO = operationService
+        .getAllowedGroupsForOperation("view", resourceDTO.getObjectId(), false);
 
-      usersOperationDTO.forEach(
-          user -> operationService.removeOperationFromUser(user, "view", resourceDTO.getId()));
-      userGroupsOperationDTO.forEach(userGroups -> operationService
-          .removeOperationFromGroup(userGroups, "view", resourceDTO.getId()));
+    usersOperationDTO.forEach(
+        user -> operationService.removeOperationFromUser(user, "view", resourceDTO.getId()));
+    userGroupsOperationDTO.forEach(userGroups -> operationService
+        .removeOperationFromGroup(userGroups, "view", resourceDTO.getId()));
   }
 
   /**
@@ -293,7 +293,7 @@ public class ApplicationsService {
    * Updates the file's SHA-256 checksum, saves the Web Desktop application and registers
    *
    * @param wdApplication The Web Desktop application
-   * @param checksum      The file's SHA-256 checksum
+   * @param checksum The file's SHA-256 checksum
    */
   private void processWdApplication(WdApplication wdApplication, String checksum) {
     if (wdApplication != null) {

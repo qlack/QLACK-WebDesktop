@@ -20,9 +20,12 @@ import org.mockito.junit.MockitoJUnitRunner;
 @RunWith(MockitoJUnitRunner.class)
 public class UserGroupManagementServiceTest {
 
-  @InjectMocks private UserGroupManagementService userGroupManagementService;
-  @Mock private UserGroupService userGroupService;
-  @Mock private UserGroupDTO userGroupDTO;
+  @InjectMocks
+  private UserGroupManagementService userGroupManagementService;
+  @Mock
+  private UserGroupService userGroupService;
+  @Mock
+  private UserGroupDTO userGroupDTO;
 
   private UserGroupManagementDTO userGroupManagementDTO;
   private InitTestValues initTestValues;
@@ -30,9 +33,9 @@ public class UserGroupManagementServiceTest {
 
 
   @Before
-  public void onInit(){
+  public void onInit() {
     initTestValues = new InitTestValues();
-    userGroupManagementDTO  = initTestValues.createUserGroupManagementDto();
+    userGroupManagementDTO = initTestValues.createUserGroupManagementDto();
     userDTOS = initTestValues.createUsersStringList();
   }
 
@@ -72,7 +75,7 @@ public class UserGroupManagementServiceTest {
   }
 
   @Test
-  public void findAllGroupsTest(){
+  public void findAllGroupsTest() {
     userGroupManagementService.findAllGroups();
     verify(userGroupService, times(1)).listGroups();
   }

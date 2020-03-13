@@ -29,10 +29,10 @@ public class UserManagementService {
    * @return the response entity.
    */
   public ResponseEntity saveAll(UserManagementDTO userManagementDTO) {
-    if (CollectionUtils.isNotEmpty(userManagementDTO.getGroupsAdded())){
+    if (CollectionUtils.isNotEmpty(userManagementDTO.getGroupsAdded())) {
       userService.addUserGroups(userManagementDTO.getGroupsAdded(), userManagementDTO.getId());
     }
-    if (CollectionUtils.isNotEmpty(userManagementDTO.getGroupsRemoved())){
+    if (CollectionUtils.isNotEmpty(userManagementDTO.getGroupsRemoved())) {
       userService.removeUserGroups(userManagementDTO.getGroupsRemoved(), userManagementDTO.getId());
     }
     return ResponseEntity.status(HttpStatus.OK).body(userManagementDTO);
@@ -42,8 +42,7 @@ public class UserManagementService {
    * Retrieves a user by name.
    *
    * @param name the name to search for.
-   * @return if the user exists return the user,
-   * else return null.
+   * @return if the user exists return the user, else return null.
    */
   public ResponseEntity findUserByName(String name) {
     UserDTO userDTO = userService.getUserByName(name);

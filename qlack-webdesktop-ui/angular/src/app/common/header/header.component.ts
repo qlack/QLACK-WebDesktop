@@ -2,8 +2,7 @@ import {Component, ComponentFactoryResolver, ViewChild, ViewContainerRef,OnInit}
 import {Application} from "../../application";
 import {ApplicationComponent} from "../../application/application.component";
 import {WebdesktopService} from '../../webdesktop.service';
-
-
+import {isNull} from "util";
 
 @Component({
   selector: 'app-header',
@@ -11,7 +10,6 @@ import {WebdesktopService} from '../../webdesktop.service';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
-
 
   static applicationId: number = 0;
   activeApplicationsComponents: any[] = new Array();
@@ -85,7 +83,12 @@ export class HeaderComponent implements OnInit {
     this.tempApplicationComponent.instance.multipleInstances = application.multipleInstances;
     this.tempApplicationComponent.instance.iconImageSrc = application.icon;
     this.tempApplicationComponent.instance.applicationName = application.applicationName;
-    this.tempApplicationComponent.instance.proxyAppUrl = application.proxyAppUrl;
+    if (this.tempApplicationComponent.instance.proxyAppUrl === null){
+      this.tempApplicationComponent.instance.indexPageUrl = application.appUrl + application.appPath;
+    }
+    else {
+      this.tempApplicationComponent.instance.indexPageUrl = application.proxyAppUrl;
+    }
     this.tempApplicationComponent.instance.Id = HeaderComponent.applicationId++;
     this.tempApplicationComponent.instance.iconSmallSrc = application.iconSmall;
     this.tempApplicationComponent.instance.onClose.subscribe(id => {

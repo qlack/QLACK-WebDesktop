@@ -16,6 +16,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.exc.MismatchedInputException;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 import java.net.URL;
+import java.time.Instant;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
@@ -32,8 +33,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
 
 /**
- * Loads and creates Web Desktop application from .yaml configuration files provided as url endpoints and also registers
- * the routes for Zuul reverse proxy.
+ * Loads and creates Web Desktop application from .yaml configuration files provided as url
+ * endpoints and also registers the routes for Zuul reverse proxy.
  *
  * @author European Dynamics SA.
  */
@@ -67,11 +68,11 @@ public class WdApplicationConfig implements ApplicationRunner {
   private DiscoveryClientRouteLocator discoveryClientRouteLocator;
   private GroupService groupService;
   private KeyService keyService;
-  private  UserRepository userRepository;
-  private  LdapUserUtil ldapUserUtil;
+  private UserRepository userRepository;
+  private LdapUserUtil ldapUserUtil;
   private WdApplicationService wdApplicationService;
   private ResourceWdApplicationService resourceWdApplicationService;
-  @Value("${wd.admin}")
+  @Value("${wd.admin:null}")
   private String wdAdmin;
 
   @Autowired
@@ -79,8 +80,10 @@ public class WdApplicationConfig implements ApplicationRunner {
   public WdApplicationConfig(
       WdApplicationRepository wdApplicationRepository, CryptoDigestService cryptoDigestService,
       DiscoveryClientRouteLocator discoveryClientRouteLocator,
-      GroupService groupService, KeyService keyService,UserRepository userRepository,LdapUserUtil ldapUserUtil,
-      ResourceWdApplicationService resourceWdApplicationService, WdApplicationService wdApplicationService) {
+      GroupService groupService, KeyService keyService, UserRepository userRepository,
+      LdapUserUtil ldapUserUtil,
+      ResourceWdApplicationService resourceWdApplicationService,
+      WdApplicationService wdApplicationService) {
 
     this.wdApplicationRepository = wdApplicationRepository;
     this.cryptoDigestService = cryptoDigestService;
@@ -94,27 +97,28 @@ public class WdApplicationConfig implements ApplicationRunner {
   }
 
   /**
-   * Searches command line arguments for WebDesktop application configuration url endpoints. If found, the urls are
-   * validated and the configuration files are loaded as Web Desktop applications in the database. This methods
-   * overrides the {@link ApplicationRunner#run(org.springframework.boot.ApplicationArguments)} method to allow it to
-   * run just before the application starts.
-   * Also creates superAdmin user if not exists.
+   * Searches command line arguments for WebDesktop application configuration url endpoints. If
+   * found, the urls are validated and the configuration files are loaded as Web Desktop
+   * applications in the database. This methods overrides the {@link ApplicationRunner#run(org.springframework.boot.ApplicationArguments)}
+   * method to allow it to run just before the application starts. Also creates superAdmin user if
+   * not exists.
+   *
    * @param args The command-line application arguments as loaded by Spring Boot
    */
   @Override
   public void run(ApplicationArguments args) {
 
-      if (userRepository.findByUsername(wdAdmin) == null && wdAdmin != null){
-        ldapUserUtil.setLdapMappingAttrs("firstName-givenName,lastName-sn");
-        User user = ldapUserUtil.syncUserWithAAA(wdAdmin);
-        if(user != null) {
-          user.setSuperadmin(true);
-          userRepository.save(user);
-          log.info("Admin  successfully created");
-        }else{
-          log.warning("Could not sync Admin  with AAA.");
-        }
+    if (userRepository.findByUsername(wdAdmin) == null && wdAdmin != null) {
+      ldapUserUtil.setLdapMappingAttrs("firstName-givenName,lastName-sn");
+      User user = ldapUserUtil.syncUserWithAAA(wdAdmin);
+      if (user != null) {
+        user.setSuperadmin(true);
+        userRepository.save(user);
+        log.info("Admin  successfully created");
+      } else {
+        log.warning("Could not sync Admin  with AAA.");
       }
+    }
 
     if (args.containsOption(APPS_URL)) {
       String[] urls = args.getOptionValues(APPS_URL).get(0).split(COMMA_REGEX);
@@ -132,7 +136,7 @@ public class WdApplicationConfig implements ApplicationRunner {
 
     // Register Reverse Proxy Routes from database
     for (WdApplication app : wdApplicationRepository.findByActiveIsTrue()) {
-      if (isNotNullOrEmpty(app.getProxyPath()) && isNotNullOrEmpty(app.getAppUrl())) {
+      if (isNotNullOrEmpty(app.getProxyAppPath()) && isNotNullOrEmpty(app.getAppUrl())) {
         log.info(LOAD_ROUTES_FROM_DB_MSG);
         registerReverseProxyRouteFromWdApp(app);
       }
@@ -150,9 +154,10 @@ public class WdApplicationConfig implements ApplicationRunner {
   }
 
   /**
-   * Reads the .yaml files from the provided urls. If their content has already been persisted in the Web Desktop
-   * application table and no changes are found, nothing happens. If their content has changed the application is
-   * updated in the database. In case the current application does not exist it will be created.
+   * Reads the .yaml files from the provided urls. If their content has already been persisted in
+   * the Web Desktop application table and no changes are found, nothing happens. If their content
+   * has changed the application is updated in the database. In case the current application does
+   * not exist it will be created.
    *
    * @param urls The urls that return a yaml configuration file
    */
@@ -169,13 +174,14 @@ public class WdApplicationConfig implements ApplicationRunner {
 
         if (existingWdApp == null) {
           log.info(APP_CREATION_MSG);
+          wdApplication.setAddedOn(Instant.now().toEpochMilli());
           processWdApplication(wdApplication, sha256);
           processLexiconValues(wdApplication.getLexicon(), wdApplication);
 
         } else if (!existingWdApp.getChecksum().equals(sha256)) {
           log.info(APP_UPDATE_MSG);
 
-          if (existingWdApp.isEditedByUI()){
+          if (existingWdApp.isEditedByUI()) {
             wdApplication.setActive(existingWdApp.isActive());
             wdApplication.setRestrictAccess(existingWdApp.isRestrictAccess());
           }
@@ -201,8 +207,8 @@ public class WdApplicationConfig implements ApplicationRunner {
   public void processWdApplication(WdApplication wdApplication, String checksum) {
     if (wdApplication != null) {
       wdApplication.setChecksum(checksum);
+      wdApplication.setLastDeployedOn(Instant.now().toEpochMilli());
       wdApplicationRepository.save(wdApplication);
-
       WdApplication newWdApplication = wdApplicationRepository
           .findByApplicationName(wdApplication.getApplicationName());
       resourceWdApplicationService.createApplicationResource(newWdApplication);
@@ -217,8 +223,8 @@ public class WdApplicationConfig implements ApplicationRunner {
    * @param wdApplication the {@link WdApplication} object
    */
   private void registerReverseProxyRouteFromWdApp(WdApplication wdApplication) {
-    registerReverseProxyRoute(wdApplication.getProxyPath(), wdApplication.getAppUrl(),
-        wdApplication.isStripPrefix(),
+    registerReverseProxyRoute(wdApplication.getProxyAppPath(),
+        wdApplication.getAppUrl() + wdApplication.getAppPath(),
         wdApplication.getSensitiveHeaders().split(COMMA_REGEX)
     );
   }
@@ -228,12 +234,10 @@ public class WdApplicationConfig implements ApplicationRunner {
    *
    * @param path the reverse proxy path
    * @param url the matching url
-   * @param stripPrefix whether the path should be stripped off of the forwarding url
    * @param sensitiveHeaders headers allowed to pass through Zuul reverse proxy
    */
-  private void registerReverseProxyRoute(String path, String url, boolean stripPrefix,
-      String[] sensitiveHeaders) {
-    ZuulProperties.ZuulRoute zuulRoute = new ZuulProperties.ZuulRoute(path,url);
+  private void registerReverseProxyRoute(String path, String url, String[] sensitiveHeaders) {
+    ZuulProperties.ZuulRoute zuulRoute = new ZuulProperties.ZuulRoute(path, url);
     zuulRoute.setCustomSensitiveHeaders(true);
     zuulRoute.setStripPrefix(true);
     zuulRoute.setSensitiveHeaders(new HashSet<>(Arrays.asList(sensitiveHeaders)));
@@ -247,19 +251,21 @@ public class WdApplicationConfig implements ApplicationRunner {
    * @param wdApplication The webDesktop application
    */
   public void processLexiconValues(List<LexiconDTO> translations, WdApplication wdApplication) {
-    wdApplicationService.processLexiconValues(translations,wdApplication);
+    wdApplicationService.processLexiconValues(translations, wdApplication);
     createKeyForAppGroupName(wdApplication.getGroupName());
   }
 
   public void createKeyForAppGroupName(String appGroupName) {
     if (appGroupName != null) {
-      String webDesktopUiGroupId = groupService.getGroupByTitle(WEBDESKTOP_UI_LEXICON_GROUP).getId();
+      String webDesktopUiGroupId = groupService.getGroupByTitle(WEBDESKTOP_UI_LEXICON_GROUP)
+          .getId();
       if (keyService.getKeyByName(appGroupName, webDesktopUiGroupId, false) == null) {
         KeyDTO keyDTO = new KeyDTO();
         keyDTO.setGroupId(webDesktopUiGroupId);
         keyDTO.setName(appGroupName);
         String keyId = keyService.createKey(keyDTO, false);
-        String   modifiedGroupName = Character.toUpperCase(appGroupName.charAt(0)) + appGroupName.substring(1);
+        String modifiedGroupName =
+            Character.toUpperCase(appGroupName.charAt(0)) + appGroupName.substring(1);
         keyService
             .updateTranslationByLocale(keyId, DEFAULT_LANGUAGE_LOCALE, modifiedGroupName);
       }

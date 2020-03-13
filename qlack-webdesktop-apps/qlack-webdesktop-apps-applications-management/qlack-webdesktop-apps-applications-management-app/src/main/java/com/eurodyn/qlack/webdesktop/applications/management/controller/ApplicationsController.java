@@ -38,6 +38,7 @@ public class ApplicationsController {
 
   /**
    * Returns all the QLACK Web Desktop applications.
+   *
    * @return a list containing all the applications
    */
   @GetMapping("/applications")
@@ -48,6 +49,7 @@ public class ApplicationsController {
 
   /**
    * Returns an application by given id.
+   *
    * @param id the application's id
    * @return a single Web Desktop application.
    */
@@ -58,6 +60,7 @@ public class ApplicationsController {
 
   /**
    * This method returns all the QLACK Web Desktop translations.
+   *
    * @return a list containing all the translations
    */
   @GetMapping("/translations")
@@ -68,7 +71,7 @@ public class ApplicationsController {
 
   /**
    * Saves a new wd application.
-   * @param wdApplicationManagementDTO
+   *
    * @return the response entity.
    */
   @PostMapping("/applications")
@@ -79,16 +82,18 @@ public class ApplicationsController {
 
   /**
    * Updates a wd application.
-   * @param wdApplicationManagementDTO
+   *
    * @return the response entity.
    */
   @PostMapping("/applications/{id}")
-  public ResponseEntity update(@Valid @RequestBody WdApplicationManagementDTO wdApplicationManagementDTO) {
+  public ResponseEntity update(
+      @Valid @RequestBody WdApplicationManagementDTO wdApplicationManagementDTO) {
     return applicationsService.update(wdApplicationManagementDTO);
   }
 
   /**
    * Saves a new wd application or updates an existing one through yaml file.
+   *
    * @param file the file to retrieve data from.
    */
   @PostMapping(value = "/upload")
@@ -98,6 +103,7 @@ public class ApplicationsController {
 
   /**
    * Retrieves user's attributes based on attribute name.
+   *
    * @param attributeName the attribute to search for.
    * @return the responded userAttributeDTO.
    */

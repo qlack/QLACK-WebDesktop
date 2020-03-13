@@ -22,6 +22,6 @@ public class NoSecurityConfig extends WebSecurityConfigurerAdapter {
    */
   @Override
   public void configure(HttpSecurity http) throws Exception {
-    http.authorizeRequests().antMatchers("/").permitAll();
+    http.authorizeRequests().antMatchers("/").permitAll().and().headers().frameOptions().disable();
   }
 }

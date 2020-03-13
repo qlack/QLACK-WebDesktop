@@ -2,6 +2,8 @@ package com.eurodyn.qlack.webdesktop.filter;
 
 import com.eurodyn.qlack.fuse.aaa.model.User;
 import com.eurodyn.qlack.fuse.aaa.service.LdapUserUtil;
+import java.io.IOException;
+import java.util.Date;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -12,14 +14,12 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.core.user.DefaultOAuth2User;
 
-import java.io.IOException;
-import java.util.Date;
-
 
 /**
- * SSO / LDAP / AAA Integration filter After SSO user authentication the username is queried against a user provided
- * LDAP service to ensure the user exists. If this is the case the users is created if not already in the local AAA
- * users database. The filter should be registered at the Spring Security Filter chain.
+ * SSO / LDAP / AAA Integration filter After SSO user authentication the username is queried against
+ * a user provided LDAP service to ensure the user exists. If this is the case the users is created
+ * if not already in the local AAA users database. The filter should be registered at the Spring
+ * Security Filter chain.
  *
  * @author European Dynamics SA.
  */

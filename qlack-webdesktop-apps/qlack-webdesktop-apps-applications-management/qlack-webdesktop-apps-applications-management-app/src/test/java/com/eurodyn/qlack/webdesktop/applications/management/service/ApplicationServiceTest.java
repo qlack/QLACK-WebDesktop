@@ -52,20 +52,34 @@ public class ApplicationServiceTest {
   @InjectMocks
   private ApplicationsService applicationsService;
 
-  @Mock private WdApplicationService wdApplicationService;
-  @Mock private ProcessLexiconUtil processLexiconUtil;
-  @Mock private ResourceWdApplicationService resourceWdApplicationService;
-  @Mock private ResourceService resourceService;
-  @Mock private WdApplicationRepository wdApplicationRepository;
-  @Mock private CryptoDigestService cryptoDigestService;
-  @Mock private WdApplicationMapper wdApplicationMapper;
-  @Mock private OperationService operationService;
-  @Mock private UserService userService;
-  @Mock private UserGroupService userGroupService;
-  @Mock private DefaultOAuth2User defaultOAuth2User;
-  @Mock private Authentication authentication;
-  @Mock private SecurityContext securityContext;
-  @Mock private Object principal;
+  @Mock
+  private WdApplicationService wdApplicationService;
+  @Mock
+  private ProcessLexiconUtil processLexiconUtil;
+  @Mock
+  private ResourceWdApplicationService resourceWdApplicationService;
+  @Mock
+  private ResourceService resourceService;
+  @Mock
+  private WdApplicationRepository wdApplicationRepository;
+  @Mock
+  private CryptoDigestService cryptoDigestService;
+  @Mock
+  private WdApplicationMapper wdApplicationMapper;
+  @Mock
+  private OperationService operationService;
+  @Mock
+  private UserService userService;
+  @Mock
+  private UserGroupService userGroupService;
+  @Mock
+  private DefaultOAuth2User defaultOAuth2User;
+  @Mock
+  private Authentication authentication;
+  @Mock
+  private SecurityContext securityContext;
+  @Mock
+  private Object principal;
   private WdApplicationManagementDTO wdApplicationManagementDTO;
   private WdApplication wdApplication;
   private WdApplicationDTO wdApplicationDTO;
@@ -76,7 +90,7 @@ public class ApplicationServiceTest {
   private Set<UserAttributeDTO> userAttributeDTOS;
 
   @Before
-  public void onInit(){
+  public void onInit() {
     wdApplication = new WdApplication();
     wdApplication.setApplicationName("eurodyn");
 
@@ -130,19 +144,19 @@ public class ApplicationServiceTest {
   }
 
   @Test
-  public void getApplicationsTest(){
+  public void getApplicationsTest() {
     applicationsService.getApplications();
     verify(wdApplicationService, times(1)).findAllApplications();
   }
 
   @Test
-  public void getApplicationByIdNullResourceTest(){
+  public void getApplicationByIdNullResourceTest() {
     applicationsService.getApplicationById(wdApplicationManagementDTO.getId());
     verify(resourceService, times(1)).getResourceByObjectId(any());
   }
 
   @Test
-  public void getApplicationByIdWithResourceTest(){
+  public void getApplicationByIdWithResourceTest() {
     when(resourceService.getResourceByObjectId(any())).thenReturn(resourceDTO);
     applicationsService.getApplicationById(wdApplicationManagementDTO.getId());
     verify(resourceService, times(1)).getResourceByObjectId(any());
@@ -151,14 +165,14 @@ public class ApplicationServiceTest {
   }
 
   @Test
-  public void getTranslationsTest(){
+  public void getTranslationsTest() {
     applicationsService.getTranslations("en");
     verify(wdApplicationService, times(1)).findTranslationsForLocale(any());
   }
 
 
   @Test
-  public void saveTest(){
+  public void saveTest() {
     wdApplicationDTO.setApplicationName("applicationName");
     wdApplicationManagementDTO.setDetails(wdApplicationDTO);
     applicationsService.save(wdApplicationManagementDTO);
@@ -166,7 +180,7 @@ public class ApplicationServiceTest {
   }
 
   @Test
-  public void saveAlreadyExistsCodeTest(){
+  public void saveAlreadyExistsCodeTest() {
     wdApplicationDTO.setApplicationName("applicationName");
     wdApplication.setApplicationName("applicationName");
     wdApplicationManagementDTO.setDetails(wdApplicationDTO);
@@ -178,7 +192,7 @@ public class ApplicationServiceTest {
   }
 
   @Test
-  public void saveAlreadyExistsCodeNotEqualsTest(){
+  public void saveAlreadyExistsCodeNotEqualsTest() {
     wdApplicationDTO.setApplicationName("applicationName");
     wdApplication.setApplicationName("otherName");
     wdApplicationManagementDTO.setDetails(wdApplicationDTO);
@@ -188,7 +202,7 @@ public class ApplicationServiceTest {
   }
 
   @Test
-  public void saveUpdatePermissionsTest(){
+  public void saveUpdatePermissionsTest() {
     wdApplicationDTO.setApplicationName("applicationName");
     wdApplicationDTO.setRestrictAccess(true);
     wdApplicationManagementDTO.setDetails(wdApplicationDTO);
@@ -197,7 +211,7 @@ public class ApplicationServiceTest {
   }
 
   @Test
-  public void updateApplicationUpdatePermissionsWithCollectionsTest(){
+  public void updateApplicationUpdatePermissionsWithCollectionsTest() {
     wdApplicationDTO.setApplicationName("applicationName");
     wdApplicationManagementDTO.setDetails(wdApplicationDTO);
     wdApplicationManagementDTO.getDetails().setRestrictAccess(true);
@@ -212,7 +226,7 @@ public class ApplicationServiceTest {
   }
 
   @Test
-  public void updateTest(){
+  public void updateTest() {
     wdApplicationDTO.setRestrictAccess(false);
     wdApplication.setRestrictAccess(false);
     wdApplicationManagementDTO.setDetails(wdApplicationDTO);
@@ -234,14 +248,16 @@ public class ApplicationServiceTest {
   }
 
   @Test
-  public void updateApplicationRemoveAllPermissionsTest(){
+  public void updateApplicationRemoveAllPermissionsTest() {
     wdApplicationDTO.setRestrictAccess(false);
     wdApplication.setRestrictAccess(true);
     wdApplicationManagementDTO.setDetails(wdApplicationDTO);
     when(wdApplicationRepository.fetchById(any())).thenReturn(wdApplication);
     when(resourceService.getResourceByObjectId(any())).thenReturn(resourceDTO);
-    when(operationService.getAllowedUsersForOperation(any(), any(), anyBoolean())).thenReturn(usersOperationDTO);
-    when(operationService.getAllowedGroupsForOperation(any(), any(), anyBoolean())).thenReturn(usersOperationDTO);
+    when(operationService.getAllowedUsersForOperation(any(), any(), anyBoolean()))
+        .thenReturn(usersOperationDTO);
+    when(operationService.getAllowedGroupsForOperation(any(), any(), anyBoolean()))
+        .thenReturn(usersOperationDTO);
 
     applicationsService.update(wdApplicationManagementDTO);
     verify(wdApplicationRepository, times(1)).fetchById(any());
@@ -288,10 +304,11 @@ public class ApplicationServiceTest {
   }
 
   @Test
-  public void findUserAttributeByNameNullTest(){
+  public void findUserAttributeByNameNullTest() {
     when(securityContext.getAuthentication()).thenReturn(authentication);
     SecurityContextHolder.setContext(securityContext);
-    when(SecurityContextHolder.getContext().getAuthentication().getPrincipal()).thenReturn(defaultOAuth2User);
+    when(SecurityContextHolder.getContext().getAuthentication().getPrincipal())
+        .thenReturn(defaultOAuth2User);
     when(userService.getUserByName(any())).thenReturn(userDTO);
 
     assertNull(applicationsService.findUserAttributeByName("email"));
@@ -299,10 +316,11 @@ public class ApplicationServiceTest {
   }
 
   @Test
-  public void findUserAttributeByNameTest(){
+  public void findUserAttributeByNameTest() {
     when(securityContext.getAuthentication()).thenReturn(authentication);
     SecurityContextHolder.setContext(securityContext);
-    when(SecurityContextHolder.getContext().getAuthentication().getPrincipal()).thenReturn(defaultOAuth2User);
+    when(SecurityContextHolder.getContext().getAuthentication().getPrincipal())
+        .thenReturn(defaultOAuth2User);
     when(userService.getUserByName(any())).thenReturn(userDTO);
 
     UserAttributeDTO result = applicationsService.findUserAttributeByName("company");
@@ -311,10 +329,11 @@ public class ApplicationServiceTest {
   }
 
   @Test
-  public void findUserAttributeByNameFailTest(){
+  public void findUserAttributeByNameFailTest() {
     when(securityContext.getAuthentication()).thenReturn(authentication);
     SecurityContextHolder.setContext(securityContext);
-    when(SecurityContextHolder.getContext().getAuthentication().getPrincipal()).thenReturn(principal);
+    when(SecurityContextHolder.getContext().getAuthentication().getPrincipal())
+        .thenReturn(principal);
 
     assertNull(applicationsService.findUserAttributeByName("company"));
     verify(userService, times(0)).getUserByName(any());

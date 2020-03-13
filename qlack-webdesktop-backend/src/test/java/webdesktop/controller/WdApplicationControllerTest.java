@@ -28,53 +28,46 @@ public class WdApplicationControllerTest {
   @Before
   public void setup() {
     this.mockMvc = MockMvcBuilders
-        .standaloneSetup(new WdApplicationController(wdApplicationService,userDetailsService)).build();
+        .standaloneSetup(new WdApplicationController(wdApplicationService, userDetailsService))
+        .build();
   }
 
-
-  @Test
-  public void getActiveApplicationsTest() throws Exception {
-    mockMvc.perform(get("/apps/active")
-        .accept(MediaType.APPLICATION_JSON))
-        .andExpect(status().isOk());
-  }
-  @Test
-  public void getAllApplicationsTest() throws Exception {
-    mockMvc.perform(get("/apps/all")
-        .accept(MediaType.APPLICATION_JSON))
-        .andExpect(status().isOk());
-  }
   @Test
   public void getFilteredActiveApplicationsTest() throws Exception {
-    mockMvc.perform(get("/apps/filtered")
+    mockMvc.perform(get("/apps/")
         .accept(MediaType.APPLICATION_JSON))
         .andExpect(status().isOk());
   }
+
   @Test
   public void getTranslationsTest() throws Exception {
     mockMvc.perform(get("/apps/translations")
         .accept(MediaType.APPLICATION_JSON)
-        .param("lang","en"))
+        .param("lang", "en"))
         .andExpect(status().isOk());
   }
+
   @Test
   public void getApplicationByIdTest() throws Exception {
-    mockMvc.perform(get("/apps/{id}","1")
+    mockMvc.perform(get("/apps/{id}", "1")
         .accept(MediaType.APPLICATION_JSON))
         .andExpect(status().isOk());
   }
+
   @Test
   public void getApplicationByNameTest() throws Exception {
-    mockMvc.perform(get("/apps/app/{name}","applicationName")
+    mockMvc.perform(get("/apps/app/{name}", "applicationName")
         .accept(MediaType.APPLICATION_JSON))
         .andExpect(status().isOk());
   }
+
   @Test
   public void getUserAttributeByNameTest() throws Exception {
-    mockMvc.perform(get("/apps/user/attributes/{attributeName}","attributeName")
+    mockMvc.perform(get("/apps/user/attributes/{attributeName}", "attributeName")
         .accept(MediaType.APPLICATION_JSON))
         .andExpect(status().isOk());
   }
+
   @Test
   public void getUserAttributesTest() throws Exception {
     mockMvc.perform(get("/apps/user/attributes")

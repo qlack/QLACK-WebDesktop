@@ -20,7 +20,7 @@ system: true
 showTitle: true
 stripPrefix: false
 sensitiveHeaders: 'management'
-proxyPath: 'http://localhost:8089'
+proxyAppPath: 'http://localhost:8089'
 applicationName: management
 editedByUI: false
 proxyAppUrl: 'http://localhost:8089'

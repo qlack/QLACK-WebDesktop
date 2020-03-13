@@ -123,7 +123,7 @@ public class InitTestValues {
 
     wdApplication.setId("0f9a2472-cde0-44a6-ba3d-8e60992904fb");
     wdApplication.setProxyAppUrl("apps/usermanagement/");
-    wdApplication.setProxyPath(proxyPAth);
+    wdApplication.setProxyAppPath(proxyPAth);
     wdApplication.setAppUrl(appUrl);
 
     wdApplication.setAddedOn(new Long("2121545432165"));

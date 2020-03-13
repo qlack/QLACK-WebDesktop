@@ -41,11 +41,12 @@ public class UserGroupManagementService {
 
     UserGroupDTO newUserGroupDTO = userGroupService
         .getGroupByName(userGroupManagementDTO.getName(), true);
-    if (CollectionUtils.isNotEmpty(userGroupManagementDTO.getUsersAdded())){
+    if (CollectionUtils.isNotEmpty(userGroupManagementDTO.getUsersAdded())) {
       userGroupService.addUsers(userGroupManagementDTO.getUsersAdded(), newUserGroupDTO.getId());
     }
-    if (CollectionUtils.isNotEmpty(userGroupManagementDTO.getUsersRemoved())){
-      userGroupService.removeUsers(userGroupManagementDTO.getUsersRemoved(), newUserGroupDTO.getId());
+    if (CollectionUtils.isNotEmpty(userGroupManagementDTO.getUsersRemoved())) {
+      userGroupService
+          .removeUsers(userGroupManagementDTO.getUsersRemoved(), newUserGroupDTO.getId());
     }
 
     return ResponseEntity.status(HttpStatus.OK).body(userGroupManagementDTO);
@@ -53,9 +54,8 @@ public class UserGroupManagementService {
 
   /**
    * Retrieves a list with all userGroups.
-   * 
-   * @return if there are any userGroups return them in a list,
-   * else return null.
+   *
+   * @return if there are any userGroups return them in a list, else return null.
    */
   public ResponseEntity findAllGroups() {
     List<UserGroupDTO> groupDTO = userGroupService.listGroups();

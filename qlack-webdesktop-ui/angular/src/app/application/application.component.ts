@@ -32,11 +32,11 @@ export class ApplicationComponent implements OnChanges, OnInit {
   @Input() minWidth?: number;
   @Input() Id?: number;
   @Input() iconImageSrc?: string;
-  @Input() proxyAppUrl?: string;
   @Input() showTitle: boolean = false;
   @Input() multipleInstances: boolean = false;
   @Input() applicationName?: string;
   @Input() iconSmallSrc?: string;
+  @Input() indexPageUrl?: string;
 
   // 42 is the height of the div of image icon
   applicationMinimizedPosition = {x: 0, y: -42};
@@ -64,7 +64,7 @@ export class ApplicationComponent implements OnChanges, OnInit {
         this.iconImageSrc);
     this.safeSmallIconImageSrc = this.sanitizer.bypassSecurityTrustResourceUrl(
         this.iconSmallSrc);
-    this.safeAppUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.proxyAppUrl);
+    this.safeAppUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.indexPageUrl);
     this.initDraggableValue = this.isDraggable;
     this.zIndex = this.zIndex = ++ApplicationComponent.zIndexCounter;
   }

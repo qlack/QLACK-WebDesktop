@@ -18,21 +18,23 @@ import org.mockito.junit.MockitoJUnitRunner;
 @RunWith(MockitoJUnitRunner.class)
 public class UserManagementServiceTest {
 
-  @InjectMocks UserManagementService userManagementService;
-  @Mock UserService userService;
+  @InjectMocks
+  UserManagementService userManagementService;
+  @Mock
+  UserService userService;
   private UserManagementDTO userManagementDTO;
   private InitTestValues initTestValues;
   private Collection<String> groupDtos;
 
   @Before
-  public void onInit(){
+  public void onInit() {
     initTestValues = new InitTestValues();
     userManagementDTO = initTestValues.createUserManagementDto();
     groupDtos = initTestValues.createUserGroupStringList();
   }
 
   @Test
-  public void saveAllAddUserGroupsTest(){
+  public void saveAllAddUserGroupsTest() {
     userManagementDTO.setGroupsAdded(groupDtos);
     userManagementService.saveAll(userManagementDTO);
     verify(userService, times(1)).addUserGroups(any(), any());
@@ -40,7 +42,7 @@ public class UserManagementServiceTest {
   }
 
   @Test
-  public void saveAllRemoveUserGroupsTest(){
+  public void saveAllRemoveUserGroupsTest() {
     userManagementDTO.setGroupsRemoved(groupDtos);
     userManagementService.saveAll(userManagementDTO);
     verify(userService, times(1)).removeUserGroups(any(), any());
@@ -48,7 +50,7 @@ public class UserManagementServiceTest {
   }
 
   @Test
-  public void findUserByNameTest(){
+  public void findUserByNameTest() {
     userManagementService.findUserByName(userManagementDTO.getUsername());
     verify(userService, times(1)).getUserByName(userManagementDTO.getUsername());
   }

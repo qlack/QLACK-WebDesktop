@@ -13,30 +13,22 @@ databaseChangeLog:
                     primaryKey: true
                     nullable: false
               - column:
-                  name: version
-                  type: varchar(32)
+                  name: application_name
+                  type: varchar(255)
                   constraints:
-                    nullable: false
+                    unique: true
+                    nullable: true
               - column:
-                  name: proxy_path
+                  name: group_name
+                  type: varchar(255)
+              - column:
+                  name: app_url
                   type: varchar(256)
                   constraints:
                     nullable: false
               - column:
-                  name: app_index
+                  name: app_path
                   type: varchar(256)
-                  constraints:
-                    nullable: false
-              - column:
-                  name: multiple_instances
-                  type: boolean
-                  defaultValue: false
-                  constraints:
-                    nullable: false
-              - column:
-                  name: restrict_access
-                  type: boolean
-                  defaultValue: false
                   constraints:
                     nullable: false
               - column:
@@ -100,15 +92,45 @@ databaseChangeLog:
                   constraints:
                     nullable: false
               - column:
-                  name: translations_group
-                  type: varchar(255)
+                  name: multiple_instances
+                  type: boolean
+                  defaultValue: false
                   constraints:
-                    unique: true
+                    nullable: false
+              - column:
+                  name: show_title
+                  type: boolean
+                  constraints:
+                    nullable: false
+              - column:
+                  name: restrict_access
+                  type: boolean
+                  defaultValue: false
+                  constraints:
                     nullable: false
               - column:
                   name: is_active
                   type: boolean
                   defaultValue: true
+                  constraints:
+                    nullable: false
+              - column:
+                  name: is_system
+                  type: boolean
+                  constraints:
+                    nullable: false
+              - column:
+                  name: proxy_app_url
+                  type: varchar(255)
+              - column:
+                  name: proxy_app_path
+                  type: varchar(256)
+              - column:
+                  name: sensitive_headers
+                  type: varchar(255)
+              - column:
+                  name: checksum
+                  type: varchar(255)
                   constraints:
                     nullable: false
               - column:
@@ -122,28 +144,13 @@ databaseChangeLog:
                   constraints:
                     nullable: false
               - column:
-                  name: is_system
+                  name: edited_by_ui
                   type: boolean
+                  defaultValue: false
                   constraints:
                     nullable: false
               - column:
-                  name: show_title
-                  type: boolean
+                  name: version
+                  type: varchar(32)
                   constraints:
                     nullable: false
-              - column:
-                  name: checksum
-                  type: varchar(255)
-                  constraints:
-                    nullable: false
-              - column:
-                  name: group_name
-                  type: varchar(255)
-              - column:
-                  name: strip_prefix
-                  type: boolean
-                  constraints:
-                    nullable: false
-              - column:
-                  name: sensitive_headers
-                  type: varchar(255)

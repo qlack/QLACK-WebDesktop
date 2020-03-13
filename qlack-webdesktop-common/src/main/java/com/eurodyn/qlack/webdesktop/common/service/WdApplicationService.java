@@ -1,6 +1,5 @@
 package com.eurodyn.qlack.webdesktop.common.service;
 
-
 import com.eurodyn.qlack.fuse.aaa.dto.UserDTO;
 import com.eurodyn.qlack.fuse.aaa.dto.UserGroupDTO;
 import com.eurodyn.qlack.fuse.aaa.service.OperationService;
@@ -52,7 +51,8 @@ public class WdApplicationService {
   public WdApplicationService(WdApplicationMapper mapper,
       WdApplicationRepository wdApplicationRepository, GroupService groupService,
       KeyService keyService, UserService userService,
-      OperationService operationService, UserGroupService userGroupService, LanguageService languageService) {
+      OperationService operationService, UserGroupService userGroupService,
+      LanguageService languageService) {
     this.mapper = mapper;
     this.wdApplicationRepository = wdApplicationRepository;
     this.groupService = groupService;
@@ -100,7 +100,7 @@ public class WdApplicationService {
     //find system applications
     List<WdApplication> wdApplicationListSystem = wdApplicationRepository
         .findBySystemAndActiveIsTrue(true);
-    if (user!= null && user.isSuperadmin()){
+    if (user != null && user.isSuperadmin()) {
       wdApplicationList.addAll(wdApplicationListSystem);
     }
     //filter the application list based on user's permissions
@@ -116,6 +116,10 @@ public class WdApplicationService {
         wdApplication.setGroupName("");
       }
       wdApplication.setGroupName(wdApplication.getGroupName().trim());
+
+      if (wdApplication.getProxyAppUrl() != null) {
+        wdApplication.setAppUrl(null);
+      }
     });
     return mapper.mapToDTO(filteredWdList);
   }
@@ -172,7 +176,7 @@ public class WdApplicationService {
     return wdApplicationRepository.findByApplicationName(name);
   }
 
-  public WdApplicationDTO findApplicationDTOByName(String name){
+  public WdApplicationDTO findApplicationDTOByName(String name) {
     WdApplication wdApplication = wdApplicationRepository.findByApplicationName(name);
     return mapper.mapToDTO(wdApplication);
   }
@@ -186,7 +190,7 @@ public class WdApplicationService {
     wdApplicationRepository.save(wdApplication);
   }
 
-  public void processLexiconValues(List<LexiconDTO> translations, WdApplication wdApplication){
+  public void processLexiconValues(List<LexiconDTO> translations, WdApplication wdApplication) {
     GroupDTO groupDTO = groupService.getGroupByTitle(wdApplication.getApplicationName());
     // we need groupId variable to get the generated Id of new group  from database
     String groupId;

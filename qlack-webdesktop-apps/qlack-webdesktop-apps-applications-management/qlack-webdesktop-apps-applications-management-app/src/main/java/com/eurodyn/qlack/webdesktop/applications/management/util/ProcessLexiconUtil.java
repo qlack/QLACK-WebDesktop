@@ -77,7 +77,7 @@ public class ProcessLexiconUtil {
   /**
    * The main method in order to handle translations either from yaml or plain lexicon list.
    *
-   * @param translations  the list containing translations.
+   * @param translations the list containing translations.
    * @param wdApplication the relevant webdesktop application.
    */
   public void createLexiconValues(List<LexiconDTO> translations, WdApplicationDTO wdApplication) {

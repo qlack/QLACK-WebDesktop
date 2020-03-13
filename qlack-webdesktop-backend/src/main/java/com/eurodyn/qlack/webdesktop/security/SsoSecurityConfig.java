@@ -32,7 +32,8 @@ public class SsoSecurityConfig extends WebSecurityConfigurerAdapter {
   /**
    * Enables OAuth2 SSO authentication
    *
-   * @param http the {@link org.springframework.security.config.annotation.web.builders.HttpSecurity} object
+   * @param http the {@link org.springframework.security.config.annotation.web.builders.HttpSecurity}
+   * object
    * @throws Exception if the security configuration cannot be applied
    */
   @Override
@@ -40,10 +41,11 @@ public class SsoSecurityConfig extends WebSecurityConfigurerAdapter {
     http.csrf()
         .disable().antMatcher("/**")
         .authorizeRequests()
-        .antMatchers("/login/**","/logout.html","/css/style.css").permitAll()
+        .antMatchers("/login/**", "/logout.html", "/css/style.css").permitAll()
         .anyRequest().authenticated()
-        .and().logout().invalidateHttpSession(true).clearAuthentication(true).logoutUrl("/logout").logoutSuccessUrl(
-        logoutUrl).deleteCookies("JSESSIONID").and().headers().frameOptions().disable().and()
+        .and().logout().invalidateHttpSession(true).clearAuthentication(true).logoutUrl("/logout")
+        .logoutSuccessUrl(
+            logoutUrl).deleteCookies("JSESSIONID").and().headers().frameOptions().disable().and()
         .oauth2Login();
   }
 
@@ -53,7 +55,7 @@ public class SsoSecurityConfig extends WebSecurityConfigurerAdapter {
    * @return the  registrationBean
    */
   @Bean
-  public FilterRegistrationBean<PostAuthFilter> loggingFilter(){
+  public FilterRegistrationBean<PostAuthFilter> loggingFilter() {
     FilterRegistrationBean<PostAuthFilter> registrationBean
         = new FilterRegistrationBean<>();
 

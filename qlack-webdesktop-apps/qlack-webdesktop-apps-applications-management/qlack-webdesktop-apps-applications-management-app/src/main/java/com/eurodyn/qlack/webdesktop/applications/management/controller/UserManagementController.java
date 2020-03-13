@@ -61,7 +61,7 @@ public class UserManagementController {
    * @return a page object containing users.
    */
   @GetMapping(path = "/groups/{userId}")
-  public Page findGroupsByUserId(@PathVariable  String userId) {
+  public Page findGroupsByUserId(@PathVariable String userId) {
     return new PageImpl(userManagementService.findUserGroupsIds(userId));
   }
 
@@ -72,7 +72,7 @@ public class UserManagementController {
    * @return one or more objects that contains the term.
    */
   @GetMapping(path = "/search/{term}")
-  public Page findUsersByTerm(@PathVariable  String term) {
+  public Page findUsersByTerm(@PathVariable String term) {
     UserSearchCriteria userSearchCriteria = UserSearchCriteriaBuilder
         .createCriteria().withUsernameLike("%" + term + "%").build();
     return new PageImpl<>((List<UserDTO>) userService.findUsers(userSearchCriteria));
@@ -96,7 +96,7 @@ public class UserManagementController {
    * @return the response entity.
    */
   @GetMapping("/username/{name}")
-  public ResponseEntity findUserByName(@PathVariable String name){
+  public ResponseEntity findUserByName(@PathVariable String name) {
     return userManagementService.findUserByName(name);
   }
 
@@ -107,7 +107,7 @@ public class UserManagementController {
    * @return the UserGroupDTO that has been found.
    */
   @GetMapping("/groupname/{name}")
-  public UserGroupDTO findGroupByName(@PathVariable String name){
+  public UserGroupDTO findGroupByName(@PathVariable String name) {
     return userGroupService.getGroupByName(name, true);
   }
 

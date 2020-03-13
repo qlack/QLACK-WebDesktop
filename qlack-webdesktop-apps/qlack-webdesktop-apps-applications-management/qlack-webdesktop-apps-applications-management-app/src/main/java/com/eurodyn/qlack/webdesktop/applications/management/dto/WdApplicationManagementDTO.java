@@ -9,7 +9,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class WdApplicationManagementDTO extends WdApplicationDTO{
+public class WdApplicationManagementDTO extends WdApplicationDTO {
 
   private Collection<String> usersAdded;
   private Collection<String> usersRemoved;

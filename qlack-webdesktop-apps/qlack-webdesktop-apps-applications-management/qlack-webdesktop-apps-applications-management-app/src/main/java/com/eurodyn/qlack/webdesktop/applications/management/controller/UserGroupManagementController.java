@@ -68,8 +68,9 @@ public class UserGroupManagementController {
    */
   @GetMapping(path = "/users/{groupId}")
   public Page findUsersByGroupId(@PathVariable String groupId) {
-    UserSearchCriteria userSearchCriteria = UserSearchCriteriaBuilder.createCriteria().withGroupIdIn(
-        Collections.singleton(groupId)).build();
+    UserSearchCriteria userSearchCriteria = UserSearchCriteriaBuilder.createCriteria()
+        .withGroupIdIn(
+            Collections.singleton(groupId)).build();
     return new PageImpl<>((List<UserDTO>) userService.findUsers(userSearchCriteria));
   }
 
@@ -80,10 +81,11 @@ public class UserGroupManagementController {
    * @return one or more objects that contains the term.
    */
   @GetMapping(path = "/search/{term}")
-  public Page findGroupsByTerm(@PathVariable  String term) {
+  public Page findGroupsByTerm(@PathVariable String term) {
     UserGroupSearchCriteria userGroupSearchCriteria = UserGroupSearchCriteriaBuilder
         .createCriteria().withNameLike("%" + term + "%").build();
-    return new PageImpl<>((List<UserGroupDTO>) userGroupService.findGroups(userGroupSearchCriteria));
+    return new PageImpl<>(
+        (List<UserGroupDTO>) userGroupService.findGroups(userGroupSearchCriteria));
   }
 
   /**
@@ -93,7 +95,7 @@ public class UserGroupManagementController {
    * @return the userGroupDTO that has been found.
    */
   @GetMapping(path = "{groupId}")
-  public UserGroupDTO findGroupById(@PathVariable  String groupId ){
+  public UserGroupDTO findGroupById(@PathVariable String groupId) {
     return userGroupService.getGroupByID(groupId, false);
   }
 
@@ -103,7 +105,7 @@ public class UserGroupManagementController {
    * @return a response entity containing all userGroups.
    */
   @GetMapping("/groups")
-  public ResponseEntity findAllGroups(){
+  public ResponseEntity findAllGroups() {
     return userGroupManagementService.findAllGroups();
   }
 
