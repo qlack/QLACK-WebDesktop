@@ -21,36 +21,26 @@ export class UserService extends CrudService<UserDto> {
     super(http, 'users', qForms);
   }
 
-  // Returns the JWT.
-  private static getJwt(): string {
-    return localStorage.getItem(AppConstants.JWT_STORAGE_NAME);
-  }
-
-  // Logs out the user terminating its session.
-  logout(): Observable<any> {
-    return this.http.get(AppConstants.API_ROOT + `/${this.resource}/logout`);
-  }
-
   // Save user
   save(user: UserDto) {
-    return this.http.post(AppConstants.API_ROOT + `/${this.resource}`, JSON.stringify(user),
+    return this.http.post(`${this.contextPath}` + AppConstants.API_ROOT + `/${this.resource}`, JSON.stringify(user),
       {headers: {'Content-Type': 'application/json'}});
   }
 
   upload(form: FormGroup) {
     return this.qForms.uploadForm(this.http, form,
-      `${AppConstants.API_ROOT}/${this.resource}/upload`, false);
+      `${this.contextPath}` + `${AppConstants.API_ROOT}/${this.resource}/upload`, false);
   }
 
   findUserByName(name: string): Observable<any> {
-    return this.http.get(`${AppConstants.API_ROOT}/${this.endpoint}/username/${name}`);
+    return this.http.get(`${this.contextPath}` + `${AppConstants.API_ROOT}/${this.endpoint}/username/${name}`);
   }
 
   findGroupByName(name: string): Observable<any> {
-    return this.http.get(`${AppConstants.API_ROOT}/${this.endpoint}/groupname/${name}`);
+    return this.http.get(`${this.contextPath}` + `${AppConstants.API_ROOT}/${this.endpoint}/groupname/${name}`);
   }
 
   getGroupsByUserId(queryString?: string, userId?: string): Observable<any> {
-    return this.http.get<QPageableReply<any>>(`${AppConstants.API_ROOT}/${this.endpoint}/groups/` + userId + `?${queryString}`);
+    return this.http.get<QPageableReply<any>>(`${this.contextPath}` + `${AppConstants.API_ROOT}/${this.endpoint}/groups/` + userId + `?${queryString}`);
   }
 }

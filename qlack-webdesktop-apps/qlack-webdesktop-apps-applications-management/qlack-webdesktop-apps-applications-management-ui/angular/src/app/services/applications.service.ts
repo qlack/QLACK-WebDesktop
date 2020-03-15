@@ -20,29 +20,19 @@ export class ApplicationsService extends CrudService<ApplicationDto> {
     super(http, 'applications', qForms);
   }
 
-  // Returns the JWT.
-  private static getJwt(): string {
-    return localStorage.getItem(AppConstants.JWT_STORAGE_NAME);
-  }
-
-  // Logs out the user terminating its session.
-  logout(): Observable<any> {
-    return this.http.get(AppConstants.API_ROOT + `/${this.resource}/logout`);
-  }
-
   // Save application
   save(application: ApplicationDto) {
-    return this.http.post(`${AppConstants.API_ROOT}/${this.resource}`, JSON.stringify(application),
+    return this.http.post(`${this.contextPath}` + `${AppConstants.API_ROOT}/${this.resource}`, JSON.stringify(application),
       {headers: {'Content-Type': 'application/json'}, observe: 'response'});
   }
 
   // Save application
   update(application: ApplicationDto, id: any) {
-    return this.http.post(`${AppConstants.API_ROOT}/${this.resource}/${id}`, JSON.stringify(application),
+    return this.http.post(`${this.contextPath}` + `${AppConstants.API_ROOT}/${this.resource}/${id}`, JSON.stringify(application),
       {headers: {'Content-Type': 'application/json'}, observe: 'response'});
   }
 
   getUserAttributeByName(attributeName: string): Observable<any> {
-    return this.http.get(AppConstants.API_ROOT + '/user/attributes/'+ attributeName);
+    return this.http.get(`${this.contextPath}` + AppConstants.API_ROOT + '/user/attributes/' + attributeName);
   }
 }

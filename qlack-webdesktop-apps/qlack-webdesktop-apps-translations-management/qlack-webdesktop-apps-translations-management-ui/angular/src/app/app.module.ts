@@ -32,7 +32,8 @@ import {AppConstants} from './app.constants';
 
 
 export function HttpLoaderFactory(http: HttpClient) {
-  return new TranslateHttpLoader(http, AppConstants.API_ROOT+ '/translations?lang=', '');
+  let contextPath = window.location.pathname;
+  return new TranslateHttpLoader(http, `${contextPath}` + AppConstants.API_ROOT+"/translations?lang=", "");
 }
 
 export function createCustomMatPaginatorIntl(

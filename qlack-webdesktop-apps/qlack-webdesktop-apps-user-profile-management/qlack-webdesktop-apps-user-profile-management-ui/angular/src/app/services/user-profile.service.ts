@@ -26,13 +26,13 @@ export class UserProfileService extends CrudService<FileDto> {
   }
 
   getUserAttributes(): Observable<any> {
-    return this.http.get(AppConstants.API_ROOT + '/' + this.resource);
+    return this.http.get(`${this.contextPath}` + AppConstants.API_ROOT + '/' + this.resource);
   }
 
   getUserAttributeByName(attributeName: string): Observable<any> {
-    return this.http.get(AppConstants.API_ROOT + '/' + this.resource +'/'+ attributeName);
+    return this.http.get(`${this.contextPath}` + AppConstants.API_ROOT + '/' + this.resource +'/'+ attributeName);
   }
   getActiveProfile(): Observable<any> {
-    return this.http.get(AppConstants.API_ROOT + '/user/profile');
+    return this.http.get(`${this.contextPath}` + AppConstants.API_ROOT + '/user/profile');
   }
 }

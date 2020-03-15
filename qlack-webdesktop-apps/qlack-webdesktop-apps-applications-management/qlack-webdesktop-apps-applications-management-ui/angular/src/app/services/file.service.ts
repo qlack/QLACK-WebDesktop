@@ -12,7 +12,7 @@ import {QFormsService} from '@eurodyn/forms';
 @Injectable({
   providedIn: 'root'
 })
-export class FileService extends CrudService<FileDto>{
+export class FileService extends CrudService<FileDto> {
   private resource = `file`;
 
   constructor(http: HttpClient, qForms: QFormsService) {
@@ -20,10 +20,10 @@ export class FileService extends CrudService<FileDto>{
   }
 
   public upload(formData) {
-    return this.http.post(AppConstants.API_ROOT + `/upload`, formData);
+    return this.http.post(`${this.contextPath}` + AppConstants.API_ROOT + `/upload`, formData);
   }
 
   getImage(id: any) {
-    return AppConstants.API_SECURED_ROOT + '/' + this.resource +  `/${id}`;
+    return `${this.contextPath}` + AppConstants.API_SECURED_ROOT + '/' + this.resource + `/${id}`;
   }
 }

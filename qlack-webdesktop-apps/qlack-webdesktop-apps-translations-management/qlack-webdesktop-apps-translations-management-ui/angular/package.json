@@ -3,8 +3,8 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve --host 0.0.0.0 --proxy-config  proxy.conf.json --deploy-url=/translationsManagement/",
-    "build": "ng build --deploy-url=/translationsManagement/",
+    "start": "ng serve --host 0.0.0.0 --proxy-config  proxy.conf.json",
+    "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"

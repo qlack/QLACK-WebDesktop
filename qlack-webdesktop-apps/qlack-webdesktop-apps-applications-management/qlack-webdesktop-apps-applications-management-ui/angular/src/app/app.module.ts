@@ -34,12 +34,9 @@ import {MatCheckboxModule} from "@angular/material/checkbox";
 import {NavigationMenuComponent} from './shared/navigation-menu/navigation-menu.component';
 import {DataService} from "./services/data.service";
 
-export function getJwtToken(): string {
-  return localStorage.getItem(AppConstants.JWT_STORAGE_NAME);
-}
-
 export function HttpLoaderFactory(http: HttpClient) {
-  return new TranslateHttpLoader(http, AppConstants.API_ROOT+"/translations?lang=", "");
+  let contextPath = window.location.pathname;
+  return new TranslateHttpLoader(http, `${contextPath}` + AppConstants.API_ROOT+"/translations?lang=", "");
 }
 
 export function createCustomMatPaginatorIntl(

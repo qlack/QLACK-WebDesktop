@@ -19,15 +19,15 @@ export class LanguageService extends CrudService<LanguageDto> {
 
   getLanguages(includeInactive: boolean): Observable<any> {
 
-    return this.http.get(`${AppConstants.API_ROOT}/${this.resource}/${includeInactive}`);
+    return this.http.get(`${this.contextPath}` + `${AppConstants.API_ROOT}/${this.resource}/${includeInactive}`);
   }
 
   updateLanguages(languages: Object[]): Observable<any> {
-    return this.http.post(`${AppConstants.API_ROOT}/${this.resource}/update`, JSON.stringify(languages),
+    return this.http.post(`${this.contextPath}` + `${AppConstants.API_ROOT}/${this.resource}/update`, JSON.stringify(languages),
       {headers: {'Content-Type': 'application/json'}});
   }
 
   createLanguage(form: FormGroup): Observable<any> {
-    return this.qForms.uploadForm(this.http, form, AppConstants.API_ROOT + `/${this.resource}/create`, false);
+    return this.qForms.uploadForm(this.http, form, `${this.contextPath}` + AppConstants.API_ROOT + `/${this.resource}/create`, false);
   }
 }

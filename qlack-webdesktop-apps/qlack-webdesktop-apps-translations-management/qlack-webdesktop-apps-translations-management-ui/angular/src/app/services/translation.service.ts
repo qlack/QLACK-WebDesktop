@@ -18,10 +18,10 @@ export class TranslationService extends CrudService<KeyDto> {
   }
 
   updateTranslationsForKey(key: KeyDto) {
-    return this.http.post(`${AppConstants.API_ROOT}/${this.resource}/update`, key,
+    return this.http.post(`${this.contextPath}` + `${AppConstants.API_ROOT}/${this.resource}/update`, key,
       {headers: {'Content-Type': 'application/json'}});
   }
   getUserAttributeByName(attributeName: string): Observable<any> {
-    return this.http.get(AppConstants.API_ROOT + '/user/attributes/'+ attributeName);
+    return this.http.get(`${this.contextPath}` + AppConstants.API_ROOT + '/user/attributes/'+ attributeName);
   }
 }

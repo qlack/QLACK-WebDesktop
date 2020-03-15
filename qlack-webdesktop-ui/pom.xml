@@ -43,9 +43,9 @@
           <execution>
             <id>npm install</id>
             <phase>generate-resources</phase>
-            <configuration>
-              <arguments>ci --loglevel=error</arguments>
-            </configuration>
+            <!--<configuration>-->
+              <!--<arguments>ci &#45;&#45;loglevel=error</arguments>-->
+            <!--</configuration>-->
             <goals>
               <goal>npm</goal>
             </goals>

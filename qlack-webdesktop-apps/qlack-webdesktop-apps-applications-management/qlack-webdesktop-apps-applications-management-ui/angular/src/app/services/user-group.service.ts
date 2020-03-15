@@ -9,16 +9,14 @@ import {AppConstants} from "../app.constants";
 @Injectable({
   providedIn: 'root'
 })
-export class UserGroupService extends CrudService<UserGroupDto>{
-  private resource = `usergroup`;
+export class UserGroupService extends CrudService<UserGroupDto> {
 
-  constructor(http: HttpClient, qForms: QFormsService) { super(http, 'usergroup', qForms);}
+  constructor(http: HttpClient, qForms: QFormsService) {
+    super(http, 'usergroup', qForms);
+  }
 
   getUsersByGroupId(queryString?: string, groupId?: string): Observable<any> {
-      return this.http.get<QPageableReply<any>>(`${AppConstants.API_ROOT}/${this.endpoint}/users/` + groupId + `?${queryString}`);
+    return this.http.get<QPageableReply<any>>(`${this.contextPath}` + `${AppConstants.API_ROOT}/${this.endpoint}/users/` + groupId + `?${queryString}`);
   }
 
-  getAllGroups(): Observable<any> {
-    return this.http.get<any>(`${AppConstants.API_ROOT}/usergroup/groups`);
-  }
 }
