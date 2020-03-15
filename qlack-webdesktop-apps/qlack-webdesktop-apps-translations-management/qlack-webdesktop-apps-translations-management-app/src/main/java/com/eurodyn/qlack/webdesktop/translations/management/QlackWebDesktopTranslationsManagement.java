@@ -27,6 +27,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 })
 public class QlackWebDesktopTranslationsManagement {
 
+  @SuppressWarnings({"java:S4823"})
   public static void main(String[] args) {
     SpringApplication.run(QlackWebDesktopTranslationsManagement.class, args);
   }

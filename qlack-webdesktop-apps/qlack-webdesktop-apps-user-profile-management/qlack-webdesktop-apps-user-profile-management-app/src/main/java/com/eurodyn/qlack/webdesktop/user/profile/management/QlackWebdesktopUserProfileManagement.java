@@ -26,6 +26,8 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
     "com.eurodyn.qlack.fuse.aaa",
 })
 public class QlackWebdesktopUserProfileManagement {
+
+  @SuppressWarnings({"java:S4823"})
   public static void main(String[] args) {
     SpringApplication.run(QlackWebdesktopUserProfileManagement.class, args);
   }

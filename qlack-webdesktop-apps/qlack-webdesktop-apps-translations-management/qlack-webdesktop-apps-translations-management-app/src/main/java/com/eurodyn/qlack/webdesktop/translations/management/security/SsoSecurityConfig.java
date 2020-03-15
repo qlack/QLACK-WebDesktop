@@ -21,6 +21,7 @@ public class SsoSecurityConfig extends WebSecurityConfigurerAdapter {
    * @throws Exception if the security configuration cannot be applied
    */
   @Override
+  @SuppressWarnings({"java:S4502", "java:S4834"})
   public void configure(HttpSecurity http) throws Exception {
     http.csrf().disable()
         .headers().frameOptions().disable()

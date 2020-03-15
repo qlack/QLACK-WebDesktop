@@ -33,6 +33,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 })
 public class WebDesktopApplication {
 
+  @SuppressWarnings({"java:S4823"})
   public static void main(String[] args) {
     SpringApplication app = new SpringApplication(WebDesktopApplication.class);
     app.run(args);

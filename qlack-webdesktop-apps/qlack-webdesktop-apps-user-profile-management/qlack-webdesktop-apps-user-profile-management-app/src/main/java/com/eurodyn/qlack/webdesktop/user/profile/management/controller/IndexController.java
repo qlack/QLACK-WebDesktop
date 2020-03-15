@@ -24,6 +24,7 @@ import java.io.IOException;
 @RestController
 @Slf4j
 @RequestMapping("/webdesktop/user/profile/management")
+@SuppressWarnings({"common-java:DuplicatedBlocks"})
 public class IndexController {
 
 

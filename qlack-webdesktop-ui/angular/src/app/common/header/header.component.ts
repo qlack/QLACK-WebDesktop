@@ -2,7 +2,6 @@ import {Component, ComponentFactoryResolver, ViewChild, ViewContainerRef,OnInit}
 import {Application} from "../../application";
 import {ApplicationComponent} from "../../application/application.component";
 import {WebdesktopService} from '../../webdesktop.service';
-import {isNull} from "util";
 
 @Component({
   selector: 'app-header',

@@ -38,6 +38,7 @@ public class QlackWebDesktopApplicationsManagement {
    *
    * @param args the command line arguments
    */
+  @SuppressWarnings({"java:S4823"})
   public static void main(String[] args) {
     SpringApplication.run(QlackWebDesktopApplicationsManagement.class, args);
   }
