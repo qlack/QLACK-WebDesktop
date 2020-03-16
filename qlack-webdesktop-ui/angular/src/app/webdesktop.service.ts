@@ -17,10 +17,10 @@ export class WebdesktopService {
   }
 
   getUserAttributes(): Observable<any> {
-    return this.http.get('/apps/user/attributes');
+    return this.http.get('/user/attributes');
   }
 
   getUserAttributeByName(attributeName: string): Observable<any> {
-    return this.http.get('/apps/user/attributes/' + attributeName);
+    return this.http.get('/user/attributes/' + attributeName);
   }
 }

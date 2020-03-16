@@ -25,13 +25,10 @@ import org.springframework.web.bind.annotation.RestController;
 public class WdApplicationController {
 
   private WdApplicationService wdApplicationService;
-  private UserDetailsService userDetailsService;
 
   @Autowired
-  public WdApplicationController(WdApplicationService wdApplicationService,
-      UserDetailsService userDetailsService) {
+  public WdApplicationController(WdApplicationService wdApplicationService) {
     this.wdApplicationService = wdApplicationService;
-    this.userDetailsService = userDetailsService;
   }
 
   /**
@@ -70,16 +67,6 @@ public class WdApplicationController {
   @GetMapping("/app/{name}")
   public WdApplicationDTO getApplicationByName(@PathVariable String name) {
     return wdApplicationService.findApplicationDTOByName(name);
-  }
-
-  @GetMapping("/user/attributes")
-  public Map<String, UserAttributeDTO> getUserAttributes() {
-    return userDetailsService.findUserAttributes();
-  }
-
-  @GetMapping("/user/attributes/{attributeName}")
-  public UserAttributeDTO getUserAttributeByName(@PathVariable String attributeName) {
-    return userDetailsService.findUserAttributeByName(attributeName);
   }
 
 }
