@@ -90,7 +90,7 @@
 
   <modules>
     <module>qlack-webdesktop-ui</module>
-    <module>qlack-webdesktop-backend</module>
+    <module>qlack-webdesktop-app</module>
     <module>qlack-webdesktop-apps</module>
     <module>qlack-webdesktop-common</module>
   </modules>
