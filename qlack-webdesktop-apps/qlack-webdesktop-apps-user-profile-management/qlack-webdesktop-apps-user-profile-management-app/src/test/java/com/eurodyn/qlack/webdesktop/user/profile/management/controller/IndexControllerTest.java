@@ -48,7 +48,7 @@ public class IndexControllerTest {
     when(mockResource.getInputStream()).thenReturn(inputStream);
     when(resourceLoader.getResource(anyString())).thenReturn(mockResource);
 
-    mockMvc.perform(get("/webdesktop/user/profile/management/configuration")
+    mockMvc.perform(get("/configuration")
         .accept(MediaType.ALL))
         .andExpect(status().isOk());
   }
@@ -58,7 +58,7 @@ public class IndexControllerTest {
 
     when(resourceLoader.getResource(anyString())).thenReturn(mockResource);
     when(FileCopyUtils.copyToByteArray(mockResource.getInputStream())).thenThrow( new IOException());
-    mockMvc.perform(get("/webdesktop/user/profile/management/configuration")
+    mockMvc.perform(get("/configuration")
         .accept(MediaType.ALL))
         .andExpect(status().isNotFound());
   }
@@ -69,7 +69,7 @@ public class IndexControllerTest {
     InputStream inputStream = new ByteArrayInputStream(mockFile.getBytes());
     when(mockResource.getInputStream()).thenReturn(inputStream);
     when(resourceLoader.getResource(anyString())).thenReturn(mockResource);
-    mockMvc.perform(get("/webdesktop/user/profile/management/logo/icon")
+    mockMvc.perform(get("/logo/icon")
         .accept(MediaType.IMAGE_PNG_VALUE))
         .andExpect(status().isOk());
   }
@@ -78,7 +78,7 @@ public class IndexControllerTest {
   public void getLogoNotFoundTest() throws Exception {
     when(resourceLoader.getResource(anyString())).thenReturn(mockResource);
     when(FileCopyUtils.copyToByteArray(mockResource.getInputStream())).thenThrow( new IOException());
-    mockMvc.perform(get("/webdesktop/user/profile/management/logo/icon")
+    mockMvc.perform(get("/logo/icon")
         .accept(MediaType.IMAGE_PNG_VALUE))
         .andExpect(status().isNotFound());
   }
@@ -89,7 +89,7 @@ public class IndexControllerTest {
     InputStream inputStream = new ByteArrayInputStream(mockFile.getBytes());
     when(mockResource.getInputStream()).thenReturn(inputStream);
     when(resourceLoader.getResource(anyString())).thenReturn(mockResource);
-    mockMvc.perform(get("/webdesktop/user/profile/management/logo/icon_small")
+    mockMvc.perform(get("/logo/icon_small")
         .accept(MediaType.IMAGE_PNG_VALUE))
         .andExpect(status().isOk());
   }
@@ -98,7 +98,7 @@ public class IndexControllerTest {
   public void getSmallLogoNotFoundTest() throws Exception {
     when(resourceLoader.getResource(anyString())).thenReturn(mockResource);
     when(FileCopyUtils.copyToByteArray(mockResource.getInputStream())).thenThrow( new IOException());
-    mockMvc.perform(get("/webdesktop/user/profile/management/logo/icon_small")
+    mockMvc.perform(get("/logo/icon_small")
         .accept(MediaType.IMAGE_PNG_VALUE))
         .andExpect(status().isNotFound());
   }

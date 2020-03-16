@@ -22,7 +22,6 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @Slf4j
-@RequestMapping("/webdesktop/translations/management")
 @SuppressWarnings({"common-java:DuplicatedBlocks"})
 public class IndexController {
 

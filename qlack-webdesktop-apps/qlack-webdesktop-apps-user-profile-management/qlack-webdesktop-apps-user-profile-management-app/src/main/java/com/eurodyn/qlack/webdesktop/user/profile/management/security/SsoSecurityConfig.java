@@ -28,7 +28,7 @@ public class SsoSecurityConfig extends WebSecurityConfigurerAdapter {
         .and()
         .antMatcher("/**")
         .authorizeRequests()
-        .antMatchers("/webdesktop/user/profile/management/**").permitAll()
+        .antMatchers("/configuration","/logo/**").permitAll()
         .anyRequest().authenticated()
         .and()
         .oauth2Login();
