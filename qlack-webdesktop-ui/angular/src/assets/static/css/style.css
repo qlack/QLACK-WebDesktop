@@ -1,4 +1,4 @@
-html, body{
+html, body {
   margin: 0;
   padding: 0;
   border: 0;
@@ -7,41 +7,38 @@ html, body{
   background: linear-gradient(45deg, #43c6ac, #2f2a9a);
   background-repeat: no-repeat;
   background-attachment: fixed;
-
+  background-color: white;
 }
 
-.outsideDiv {
-  position: fixed; /* or absolute */
+.logout-container {
+  height: 100vh;
+  position: relative;
+  background: #ffffff82;
+}
+
+.logout-container > .logout-content {
+  background: white;
+  position: absolute;
   top: 50%;
   left: 50%;
-  margin-top: -161px;
-  margin-left: -202px;
-  display: table;
-  border: 1px solid;
-  box-shadow: 0 2px 5px 3px black;
-  transition: box-shadow 200ms cubic-bezier(0, 0, 0.2, 1);
- padding: 30px;
-
-}
-.insideDiv {
-  display: table-cell;
-  vertical-align: middle;
+  margin: 0 -50% 0 0;
+  transform: translate(-50%, -50%);
+  z-index: 10000;
+  box-shadow: 0 2px 5px 3px #00000073;
+  padding: 80px 130px 80px 130px;
+  border-radius: 5px;
   text-align: center;
-
 }
 
-
-.logoutImage{
+.logout-image {
   border-radius: 50%;
   width: 120px;
   height: 120px;
 }
 
-.btn {
-
+.login-button {
   font-weight: bold;
   font-size: 1em;
-
   text-decoration: none;
   background-color: transparent;
   text-align: left;
@@ -51,9 +48,3 @@ html, body{
   border: 2px solid black;
   border-radius: 5px;
 }
-
-
-
-
-
-
