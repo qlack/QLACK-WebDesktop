@@ -24,12 +24,20 @@ translations:
   keys:
     - groupOthers: Others
     - system: System
+    - pageNotFound: Page not found
+    - errorPageMessage: It looks like you are trying to access a page which does not exist.
+    - ContantAdminMessage: Please contant your administrator.
+    - Back: BACK
+
 - group: webdesktop-ui
   locale: el
   keys:
     - groupOthers: Άλλα
     - system: Σύστημα
-
+    - pageNotFound: Η σελίδα δεν βρέθηκε
+    - errorPageMessage: Φαίνεται ότι προσπαθείτε να αποκτήσετε πρόσβαση σε μια σελίδα που δεν υπάρχει.
+    - ContantAdminMessage: Επικοινωνήστε με τον διαχειριστή σας.
+    - Back: ΕΠΙΣΤΡΟΦΉ
 - group: translations-management-ui
   locale: en
   keys:

@@ -26,6 +26,7 @@ import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import {ResizableModule} from 'angular-resizable-element';
 import {QngPubsubModule} from '@qlack/qng-pubsub';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
+import { ErrorComponent } from './error/error.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, "/apps/translations?lang=", "");
@@ -45,6 +46,7 @@ export function webDesktopServiceFactory(webDesktopService: WebdesktopService,tr
     HeaderComponent,
     ApplicationComponent,
     StartMenuComponent,
+    ErrorComponent,
   ],
   imports: [
     BrowserModule,

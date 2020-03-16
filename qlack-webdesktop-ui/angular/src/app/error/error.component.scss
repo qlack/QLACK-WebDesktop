@@ -1,42 +1,23 @@
-html, body{
-  margin: 0;
-  padding: 0;
-  border: 0;
-  font-size: 100%;
-  font-family: Roboto, "Helvetica Neue", sans-serif;
-  background: linear-gradient(45deg, #43c6ac, #2f2a9a);
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-
-}
 
 .outsideDiv {
   position: fixed; /* or absolute */
   top: 50%;
   left: 50%;
-  margin-top: -161px;
-  margin-left: -202px;
+  margin-top: -167px;
+  margin-left: -260px;
   display: table;
+  background: transparent;
   border: 1px solid;
   box-shadow: 0 2px 5px 3px black;
   transition: box-shadow 200ms cubic-bezier(0, 0, 0.2, 1);
- padding: 30px;
+  padding: 30px;
 
 }
 .insideDiv {
   display: table-cell;
   vertical-align: middle;
   text-align: center;
-
 }
-
-
-.logoutImage{
-  border-radius: 50%;
-  width: 120px;
-  height: 120px;
-}
-
 .btn {
 
   font-weight: bold;
@@ -51,9 +32,3 @@ html, body{
   border: 2px solid black;
   border-radius: 5px;
 }
-
-
-
-
-
-
