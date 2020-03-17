@@ -26,6 +26,7 @@ import com.eurodyn.qlack.webdesktop.common.dto.WdApplicationDTO;
 import com.eurodyn.qlack.webdesktop.common.mapper.WdApplicationMapper;
 import com.eurodyn.qlack.webdesktop.common.model.WdApplication;
 import com.eurodyn.qlack.webdesktop.common.repository.WdApplicationRepository;
+import com.eurodyn.qlack.webdesktop.common.service.ProfileManagerService;
 import com.eurodyn.qlack.webdesktop.common.service.WdApplicationService;
 import java.util.List;
 import java.util.Map;
@@ -74,6 +75,7 @@ public class WdApplicationServiceTest {
   @Mock private UserService userService;
   @Mock private OperationService operationService;
   @Mock private UserGroupService userGroupService;
+  @Mock private ProfileManagerService profileManagerService;
 
   private KeyDTO keyDTO;
   private List<LexiconDTO> translations;
@@ -112,6 +114,7 @@ public class WdApplicationServiceTest {
     when(securityContext.getAuthentication()).thenReturn(authentication);
     SecurityContextHolder.setContext(securityContext);
     when(authentication.getPrincipal()).thenReturn(principal);
+    when(profileManagerService.getActiveProfile()).thenReturn("sso");
 
     List<WdApplicationDTO> activeAppsListDTO = wdApplicationService
         .findAllActiveApplicationsFilterGroupName();
@@ -128,7 +131,7 @@ public class WdApplicationServiceTest {
     when(authentication.getPrincipal()).thenReturn(principal);
     when(wdApplicationRepository.findBySystemAndActiveIsTrue(false)).thenReturn(wdApplications);
     when(wdApplicationMapper.mapToDTO(wdApplications)).thenReturn(wdApplicationsDTO);
-
+    when(profileManagerService.getActiveProfile()).thenReturn("");
     List<WdApplicationDTO> activeAppsListDTO = wdApplicationService
         .findAllActiveApplicationsFilterGroupName();
 
@@ -161,6 +164,7 @@ public class WdApplicationServiceTest {
     when(securityContext.getAuthentication()).thenReturn(authentication);
     SecurityContextHolder.setContext(securityContext);
     when(authentication.getPrincipal()).thenReturn(principal);
+    when(profileManagerService.getActiveProfile()).thenReturn("");
 
     List<WdApplicationDTO> activeAppsListDTO = wdApplicationService
         .findAllActiveApplicationsFilterGroupName();
