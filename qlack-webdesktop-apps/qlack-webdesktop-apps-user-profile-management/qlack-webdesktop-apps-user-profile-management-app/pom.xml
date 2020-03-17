@@ -24,6 +24,13 @@
       <version>${qlack.version}</version>
     </dependency>
 
+    <!-- WebDesktop -->
+    <dependency>
+      <groupId>com.eurodyn.qlack.webdesktop</groupId>
+      <artifactId>qlack-webdesktop-common</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+
     <!-- Spring boot -->
     <dependency>
       <groupId>org.springframework.boot</groupId>
