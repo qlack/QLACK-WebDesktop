@@ -1,6 +1,7 @@
 import {Component} from '@angular/core';
 import {TranslateService} from '@ngx-translate/core';
 import {TranslationService} from './services/translation.service';
+import {Title} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-root',
@@ -13,20 +14,29 @@ export class AppComponent {
     {path: '/translations', label: 'translations'}
   ];
 
-  constructor(private translate: TranslateService, private translationService: TranslationService) {
+  constructor(private translate: TranslateService, private translationService: TranslationService,private titleService: Title) {
 
     this.translationService.getUserAttributeByName("defaultLanguage").subscribe(attr => {
       if(attr != null){
         if (attr.data != null){
           translate.setDefaultLang(attr.data);
+          translate.get('translations-management-ui.tabTitle').subscribe((title: string) => {
+            titleService.setTitle(title);
+          });
         }
 
       }
       else{
         if (sessionStorage.getItem('defaultLanguage') != null) {
           translate.setDefaultLang(sessionStorage.getItem('defaultLanguage'));
+          translate.get('translations-management-ui.tabTitle').subscribe((title: string) => {
+            titleService.setTitle(title);
+          });
         } else {
           translate.setDefaultLang("en");
+          translate.get('translations-management-ui.tabTitle').subscribe((title: string) => {
+            titleService.setTitle(title);
+          });
         }
       }
     },error => { translate.setDefaultLang("en");});

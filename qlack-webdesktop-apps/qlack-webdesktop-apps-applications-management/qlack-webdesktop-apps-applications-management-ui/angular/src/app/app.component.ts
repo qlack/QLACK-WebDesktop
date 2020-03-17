@@ -3,6 +3,7 @@ import {BaseComponent} from './shared/component/base-component';
 import {Log} from 'ng2-logger/browser';
 import {TranslateService} from '@ngx-translate/core';
 import {ApplicationsService} from "./services/applications.service";
+import {Title} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-root',
@@ -22,17 +23,26 @@ export class AppComponent extends BaseComponent implements OnInit {
     this.log.info('Initialising application.');
   }
 
-  constructor(private applicationService: ApplicationsService, private translate: TranslateService) {
+  constructor(private applicationService: ApplicationsService, private translate: TranslateService,private titleService: Title) {
     super();
     this.applicationService.getUserAttributeByName("defaultLanguage").subscribe(attr => {
       if(attr != null){
         translate.setDefaultLang(attr.data);
+        translate.get('management-app-ui.tabTitle').subscribe((title: string) => {
+          titleService.setTitle(title);
+        });
       }
       else{
         if (sessionStorage.getItem('defaultLanguage') != null) {
           translate.setDefaultLang(sessionStorage.getItem('defaultLanguage'));
+          translate.get('management-app-ui.tabTitle').subscribe((title: string) => {
+            titleService.setTitle(title);
+          });
         } else {
           translate.setDefaultLang("en");
+          translate.get('management-app-ui.tabTitle').subscribe((title: string) => {
+            titleService.setTitle(title);
+          });
         }
       }
     });

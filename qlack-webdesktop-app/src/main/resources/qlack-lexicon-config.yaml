@@ -65,6 +65,7 @@ translations:
     - languageName: Language name
     - languageLocale: Language locale
     - none: None
+    - tabTitle: Translations Management
 - group: translations-management-ui
   locale: el
   keys:
@@ -89,6 +90,7 @@ translations:
     - languageName: Όνομα  γλώσσας
     - languageLocale: Locale γλώσσας
     - none: Καμία
+    - tabTitle: Διαχείρηση Μεταφράσεων
 - group: management-app-ui
   locale: en
   keys:
@@ -156,7 +158,7 @@ translations:
     - editUser: User edit
     - permissions: Permissions
     - back: Back
-
+    - tabTitle: Applications/Users Management
 - group: management-app-ui
   locale: el
   keys:
@@ -237,7 +239,7 @@ translations:
     - permissions: Δικαιώματα
     - NotNull.userGroupManagementDTO.userGroupName: Δεν μπορεί να είναι κενό
     - back: Επιστροφή
-
+    - tabTitle: Διαχείρηση Εφαρμογών/Χρηστών
 - group: user-profile-management-ui
   locale: en
   keys:
@@ -247,7 +249,7 @@ translations:
     - profilePicture: Profile Picture
     - backgroundImage: Background Image
     - save: Save
-
+    - tabTitle: User Profile Management
 - group: user-profile-management-ui
   locale: el
   keys:
@@ -257,3 +259,4 @@ translations:
     - profilePicture: Εικόνα προφίλ
     - backgroundImage: Εικόνα φόντου
     - save: Αποθήκευση
+    - tabTitle: Διαχείρηση Προφίλ Χρήστη

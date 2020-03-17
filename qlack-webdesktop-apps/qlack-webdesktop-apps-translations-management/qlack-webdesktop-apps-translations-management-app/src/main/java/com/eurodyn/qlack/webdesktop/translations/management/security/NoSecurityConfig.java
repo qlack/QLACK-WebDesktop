@@ -23,6 +23,6 @@ public class NoSecurityConfig extends WebSecurityConfigurerAdapter {
   @Override
   @SuppressWarnings({"java:S4834"})
   public void configure(HttpSecurity http) throws Exception {
-    http.authorizeRequests().antMatchers("/*").permitAll().and().headers().frameOptions().disable();
+    http.csrf().disable().authorizeRequests().antMatchers("/*").permitAll().and().headers().frameOptions().disable();
   }
 }

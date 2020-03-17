@@ -1,6 +1,7 @@
 import {Component} from '@angular/core';
 import {TranslateService} from '@ngx-translate/core';
 import {UserProfileService} from './services/user-profile.service';
+import {Title} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-root',
@@ -10,7 +11,7 @@ import {UserProfileService} from './services/user-profile.service';
 export class AppComponent {
   title = 'user-profile-management';
   isSsoProfile: boolean ;
-  constructor(private translate: TranslateService,private userProfileService: UserProfileService ) {
+  constructor(private translate: TranslateService,private userProfileService: UserProfileService,private titleService: Title ) {
     this.userProfileService.getActiveProfile().subscribe( isSsoProfile =>{
       this.isSsoProfile = isSsoProfile;
     });
@@ -32,5 +33,8 @@ export class AppComponent {
         translate.setDefaultLang("en");
       }
     }
+    translate.get('tabTitle').subscribe((title: string) => {
+      titleService.setTitle(title);
+    });
   }
 }
