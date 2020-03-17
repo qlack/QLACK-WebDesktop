@@ -73,7 +73,8 @@ public class ApplicationsService {
       CryptoDigestService cryptoDigestService, OperationService operationService,
       WdApplicationMapper mapper, ResourceService resourceService,
       ResourceWdApplicationService resourceWdApplicationService,
-      UserService userService, UserGroupService userGroupService, ProfileManagerService profileManagerService) {
+      UserService userService, UserGroupService userGroupService,
+      ProfileManagerService profileManagerService) {
     this.wdApplicationService = wdApplicationService;
     this.wdApplicationRepository = wdApplicationRepository;
     this.cryptoDigestService = cryptoDigestService;
@@ -93,19 +94,22 @@ public class ApplicationsService {
    * @return a responded entity containing all the applications.
    */
   public ResponseEntity<Page<WdApplicationDTO>> getApplications() {
-    UserDTO userId = new UserDTO();
-    Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-    if (("sso").equalsIgnoreCase(profileManagerService.getActiveProfile())
-        && principal instanceof DefaultOAuth2User){
-      String userName = ((DefaultOAuth2User) principal).getName();
-      userId = userService.getUserByName(userName);
-    }
-    if (userId.isSuperadmin()) {
-      Page<WdApplicationDTO> wdApplicationDTOS = new PageImpl<>(wdApplicationService.findAllApplications());
-      return ResponseEntity.ok(wdApplicationDTOS);
-    } else {
-      return ResponseEntity.notFound().build();
-    }
+//    UserDTO userId = new UserDTO();
+//    Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+//    if (("sso").equalsIgnoreCase(profileManagerService.getActiveProfile())
+//        && principal instanceof DefaultOAuth2User){
+//      String userName = ((DefaultOAuth2User) principal).getName();
+//      userId = userService.getUserByName(userName);
+//    }
+//    if (userId.isSuperadmin()) {
+//      Page<WdApplicationDTO> wdApplicationDTOS = new PageImpl<>(wdApplicationService.findAllApplications());
+//      return ResponseEntity.ok(wdApplicationDTOS);
+//    } else {
+//      return ResponseEntity.notFound().build();
+//    }
+    Page<WdApplicationDTO> wdApplicationDTOS = new PageImpl<>(
+        wdApplicationService.findAllApplications());
+    return ResponseEntity.ok(wdApplicationDTOS);
   }
 
   /**
@@ -308,7 +312,7 @@ public class ApplicationsService {
    * Updates the file's SHA-256 checksum, saves the Web Desktop application and registers
    *
    * @param wdApplication The Web Desktop application
-   * @param checksum The file's SHA-256 checksum
+   * @param checksum      The file's SHA-256 checksum
    */
   private void processWdApplication(WdApplication wdApplication, String checksum) {
     if (wdApplication != null) {
