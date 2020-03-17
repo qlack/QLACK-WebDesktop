@@ -3,16 +3,23 @@
 
   <ng-template #applicationContainer></ng-template>
 
-  <div class="right-side-area">
+  <div class="right-side-area" *ngIf="isSsoProfile" >
+    <div class="wrapper">
+      <a mat-button (click)="openUserProfileApplication()">
+        <img *ngIf="profileImage" src="data:image/png;base64,{{profileImage}}" alt="application icon"
+             class="profileImage-class">
+      </a>
+      <button mat-button *ngIf="!profileImage" (click)="openUserProfileApplication()">
+        <mat-icon>account_circle</mat-icon>
+      </button>
+      <ul>
+        <li>  <button mat-button  (click)="openUserProfileApplication()">
+          {{'webdesktop-ui.profile' | translate}}
+        </button></li>
+        <li><a href="/logout" mat-button>{{'webdesktop-ui.logout' | translate}}</a></li>
+      </ul>
+    </div>
 
-    <a mat-button (click)="openUserProfileApplication()">
-      <img *ngIf="profileImage" src="data:image/png;base64,{{profileImage}}" alt="application icon"
-           class="profileImage-class">
-    </a>
-    <button mat-button *ngIf="!profileImage" (click)="openUserProfileApplication()">
-      <mat-icon>account_circle</mat-icon>
-    </button>
-    <a href="/logout" mat-button>Logout</a>
   </div>
 </mat-toolbar>
 

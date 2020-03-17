@@ -23,4 +23,8 @@ export class WebdesktopService {
   getUserAttributeByName(attributeName: string): Observable<any> {
     return this.http.get('/user/attributes/' + attributeName);
   }
+  getActiveProfile(): Observable<any> {
+    return this.http.get('/user/profile');
+  }
+
 }

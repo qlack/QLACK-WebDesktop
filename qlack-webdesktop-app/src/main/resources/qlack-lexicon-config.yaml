@@ -28,7 +28,8 @@ translations:
     - errorPageMessage: It looks like you are trying to access a page which does not exist.
     - ContantAdminMessage: Please contant your administrator.
     - Back: BACK
-
+    - profile: Profile
+    - logout: Logout
 - group: webdesktop-ui
   locale: el
   keys:
@@ -38,6 +39,8 @@ translations:
     - errorPageMessage: Φαίνεται ότι προσπαθείτε να αποκτήσετε πρόσβαση σε μια σελίδα που δεν υπάρχει.
     - ContantAdminMessage: Επικοινωνήστε με τον διαχειριστή σας.
     - Back: ΕΠΙΣΤΡΟΦΉ
+    - profile: Προφίλ
+    - logout: Αποσύνδεση
 - group: translations-management-ui
   locale: en
   keys:

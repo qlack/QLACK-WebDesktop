@@ -1,7 +1,8 @@
 {
-  "/apps": {
+  "/": {
     "target": "http://localhost:8082",
     "secure": false,
-    "ws": true
+    "changeOrigin": true,
+    "logLevel": "debug"
   }
 }

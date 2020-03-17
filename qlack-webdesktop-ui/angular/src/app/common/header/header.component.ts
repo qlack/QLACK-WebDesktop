@@ -17,11 +17,15 @@ export class HeaderComponent implements OnInit {
   userProfileApplicationName: string = 'User Profile Management';
   userProfileApplication: Application;
   @ViewChild('applicationContainer', {static: true, read: ViewContainerRef}) entry: ViewContainerRef;
+  private isSsoProfile: boolean;
 
   constructor(private resolver: ComponentFactoryResolver,private wedDesktopService: WebdesktopService) {
   }
 
   ngOnInit() {
+    this.wedDesktopService.getActiveProfile().subscribe( isSsoProfile =>{
+      this.isSsoProfile = isSsoProfile;
+    });
       this.wedDesktopService.getUserAttributeByName("profileImage").subscribe( attribute =>{
         if(attribute !=null){
           this.profileImage = attribute.bindata;

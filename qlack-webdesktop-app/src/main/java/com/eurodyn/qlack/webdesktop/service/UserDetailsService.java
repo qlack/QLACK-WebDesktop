@@ -6,6 +6,7 @@ import com.eurodyn.qlack.fuse.aaa.service.UserService;
 import java.util.HashMap;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.core.user.DefaultOAuth2User;
 import org.springframework.stereotype.Service;
@@ -17,7 +18,8 @@ public class UserDetailsService {
 
   @Autowired
   private UserService userService;
-
+  @Autowired
+  private Environment env;
   public Map<String, UserAttributeDTO> findUserAttributes() {
     Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
     if (principal instanceof DefaultOAuth2User) {
@@ -44,6 +46,11 @@ public class UserDetailsService {
       }
     }
     return null;
+  }
+
+  public boolean isSsoProfile(){
+    return env.getActiveProfiles().length == 1;
+
   }
 
 }

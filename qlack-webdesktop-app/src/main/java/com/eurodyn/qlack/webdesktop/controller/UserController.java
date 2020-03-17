@@ -33,4 +33,9 @@ public class UserController {
     return userDetailsService.findUserAttributeByName(attributeName);
   }
 
+  @GetMapping("/profile")
+  public boolean getActiveProfile(){
+    return userDetailsService.isSsoProfile();
+  }
 }
+
