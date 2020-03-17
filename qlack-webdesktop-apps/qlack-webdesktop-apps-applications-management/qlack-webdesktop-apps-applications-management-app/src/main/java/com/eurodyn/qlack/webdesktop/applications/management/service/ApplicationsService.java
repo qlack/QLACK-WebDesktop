@@ -20,6 +20,7 @@ import com.eurodyn.qlack.webdesktop.common.dto.WdApplicationDTO;
 import com.eurodyn.qlack.webdesktop.common.mapper.WdApplicationMapper;
 import com.eurodyn.qlack.webdesktop.common.model.WdApplication;
 import com.eurodyn.qlack.webdesktop.common.repository.WdApplicationRepository;
+import com.eurodyn.qlack.webdesktop.common.service.ProfileManagerService;
 import com.eurodyn.qlack.webdesktop.common.service.ResourceWdApplicationService;
 import com.eurodyn.qlack.webdesktop.common.service.WdApplicationService;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -63,6 +64,7 @@ public class ApplicationsService {
   private UserService userService;
   private UserGroupService userGroupService;
   private ResourceWdApplicationService resourceWdApplicationService;
+  private ProfileManagerService profileManagerService;
 
   @Autowired
   @SuppressWarnings("squid:S107")
@@ -71,7 +73,7 @@ public class ApplicationsService {
       CryptoDigestService cryptoDigestService, OperationService operationService,
       WdApplicationMapper mapper, ResourceService resourceService,
       ResourceWdApplicationService resourceWdApplicationService,
-      UserService userService, UserGroupService userGroupService) {
+      UserService userService, UserGroupService userGroupService, ProfileManagerService profileManagerService) {
     this.wdApplicationService = wdApplicationService;
     this.wdApplicationRepository = wdApplicationRepository;
     this.cryptoDigestService = cryptoDigestService;
@@ -82,15 +84,28 @@ public class ApplicationsService {
     this.resourceWdApplicationService = resourceWdApplicationService;
     this.userGroupService = userGroupService;
     this.userService = userService;
+    this.profileManagerService = profileManagerService;
   }
 
   /**
    * This method returns all the QLACK Web Desktop applications.
    *
-   * @return a list containing all the applications
+   * @return a responded entity containing all the applications.
    */
-  public Page<WdApplicationDTO> getApplications() {
-    return new PageImpl<>(wdApplicationService.findAllApplications());
+  public ResponseEntity<Page<WdApplicationDTO>> getApplications() {
+    UserDTO userId = new UserDTO();
+    Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    if (("sso").equalsIgnoreCase(profileManagerService.getActiveProfile())
+        && principal instanceof DefaultOAuth2User){
+      String userName = ((DefaultOAuth2User) principal).getName();
+      userId = userService.getUserByName(userName);
+    }
+    if (userId.isSuperadmin()) {
+      Page<WdApplicationDTO> wdApplicationDTOS = new PageImpl<>(wdApplicationService.findAllApplications());
+      return ResponseEntity.ok(wdApplicationDTOS);
+    } else {
+      return ResponseEntity.notFound().build();
+    }
   }
 
   /**

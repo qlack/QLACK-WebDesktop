@@ -39,10 +39,10 @@ public class ApplicationsController {
   /**
    * Returns all the QLACK Web Desktop applications.
    *
-   * @return a list containing all the applications
+   * @return a responded entity containing all the applications
    */
   @GetMapping("/applications")
-  public Page<WdApplicationDTO> getApplications() {
+  public ResponseEntity<Page<WdApplicationDTO>> getApplications() {
     return applicationsService.getApplications();
   }
 

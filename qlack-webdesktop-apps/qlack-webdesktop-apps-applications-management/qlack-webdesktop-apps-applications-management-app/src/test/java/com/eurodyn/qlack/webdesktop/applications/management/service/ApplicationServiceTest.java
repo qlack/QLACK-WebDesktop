@@ -22,6 +22,7 @@ import com.eurodyn.qlack.webdesktop.common.dto.WdApplicationDTO;
 import com.eurodyn.qlack.webdesktop.common.mapper.WdApplicationMapper;
 import com.eurodyn.qlack.webdesktop.common.model.WdApplication;
 import com.eurodyn.qlack.webdesktop.common.repository.WdApplicationRepository;
+import com.eurodyn.qlack.webdesktop.common.service.ProfileManagerService;
 import com.eurodyn.qlack.webdesktop.common.service.ResourceWdApplicationService;
 import com.eurodyn.qlack.webdesktop.common.service.WdApplicationService;
 import com.google.common.io.Files;
@@ -80,6 +81,8 @@ public class ApplicationServiceTest {
   private SecurityContext securityContext;
   @Mock
   private Object principal;
+  @Mock
+  private ProfileManagerService profileManagerService;
   private WdApplicationManagementDTO wdApplicationManagementDTO;
   private WdApplication wdApplication;
   private WdApplicationDTO wdApplicationDTO;
@@ -145,6 +148,21 @@ public class ApplicationServiceTest {
 
   @Test
   public void getApplicationsTest() {
+    when(securityContext.getAuthentication()).thenReturn(authentication);
+    SecurityContextHolder.setContext(securityContext);
+    when(SecurityContextHolder.getContext().getAuthentication().getPrincipal())
+        .thenReturn(defaultOAuth2User);
+    //no sso profile is activated
+    applicationsService.getApplications();
+    verify(wdApplicationService, times(0)).findAllApplications();
+
+    //if user is not superAdmin a 404 request is return, so none interactions with any service.
+    when(profileManagerService.getActiveProfile()).thenReturn("sso");
+    when(userService.getUserByName(any())).thenReturn(userDTO);
+    applicationsService.getApplications();
+    verify(wdApplicationService, times(0)).findAllApplications();
+
+    userDTO.setSuperadmin(true);
     applicationsService.getApplications();
     verify(wdApplicationService, times(1)).findAllApplications();
   }

@@ -27,13 +27,15 @@ import {QLACKFormValidationModule} from "@qlack/form-validation";
 import {MatTabsModule} from "@angular/material/tabs";
 import {PermissionsComponent} from "./permissions/permissions.component";
 import {MatAutocompleteModule} from "@angular/material/autocomplete";
+import {ImagePreloadDirective} from "../image-preload.directive";
 
 @NgModule({
   declarations: [
     ApplicationsComponent,
     ApplicationsEditComponent,
     FileuploadComponent,
-    PermissionsComponent
+    PermissionsComponent,
+    ImagePreloadDirective
   ],
   imports: [
     CommonModule,

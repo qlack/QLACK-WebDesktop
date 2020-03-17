@@ -29,7 +29,11 @@ export class AppComponent extends BaseComponent implements OnInit {
         translate.setDefaultLang(attr.data);
       }
       else{
-        translate.setDefaultLang("en");
+        if (sessionStorage.getItem('defaultLanguage') != null) {
+          translate.setDefaultLang(sessionStorage.getItem('defaultLanguage'));
+        } else {
+          translate.setDefaultLang("en");
+        }
       }
     });
   }

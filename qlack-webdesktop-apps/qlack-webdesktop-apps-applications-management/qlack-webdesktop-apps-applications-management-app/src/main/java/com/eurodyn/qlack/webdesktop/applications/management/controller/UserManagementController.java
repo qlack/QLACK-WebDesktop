@@ -45,13 +45,13 @@ public class UserManagementController {
    *
    * @param predicate Boolean typed expressions to build and search for.
    * @param pageable pagination information.
-   * @return a page object of type UserDTO.
+   * @return a responded object of type UserDTO.
    */
   @GetMapping
   @EmptyPredicateCheck
-  public Page<UserDTO> findAll(@QuerydslPredicate(root = User.class) Predicate predicate,
+  public ResponseEntity<Page<UserDTO>> findAll(@QuerydslPredicate(root = User.class) Predicate predicate,
       Pageable pageable) {
-    return userService.findAll(predicate, pageable);
+    return userManagementService.findAll(predicate, pageable);
   }
 
   /**

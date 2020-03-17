@@ -51,13 +51,13 @@ public class UserGroupManagementController {
    *
    * @param predicate Boolean typed expressions to build and search for.
    * @param pageable pagination information.
-   * @return a page object of type UserGroupDTO.
+   * @return a responded object of type UserGroupDTO.
    */
   @GetMapping
   @EmptyPredicateCheck
-  public Page<UserGroupDTO> findAll(@QuerydslPredicate(root = UserGroup.class) Predicate predicate,
+  public ResponseEntity<Page<UserGroupDTO>> findAll(@QuerydslPredicate(root = UserGroup.class) Predicate predicate,
       Pageable pageable) {
-    return userGroupService.findAll(predicate, pageable);
+    return userGroupManagementService.findAll(predicate, pageable);
   }
 
   /**

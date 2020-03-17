@@ -12,7 +12,7 @@
         <ng-container matColumnDef="iconsmall">
           <th *matHeaderCellDef mat-header-cell scope="col">{{'management-app-ui.icon' | translate}}</th>
           <td *matCellDef="let element" mat-cell>
-            <img class="profilePicImg" [attr.src]=element.icon alt="{{element.title}} {{'management-app-ui.icon' | translate}}">
+            <img class="profilePicImg" src={{element.icon}} default='assets/img/icon.png' alt="{{element.title}} {{'management-app-ui.icon' | translate}}">
           </td>
         </ng-container>
         <ng-container matColumnDef="title">
