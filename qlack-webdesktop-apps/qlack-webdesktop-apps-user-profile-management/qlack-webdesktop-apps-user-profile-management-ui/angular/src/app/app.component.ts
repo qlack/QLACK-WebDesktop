@@ -12,18 +12,25 @@ export class AppComponent {
   isSsoProfile: boolean ;
   constructor(private translate: TranslateService,private userProfileService: UserProfileService ) {
     this.userProfileService.getActiveProfile().subscribe( isSsoProfile =>{
-         this.isSsoProfile = isSsoProfile;
+      this.isSsoProfile = isSsoProfile;
     });
-    this.userProfileService.getUserAttributeByName("defaultLanguage").subscribe(attr => {
-      if(attr != null){
-        if (attr.data != null){
-          translate.setDefaultLang(attr.data);
+    if(this.isSsoProfile){
+      this.userProfileService.getUserAttributeByName("defaultLanguage").subscribe(attr => {
+        if(attr != null){
+          if (attr.data != null){
+            translate.setDefaultLang(attr.data);
+          }
         }
-      }
-      else{
+        else{
+          translate.setDefaultLang("en");
+        }
+      },error => { translate.setDefaultLang("en");});
+    }else {
+      if (sessionStorage.getItem('defaultLanguage') != null){
+        translate.setDefaultLang(sessionStorage.getItem('defaultLanguage'));
+      }else {
         translate.setDefaultLang("en");
       }
-    },error => { translate.setDefaultLang("en");});
-
+    }
   }
 }

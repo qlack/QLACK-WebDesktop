@@ -21,6 +21,7 @@ import {MatIconModule} from '@angular/material/icon';
 import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import {AppConstants} from './app.constants';
+import { NoSecurityProfileComponent } from './no-security-profile/no-security-profile.component';
 
 
 
@@ -32,7 +33,8 @@ export function HttpLoaderFactory(http: HttpClient) {
 @NgModule({
   declarations: [
     AppComponent,
-    UserProfileComponent
+    UserProfileComponent,
+    NoSecurityProfileComponent
   ],
   imports: [
     BrowserModule,

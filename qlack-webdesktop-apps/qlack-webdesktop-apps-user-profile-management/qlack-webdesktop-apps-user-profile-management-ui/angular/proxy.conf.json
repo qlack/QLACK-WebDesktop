@@ -1,5 +1,5 @@
 {
-  "/api": {
+  "/userProfileManagement/api": {
     "target": "http://localhost:8092",
     "secure": false,
     "changeOrigin": true,
