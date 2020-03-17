@@ -6,35 +6,35 @@ import com.eurodyn.qlack.fuse.aaa.service.UserService;
 import com.eurodyn.qlack.fuse.lexicon.dto.LanguageDTO;
 import com.eurodyn.qlack.fuse.lexicon.service.KeyService;
 import com.eurodyn.qlack.fuse.lexicon.service.LanguageService;
+import com.eurodyn.qlack.webdesktop.common.service.ProfileManagerService;
 import com.eurodyn.qlack.webdesktop.user.profile.management.dto.UserDetailsDTO;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.env.Environment;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.core.user.DefaultOAuth2User;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 @Service
 public class UserProfileService {
 
   private static final String TRANSLATIONS_GROUP = "user-profile-management-ui";
+  private static final String SSO_PROFILE = "sso";
   private KeyService keyService;
   private LanguageService languageService;
   private UserService userService;
-  private Environment env;
+  private ProfileManagerService profileManagerService;
 
   @Autowired
   public UserProfileService(KeyService keyService, LanguageService languageService,
-      UserService userService,Environment env) {
+      UserService userService, ProfileManagerService profileManagerService) {
     this.keyService = keyService;
     this.languageService = languageService;
     this.userService = userService;
-    this.env = env;
+    this.profileManagerService = profileManagerService;
   }
 
   public Map<String, String> findTranslationsForLocale(String locale) {
@@ -116,7 +116,6 @@ public class UserProfileService {
    * @return  true or false
    */
   public boolean isSsoProfile(){
-    return env.getActiveProfiles().length == 1;
-
+    return SSO_PROFILE.equalsIgnoreCase(profileManagerService.getActiveProfile());
   }
 }
