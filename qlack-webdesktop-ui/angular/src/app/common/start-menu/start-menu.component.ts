@@ -27,6 +27,7 @@ export class StartMenuComponent implements OnInit {
 
   constructor(private webDesktopService: WebdesktopService, private translate: TranslateService, private qPubSubService: QngPubsubService, private _snackBar: MatSnackBar) {
     this.webDesktopService.getUserAttributes().subscribe(userAttributeList => {
+      if(userAttributeList != null){
       if (userAttributeList.firstName != null) {
         this.userDetailsDto.firstName = userAttributeList.firstName.data;
       }
@@ -43,6 +44,7 @@ export class StartMenuComponent implements OnInit {
       }
       if (userAttributeList.backgroundImage != null) {
         this.userDetailsDto.backgroundImage = userAttributeList.backgroundImage.bindata;
+      }
       }
     });
   }

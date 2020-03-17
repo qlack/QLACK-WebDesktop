@@ -36,7 +36,11 @@ export function webDesktopServiceFactory(webDesktopService: WebdesktopService,tr
     if (attribute != null){
       translate.setDefaultLang(attribute.data);
     }else{
-      translate.setDefaultLang("en");
+      if (sessionStorage.getItem('defaultLanguage') != null) {
+        translate.setDefaultLang(sessionStorage.getItem('defaultLanguage'));
+      } else {
+        translate.setDefaultLang("en");
+      }
     }
   }).catch((err: any) =>  Promise.resolve().then(() => translate.setDefaultLang("en")));
 }

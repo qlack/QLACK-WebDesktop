@@ -5,11 +5,11 @@
 
   <div class="right-side-area"  >
     <div class="wrapper">
-      <a mat-button (click)="openUserProfileApplication()">
+      <a mat-button>
         <img *ngIf="profileImage" src="data:image/png;base64,{{profileImage}}" alt="application icon"
              class="profileImage-class">
       </a>
-      <button mat-button *ngIf="!profileImage" (click)="openUserProfileApplication()">
+      <button mat-button *ngIf="!profileImage" >
         <mat-icon>account_circle</mat-icon>
       </button>
       <ul>

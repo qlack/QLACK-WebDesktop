@@ -51,7 +51,7 @@ ul {
   padding: 4px 0;
   top: 28px;
   right: 0;
-  width: 80px;
+  width: 120px;
 
   background-color: white;
   border: 1px solid hsl(0, 0%, 80%);
@@ -112,7 +112,9 @@ li {
     pointer-events: none;
   }
 }
-
+.mat-button{
+  width: 120px;
+}
 
 
 .wrapper {

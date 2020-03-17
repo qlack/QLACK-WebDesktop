@@ -23,7 +23,11 @@ export class AppComponent {
 
       }
       else{
-        translate.setDefaultLang("en");
+        if (sessionStorage.getItem('defaultLanguage') != null) {
+          translate.setDefaultLang(sessionStorage.getItem('defaultLanguage'));
+        } else {
+          translate.setDefaultLang("en");
+        }
       }
     },error => { translate.setDefaultLang("en");});
 
