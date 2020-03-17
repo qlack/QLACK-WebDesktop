@@ -1,7 +1,7 @@
 <!-- img icon stays at init application position-->
 <div (click)="zIndexPlusOne()" (dblclick)="applicationMinimized()" *ngIf="!!iconImageSrc &&  isActive"
      [class.applicationOnAppBar]="!isMinimized" [class.applicationOnAppBarMinimized]="isMinimized">
-  <img [src]="safeIconImageSrc" alt="application icon">
+  <img [src]="safeIconImageSrc" default='assets/img/icon.png' alt="application icon">
 </div>
 
 <div (cdkDragEnded)="dragEnd($event)" (cdkDragMoved)="dragMoved($event)" (cdkDragReleased)="dragReleased($event)"
@@ -17,7 +17,7 @@
 
   <div *ngIf="!isMinimized || isSmallScreen">
     <div (click)="zIndexPlusOne()" cdkDragHandle class="header">
-      <img *ngIf="!!iconSmallSrc" [src]="safeSmallIconImageSrc" class="image" alt="application small icon">
+      <img *ngIf="!!iconSmallSrc" [src]="safeSmallIconImageSrc" default='assets/img/icon_small.png' class="image" alt="application small icon">
 
       <div *ngIf="showTitle" class="title"
            style.left="{{!(!!iconImageSrc) && '5px'}}">{{ applicationName

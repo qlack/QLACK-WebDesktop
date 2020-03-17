@@ -27,6 +27,7 @@ import {ResizableModule} from 'angular-resizable-element';
 import {QngPubsubModule} from '@qlack/qng-pubsub';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import { ErrorComponent } from './error/error.component';
+import { ImagePreloadDirective } from './image-preload.directive';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, "/apps/translations?lang=", "");
@@ -50,6 +51,7 @@ export function webDesktopServiceFactory(webDesktopService: WebdesktopService,tr
     HeaderComponent,
     ApplicationComponent,
     StartMenuComponent,
+    ImagePreloadDirective,
     ErrorComponent,
   ],
   imports: [
