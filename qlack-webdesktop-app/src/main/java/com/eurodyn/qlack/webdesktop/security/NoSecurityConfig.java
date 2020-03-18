@@ -17,14 +17,13 @@ public class NoSecurityConfig extends WebSecurityConfigurerAdapter {
   /**
    * Permits access to all paths
    *
-   * @param http the {@link org.springframework.security.config.annotation.web.builders.HttpSecurity}
-   * object
+   * @param http the {@link org.springframework.security.config.annotation.web.builders.HttpSecurity} object
    * @throws Exception if the security configuration cannot be applied
    */
   @Override
   @SuppressWarnings({"java:S4834"})
   public void configure(HttpSecurity http) throws Exception {
-    http.authorizeRequests().antMatchers("/").permitAll().
+    http.csrf().disable().authorizeRequests().antMatchers("/").permitAll().
         and().headers().frameOptions().disable();
   }
 }
