@@ -81,7 +81,11 @@ export class ApplicationsEditComponent implements OnInit {
         this.updateApplicationContent(onNext.details, 'description');
         this.form.patchValue(onNext.details);
         this.form.controls['active'].enable();
-        this.form.controls['restrictAccess'].enable();
+        this.applicationsService.isSsoEnabled().subscribe(isSso => {
+          if (isSso){
+            this.form.controls['restrictAccess'].enable();
+          }
+        });
         this.form.controls['addedOn'].setValue(new Date(this.form.get('addedOn').value));
         this.form.controls['lastDeployedOn'].setValue(new Date(this.form.get('lastDeployedOn').value));
         this.isDisabled = this.form.controls['restrictAccess'].value;
@@ -210,6 +214,10 @@ export class ApplicationsEditComponent implements OnInit {
 
   toggle($event: MatSlideToggleChange) {
       this.isDisabled = $event.checked;
+  }
+
+  isSsoEnabled(){
+    return this.applicationsService.isSsoEnabled().subscribe();
   }
 
 }

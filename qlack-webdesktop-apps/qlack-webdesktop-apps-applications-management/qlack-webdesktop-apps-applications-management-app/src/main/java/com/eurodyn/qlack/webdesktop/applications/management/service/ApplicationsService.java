@@ -291,6 +291,9 @@ public class ApplicationsService {
         .findByApplicationName(wdApplication.getApplicationName());
     String sha256 = cryptoDigestService.sha256(is);
 
+    if (!SSO_PROFILE.equalsIgnoreCase(profileManagerService.getActiveProfile())) {
+      wdApplication.setRestrictAccess(false);
+    }
     if (existingWdApp == null) {
       processWdApplication(wdApplication, sha256);
       processLexiconUtil
