@@ -54,6 +54,7 @@ import org.springframework.web.multipart.MultipartFile;
 @RequiredArgsConstructor
 public class ApplicationsService {
 
+  private final static String SSO_PROFILE = "sso";
   private WdApplicationService wdApplicationService;
   private WdApplicationRepository wdApplicationRepository;
   private WdApplicationMapper mapper;
@@ -340,5 +341,9 @@ public class ApplicationsService {
       }
     }
     return null;
+  }
+
+  public boolean isSsoActive(){
+    return SSO_PROFILE.equalsIgnoreCase(profileManagerService.getActiveProfile());
   }
 }

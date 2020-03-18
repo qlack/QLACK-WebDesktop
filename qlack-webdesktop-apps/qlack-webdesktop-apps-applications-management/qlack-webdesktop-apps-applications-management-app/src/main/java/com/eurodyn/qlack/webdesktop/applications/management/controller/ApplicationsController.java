@@ -4,11 +4,15 @@ import com.eurodyn.qlack.fuse.aaa.dto.UserAttributeDTO;
 import com.eurodyn.qlack.webdesktop.applications.management.dto.WdApplicationManagementDTO;
 import com.eurodyn.qlack.webdesktop.applications.management.service.ApplicationsService;
 import com.eurodyn.qlack.webdesktop.common.dto.WdApplicationDTO;
+import com.eurodyn.qlack.webdesktop.common.service.ProfileManagerService;
 import java.util.Map;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import net.minidev.json.JSONValue;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -30,10 +34,12 @@ import org.springframework.web.multipart.MultipartFile;
 public class ApplicationsController {
 
   private ApplicationsService applicationsService;
+  private ProfileManagerService profileManagerService;
 
   @Autowired
-  public ApplicationsController(ApplicationsService applicationsService) {
+  public ApplicationsController(ApplicationsService applicationsService, ProfileManagerService profileManagerService) {
     this.applicationsService = applicationsService;
+    this.profileManagerService = profileManagerService;
   }
 
   /**
@@ -110,5 +116,10 @@ public class ApplicationsController {
   @GetMapping("/user/attributes/{attributeName}")
   public UserAttributeDTO getUserAttributeByName(@PathVariable String attributeName) {
     return applicationsService.findUserAttributeByName(attributeName);
+  }
+
+  @GetMapping(path = "/activeProfile")
+  public boolean getActiveProfile(){
+    return applicationsService.isSsoActive();
   }
 }

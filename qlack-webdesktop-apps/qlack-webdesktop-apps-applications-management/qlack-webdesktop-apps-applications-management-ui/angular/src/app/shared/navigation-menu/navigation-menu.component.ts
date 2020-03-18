@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {DataService} from "../../services/data.service";
+import {ApplicationsService} from "../../services/applications.service";
 
 @Component({
   selector: 'app-navigation-menu',
@@ -15,10 +16,18 @@ export class NavigationMenuComponent implements OnInit {
 
   isVisible:boolean;
 
-  constructor(private data: DataService) { }
+  constructor(private data: DataService, private applicationService: ApplicationsService) { }
 
   ngOnInit() {
     this.data.currentMessage.subscribe(isVisible => this.isVisible = isVisible);
+
+    this.applicationService.isSsoEnabled().subscribe(isSso => {
+      if (!isSso){
+        this.navLinks = [
+          {path: '/applications', label: 'header'}
+        ];
+      }
+    })
   }
 
 }

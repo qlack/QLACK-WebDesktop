@@ -4,6 +4,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import com.eurodyn.qlack.webdesktop.applications.management.dto.WdApplicationManagementDTO;
 import com.eurodyn.qlack.webdesktop.applications.management.service.ApplicationsService;
+import com.eurodyn.qlack.webdesktop.common.service.ProfileManagerService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.io.Files;
 import java.io.File;
@@ -26,11 +27,12 @@ public class ApplicationsControllerTest {
   private MockMvc mvc;
   @Mock
   private ApplicationsService applicationsService;
+  @Mock private ProfileManagerService profileManagerService;
 
   @Before
   public void setup() {
     this.mvc = MockMvcBuilders
-        .standaloneSetup(new ApplicationsController(applicationsService)).build();
+        .standaloneSetup(new ApplicationsController(applicationsService, profileManagerService)).build();
   }
 
   @Test
