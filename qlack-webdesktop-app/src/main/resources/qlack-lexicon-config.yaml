@@ -64,10 +64,8 @@ translations:
     - save: Save
     - itemsPerPage: Items per page
     - rangeLabel: of
-    - changes: Changes
     - saved: Saved!
-    - error: Error!
-    - errorMessage: Something went wrong
+    - error: Something went wrong!
     - inactive-active: Inactive/Active
     - languageCreate: Language create
     - languageName: Language name
@@ -89,10 +87,8 @@ translations:
     - save: Αποθήκευση
     - itemsPerPage: Aντικείμενα ανά σελίδα
     - rangeLabel: από
-    - changes: Οι αλλαγές
     - saved: Αποθηκεύτηκαν
-    - error: Σφάλμα!
-    - errorMessage: Κάτι πήγε στραβά
+    - error: Κάτι πήγε στραβά!
     - inactive-active: Ανενεργή/Ενεργή
     - languageCreate: Δημιουργία γλώσσας
     - languageName: Όνομα  γλώσσας
@@ -258,6 +254,8 @@ translations:
     - backgroundImage: Background Image
     - save: Save
     - tabTitle: User Profile Management
+    - saved: Saved!
+    - error: Something went wrong!
 - group: user-profile-management-ui
   locale: el
   keys:
@@ -268,3 +266,5 @@ translations:
     - backgroundImage: Εικόνα φόντου
     - save: Αποθήκευση
     - tabTitle: Διαχείρηση Προφίλ Χρήστη
+    - saved: Αποθηκεύτηκαν
+    - error: Κάτι πήγε στραβά!

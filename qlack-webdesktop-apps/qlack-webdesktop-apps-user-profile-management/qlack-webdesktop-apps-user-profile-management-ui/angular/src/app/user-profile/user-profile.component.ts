@@ -7,6 +7,7 @@ import {LanguageDto} from '../dto/language-dto';
 import {UserDetailsDto} from '../dto/user-details-dto';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {QFormsService} from '@eurodyn/forms';
+import {TranslateService} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-user-profile',
@@ -20,10 +21,12 @@ export class UserProfileComponent implements OnInit {
   languages: LanguageDto[] = [];
   userDetailsDto: any = new UserDetailsDto();
   myForm: FormGroup;
+  errorMessage: string;
+  successMessage: string;
 
   constructor(private userProfileService: UserProfileService, private dialog: MatDialog,
               private fb: FormBuilder, private qForms: QFormsService,
-              private utilityService: UtilityService, private languageService: LanguageService) {
+              private utilityService: UtilityService, private languageService: LanguageService,private translate: TranslateService) {
   }
 
   ngOnInit(): void {
@@ -62,6 +65,14 @@ export class UserProfileComponent implements OnInit {
       }
       this.myForm.patchValue(this.userDetailsDto);
     });
+    this.translate.get([
+      'saved',
+      'error'
+    ])
+    .subscribe(translation => {
+      this.errorMessage = translation['error'];
+      this.successMessage = translation['saved'];
+    });
   }
 
   showProfileImagePreview(event) {
@@ -93,10 +104,10 @@ export class UserProfileComponent implements OnInit {
   save() {
 
     this.userProfileService.saveDetails(this.myForm).subscribe(onNext => {
-      this.utilityService.popupSuccess('Saved!');
+      this.utilityService.popupSuccess(this.successMessage);
       this.clearBackgroundImagePreview();
     }, onError => {
-      this.utilityService.popupError(onError.error.message);
+      this.utilityService.popupError(this.errorMessage);
     });
   }
 

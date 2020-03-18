@@ -3,6 +3,8 @@ import {LanguageDto} from '../dto/language-dto';
 import {LanguageService} from '../services/language-service';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {FormBuilder, FormGroup} from '@angular/forms';
+import {UtilityService} from '../services/utility.service';
+import {MatDialog} from '@angular/material/dialog';
 
 @Component({
   selector: 'app-language-create',
@@ -15,7 +17,7 @@ export class LanguageCreateComponent implements OnInit {
   myForm: FormGroup;
 
   constructor(private languageService: LanguageService, private _snackBar: MatSnackBar,
-              private fb: FormBuilder) {
+              private fb: FormBuilder, private utilityService: UtilityService) {
   }
 
   ngOnInit() {
@@ -34,13 +36,9 @@ export class LanguageCreateComponent implements OnInit {
 
   save() {
     this.languageService.createLanguage(this.myForm).subscribe(success => {
-      this._snackBar.open(localStorage.getItem('changesTranslated'), localStorage.getItem('savedTranslated'), {
-        duration: 2000, verticalPosition: 'top'
-      });
+      this.utilityService.popupSuccess(localStorage.getItem('saved'));
     }, Error => {
-      this._snackBar.open(localStorage.getItem('errorTranslated'), localStorage.getItem('errorMessageTranslated'), {
-        duration: 2000, verticalPosition: 'top'
-      });
+      this.utilityService.popupError(localStorage.getItem('error'));
     });
   }
 }

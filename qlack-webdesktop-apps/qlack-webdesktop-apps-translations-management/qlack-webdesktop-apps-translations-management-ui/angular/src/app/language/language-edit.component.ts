@@ -2,6 +2,7 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {LanguageService} from '../services/language-service';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {LanguageDto} from '../dto/language-dto';
+import {UtilityService} from '../services/utility.service';
 
 @Component({
   selector: 'app-language-edit',
@@ -12,7 +13,7 @@ export class LanguageEditComponent implements OnInit {
   languages: LanguageDto[] = [];
   @ViewChild('form', {static: true}) form: any;
 
-  constructor(private languageService: LanguageService, private _snackBar: MatSnackBar) {
+  constructor(private languageService: LanguageService, private _snackBar: MatSnackBar,private utilityService: UtilityService) {
   }
 
   ngOnInit() {
@@ -26,13 +27,9 @@ export class LanguageEditComponent implements OnInit {
 
   save() {
     this.languageService.updateLanguages(this.languages).subscribe(success => {
-      this._snackBar.open(localStorage.getItem('changesTranslated'), localStorage.getItem('savedTranslated'), {
-        duration: 2000, verticalPosition: 'top'
-      });
+      this.utilityService.popupError(localStorage.getItem('saved'));
     }, Error => {
-      this._snackBar.open(localStorage.getItem('errorTranslated'), localStorage.getItem('errorMessageTranslated'), {
-        duration: 2000, verticalPosition: 'top'
-      });
+      this.utilityService.popupError(localStorage.getItem('error'));
     });
     this.form.control.markAsPristine();
 

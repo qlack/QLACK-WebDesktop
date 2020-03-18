@@ -16,42 +16,16 @@ export class AppComponent {
 
   constructor(private translate: TranslateService, private translationService: TranslationService,private titleService: Title) {
 
-    this.translationService.getUserAttributeByName("defaultLanguage").subscribe(attr => {
-      if(attr != null){
-        if (attr.data != null){
-          translate.setDefaultLang(attr.data);
-          translate.get('translations-management-ui.tabTitle').subscribe((title: string) => {
-            titleService.setTitle(title);
-          });
-        }
-
-      }
-      else{
-        if (sessionStorage.getItem('defaultLanguage') != null) {
-          translate.setDefaultLang(sessionStorage.getItem('defaultLanguage'));
-          translate.get('translations-management-ui.tabTitle').subscribe((title: string) => {
-            titleService.setTitle(title);
-          });
-        } else {
-          translate.setDefaultLang("en");
-          translate.get('translations-management-ui.tabTitle').subscribe((title: string) => {
-            titleService.setTitle(title);
-          });
-        }
-      }
-    },error => { translate.setDefaultLang("en");});
-
+    translate.get('translations-management-ui.tabTitle').subscribe((title: string) => {
+      titleService.setTitle(title);
+    });
     translate.get([
-      'translations-management-ui.changes',
       'translations-management-ui.saved',
       'translations-management-ui.error',
-      'translations-management-ui.errorMessage',
     ])
     .subscribe(translation => {
-      localStorage.setItem('changesTranslated', translation['translations-management-ui.changes']);
-      localStorage.setItem('savedTranslated', translation['translations-management-ui.saved']);
-      localStorage.setItem('errorTranslated', translation['translations-management-ui.error']);
-      localStorage.setItem('errorMessageTranslated', translation['translations-management-ui.errorMessage']);
+      localStorage.setItem('saved', translation['translations-management-ui.saved']);
+      localStorage.setItem('error', translation['translations-management-ui.error']);
     });
   }
 

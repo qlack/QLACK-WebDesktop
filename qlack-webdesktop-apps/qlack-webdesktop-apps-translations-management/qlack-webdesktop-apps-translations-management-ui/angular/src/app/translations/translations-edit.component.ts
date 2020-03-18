@@ -3,6 +3,8 @@ import {TranslationService} from '../services/translation.service';
 import {KeyDto} from '../dto/key-dto';
 import {LanguageDto} from '../dto/language-dto';
 import {MatSnackBar} from '@angular/material/snack-bar';
+import {UtilityService} from '../services/utility.service';
+import {MatDialog} from '@angular/material/dialog';
 
 @Component({
   selector: 'app-translations-edit',
@@ -16,7 +18,7 @@ export class TranslationsEditComponent implements OnInit {
 
   @ViewChild('form', {static: true}) form: any;
 
-  constructor(private translationService: TranslationService, private _snackBar: MatSnackBar) {
+  constructor(private translationService: TranslationService, private _snackBar: MatSnackBar, private utilityService: UtilityService) {
   }
 
   ngOnInit() {
@@ -26,13 +28,10 @@ export class TranslationsEditComponent implements OnInit {
 
   save(key: KeyDto) {
     this.translationService.updateTranslationsForKey(key).subscribe(success => {
-      this._snackBar.open(localStorage.getItem('changesTranslated'), localStorage.getItem('savedTranslated'), {
-        duration: 2000, verticalPosition: 'top'
-      });
+      this.utilityService.popupSuccess(localStorage.getItem('saved'));
+
     }, Error => {
-      this._snackBar.open(localStorage.getItem('errorTranslated'), localStorage.getItem('errorMessageTranslated'), {
-        duration: 2000, verticalPosition: 'top'
-      });
+      this.utilityService.popupError(localStorage.getItem('error'));
     });
     this.form.control.markAsPristine();
   }

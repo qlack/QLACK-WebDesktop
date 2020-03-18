@@ -12,25 +12,9 @@ export class AppComponent {
   title = 'user-profile-management';
   isSsoProfile: boolean ;
   constructor(private translate: TranslateService,private userProfileService: UserProfileService,private titleService: Title ) {
-    this.userProfileService.getActiveProfile().subscribe( isSsoProfile =>{
+    this.userProfileService.getActiveProfile().subscribe(isSsoProfile => {
       this.isSsoProfile = isSsoProfile;
     });
-
-      this.userProfileService.getUserAttributeByName("defaultLanguage").subscribe(attr => {
-        if(attr != null){
-          if (attr.data != null){
-            translate.setDefaultLang(attr.data);
-          }
-        }
-        else{
-          if (sessionStorage.getItem('defaultLanguage') != null){
-            translate.setDefaultLang(sessionStorage.getItem('defaultLanguage'));
-          }else {
-            translate.setDefaultLang("en");
-          }
-        }
-      },error => { translate.setDefaultLang("en");});
-
 
     translate.get('tabTitle').subscribe((title: string) => {
       titleService.setTitle(title);
