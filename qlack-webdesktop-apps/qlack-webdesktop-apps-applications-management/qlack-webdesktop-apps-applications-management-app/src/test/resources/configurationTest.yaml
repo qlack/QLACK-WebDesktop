@@ -1,9 +1,11 @@
 # application configuration
 ---
-appUrl: 'http://localhost:8089'
-version: '3.0.0-SNAPSHOT'
-icon: 'http://icons.iconarchive.com/icons/franksouza183/fs/64/Categories-preferences-system-icon_small.png'
-iconSmall: 'http://icons.iconarchive.com/icons/franksouza183/fs/24/Categories-preferences-system-icon_small.png'
+applicationName: management
+groupName: system
+appUrl: 'http://localhost:8090'
+appPath: '/applicationsManagement/'
+icon: "http://localhost:8082/applicationsManagement/logo/icon"
+iconSmall: "http://localhost:8082/applicationsManagement/logo/icon_small"
 width: '800'
 minWidth: '470'
 height: '500'
@@ -18,10 +20,9 @@ minimizable: true
 maximizable: true
 system: true
 showTitle: true
-proxyAppPath: 'http://localhost:8089'
-applicationName: management
-editedByUI: false
-proxyAppUrl: 'http://localhost:8089'
+proxyAppUrl: '/applicationsManagement/'
+proxyAppPath: '/applicationsManagement/**'
+version: '3.0.0-SNAPSHOT'
 lexicon:
   - languageLocale: en
     values:
