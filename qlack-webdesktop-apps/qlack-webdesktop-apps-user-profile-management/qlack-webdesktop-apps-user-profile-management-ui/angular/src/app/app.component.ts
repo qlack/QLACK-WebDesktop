@@ -15,7 +15,7 @@ export class AppComponent {
     this.userProfileService.getActiveProfile().subscribe( isSsoProfile =>{
       this.isSsoProfile = isSsoProfile;
     });
-    if(this.isSsoProfile){
+
       this.userProfileService.getUserAttributeByName("defaultLanguage").subscribe(attr => {
         if(attr != null){
           if (attr.data != null){
@@ -23,16 +23,15 @@ export class AppComponent {
           }
         }
         else{
-          translate.setDefaultLang("en");
+          if (sessionStorage.getItem('defaultLanguage') != null){
+            translate.setDefaultLang(sessionStorage.getItem('defaultLanguage'));
+          }else {
+            translate.setDefaultLang("en");
+          }
         }
       },error => { translate.setDefaultLang("en");});
-    }else {
-      if (sessionStorage.getItem('defaultLanguage') != null){
-        translate.setDefaultLang(sessionStorage.getItem('defaultLanguage'));
-      }else {
-        translate.setDefaultLang("en");
-      }
-    }
+
+
     translate.get('tabTitle').subscribe((title: string) => {
       titleService.setTitle(title);
     });

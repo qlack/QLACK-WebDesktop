@@ -49,7 +49,7 @@ img {
 ul {
   position: absolute;
   padding: 4px 0;
-  top: 28px;
+  top: 22px;
   right: 0;
   width: 120px;
 
@@ -69,19 +69,6 @@ ul {
 
     background-color: transparent;
   }
-
-  &:after {
-    content: '';
-
-    position: absolute;
-    right: 6px;
-    top: -16px;
-    height: 0;
-    width: 0;
-
-    border: 8px solid transparent;
-    border-bottom-color: hsl(0, 0%, 80%);
-  }
 }
 
 li {
@@ -97,20 +84,7 @@ li {
     color: black;
   }
 
-  &:first-of-type:after {
-    content: '';
 
-    position: absolute;
-    right: 6px;
-    top: -15px;
-    height: 0;
-    width: 0;
-    z-index: 1;
-
-    border: 8px solid transparent;
-    border-bottom-color: white;
-    pointer-events: none;
-  }
 }
 .mat-button{
   width: 120px;

@@ -25,20 +25,20 @@
 
       <div class="iconsContainer">
         <em (click)="applicationMinimized()" *ngIf="isMinimizable" class="material-icons headerIcon"
-            matTooltip="minimize">
+            matTooltip="{{'webdesktop-ui.minimize' | translate}}">
           remove
         </em>
         <em (click)="applicationMaximized($event)" *ngIf="isMaximizable && !isMaximized"
-            class="material-icons headerIcon" matTooltip="fullscreen">
+            class="material-icons headerIcon" matTooltip="{{'webdesktop-ui.fullscreen' | translate}}">
           fullscreen
         </em>
         <em (click)="applicationMaximized($event)" *ngIf="isMaximizable && isMaximized"
-            class="material-icons headerIcon" matTooltip="fullscreen exit">
+            class="material-icons headerIcon" matTooltip="{{'webdesktop-ui.exitFullscreen' | translate}}">
           fullscreen_exit
         </em>
 
         <em (click)="close()" *ngIf="isClosable" class="material-icons headerIcon"
-           matTooltip="close">
+           matTooltip="{{'webdesktop-ui.close' | translate}}">
           cancel
         </em>
       </div>
