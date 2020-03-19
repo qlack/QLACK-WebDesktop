@@ -107,7 +107,7 @@ translations:
     - create: Create
     - save: Save
     - pagination: Items per page
-    - proxyPath: Proxy Path
+    - proxyAppPath: Proxy Application Path
     - appUrl: Application Url
     - iconSmall: Icon Small
     - width: Width
@@ -163,6 +163,7 @@ translations:
     - permissions: Permissions
     - back: Back
     - tabTitle: Applications/Users Management
+    - appPath: Application Path
 - group: management-app-ui
   locale: el
   keys:
@@ -175,7 +176,7 @@ translations:
     - create: Δημιουργία
     - save: Αποθήκευση
     - pagination: Αποτελέσματα ανά σελίδα
-    - proxyPath: Proxy Path
+    - proxyAppPath: Proxy Application Path
     - appUrl: Διαδρομή εφαρμογής
     - iconSmall: Μικρή εικόνα
     - width: Μήκος
@@ -244,6 +245,7 @@ translations:
     - NotNull.userGroupManagementDTO.userGroupName: Δεν μπορεί να είναι κενό
     - back: Επιστροφή
     - tabTitle: Διαχείρηση Εφαρμογών/Χρηστών
+    - appPath: Application Path
 - group: user-profile-management-ui
   locale: en
   keys:

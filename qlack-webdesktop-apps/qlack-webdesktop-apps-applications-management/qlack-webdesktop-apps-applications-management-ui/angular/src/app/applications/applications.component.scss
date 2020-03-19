@@ -2,7 +2,6 @@
 
 .profilePicImg {
   width: 45px !important;
-  height: 45px !important;
   margin-top: 5px !important;
 }
 
@@ -32,4 +31,8 @@ button {
   display: inline !important;
   position: fixed;
   left: 45px;
+}
+
+td.mat-cell, td.mat-footer-cell, th.mat-header-cell {
+  padding-left: 20px;
 }

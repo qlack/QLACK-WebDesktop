@@ -15,19 +15,14 @@ export class NavigationMenuComponent implements OnInit {
   ];
 
   isVisible:boolean;
+  isSsoActive:boolean;
 
   constructor(private data: DataService, private applicationService: ApplicationsService) { }
 
   ngOnInit() {
     this.data.currentMessage.subscribe(isVisible => this.isVisible = isVisible);
 
-    this.applicationService.isSsoEnabled().subscribe(isSso => {
-      if (!isSso){
-        this.navLinks = [
-          {path: '/applications', label: 'header'}
-        ];
-      }
-    })
+    this.applicationService.isSsoEnabled().subscribe(isSso => this.isSsoActive = isSso)
   }
 
 }

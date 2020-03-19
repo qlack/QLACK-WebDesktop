@@ -71,7 +71,13 @@ export class ApplicationsEditComponent implements OnInit {
       editedByUI: [{value: true, disabled: false}],
 
       active: [{value: '', disabled: false}],
-      restrictAccess: [{value: '', disabled: false}],
+      restrictAccess: [{value: '', disabled: true}],
+    });
+
+    this.applicationsService.isSsoEnabled().subscribe(isSso => {
+      if (isSso){
+        this.form.controls['restrictAccess'].enable();
+      }
     });
 
     // Fill-in the form with data if editing an existing item.
@@ -82,11 +88,7 @@ export class ApplicationsEditComponent implements OnInit {
         this.updateApplicationContent(onNext.details, 'description');
         this.form.patchValue(onNext.details);
         this.form.controls['active'].enable();
-        this.applicationsService.isSsoEnabled().subscribe(isSso => {
-          if (isSso){
-            this.form.controls['restrictAccess'].enable();
-          }
-        });
+
         this.form.controls['addedOn'].setValue(new Date(this.form.get('addedOn').value));
         this.form.controls['lastDeployedOn'].setValue(new Date(this.form.get('lastDeployedOn').value));
         this.isDisabled = this.form.controls['restrictAccess'].value;

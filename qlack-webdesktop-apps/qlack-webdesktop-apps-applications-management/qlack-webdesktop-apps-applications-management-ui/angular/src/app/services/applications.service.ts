@@ -37,7 +37,7 @@ export class ApplicationsService extends CrudService<ApplicationDto> {
     return this.http.get(`${this.contextPath}` + AppConstants.API_ROOT + '/user/attributes/' + attributeName);
   }
 
-  isSsoEnabled() {
+  isSsoEnabled(): Observable<any>{
     return this.http.get(`${this.contextPath}` + `${AppConstants.API_ROOT}/activeProfile`);
   }
 }
