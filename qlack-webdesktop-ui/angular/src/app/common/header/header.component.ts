@@ -1,4 +1,4 @@
-import {Component, ComponentFactoryResolver, ViewChild, ViewContainerRef,OnInit} from '@angular/core';
+import {Component, ComponentFactoryResolver, OnInit, ViewChild, ViewContainerRef} from '@angular/core';
 import {Application} from "../../application";
 import {ApplicationComponent} from "../../application/application.component";
 import {WebdesktopService} from '../../webdesktop.service';
@@ -17,25 +17,25 @@ export class HeaderComponent implements OnInit {
   userProfileApplicationName: string = 'User Profile Management';
   userProfileApplication: Application;
   @ViewChild('applicationContainer', {static: true, read: ViewContainerRef}) entry: ViewContainerRef;
-  private isSsoProfile: boolean;
+  isSsoProfile: boolean;
 
-  constructor(private resolver: ComponentFactoryResolver,private wedDesktopService: WebdesktopService) {
+  constructor(private resolver: ComponentFactoryResolver, private wedDesktopService: WebdesktopService) {
   }
 
   ngOnInit() {
-    this.wedDesktopService.getActiveProfile().subscribe( isSsoProfile =>{
+    this.wedDesktopService.getActiveProfile().subscribe(isSsoProfile => {
       this.isSsoProfile = isSsoProfile;
     });
-      this.wedDesktopService.getUserAttributeByName("profileImage").subscribe( attribute =>{
-        if(attribute !=null){
-          this.profileImage = attribute.bindata;
-        }
-      });
-      this.wedDesktopService.getApplicationByName(this.userProfileApplicationName).subscribe(application =>{
-        if(application != null){
-          this.userProfileApplication =application;
-        }
-      })
+    this.wedDesktopService.getUserAttributeByName("profileImage").subscribe(attribute => {
+      if (attribute != null) {
+        this.profileImage = attribute.bindata;
+      }
+    });
+    this.wedDesktopService.getApplicationByName(this.userProfileApplicationName).subscribe(application => {
+      if (application != null) {
+        this.userProfileApplication = application;
+      }
+    })
   }
 
   initApplication(application: Application) {
@@ -86,10 +86,9 @@ export class HeaderComponent implements OnInit {
     this.tempApplicationComponent.instance.multipleInstances = application.multipleInstances;
     this.tempApplicationComponent.instance.iconImageSrc = application.icon;
     this.tempApplicationComponent.instance.applicationName = application.applicationName;
-    if (this.tempApplicationComponent.instance.proxyAppUrl === null){
+    if (this.tempApplicationComponent.instance.proxyAppUrl === null) {
       this.tempApplicationComponent.instance.indexPageUrl = application.appUrl + application.appPath;
-    }
-    else {
+    } else {
       this.tempApplicationComponent.instance.indexPageUrl = application.proxyAppUrl;
     }
     this.tempApplicationComponent.instance.Id = HeaderComponent.applicationId++;
@@ -101,7 +100,7 @@ export class HeaderComponent implements OnInit {
   }
 
   openUserProfileApplication() {
-    if(this.userProfileApplication){
+    if (this.userProfileApplication) {
       this.initApplication(this.userProfileApplication);
     }
   }

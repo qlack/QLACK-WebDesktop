@@ -1,4 +1,4 @@
-import {Component, EventEmitter, OnInit, Output, ViewEncapsulation} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output, ViewEncapsulation} from '@angular/core';
 import {Application} from "../../application";
 import {WebdesktopService} from "../../webdesktop.service";
 import {TranslateService} from '@ngx-translate/core';
@@ -23,28 +23,30 @@ export class StartMenuComponent implements OnInit {
 
   @Output() onAppClick = new EventEmitter();
 
+  @Input() isSsoProfile;
+
   userDetailsDto: any = new UserDetailsDto();
 
   constructor(private webDesktopService: WebdesktopService, private translate: TranslateService, private qPubSubService: QngPubsubService, private _snackBar: MatSnackBar) {
     this.webDesktopService.getUserAttributes().subscribe(userAttributeList => {
-      if(userAttributeList != null){
-      if (userAttributeList.firstName != null) {
-        this.userDetailsDto.firstName = userAttributeList.firstName.data;
-      }
-      if (userAttributeList.lastName != null) {
-        this.userDetailsDto.lastName = userAttributeList.lastName.data;
-      }
-      if (userAttributeList.defaultLanguage != null) {
-        this.userDetailsDto.defaultLanguage = userAttributeList.defaultLanguage.data;
-      } else {
-        this.userDetailsDto.defaultLanguage = 'en';
-      }
-      if (userAttributeList.profileImage != null) {
-        this.userDetailsDto.profileImage = userAttributeList.profileImage.bindata;
-      }
-      if (userAttributeList.backgroundImage != null) {
-        this.userDetailsDto.backgroundImage = userAttributeList.backgroundImage.bindata;
-      }
+      if (userAttributeList != null) {
+        if (userAttributeList.firstName != null) {
+          this.userDetailsDto.firstName = userAttributeList.firstName.data;
+        }
+        if (userAttributeList.lastName != null) {
+          this.userDetailsDto.lastName = userAttributeList.lastName.data;
+        }
+        if (userAttributeList.defaultLanguage != null) {
+          this.userDetailsDto.defaultLanguage = userAttributeList.defaultLanguage.data;
+        } else {
+          this.userDetailsDto.defaultLanguage = 'en';
+        }
+        if (userAttributeList.profileImage != null) {
+          this.userDetailsDto.profileImage = userAttributeList.profileImage.bindata;
+        }
+        if (userAttributeList.backgroundImage != null) {
+          this.userDetailsDto.backgroundImage = userAttributeList.backgroundImage.bindata;
+        }
       }
     });
   }
@@ -55,7 +57,9 @@ export class StartMenuComponent implements OnInit {
       applicationsList.forEach((application, index) => {
 
         // Add application url to the list of allowed origins for QPubSub
-        this.allowedOrigins.push(application.appUrl);
+        if (application.appUrl != null) {
+          this.allowedOrigins.push(application.appUrl);
+        }
 
         this.translate.get(application.applicationName + '.title').subscribe(
             (titleTranslated: string) => {
@@ -72,7 +76,9 @@ export class StartMenuComponent implements OnInit {
               }).add(() => {
 
             if (index == (applicationsList.length - 1)) {
-              this.applications.sort((a, b) => !a.groupTranslated ? 1 : (!b.groupTranslated ? -1 : (a.groupTranslated.toLowerCase().localeCompare(b.groupTranslated.toLowerCase()))));
+              this.applications.sort(
+                  (a, b) => !a.groupTranslated ? 1 : (!b.groupTranslated ? -1 : (a.groupTranslated.toLowerCase().localeCompare(
+                      b.groupTranslated.toLowerCase()))));
               const groups = [...new Set(this.applications.map(w => w.groupTranslated))];
 
               groups.forEach(group => {
@@ -102,12 +108,16 @@ export class StartMenuComponent implements OnInit {
           duration: 3000
         });
       });
+    });
+  }
 
+  ngAfterViewInit() {
+    if (this.isSsoProfile) {
       // Subscribe to retrieve User Information requests and send the information back
       this.qPubSubService.subscribe('QUserInformationRequest', () => {
         this.qPubSubService.publish('QUserInformationResponse', this.userDetailsDto);
       });
-    });
+    }
   }
 
   onCreateMenuColumns(sortedApplications: number) {

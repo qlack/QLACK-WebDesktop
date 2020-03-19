@@ -1,22 +1,28 @@
 <mat-toolbar class="navigation-bar border-line">
-  <app-start-menu (onAppClick)="initApplication($event)"></app-start-menu>
+
+  <app-start-menu *ngIf="isSsoProfile != null" (onAppClick)="initApplication($event)"
+                  [isSsoProfile]="isSsoProfile"></app-start-menu>
 
   <ng-template #applicationContainer></ng-template>
 
-  <div class="right-side-area"  >
+  <div class="right-side-area">
     <div class="wrapper">
       <a mat-button>
         <img *ngIf="profileImage" src="data:image/png;base64,{{profileImage}}" alt="application icon"
              class="profileImage-class">
       </a>
-      <button mat-button *ngIf="!profileImage" >
+      <button mat-button *ngIf="!profileImage">
         <mat-icon>account_circle</mat-icon>
       </button>
       <ul>
-        <li>  <button mat-button  (click)="openUserProfileApplication()">
-          {{'webdesktop-ui.profile' | translate}}
-        </button></li>
-        <li *ngIf="isSsoProfile"><a href="/logout" mat-button>{{'webdesktop-ui.logout' | translate}}</a></li>
+        <li>
+          <button mat-button (click)="openUserProfileApplication()">
+            {{'webdesktop-ui.profile' | translate}}
+          </button>
+        </li>
+        <li *ngIf="isSsoProfile">
+          <a href="/logout" mat-button>{{'webdesktop-ui.logout' | translate}}</a>
+        </li>
       </ul>
     </div>
 
