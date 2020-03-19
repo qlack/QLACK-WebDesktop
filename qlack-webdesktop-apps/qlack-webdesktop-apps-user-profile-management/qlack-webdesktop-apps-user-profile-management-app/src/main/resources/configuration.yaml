@@ -4,8 +4,8 @@ applicationName: User Profile Management
 groupName: system
 appUrl: "http://localhost:8092"
 appPath: "/userProfileManagement/"
-icon: "http://localhost:8082/userProfileManagement/logo/icon"
-iconSmall: "http://localhost:8082/userProfileManagement/logo/icon_small"
+icon: "http://localhost:8082/userprofile/logo/icon"
+iconSmall: "http://localhost:8082/userprofile/logo/icon_small"
 width: "800"
 minWidth: "470"
 height: "500"
@@ -20,8 +20,8 @@ minimizable: true
 maximizable: true
 system: true
 showTitle: true
-proxyAppUrl: "/userProfileManagement/"
-proxyAppPath: "/userProfileManagement/**"
+proxyAppUrl: "/userprofile/"
+proxyAppPath: "/userprofile/**"
 version: "3.0.0-SNAPSHOT"
 lexicon:
   - languageLocale: en

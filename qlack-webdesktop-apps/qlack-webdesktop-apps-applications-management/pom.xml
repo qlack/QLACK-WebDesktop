@@ -15,39 +15,6 @@
 
   <name>QLACK-WebDesktop-Applications-Management</name>
   <description>Qlack WebDesktop Management Application</description>
-  <url>https://github.com/qlack/QLACK-WebDesktop-Applications</url>
-
-  <developers>
-    <developer>
-      <email>info@eurodyn.com</email>
-      <name>European Dynamics</name>
-      <organization>European Dynamics</organization>
-      <organizationUrl>http://www.eurodyn.com</organizationUrl>
-    </developer>
-  </developers>
-
-  <licenses>
-    <license>
-      <name>European Union Public Licence (EUPL v.1.1)</name>
-      <url>
-        https://joinup.ec.europa.eu/community/eupl/og_page/european-union-public-licence-eupl-v11
-      </url>
-    </license>
-  </licenses>
-
-  <properties>
-    <java.version>1.8</java.version>
-    <spring.boot.version>2.2.1.RELEASE</spring.boot.version>
-    <lombok.version>1.18.6</lombok.version>
-    <mapstruct.version>1.3.0.Final</mapstruct.version>
-    <maven.compiler.version>3.7.0</maven.compiler.version>
-    <powermockito.version>2.0.2</powermockito.version>
-    <mysql.connector.version>8.0.17</mysql.connector.version>
-    <frontend.maven.plugin>1.8.0</frontend.maven.plugin>
-    <node.version>v10.16.3</node.version>
-    <npm.version>6.12.0</npm.version>
-    <frontend.maven.plugin>1.8.0</frontend.maven.plugin>
-  </properties>
 
   <modules>
     <module>qlack-webdesktop-apps-applications-management-ui</module>

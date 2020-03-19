@@ -12,7 +12,6 @@
   <artifactId>qlack-webdesktop-apps-translations-management-app</artifactId>
   <packaging>jar</packaging>
 
-
   <dependencies>
     <!-- QLACK  -->
     <dependency>
@@ -29,7 +28,7 @@
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-security</artifactId>
-      <version>${spring.boot.version}</version>
+      <version>${spring-boot.version}</version>
     </dependency>
     <dependency>
       <groupId>org.springframework.security</groupId>
@@ -53,7 +52,7 @@
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-test</artifactId>
       <scope>test</scope>
-      <version>${spring.boot.version}</version>
+      <version>${spring-boot.version}</version>
     </dependency>
 
     <!-- Third-party -->
@@ -84,6 +83,12 @@
   <build>
     <plugins>
       <plugin>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-maven-plugin</artifactId>
+        <version>${spring-boot.version}</version>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
         <version>${maven-compiler-plugin.version}</version>
         <configuration>
@@ -104,7 +109,8 @@
               <outputDirectory>${project.build.directory}/classes/resources/</outputDirectory>
               <resources>
                 <resource>
-                  <directory>${project.parent.basedir}/qlack-webdesktop-apps-translations-management-ui/target/dist</directory>
+                  <directory>${project.parent.basedir}/qlack-webdesktop-apps-translations-management-ui/target/dist
+                  </directory>
                 </resource>
               </resources>
             </configuration>

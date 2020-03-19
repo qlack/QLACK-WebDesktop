@@ -115,6 +115,16 @@
                   </mat-icon>
                 </mat-form-field>
                 <mat-form-field>
+                  <input matInput placeholder="{{'management-app-ui.appPath' |
+            translate}}" formControlName="appPath">
+                  <mat-icon matSuffix color="warn"
+                            *ngIf="form.controls['appPath'].invalid"
+                            matTooltip="{{form.controls['appPath'].getError('message')}}"
+                            matTooltipPosition="above" matTooltipClass="error-tooltip"
+                  >{{'warning'}}
+                  </mat-icon>
+                </mat-form-field>
+                <mat-form-field>
                   <input matInput placeholder="{{'management-app-ui.icon' |
             translate}}" formControlName="icon">
                   <mat-icon matSuffix color="warn"
@@ -137,11 +147,11 @@
               </div>
               <div fxFlex fxLayout="column" fxLayoutGap="10px">
                 <mat-form-field>
-                  <input matInput placeholder="{{'management-app-ui.proxyPath' |
-            translate}}" formControlName="proxyPath">
+                  <input matInput placeholder="{{'management-app-ui.proxyAppPath' |
+            translate}}" formControlName="proxyAppPath">
                   <mat-icon matSuffix color="warn"
-                            *ngIf="form.controls['proxyPath'].invalid"
-                            matTooltip="{{form.controls['proxyPath'].getError('message')}}"
+                            *ngIf="form.controls['proxyAppPath'].invalid"
+                            matTooltip="{{form.controls['proxyAppPath'].getError('message')}}"
                             matTooltipPosition="above" matTooltipClass="error-tooltip"
                   >{{'warning'}}
                   </mat-icon>

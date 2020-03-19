@@ -50,7 +50,6 @@ public class UserDetailsService {
 
   public boolean isSsoProfile(){
     return env.getActiveProfiles().length == 1;
-
   }
 
 }

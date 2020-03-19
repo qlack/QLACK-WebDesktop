@@ -4,8 +4,8 @@ applicationName: Translations Management
 groupName: system
 appUrl: "http://localhost:8091"
 appPath: '/translationsManagement/'
-icon: "http://localhost:8082/translationsManagement/logo/icon"
-iconSmall: "http://localhost:8082/translationsManagement/logo/icon_small"
+icon: "http://localhost:8082/translations/logo/icon"
+iconSmall: "http://localhost:8082/translations/logo/icon_small"
 width: "800"
 minWidth: "470"
 height: "500"
@@ -20,8 +20,8 @@ minimizable: true
 maximizable: true
 system: true
 showTitle: true
-proxyAppUrl: "/translationsManagement/"
-proxyAppPath: "/translationsManagement/**"
+proxyAppUrl: "/translations/"
+proxyAppPath: "/translations/**"
 version: "3.0.0-SNAPSHOT"
 lexicon:
   - languageLocale: en

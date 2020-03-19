@@ -4,8 +4,8 @@ applicationName: management
 groupName: system
 appUrl: 'http://localhost:8090'
 appPath: '/applicationsManagement/'
-icon: "http://localhost:8082/applicationsManagement/logo/icon"
-iconSmall: "http://localhost:8082/applicationsManagement/logo/icon_small"
+icon: "http://localhost:8082/applications/logo/icon"
+iconSmall: "http://localhost:8082/applications/logo/icon_small"
 width: '800'
 minWidth: '470'
 height: '500'
@@ -20,8 +20,8 @@ minimizable: true
 maximizable: true
 system: true
 showTitle: true
-proxyAppUrl: '/applicationsManagement/'
-proxyAppPath: '/applicationsManagement/**'
+proxyAppUrl: '/applications/'
+proxyAppPath: '/applications/**'
 version: '3.0.0-SNAPSHOT'
 lexicon:
   - languageLocale: en

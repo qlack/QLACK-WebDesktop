@@ -46,30 +46,30 @@
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter</artifactId>
-      <version>${spring.boot.version}</version>
+      <version>${spring-boot.version}</version>
     </dependency>
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-data-jpa</artifactId>
-      <version>${spring.boot.version}</version>
+      <version>${spring-boot.version}</version>
     </dependency>
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-web</artifactId>
-      <version>${spring.boot.version}</version>
+      <version>${spring-boot.version}</version>
     </dependency>
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-test</artifactId>
       <scope>test</scope>
-      <version>${spring.boot.version}</version>
+      <version>${spring-boot.version}</version>
     </dependency>
 
     <!-- Spring Security Dependencies -->
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-security</artifactId>
-      <version>${spring.boot.version}</version>
+      <version>${spring-boot.version}</version>
     </dependency>
     <dependency>
       <groupId>org.springframework.security</groupId>
@@ -147,8 +147,12 @@
   </dependencies>
 
   <build>
-    <pluginManagement>
       <plugins>
+        <plugin>
+          <groupId>org.springframework.boot</groupId>
+          <artifactId>spring-boot-maven-plugin</artifactId>
+          <version>${spring-boot.version}</version>
+        </plugin>
         <!-- Global configuration for the compiler -->
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
@@ -190,17 +194,6 @@
             <useIncrementalCompilation>false</useIncrementalCompilation>
           </configuration>
         </plugin>
-
-        <plugin>
-          <groupId>org.springframework.boot</groupId>
-          <artifactId>spring-boot-maven-plugin</artifactId>
-          <version>${spring.boot.version}</version>
-          <configuration>
-            <fork>true</fork>
-            <skip>false</skip>
-          </configuration>
-        </plugin>
-
         <plugin>
           <artifactId>maven-resources-plugin</artifactId>
           <executions>
@@ -222,7 +215,6 @@
           </executions>
         </plugin>
       </plugins>
-    </pluginManagement>
   </build>
 
 </project>

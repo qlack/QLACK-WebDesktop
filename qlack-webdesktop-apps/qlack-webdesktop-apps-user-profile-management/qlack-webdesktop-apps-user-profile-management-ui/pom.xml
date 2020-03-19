@@ -20,7 +20,9 @@
   <build>
     <plugins>
       <plugin>
+        <groupId>com.github.eirslett</groupId>
         <artifactId>frontend-maven-plugin</artifactId>
+        <version>${frontend-maven-plugin.version}</version>
         <configuration>
           <installDirectory>./angular</installDirectory>
           <nodeDownloadRoot>http://nodejs.org/dist/</nodeDownloadRoot>
@@ -55,8 +57,6 @@
             <phase>generate-resources</phase>
           </execution>
         </executions>
-        <groupId>com.github.eirslett</groupId>
-        <version>${frontend.maven.plugin}</version>
       </plugin>
     </plugins>
   </build>
