@@ -30,12 +30,12 @@ export class UsersEditComponent implements OnInit {
   groupsAdded: string[] = [];
   groupsRemoved: string[] = [];
   groupsInitList: any[];
-  private isGroupListChanged = false;
   displayedColumns: string[] = ['name', 'description', 'action'];
   dataSource: MatTableDataSource<UserDto> = new MatTableDataSource<UserDto>();
   options: any[];
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
+  private isGroupListChanged = false;
 
   constructor(private fb: FormBuilder, private applicationsService: ApplicationsService,
               private route: ActivatedRoute,
@@ -68,7 +68,7 @@ export class UsersEditComponent implements OnInit {
       });
     }
 
-    this.groupForm.valueChanges.subscribe( term => {
+    this.groupForm.valueChanges.subscribe(term => {
       if (term.name && term != '' && term.name.length > 1) {
         this.userService.search(term.name, "usergroup").subscribe(
           data => {
@@ -118,8 +118,8 @@ export class UsersEditComponent implements OnInit {
       }, error => {
 
         if (error.status == 400) {
-            this.utilityService.popupError(this.getMessageTranslations('management-app-ui.error'));
-          }
+          this.utilityService.popupError(this.getMessageTranslations('management-app-ui.error'));
+        }
       });
   }
 
@@ -136,14 +136,14 @@ export class UsersEditComponent implements OnInit {
     let filterValue = this.groupForm.value;
     if (this.itemExists(this.groups, filterValue.name, "name")) {
       this.utilityService.popupError(this.getMessageTranslations('management-app-ui.alreadyExistsCode'));
-    }else {
+    } else {
       this.userService.findGroupByName(filterValue.name).subscribe(group => {
         if (!group) {
           this.utilityService.popupError(this.getMessageTranslations('management-app-ui.notFound'));
         } else {
           this.groups.push(group);
           //filtering, add user only if user has never been removed and added again.
-          if (!this.itemExists(this.groupsInitList, filterValue.name, "name")){
+          if (!this.itemExists(this.groupsInitList, filterValue.name, "name")) {
             this.groupsAdded.push(group.id);
           }
           //filtering, if user has been removed and then added again remove him from usersRemoved.

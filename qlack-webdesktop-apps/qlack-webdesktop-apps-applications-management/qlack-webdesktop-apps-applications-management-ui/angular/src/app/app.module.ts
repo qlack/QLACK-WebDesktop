@@ -36,7 +36,7 @@ import {DataService} from "./services/data.service";
 
 export function HttpLoaderFactory(http: HttpClient) {
   let contextPath = window.location.pathname;
-  return new TranslateHttpLoader(http, `${contextPath}` + AppConstants.API_ROOT+"/translations?lang=", "");
+  return new TranslateHttpLoader(http, `${contextPath}` + AppConstants.API_ROOT + "/translations?lang=", "");
 }
 
 export function createCustomMatPaginatorIntl(

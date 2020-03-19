@@ -3,7 +3,7 @@
 applicationName: management
 groupName: system
 appUrl: 'http://localhost:8090'
-appPath: '/applicationsManagement/'
+appPath: "/applicationsManagement/"
 icon: "http://localhost:8082/applications/logo/icon"
 iconSmall: "http://localhost:8082/applications/logo/icon_small"
 width: '800'

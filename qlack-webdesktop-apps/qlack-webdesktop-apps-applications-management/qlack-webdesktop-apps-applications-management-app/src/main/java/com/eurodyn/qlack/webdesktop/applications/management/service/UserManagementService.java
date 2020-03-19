@@ -7,7 +7,6 @@ import com.eurodyn.qlack.webdesktop.applications.management.dto.UserManagementDT
 import com.eurodyn.qlack.webdesktop.common.service.ProfileManagerService;
 import com.eurodyn.qlack.webdesktop.common.service.WdApplicationService;
 import com.querydsl.core.types.Predicate;
-import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +18,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.core.user.DefaultOAuth2User;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class UserManagementService {
@@ -26,9 +27,9 @@ public class UserManagementService {
   @Autowired
   private final UserService userService;
   @Autowired
-  private WdApplicationService wdApplicationService;
-  @Autowired
   ProfileManagerService profileManagerService;
+  @Autowired
+  private WdApplicationService wdApplicationService;
 
   /**
    * Retrieves all users based on predicate and pagination information.
@@ -42,7 +43,7 @@ public class UserManagementService {
     UserDTO userId = new UserDTO();
     Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
     if (("sso").equalsIgnoreCase(profileManagerService.getActiveProfile())
-        && principal instanceof DefaultOAuth2User){
+        && principal instanceof DefaultOAuth2User) {
       String userName = ((DefaultOAuth2User) principal).getName();
       userId = userService.getUserByName(userName);
     }

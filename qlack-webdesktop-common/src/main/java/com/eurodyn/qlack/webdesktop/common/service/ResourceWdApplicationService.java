@@ -20,8 +20,8 @@ public class ResourceWdApplicationService {
   }
 
   /**
-   * Creates a new resourceDTO based on a new application. Every new application must be connected
-   * to a resource id so as to apply permissions.
+   * Creates a new resourceDTO based on a new application. Every new application must be connected to a resource id so
+   * as to apply permissions.
    *
    * @param wdApplication the new application.
    * @return the new resourceDTO.

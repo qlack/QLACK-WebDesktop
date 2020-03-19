@@ -8,10 +8,11 @@ import {Directive, Input} from '@angular/core';
   }
 })
 export class ImagePreloadDirective {
-  @Input() src:string;
-  @Input() default:string;
+  @Input() src: string;
+  @Input() default: string;
 
-  constructor() { }
+  constructor() {
+  }
 
   updateUrl() {
     this.src = this.default;

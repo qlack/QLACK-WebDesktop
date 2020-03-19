@@ -1,20 +1,20 @@
 <mat-card>
   <mat-card-content>
     <form #form="ngForm">
-      <section class="" *ngFor="let language of languages">
-        <mat-slide-toggle color="primary" [(ngModel)]="language.active"
-                          class="slidePadding " name="{{language.active}}">
+      <section *ngFor="let language of languages" class="">
+        <mat-slide-toggle [(ngModel)]="language.active" class="slidePadding "
+                          color="primary" name="{{language.active}}">
           {{language.name}}
         </mat-slide-toggle>
       </section>
     </form>
   </mat-card-content>
-<mat-card-actions>
-  <button mat-button color="primary"
-          (click)="save()" [disabled]="!form.dirty">{{'translations-management-ui.saveChanges' | translate}}</button>
-  <button mat-button
-          routerLink="/languages/create" type="button">{{'translations-management-ui.create' | translate}}</button>
-</mat-card-actions>
+  <mat-card-actions>
+    <button (click)="save()" [disabled]="!form.dirty"
+            color="primary" mat-button>{{'translations-management-ui.saveChanges' | translate}}</button>
+    <button mat-button
+            routerLink="/languages/create" type="button">{{'translations-management-ui.create' | translate}}</button>
+  </mat-card-actions>
 
 </mat-card>
 

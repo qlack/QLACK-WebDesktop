@@ -1,6 +1,6 @@
 import {BaseDto} from './base-dto';
 
-export class UserDetailsDto extends BaseDto  {
+export class UserDetailsDto extends BaseDto {
 
   defaultLanguage: string;
   firstName: string;

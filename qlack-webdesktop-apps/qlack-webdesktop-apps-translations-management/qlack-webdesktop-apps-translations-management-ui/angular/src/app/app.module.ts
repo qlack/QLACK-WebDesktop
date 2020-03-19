@@ -35,10 +35,10 @@ import {MatDialogModule} from '@angular/material/dialog';
 
 export function HttpLoaderFactory(http: HttpClient) {
   let contextPath = window.location.pathname;
-  return new TranslateHttpLoader(http, `${contextPath}` + AppConstants.API_ROOT+"/translations?lang=", "");
+  return new TranslateHttpLoader(http, `${contextPath}` + AppConstants.API_ROOT + "/translations?lang=", "");
 }
 
-export function translationsServiceFactory(translationService: TranslationService,translate: TranslateService): Function {
+export function translationsServiceFactory(translationService: TranslationService, translate: TranslateService): Function {
   return () => translationService.getUserAttributeByName("defaultLanguage").toPromise().then(attribute => {
     if (attribute != null) {
       if (attribute.data != null) {
@@ -103,9 +103,9 @@ export function createCustomMatPaginatorIntl(
   providers: [{
     provide: APP_INITIALIZER,
     useFactory: translationsServiceFactory,
-    deps: [TranslationService,TranslateService],
+    deps: [TranslationService, TranslateService],
     multi: true
-  },{provide: MatPaginatorIntl, deps: [TranslateService], useFactory: createCustomMatPaginatorIntl}],
+  }, {provide: MatPaginatorIntl, deps: [TranslateService], useFactory: createCustomMatPaginatorIntl}],
   bootstrap: [AppComponent]
 })
 export class AppModule {

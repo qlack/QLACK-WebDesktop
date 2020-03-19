@@ -5,7 +5,6 @@ import {ApplicationDto} from '../dto/application-dto';
 import {CrudService} from './crud.service';
 import {QFormsService} from '@eurodyn/forms';
 import {AppConstants} from '../app.constants';
-import {map} from "rxjs/operators";
 
 /**
  * A service providing functionality for the user of the application, including authentication,
@@ -23,13 +22,15 @@ export class ApplicationsService extends CrudService<ApplicationDto> {
 
   // Save application
   save(application: ApplicationDto) {
-    return this.http.post(`${this.contextPath}` + `${AppConstants.API_ROOT}/${this.resource}`, JSON.stringify(application),
+    return this.http.post(`http://localhost:8082/api/application/`,
+      JSON.stringify(application),
       {headers: {'Content-Type': 'application/json'}, observe: 'response'});
   }
 
   // Save application
   update(application: ApplicationDto, id: any) {
-    return this.http.post(`${this.contextPath}` + `${AppConstants.API_ROOT}/${this.resource}/${id}`, JSON.stringify(application),
+    return this.http.post(`http://localhost:8082/api/application/${id}`,
+      JSON.stringify(application),
       {headers: {'Content-Type': 'application/json'}, observe: 'response'});
   }
 
@@ -37,7 +38,7 @@ export class ApplicationsService extends CrudService<ApplicationDto> {
     return this.http.get(`${this.contextPath}` + AppConstants.API_ROOT + '/user/attributes/' + attributeName);
   }
 
-  isSsoEnabled(): Observable<any>{
+  isSsoEnabled(): Observable<any> {
     return this.http.get(`${this.contextPath}` + `${AppConstants.API_ROOT}/activeProfile`);
   }
 }

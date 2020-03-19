@@ -1,13 +1,13 @@
 <!-- img icon stays at init application position-->
 <div (click)="zIndexPlusOne()" (dblclick)="applicationMinimized()" *ngIf="!!iconImageSrc &&  isActive"
-     [class.applicationOnAppBar]="!isMinimized" [class.applicationOnAppBarMinimized]="isMinimized">
-  <img [src]="safeIconImageSrc" default='assets/img/icon.png' alt="application icon">
+     [class.applicationOnAppBarMinimized]="isMinimized" [class.applicationOnAppBar]="!isMinimized">
+  <img [src]="safeIconImageSrc" alt="application icon" default='assets/img/icon.png'>
 </div>
 
 <div (cdkDragEnded)="dragEnd($event)" (cdkDragMoved)="dragMoved($event)" (cdkDragReleased)="dragReleased($event)"
      (cdkDragStarted)="dragStart($event)" *ngIf="isActive" [cdkDragDisabled]="isSmallScreen || !isDraggable"
      [cdkDragFreeDragPosition]="applicationPosition"
-     [class.applicationMinimized]="isMinimized && !isSmallScreen" [style.top]="yPosition" [style.left]="xPosition"
+     [class.applicationMinimized]="isMinimized && !isSmallScreen" [style.left]="xPosition" [style.top]="yPosition"
      [style.z-index]="zIndex" cdkDrag
      cdkDragBoundary=".widget-boundary" class="application">
 
@@ -17,7 +17,8 @@
 
   <div *ngIf="!isMinimized || isSmallScreen">
     <div (click)="zIndexPlusOne()" cdkDragHandle class="header">
-      <img *ngIf="!!iconSmallSrc" [src]="safeSmallIconImageSrc" default='assets/img/icon_small.png' class="image" alt="application small icon">
+      <img *ngIf="!!iconSmallSrc" [src]="safeSmallIconImageSrc" alt="application small icon" class="image"
+           default='assets/img/icon_small.png'>
 
       <div *ngIf="showTitle" class="title"
            style.left="{{!(!!iconImageSrc) && '5px'}}">{{ applicationName
@@ -38,31 +39,31 @@
         </em>
 
         <em (click)="close()" *ngIf="isClosable" class="material-icons headerIcon"
-           matTooltip="{{'webdesktop-ui.close' | translate}}">
+            matTooltip="{{'webdesktop-ui.close' | translate}}">
           cancel
         </em>
       </div>
     </div>
   </div>
-  <div  [class.displayContent]="isMinimized"
-       [class.fullScreenSize]="isMaximized && !isSmallScreen"
-        [style.height.px]="height"
-       [style.min-height.px]="minHeight" [style.min-width.px]="minWidth" [style.width.px]="width" class="content"
-        mwlResizable
-        [enableGhostResize]="false"
-        (resizeEnd)="onResizeEnd($event)" (resizeStart)="onResizeStart($event)" (resizing)="onResize($event)">
+  <div (resizeEnd)="onResizeEnd($event)"
+       (resizeStart)="onResizeStart($event)"
+       (resizing)="onResize($event)"
+       [class.displayContent]="isMinimized" [class.fullScreenSize]="isMaximized && !isSmallScreen" [enableGhostResize]="false" [style.height.px]="height"
+       [style.min-height.px]="minHeight"
+       [style.min-width.px]="minWidth"
+       [style.width.px]="width" class="content" mwlResizable>
     <div
+        [resizeEdges]="{ bottom: isResizable }"
         class="resize-handle-bottom"
         mwlResizeHandle
-        [resizeEdges]="{ bottom: isResizable }"
     ></div>
     <div
+        [resizeEdges]="{ right: isResizable }"
         class="resize-handle-right"
         mwlResizeHandle
-        [resizeEdges]="{ right: isResizable }"
     ></div>
-    <div  [style.min-height.px]="minHeight" [style.min-width.px]="minWidth" class="iframe-container" >
-      <iframe [src]="safeAppUrl" title="application" [style.display]="displayIframe ? 'block' : 'none'"></iframe>
+    <div [style.min-height.px]="minHeight" [style.min-width.px]="minWidth" class="iframe-container">
+      <iframe [src]="safeAppUrl" [style.display]="displayIframe ? 'block' : 'none'" title="application"></iframe>
     </div>
   </div>
 

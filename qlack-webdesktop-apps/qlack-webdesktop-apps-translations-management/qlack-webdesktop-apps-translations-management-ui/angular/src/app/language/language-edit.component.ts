@@ -13,7 +13,7 @@ export class LanguageEditComponent implements OnInit {
   languages: LanguageDto[] = [];
   @ViewChild('form', {static: true}) form: any;
 
-  constructor(private languageService: LanguageService, private _snackBar: MatSnackBar,private utilityService: UtilityService) {
+  constructor(private languageService: LanguageService, private _snackBar: MatSnackBar, private utilityService: UtilityService) {
   }
 
   ngOnInit() {

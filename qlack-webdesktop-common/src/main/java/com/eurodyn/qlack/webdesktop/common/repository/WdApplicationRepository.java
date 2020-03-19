@@ -2,6 +2,7 @@ package com.eurodyn.qlack.webdesktop.common.repository;
 
 import com.eurodyn.qlack.common.repository.QlackBaseRepository;
 import com.eurodyn.qlack.webdesktop.common.model.WdApplication;
+
 import java.util.List;
 
 /**
@@ -28,8 +29,7 @@ public interface WdApplicationRepository extends QlackBaseRepository<WdApplicati
   /**
    * Finds all system Web Desktop applications.
    *
-   * @param system a boolean value that corresponds to the question if the application is system or
-   *               not.
+   * @param system a boolean value that corresponds to the question if the application is system or not.
    * @return a list of system applications.
    */
   List<WdApplication> findBySystemAndActiveIsTrue(Boolean system);

@@ -7,13 +7,14 @@ import static org.mockito.Mockito.verify;
 import com.eurodyn.qlack.fuse.aaa.service.UserService;
 import com.eurodyn.qlack.webdesktop.applications.management.dto.UserManagementDTO;
 import com.eurodyn.qlack.webdesktop.applications.management.util.InitTestValues;
-import java.util.Collection;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
+
+import java.util.Collection;
 
 @RunWith(MockitoJUnitRunner.class)
 public class UserManagementServiceTest {

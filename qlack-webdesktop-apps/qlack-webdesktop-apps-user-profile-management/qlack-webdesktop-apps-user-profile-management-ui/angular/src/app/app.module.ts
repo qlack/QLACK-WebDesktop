@@ -21,17 +21,16 @@ import {MatIconModule} from '@angular/material/icon';
 import {TranslateLoader, TranslateModule, TranslateService} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import {AppConstants} from './app.constants';
-import { NoSecurityProfileComponent } from './no-security-profile/no-security-profile.component';
+import {NoSecurityProfileComponent} from './no-security-profile/no-security-profile.component';
 import {UserProfileService} from './services/user-profile.service';
-
 
 
 export function HttpLoaderFactory(http: HttpClient) {
   let contextPath = window.location.pathname;
-  return new TranslateHttpLoader(http, `${contextPath}` + AppConstants.API_ROOT+"/translations?lang=", "");
+  return new TranslateHttpLoader(http, `${contextPath}` + AppConstants.API_ROOT + "/translations?lang=", "");
 }
 
-export function translationsServiceFactory(userProfileService: UserProfileService,translate: TranslateService): Function {
+export function translationsServiceFactory(userProfileService: UserProfileService, translate: TranslateService): Function {
   return () => userProfileService.getUserAttributeByName("defaultLanguage").toPromise().then(attribute => {
     if (attribute != null) {
       if (attribute.data != null) {
@@ -46,6 +45,7 @@ export function translationsServiceFactory(userProfileService: UserProfileServic
     }
   }).catch((err: any) => Promise.resolve().then(() => translate.setDefaultLang("en")));
 }
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -83,7 +83,7 @@ export function translationsServiceFactory(userProfileService: UserProfileServic
     {
       provide: APP_INITIALIZER,
       useFactory: translationsServiceFactory,
-      deps: [UserProfileService,TranslateService],
+      deps: [UserProfileService, TranslateService],
       multi: true
     }
   ],

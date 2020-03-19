@@ -1,11 +1,11 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {MatPaginatorIntl} from "@angular/material/paginator";
 import {TranslateService} from "@ngx-translate/core";
 
 @Injectable({
   providedIn: 'root'
 })
-export class MatPaginatorIntlService extends MatPaginatorIntl{
+export class MatPaginatorIntlService extends MatPaginatorIntl {
 
   private rangeLabelIntl: string;
 
@@ -22,11 +22,11 @@ export class MatPaginatorIntlService extends MatPaginatorIntl{
       'translations-management-ui.itemsPerPage',
       'translations-management-ui.rangeLabel'
     ])
-      .subscribe(translation => {
-        this.itemsPerPageLabel = translation['translations-management-ui.itemsPerPage'];
-        this.rangeLabelIntl = translation['translations-management-ui.rangeLabel'];
-        this.changes.next();
-      });
+    .subscribe(translation => {
+      this.itemsPerPageLabel = translation['translations-management-ui.itemsPerPage'];
+      this.rangeLabelIntl = translation['translations-management-ui.rangeLabel'];
+      this.changes.next();
+    });
   }
 
 

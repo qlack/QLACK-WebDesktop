@@ -15,9 +15,9 @@ export class Application {
   multipleInstances: boolean;
   applicationName: string;
   applicationTitle: string;
-  groupName:string;
-  groupTranslated:string;
-  appUrl:string;
-  appPath:string;
-  indexPageUrl:string;
+  groupName: string;
+  groupTranslated: string;
+  appUrl: string;
+  appPath: string;
+  indexPageUrl: string;
 }

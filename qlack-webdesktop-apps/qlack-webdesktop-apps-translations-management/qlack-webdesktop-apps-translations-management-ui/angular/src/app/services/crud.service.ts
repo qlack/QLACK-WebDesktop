@@ -19,7 +19,8 @@ export class CrudService<T> {
 
   getAll(queryString?: string): Observable<QPageableReply<T>> {
     if (queryString) {
-      return this.http.get<QPageableReply<T>>(`${this.contextPath}` + `${AppConstants.API_ROOT}/${this.endpoint}?${queryString}`);
+      return this.http.get<QPageableReply<T>>(
+        `${this.contextPath}` + `${AppConstants.API_ROOT}/${this.endpoint}?${queryString}`);
     } else {
       return this.http.get<QPageableReply<T>>(`${this.contextPath}` + `${AppConstants.API_ROOT}/${this.endpoint}`);
     }

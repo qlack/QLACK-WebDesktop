@@ -26,25 +26,27 @@ import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import {ResizableModule} from 'angular-resizable-element';
 import {QngPubsubModule} from '@qlack/qng-pubsub';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
-import { ErrorComponent } from './error/error.component';
-import { ImagePreloadDirective } from './image-preload.directive';
+import {ErrorComponent} from './error/error.component';
+import {ImagePreloadDirective} from './image-preload.directive';
 
 export function HttpLoaderFactory(http: HttpClient) {
-  return new TranslateHttpLoader(http, "/apps/translations?lang=", "");
+  return new TranslateHttpLoader(http, "/api/translations?lang=", "");
 }
-export function webDesktopServiceFactory(webDesktopService: WebdesktopService,translate: TranslateService): Function {
-  return () => webDesktopService.getUserAttributeByName("defaultLanguage").toPromise().then(attribute =>{
-    if (attribute != null){
+
+export function webDesktopServiceFactory(webDesktopService: WebdesktopService, translate: TranslateService): Function {
+  return () => webDesktopService.getUserAttributeByName("defaultLanguage").toPromise().then(attribute => {
+    if (attribute != null) {
       translate.setDefaultLang(attribute.data);
-    }else{
+    } else {
       if (sessionStorage.getItem('defaultLanguage') != null) {
         translate.setDefaultLang(sessionStorage.getItem('defaultLanguage'));
       } else {
         translate.setDefaultLang("en");
       }
     }
-  }).catch((err: any) =>  Promise.resolve().then(() => translate.setDefaultLang("en")));
+  }).catch((err: any) => Promise.resolve().then(() => translate.setDefaultLang("en")));
 }
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -86,7 +88,7 @@ export function webDesktopServiceFactory(webDesktopService: WebdesktopService,tr
     {
       provide: APP_INITIALIZER,
       useFactory: webDesktopServiceFactory,
-      deps: [WebdesktopService,TranslateService],
+      deps: [WebdesktopService, TranslateService],
       multi: true
     }
   ],

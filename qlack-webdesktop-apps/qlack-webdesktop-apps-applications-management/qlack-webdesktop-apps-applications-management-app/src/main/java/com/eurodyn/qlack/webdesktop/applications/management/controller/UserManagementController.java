@@ -11,7 +11,6 @@ import com.eurodyn.qlack.util.querydsl.EmptyPredicateCheck;
 import com.eurodyn.qlack.webdesktop.applications.management.dto.UserManagementDTO;
 import com.eurodyn.qlack.webdesktop.applications.management.service.UserManagementService;
 import com.querydsl.core.types.Predicate;
-import java.util.List;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +25,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/users")

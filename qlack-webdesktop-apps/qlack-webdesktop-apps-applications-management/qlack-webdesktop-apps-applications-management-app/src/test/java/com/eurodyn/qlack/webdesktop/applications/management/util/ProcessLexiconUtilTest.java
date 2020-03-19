@@ -13,14 +13,16 @@ import com.eurodyn.qlack.webdesktop.common.dto.LexiconDTO;
 import com.eurodyn.qlack.webdesktop.common.dto.WdApplicationDTO;
 import com.eurodyn.qlack.webdesktop.common.mapper.WdApplicationMapper;
 import com.eurodyn.qlack.webdesktop.common.service.WdApplicationService;
-import java.util.ArrayList;
-import java.util.List;
+import com.eurodyn.qlack.webdesktop.common.util.ProcessLexiconUtil;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @RunWith(MockitoJUnitRunner.class)
 public class ProcessLexiconUtilTest {

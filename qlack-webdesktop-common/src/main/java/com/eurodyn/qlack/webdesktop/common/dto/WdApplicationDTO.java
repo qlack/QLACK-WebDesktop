@@ -1,10 +1,11 @@
 package com.eurodyn.qlack.webdesktop.common.dto;
 
-import java.util.Date;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.util.Date;
 
 /**
  * Data Transfer Object for WdApplication.

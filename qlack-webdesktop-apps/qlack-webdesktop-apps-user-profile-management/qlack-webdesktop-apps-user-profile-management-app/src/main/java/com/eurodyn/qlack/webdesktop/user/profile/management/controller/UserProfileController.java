@@ -46,7 +46,7 @@ public class UserProfileController {
           false) MultipartFile profileImage,
       @RequestParam(value = "backgroundImage", required = false) MultipartFile backgroundImage,
       boolean deleteBackgroundImage) throws IOException {
-    userProfileService.saveDetails(userDetailsDTO, profileImage, backgroundImage,deleteBackgroundImage);
+    userProfileService.saveDetails(userDetailsDTO, profileImage, backgroundImage, deleteBackgroundImage);
   }
 
   @GetMapping("/user/attributes")
@@ -58,8 +58,9 @@ public class UserProfileController {
   public UserAttributeDTO getUserAttributeByName(@PathVariable String attributeName) {
     return userProfileService.findUserAttributeByName(attributeName);
   }
+
   @GetMapping("/user/profile")
-  public boolean getActiveProfile(){
+  public boolean getActiveProfile() {
     return userProfileService.isSsoProfile();
   }
 }

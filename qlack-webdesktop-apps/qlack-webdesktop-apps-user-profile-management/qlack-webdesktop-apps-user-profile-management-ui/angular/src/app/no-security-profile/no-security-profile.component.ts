@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {LanguageService} from '../services/language-service';
 import {LanguageDto} from '../dto/language-dto';
 import {UtilityService} from '../services/utility.service';
@@ -13,14 +13,15 @@ export class NoSecurityProfileComponent implements OnInit {
 
   languages: LanguageDto[] = [];
   myForm: FormGroup;
-  defaultLanguage:string ="en";
+  defaultLanguage: string = "en";
+
   constructor(private languageService: LanguageService, private utilityService: UtilityService, private fb: FormBuilder) {
   }
 
   ngOnInit(): void {
-     if(sessionStorage.getItem('defaultLanguage') != null){
-       this.defaultLanguage =sessionStorage.getItem('defaultLanguage');
-     }
+    if (sessionStorage.getItem('defaultLanguage') != null) {
+      this.defaultLanguage = sessionStorage.getItem('defaultLanguage');
+    }
     this.languageService.getLanguages(false).subscribe(languageList => {
       languageList.forEach((language) => {
         this.languages.push(language);
@@ -34,7 +35,7 @@ export class NoSecurityProfileComponent implements OnInit {
 
 
   save() {
-     sessionStorage.setItem('defaultLanguage',this.myForm.get('defaultLanguage').value);
+    sessionStorage.setItem('defaultLanguage', this.myForm.get('defaultLanguage').value);
     this.utilityService.popupSuccess('Saved!');
     this.myForm.markAsPristine();
   }

@@ -1,71 +1,77 @@
 <mat-card>
   <mat-card-title>{{ 'management-app-ui.editUser' | translate}}</mat-card-title>
   <mat-card-content>
-    <form novalidate [formGroup]="form">
+    <form [formGroup]="form" novalidate>
       <div fxLayout="column">
         <mat-form-field>
-          <input matInput placeholder="{{'management-app-ui.userName' |
-            translate}}"
-                 formControlName="username">
-          <mat-icon matSuffix color="warn"
-                    *ngIf="form.controls['username'].invalid"
+          <input formControlName="username" matInput
+                 placeholder="{{'management-app-ui.userName' |
+            translate}}">
+          <mat-icon *ngIf="form.controls['username'].invalid" color="warn"
+                    matSuffix
                     matTooltip="{{form.controls['username'].getError('message')}}"
-                    matTooltipPosition="above" matTooltipClass="error-tooltip"
+                    matTooltipClass="error-tooltip" matTooltipPosition="above"
           >{{'warning'}}
           </mat-icon>
         </mat-form-field>
         <mat-form-field>
-          <input matInput placeholder="{{'management-app-ui.firstName' |
-            translate}}" formControlName="firstname">
+          <input formControlName="firstname" matInput placeholder="{{'management-app-ui.firstName' |
+            translate}}">
         </mat-form-field>
         <mat-form-field>
-          <input matInput placeholder="{{'management-app-ui.lastName' |
-            translate}}" formControlName="lastname">
+          <input formControlName="lastname" matInput placeholder="{{'management-app-ui.lastName' |
+            translate}}">
         </mat-form-field>
       </div>
     </form>
     <form [formGroup]="groupForm">
       <mat-form-field>
-        <input type="text" matInput placeholder="{{'management-app-ui.groups' | translate}}..." formControlName="name" [matAutocomplete]="auto">
+        <input [matAutocomplete]="auto" formControlName="name" matInput placeholder="{{'management-app-ui.groups' | translate}}..."
+               type="text">
         <mat-autocomplete #auto="matAutocomplete">
           <mat-option *ngFor="let group of options" [value]="group.name">
             {{group.name}}
           </mat-option>
         </mat-autocomplete>
       </mat-form-field>
-      <button mat-button color="primary" (click)="addGroup()" [disabled]="!groupForm.controls['name'].dirty">{{'management-app-ui.add' | translate}}</button>
+      <button (click)="addGroup()" [disabled]="!groupForm.controls['name'].dirty" color="primary"
+              mat-button>{{'management-app-ui.add' | translate}}</button>
     </form>
     <div fxLayout="column">
 
-      <p id="tableDscUserGroupEdit" aria-hidden="true" hidden>{{'management-app-ui.groups' | translate}}</p>
-      <table mat-table #table [dataSource]="dataSource" class="mat-elevation-z0" fxFlex="grow"
+      <p aria-hidden="true" hidden id="tableDscUserGroupEdit">{{'management-app-ui.groups' | translate}}</p>
+      <table #table [dataSource]="dataSource" aria-describedby="tableDscUserGroupEdit" class="mat-elevation-z0" fxFlex="grow"
+             mat-table
              matSort
              matSortActive="name"
              matSortDirection="asc"
-             matSortStart="asc"
-             matSortDisableClear aria-describedby="tableDscUserGroupEdit">
+             matSortDisableClear matSortStart="asc">
 
         <ng-container matColumnDef="name">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header scope="col">{{'management-app-ui.title' | translate}}</th>
-          <td mat-cell *matCellDef="let element">{{element.name}}</td>
+          <th *matHeaderCellDef mat-header-cell mat-sort-header
+              scope="col">{{'management-app-ui.title' | translate}}</th>
+          <td *matCellDef="let element" mat-cell>{{element.name}}</td>
         </ng-container>
         <ng-container matColumnDef="description">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header scope="col">{{'management-app-ui.description' | translate}}</th>
-          <td mat-cell *matCellDef="let element">{{element.description}}</td>
+          <th *matHeaderCellDef mat-header-cell mat-sort-header
+              scope="col">{{'management-app-ui.description' | translate}}</th>
+          <td *matCellDef="let element" mat-cell>{{element.description}}</td>
         </ng-container>
         <!-- Action Column -->
         <ng-container matColumnDef="action">
-          <th mat-header-cell *matHeaderCellDef scope="col"> </th>
-          <td mat-cell *matCellDef="let element" class="action-link">
-            <button mat-button color="warn" (click)="removeGroup(element)" class="move-right"><mat-icon>delete</mat-icon></button>
+          <th *matHeaderCellDef mat-header-cell scope="col"></th>
+          <td *matCellDef="let element" class="action-link" mat-cell>
+            <button (click)="removeGroup(element)" class="move-right" color="warn" mat-button>
+              <mat-icon>delete</mat-icon>
+            </button>
           </td>
         </ng-container>
-        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; let element; columns: displayedColumns;"></tr>
+        <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
+        <tr *matRowDef="let row; let element; columns: displayedColumns;" mat-row></tr>
       </table>
       <mat-paginator #paginator (page)="changePage()"
-                     [pageSize]="10"
                      [pageSizeOptions]="[10, 30, 50]"
+                     [pageSize]="10"
                      [showFirstLastButtons]="true">
       </mat-paginator>
     </div>
@@ -73,6 +79,7 @@
   <mat-card-actions>
     <button mat-button routerLink="/users">{{'management-app-ui.cancel' |
       translate}}</button>
-    <button mat-button color="primary" (click)="save()" [disabled]="!form.dirty && !this.isGroupListChanged">{{'management-app-ui.save' | translate}}</button>
+    <button (click)="save()" [disabled]="!form.dirty && !this.isGroupListChanged" color="primary"
+            mat-button>{{'management-app-ui.save' | translate}}</button>
   </mat-card-actions>
 </mat-card>

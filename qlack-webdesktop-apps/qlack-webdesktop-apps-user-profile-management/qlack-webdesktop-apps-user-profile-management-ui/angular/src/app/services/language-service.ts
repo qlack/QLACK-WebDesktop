@@ -22,7 +22,8 @@ export class LanguageService extends CrudService<LanguageDto> {
   }
 
   updateLanguages(languages: Object[]): Observable<any> {
-    return this.http.post(`${this.contextPath}` + `${AppConstants.API_ROOT}/${this.resource}/update`, JSON.stringify(languages),
+    return this.http.post(`${this.contextPath}` + `${AppConstants.API_ROOT}/${this.resource}/update`,
+      JSON.stringify(languages),
       {headers: {'Content-Type': 'application/json'}});
   }
 

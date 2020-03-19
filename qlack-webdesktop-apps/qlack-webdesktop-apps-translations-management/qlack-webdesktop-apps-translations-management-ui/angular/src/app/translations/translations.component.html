@@ -2,36 +2,38 @@
   <mat-card-content>
     <div fxLayout="column">
 
-      <p id="tableDscTranslations" aria-hidden="true" hidden>{{'translations-management-ui.translations' | translate}}</p>
-      <table mat-table #table [dataSource]="dataSource" class="mat-elevation-z0" fxFlex="grow"
+      <p aria-hidden="true" hidden
+         id="tableDscTranslations">{{'translations-management-ui.translations' | translate}}</p>
+      <table #table [dataSource]="dataSource" aria-describedby="tableDscTranslations" class="mat-elevation-z0" fxFlex="grow"
+             mat-table
              matSort
              matSortActive="id"
              matSortDirection="asc"
-             matSortStart="asc"
-             matSortDisableClear aria-describedby="tableDscTranslations">
+             matSortDisableClear matSortStart="asc">
         <ng-container matColumnDef="groupId">
-          <th mat-header-cell *matHeaderCellDef id="groupName"> {{'translations-management-ui.groupName' | translate}}</th>
-          <td mat-cell *matCellDef="let element">{{element.groupName}}</td>
+          <th *matHeaderCellDef id="groupName"
+              mat-header-cell> {{'translations-management-ui.groupName' | translate}}</th>
+          <td *matCellDef="let element" mat-cell>{{element.groupName}}</td>
         </ng-container>
         <ng-container matColumnDef="name">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header id="keyName">
+          <th *matHeaderCellDef id="keyName" mat-header-cell mat-sort-header>
             {{'translations-management-ui.keyName' | translate}}</th>
-          <td mat-cell *matCellDef="let element">{{element.name}}</td>
+          <td *matCellDef="let element" mat-cell>{{element.name}}</td>
         </ng-container>
         <div *ngFor="let language of languages">
           <ng-container matColumnDef="translations.{{language.locale}}">
-            <th mat-header-cell *matHeaderCellDef id="languageName"> {{language.name}}</th>
-            <td mat-cell *matCellDef="let element">{{element.translations[language.locale]}}</td>
+            <th *matHeaderCellDef id="languageName" mat-header-cell> {{language.name}}</th>
+            <td *matCellDef="let element" mat-cell>{{element.translations[language.locale]}}</td>
           </ng-container>
         </div>
 
-        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; let element; columns: displayedColumns;"
-            [routerLink]="'edit/'+element.id" (click)="setData(element,languages)"></tr>
+        <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
+        <tr (click)="setData(element,languages)" *matRowDef="let row; let element; columns: displayedColumns;"
+            [routerLink]="'edit/'+element.id" mat-row></tr>
       </table>
       <mat-paginator #paginator (page)="changePage()"
-                     [pageSize]="10"
                      [pageSizeOptions]="[10, 30, 50]"
+                     [pageSize]="10"
                      [showFirstLastButtons]="true">
       </mat-paginator>
     </div>

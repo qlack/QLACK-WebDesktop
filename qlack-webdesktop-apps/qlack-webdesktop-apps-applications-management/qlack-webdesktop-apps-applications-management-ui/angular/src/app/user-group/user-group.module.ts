@@ -63,4 +63,5 @@ import {MatAutocompleteModule} from "@angular/material/autocomplete";
     UserGroupEditComponent
   ]
 })
-export class UserGroupModule { }
+export class UserGroupModule {
+}

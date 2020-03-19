@@ -20,7 +20,7 @@ export class FileService extends CrudService<FileDto> {
   }
 
   public upload(formData) {
-    return this.http.post(`${this.contextPath}` + AppConstants.API_ROOT + `/upload`, formData);
+    return this.http.post('http://localhost:8082/api/application/upload', formData);
   }
 
   getImage(id: any) {

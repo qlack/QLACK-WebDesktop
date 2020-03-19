@@ -1,6 +1,7 @@
 package com.eurodyn.qlack.webdesktop.common.mapper;
 
 import com.eurodyn.qlack.common.model.QlackBaseModel;
+
 import java.util.Date;
 import java.util.List;
 
@@ -57,8 +58,8 @@ public interface WdMapper<E extends QlackBaseModel, D> {
   }
 
   /**
-   * Returns a {@link java.util.Date} object representing the {@link java.lang.Long} value of time
-   * in milliseconds or null if value is null.
+   * Returns a {@link java.util.Date} object representing the {@link java.lang.Long} value of time in milliseconds or
+   * null if value is null.
    *
    * @param value the number of milliseconds since January 1, 1970, 00:00:00 GMT
    * @return a {@link java.util.Date}

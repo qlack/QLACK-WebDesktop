@@ -1,6 +1,6 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { NoSecurityProfileComponent } from './no-security-profile.component';
+import {NoSecurityProfileComponent} from './no-security-profile.component';
 
 describe('NoSecurityProfileComponent', () => {
   let component: NoSecurityProfileComponent;
@@ -8,7 +8,7 @@ describe('NoSecurityProfileComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ NoSecurityProfileComponent ]
+      declarations: [NoSecurityProfileComponent]
     })
     .compileComponents();
   }));

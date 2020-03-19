@@ -26,8 +26,8 @@ export class ApplicationsComponent extends BaseComponent implements OnInit, Afte
   // References to sorting and pagination.
   @ViewChild(MatSort, {static: true}) sort: MatSort;
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
-  private loadFileUpload = false;
   isVisible: boolean;
+  private loadFileUpload = false;
 
   constructor(private fb: FormBuilder, private router: Router, private applicationsService: ApplicationsService,
               private qForms: QFormsService, private translateService: TranslateService, private dialog: MatDialog, private data: DataService) {

@@ -7,7 +7,6 @@ import com.eurodyn.qlack.fuse.aaa.service.UserService;
 import com.eurodyn.qlack.webdesktop.applications.management.dto.UserGroupManagementDTO;
 import com.eurodyn.qlack.webdesktop.common.service.ProfileManagerService;
 import com.querydsl.core.types.Predicate;
-import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +17,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.core.user.DefaultOAuth2User;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -42,7 +43,7 @@ public class UserGroupManagementService {
     UserDTO userId = new UserDTO();
     Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
     if (("sso").equalsIgnoreCase(profileManagerService.getActiveProfile())
-        && principal instanceof DefaultOAuth2User){
+        && principal instanceof DefaultOAuth2User) {
       String userName = ((DefaultOAuth2User) principal).getName();
       userId = userService.getUserByName(userName);
     }

@@ -41,6 +41,7 @@ export class UserService extends CrudService<UserDto> {
   }
 
   getGroupsByUserId(queryString?: string, userId?: string): Observable<any> {
-    return this.http.get<QPageableReply<any>>(`${this.contextPath}` + `${AppConstants.API_ROOT}/${this.endpoint}/groups/` + userId + `?${queryString}`);
+    return this.http.get<QPageableReply<any>>(
+      `${this.contextPath}` + `${AppConstants.API_ROOT}/${this.endpoint}/groups/` + userId + `?${queryString}`);
   }
 }

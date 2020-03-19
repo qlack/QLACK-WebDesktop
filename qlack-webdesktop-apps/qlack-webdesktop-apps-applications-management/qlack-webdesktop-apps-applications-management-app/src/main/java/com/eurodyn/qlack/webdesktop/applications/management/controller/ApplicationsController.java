@@ -1,27 +1,22 @@
 package com.eurodyn.qlack.webdesktop.applications.management.controller;
 
 import com.eurodyn.qlack.fuse.aaa.dto.UserAttributeDTO;
-import com.eurodyn.qlack.webdesktop.applications.management.dto.WdApplicationManagementDTO;
-import com.eurodyn.qlack.webdesktop.applications.management.service.ApplicationsService;
 import com.eurodyn.qlack.webdesktop.common.dto.WdApplicationDTO;
+import com.eurodyn.qlack.webdesktop.common.dto.WdApplicationManagementDTO;
+import com.eurodyn.qlack.webdesktop.applications.management.service.ApplicationsService;
+import com.eurodyn.qlack.webdesktop.common.service.ActiveProfileService;
 import com.eurodyn.qlack.webdesktop.common.service.ProfileManagerService;
-import java.util.Map;
-import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import net.minidev.json.JSONValue;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.multipart.MultipartFile;
+
+import java.util.Map;
 
 /**
  * This Controller class contains all the endpoints related to the applications actions.
@@ -35,11 +30,16 @@ public class ApplicationsController {
 
   private ApplicationsService applicationsService;
   private ProfileManagerService profileManagerService;
+  private ActiveProfileService activeProfileService;
 
   @Autowired
-  public ApplicationsController(ApplicationsService applicationsService, ProfileManagerService profileManagerService) {
+  public ApplicationsController(
+      ApplicationsService applicationsService,
+      ProfileManagerService profileManagerService,
+      ActiveProfileService activeProfileService) {
     this.applicationsService = applicationsService;
     this.profileManagerService = profileManagerService;
+    this.activeProfileService = activeProfileService;
   }
 
   /**
@@ -76,38 +76,6 @@ public class ApplicationsController {
   }
 
   /**
-   * Saves a new wd application.
-   *
-   * @return the response entity.
-   */
-  @PostMapping("/applications")
-  public ResponseEntity save(
-      @Valid @RequestBody WdApplicationManagementDTO wdApplicationManagementDTO) {
-    return applicationsService.save(wdApplicationManagementDTO);
-  }
-
-  /**
-   * Updates a wd application.
-   *
-   * @return the response entity.
-   */
-  @PostMapping("/applications/{id}")
-  public ResponseEntity update(
-      @Valid @RequestBody WdApplicationManagementDTO wdApplicationManagementDTO) {
-    return applicationsService.update(wdApplicationManagementDTO);
-  }
-
-  /**
-   * Saves a new wd application or updates an existing one through yaml file.
-   *
-   * @param file the file to retrieve data from.
-   */
-  @PostMapping(value = "/upload")
-  public void uploadApplication(@RequestParam("file") MultipartFile file) {
-    applicationsService.saveApplicationFromYaml(file);
-  }
-
-  /**
    * Retrieves user's attributes based on attribute name.
    *
    * @param attributeName the attribute to search for.
@@ -119,7 +87,7 @@ public class ApplicationsController {
   }
 
   @GetMapping(path = "/activeProfile")
-  public boolean getActiveProfile(){
-    return applicationsService.isSsoActive();
+  public boolean getActiveProfile() {
+    return activeProfileService.isSsoActive();
   }
 }

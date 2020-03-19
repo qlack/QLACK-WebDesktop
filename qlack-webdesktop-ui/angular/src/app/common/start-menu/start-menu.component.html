@@ -5,11 +5,11 @@
 <mat-menu #menu="matMenu" class="scroll">
   <mat-grid-list *ngFor="let widgets of sortedApplications  let lastItem = last;" cols={{columns}}
                  id="iconPlay">
-    <span class="dropdown-header" *ngIf="widgets[0].groupTranslated">{{widgets[0].groupTranslated}}</span>
-    <span class="dropdown-header" *ngIf="!widgets[0].groupTranslated">{{'webdesktop-ui.groupOthers' | translate}}</span>
-    <mat-grid-tile *ngFor="let widget of widgets"
-                   class="actionIcon" (click)="onAppClick.emit(widget)">
-      <span class="fa"><img src={{widget.icon}} default='assets/img/icon.png' alt="application icon"></span>
+    <span *ngIf="widgets[0].groupTranslated" class="dropdown-header">{{widgets[0].groupTranslated}}</span>
+    <span *ngIf="!widgets[0].groupTranslated" class="dropdown-header">{{'webdesktop-ui.groupOthers' | translate}}</span>
+    <mat-grid-tile (click)="onAppClick.emit(widget)"
+                   *ngFor="let widget of widgets" class="actionIcon">
+      <span class="fa"><img alt="application icon" default='assets/img/icon.png' src={{widget.icon}}></span>
       <h3>{{widget.applicationTitle}}</h3>
     </mat-grid-tile>
     <mat-divider *ngIf="!lastItem"></mat-divider>

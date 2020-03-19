@@ -1,6 +1,7 @@
 package com.eurodyn.qlack.webdesktop.applications.management.dto;
 
 import com.eurodyn.qlack.fuse.aaa.dto.UserDTO;
+
 import java.util.Collection;
 
 public class UserManagementDTO extends UserDTO {

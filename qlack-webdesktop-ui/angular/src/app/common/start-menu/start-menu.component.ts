@@ -19,13 +19,10 @@ export class StartMenuComponent implements OnInit {
   webDesktopUiLexiconGroup: string = 'webdesktop-ui';
   sortedApplications = new Array<Application[]>();
   columns = 4;
-  private allowedOrigins: string[] = [];
-
   @Output() onAppClick = new EventEmitter();
-
   @Input() isSsoProfile;
-
   userDetailsDto: any = new UserDetailsDto();
+  private allowedOrigins: string[] = [];
 
   constructor(private webDesktopService: WebdesktopService, private translate: TranslateService, private qPubSubService: QngPubsubService, private _snackBar: MatSnackBar) {
     this.webDesktopService.getUserAttributes().subscribe(userAttributeList => {

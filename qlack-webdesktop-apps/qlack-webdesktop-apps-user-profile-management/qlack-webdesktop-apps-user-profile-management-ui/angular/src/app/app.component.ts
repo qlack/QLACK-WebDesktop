@@ -10,8 +10,9 @@ import {Title} from '@angular/platform-browser';
 })
 export class AppComponent {
   title = 'user-profile-management';
-  isSsoProfile: boolean ;
-  constructor(private translate: TranslateService,private userProfileService: UserProfileService,private titleService: Title ) {
+  isSsoProfile: boolean;
+
+  constructor(private translate: TranslateService, private userProfileService: UserProfileService, private titleService: Title) {
     this.userProfileService.getActiveProfile().subscribe(isSsoProfile => {
       this.isSsoProfile = isSsoProfile;
     });

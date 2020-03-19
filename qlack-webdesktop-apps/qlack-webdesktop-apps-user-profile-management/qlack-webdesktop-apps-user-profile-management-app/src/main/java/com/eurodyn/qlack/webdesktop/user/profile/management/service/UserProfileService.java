@@ -8,15 +8,16 @@ import com.eurodyn.qlack.fuse.lexicon.service.KeyService;
 import com.eurodyn.qlack.fuse.lexicon.service.LanguageService;
 import com.eurodyn.qlack.webdesktop.common.service.ProfileManagerService;
 import com.eurodyn.qlack.webdesktop.user.profile.management.dto.UserDetailsDTO;
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.core.user.DefaultOAuth2User;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Service
 public class UserProfileService {
@@ -53,14 +54,14 @@ public class UserProfileService {
       String userName = ((DefaultOAuth2User) principal).getName();
       String userId = userService.getUserByName(userName).getId();
 
-      saveAttribute("defaultLanguage",userId,null,userDetailsDTO.getDefaultLanguage());
-      if(profileImage != null) {
+      saveAttribute("defaultLanguage", userId, null, userDetailsDTO.getDefaultLanguage());
+      if (profileImage != null) {
         saveAttribute("profileImage", userId, profileImage.getBytes(), null);
       }
-      if(backgroundImage != null) {
+      if (backgroundImage != null) {
         saveAttribute("backgroundImage", userId, backgroundImage.getBytes(), null);
       }
-      if(deleteBackgroundImage){
+      if (deleteBackgroundImage) {
         saveAttribute("backgroundImage", userId, null, null);
       }
     }
@@ -86,8 +87,8 @@ public class UserProfileService {
       String userName = ((DefaultOAuth2User) principal).getName();
       UserDTO userDTO = userService.getUserByName(userName);
       for (UserAttributeDTO attribute : userDTO.getUserAttributes()) {
-        if(attribute.getName().equalsIgnoreCase(attributeName)){
-          return  attribute;
+        if (attribute.getName().equalsIgnoreCase(attributeName)) {
+          return attribute;
         }
       }
     }
@@ -95,7 +96,7 @@ public class UserProfileService {
   }
 
 
-  public void saveAttribute(String attributeName,String userId,byte[] binData,String data){
+  public void saveAttribute(String attributeName, String userId, byte[] binData, String data) {
     UserAttributeDTO userAttributeDTO = userService.getAttribute(userId, attributeName);
     if (userAttributeDTO == null) {
       userAttributeDTO = new UserAttributeDTO();
@@ -113,9 +114,10 @@ public class UserProfileService {
 
   /**
    * if spring boot profile is sso return true else false
-   * @return  true or false
+   *
+   * @return true or false
    */
-  public boolean isSsoProfile(){
+  public boolean isSsoProfile() {
     return SSO_PROFILE.equalsIgnoreCase(profileManagerService.getActiveProfile());
   }
 }

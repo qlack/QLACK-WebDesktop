@@ -14,8 +14,9 @@ public class ProfileManagerService {
 
   /**
    * Retrieves the name of the profile that is currently active.
-   * @return a string containing the active-s profiles comma separated.
-   * If no profile is active, then an empty string is return.
+   *
+   * @return a string containing the active-s profiles comma separated. If no profile is active, then an empty string is
+   * return.
    */
   public String getActiveProfile() {
     return activeProfile;

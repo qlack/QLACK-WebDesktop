@@ -21,6 +21,7 @@
   height: 42px;
   border-radius: 0px;
   border-bottom: double black 2px;
+
   &:hover {
     background-color: rgba(255, 255, 255, 0.15);
   }
@@ -44,12 +45,12 @@
 }
 
 
-
 .content {
   padding: 0;
   min-width: 300px;
   min-height: 182px;
 }
+
 .resize-handle-right {
   position: absolute;
   height: calc(100% - 2em);
@@ -58,7 +59,8 @@
   right: 0;
   z-index: 9999999 !important;
 }
-.resize-handle-bottom{
+
+.resize-handle-bottom {
   position: absolute;
   bottom: 0;
   height: 6px;
@@ -145,6 +147,7 @@
   background-color: transparent;
   box-shadow: none;
   border-radius: 0;
+
   &:hover {
     background-color: rgba(255, 255, 255, 0.15);
   }

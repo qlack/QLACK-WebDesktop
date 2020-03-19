@@ -8,12 +8,12 @@
         </mat-slide-toggle>
         <mat-form-field>
           <mat-label>{{'translations-management-ui.languageName' | translate}}</mat-label>
-          <input matInput formControlName="name">
+          <input formControlName="name" matInput>
         </mat-form-field>
         <mat-form-field>
           <mat-label>{{'translations-management-ui.languageLocale' | translate}}</mat-label>
-          <input matInput
-                 formControlName="locale">
+          <input formControlName="locale"
+                 matInput>
         </mat-form-field>
         <mat-form-field>
           <mat-label>{{'translations-management-ui.copyTranslations' | translate}}</mat-label>
@@ -30,8 +30,8 @@
   </mat-card-content>
   <mat-card-actions>
     <button mat-button routerLink="/languages" type="button">{{'translations-management-ui.back' |
-        translate}}</button>
-    <button mat-button color="primary" (click)="save()" [disabled]="">{{'translations-management-ui.save' |
-        translate}}</button>
+      translate}}</button>
+    <button (click)="save()" [disabled]="" color="primary" mat-button>{{'translations-management-ui.save' |
+      translate}}</button>
   </mat-card-actions>
 </mat-card>

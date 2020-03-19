@@ -1,6 +1,6 @@
 <mat-toolbar class="navigation-bar border-line">
 
-  <app-start-menu *ngIf="isSsoProfile != null" (onAppClick)="initApplication($event)"
+  <app-start-menu (onAppClick)="initApplication($event)" *ngIf="isSsoProfile != null"
                   [isSsoProfile]="isSsoProfile"></app-start-menu>
 
   <ng-template #applicationContainer></ng-template>
@@ -8,15 +8,15 @@
   <div class="right-side-area">
     <div class="wrapper">
       <a mat-button>
-        <img *ngIf="profileImage" src="data:image/png;base64,{{profileImage}}" alt="application icon"
-             class="profileImage-class">
+        <img *ngIf="profileImage" alt="application icon" class="profileImage-class"
+             src="data:image/png;base64,{{profileImage}}">
       </a>
-      <button mat-button *ngIf="!profileImage">
+      <button *ngIf="!profileImage" mat-button>
         <mat-icon>account_circle</mat-icon>
       </button>
       <ul>
         <li>
-          <button mat-button (click)="openUserProfileApplication()">
+          <button (click)="openUserProfileApplication()" mat-button>
             {{'webdesktop-ui.profile' | translate}}
           </button>
         </li>

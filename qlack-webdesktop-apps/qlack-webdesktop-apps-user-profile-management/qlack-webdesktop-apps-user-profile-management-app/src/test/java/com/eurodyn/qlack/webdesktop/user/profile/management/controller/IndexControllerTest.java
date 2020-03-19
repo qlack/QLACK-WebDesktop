@@ -8,7 +8,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-
 import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
@@ -31,7 +30,7 @@ public class IndexControllerTest {
 
   private ResourceLoader resourceLoader = PowerMockito.mock(ResourceLoader.class);
 
-  private Resource mockResource =PowerMockito.mock(Resource.class);
+  private Resource mockResource = PowerMockito.mock(Resource.class);
 
 
   @Before
@@ -57,7 +56,7 @@ public class IndexControllerTest {
   public void getConfigurationNotFoundTest() throws Exception {
 
     when(resourceLoader.getResource(anyString())).thenReturn(mockResource);
-    when(FileCopyUtils.copyToByteArray(mockResource.getInputStream())).thenThrow( new IOException());
+    when(FileCopyUtils.copyToByteArray(mockResource.getInputStream())).thenThrow(new IOException());
     mockMvc.perform(get("/configuration")
         .accept(MediaType.ALL))
         .andExpect(status().isNotFound());
@@ -77,7 +76,7 @@ public class IndexControllerTest {
   @Test
   public void getLogoNotFoundTest() throws Exception {
     when(resourceLoader.getResource(anyString())).thenReturn(mockResource);
-    when(FileCopyUtils.copyToByteArray(mockResource.getInputStream())).thenThrow( new IOException());
+    when(FileCopyUtils.copyToByteArray(mockResource.getInputStream())).thenThrow(new IOException());
     mockMvc.perform(get("/logo/icon")
         .accept(MediaType.IMAGE_PNG_VALUE))
         .andExpect(status().isNotFound());
@@ -97,7 +96,7 @@ public class IndexControllerTest {
   @Test
   public void getSmallLogoNotFoundTest() throws Exception {
     when(resourceLoader.getResource(anyString())).thenReturn(mockResource);
-    when(FileCopyUtils.copyToByteArray(mockResource.getInputStream())).thenThrow( new IOException());
+    when(FileCopyUtils.copyToByteArray(mockResource.getInputStream())).thenThrow(new IOException());
     mockMvc.perform(get("/logo/icon_small")
         .accept(MediaType.IMAGE_PNG_VALUE))
         .andExpect(status().isNotFound());

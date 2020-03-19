@@ -33,6 +33,6 @@ export interface ApplicationDto {
   groupsAdded: [];
   groupsRemoved: [];
   details: [];
-  users:[];
+  users: [];
   userGroups: [];
 }

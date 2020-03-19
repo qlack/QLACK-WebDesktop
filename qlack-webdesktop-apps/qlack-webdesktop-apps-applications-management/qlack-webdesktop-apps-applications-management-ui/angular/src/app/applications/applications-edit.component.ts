@@ -75,7 +75,7 @@ export class ApplicationsEditComponent implements OnInit {
     });
 
     this.applicationsService.isSsoEnabled().subscribe(isSso => {
-      if (isSso){
+      if (isSso) {
         this.form.controls['restrictAccess'].enable();
       }
     });
@@ -115,7 +115,7 @@ export class ApplicationsEditComponent implements OnInit {
   }
 
   //handle permissions before save or update
-  handlePermissions(){
+  handlePermissions() {
     let usersAdded;
     let usersRemoved;
     let groupsAdded;
@@ -143,7 +143,7 @@ export class ApplicationsEditComponent implements OnInit {
 
     this.handlePermissions();
 
-    if (this.isEdit){
+    if (this.isEdit) {
       this.update();
     } else {
       this.save();
@@ -153,19 +153,20 @@ export class ApplicationsEditComponent implements OnInit {
     this.form.controls['lastDeployedOn'].setValue(new Date(this.form.get('lastDeployedOn').value));
   }
 
-  save(){
+  save() {
     this.applicationsService.save(this.qForms.cleanupForm(this.form)).subscribe(
       (response) => {
         this.utilityService.popupSuccessAction(
-          this.getMessageTranslations('management-app-ui.success') + "!", this.getMessageTranslations('management-app-ui.dismiss'));
-        this.router.navigate(["/"]).then(() =>window.location.reload());
+          this.getMessageTranslations('management-app-ui.success') + "!",
+          this.getMessageTranslations('management-app-ui.dismiss'));
+        this.router.navigate(["/"]).then(() => window.location.reload());
         this.data.isNavBarVisible(true);
       }, error => {
 
         if (error.status == 400) {
           let validationErrors = error.error;
           //inserts proper translations
-          validationErrors.forEach( validationError => {
+          validationErrors.forEach(validationError => {
             validationError.code = 'management-app-ui.' + validationError.code;
           });
           if (error.error) {
@@ -174,8 +175,10 @@ export class ApplicationsEditComponent implements OnInit {
             this.utilityService.popupError(this.getMessageTranslations('management-app-ui.error'));
           }
         } else {
-          if (error.error === "alreadyExistsCode"){
-            this.utilityService.popupError(this.getMessageTranslations('management-app-ui.the') + " " + this.getMessageTranslations('management-app-ui.applicationName') +
+          if (error.error === "alreadyExistsCode") {
+            this.utilityService.popupError(
+              this.getMessageTranslations('management-app-ui.the') + " " + this.getMessageTranslations(
+              'management-app-ui.applicationName') +
               " " + this.getMessageTranslations('management-app-ui.alreadyExistsCode'));
           } else {
             this.utilityService.popupError(error.error);
@@ -188,7 +191,8 @@ export class ApplicationsEditComponent implements OnInit {
     this.applicationsService.update(this.qForms.cleanupForm(this.form), this.id).subscribe(
       (response) => {
         this.utilityService.popupSuccessAction(
-          this.getMessageTranslations('management-app-ui.success') + "!", this.getMessageTranslations('management-app-ui.dismiss'));
+          this.getMessageTranslations('management-app-ui.success') + "!",
+          this.getMessageTranslations('management-app-ui.dismiss'));
         this.router.navigate(["/"]);
         this.data.isNavBarVisible(true);
       }, error => {
@@ -209,17 +213,17 @@ export class ApplicationsEditComponent implements OnInit {
   }
 
   checkNewOrEdit() {
-    this.componentTitle = "newApp"
+    this.componentTitle = "newApp";
     if (this.isEdit) {
       this.componentTitle = "editApp";
     }
   }
 
   toggle($event: MatSlideToggleChange) {
-      this.isDisabled = $event.checked;
+    this.isDisabled = $event.checked;
   }
 
-  isSsoEnabled(){
+  isSsoEnabled() {
     return this.applicationsService.isSsoEnabled().subscribe();
   }
 

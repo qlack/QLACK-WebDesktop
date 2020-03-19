@@ -26,7 +26,7 @@ export class UserProfileComponent implements OnInit {
 
   constructor(private userProfileService: UserProfileService, private dialog: MatDialog,
               private fb: FormBuilder, private qForms: QFormsService,
-              private utilityService: UtilityService, private languageService: LanguageService,private translate: TranslateService) {
+              private utilityService: UtilityService, private languageService: LanguageService, private translate: TranslateService) {
   }
 
   ngOnInit(): void {

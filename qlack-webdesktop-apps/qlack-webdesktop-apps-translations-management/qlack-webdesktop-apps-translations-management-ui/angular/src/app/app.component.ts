@@ -14,7 +14,7 @@ export class AppComponent {
     {path: '/translations', label: 'translations'}
   ];
 
-  constructor(private translate: TranslateService, private translationService: TranslationService,private titleService: Title) {
+  constructor(private translate: TranslateService, private translationService: TranslationService, private titleService: Title) {
 
     translate.get('translations-management-ui.tabTitle').subscribe((title: string) => {
       titleService.setTitle(title);

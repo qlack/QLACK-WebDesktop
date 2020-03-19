@@ -1,5 +1,4 @@
-
-export class UserDetailsDto   {
+export class UserDetailsDto {
 
   id: string;
   defaultLanguage: string;

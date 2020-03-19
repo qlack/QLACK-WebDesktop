@@ -121,6 +121,7 @@ public class TranslationsServiceTest {
     translationsService.createLanguage(mockedLanguageDTO);
     verify(keyService, times(0)).updateTranslationsForLanguage(any(), any());
   }
+
   @Test
   public void createLanguageWithoutTranslationsTest() {
     when(mockedLanguageDTO.getId()).thenReturn("id");
@@ -186,7 +187,7 @@ public class TranslationsServiceTest {
   }
 
   @Test
-  public void findUserAttributeByNameSuccessTest(){
+  public void findUserAttributeByNameSuccessTest() {
     when(securityContext.getAuthentication()).thenReturn(authentication);
     SecurityContextHolder.setContext(securityContext);
     when(SecurityContextHolder.getContext().getAuthentication().getPrincipal()).thenReturn(defaultOAuth2User);
@@ -201,7 +202,7 @@ public class TranslationsServiceTest {
   }
 
   @Test
-  public void findUserAttributeByNameWithWrongNameTest(){
+  public void findUserAttributeByNameWithWrongNameTest() {
     when(securityContext.getAuthentication()).thenReturn(authentication);
     SecurityContextHolder.setContext(securityContext);
     when(SecurityContextHolder.getContext().getAuthentication().getPrincipal()).thenReturn(defaultOAuth2User);
@@ -216,7 +217,7 @@ public class TranslationsServiceTest {
   }
 
   @Test
-  public void findUserAttributeByNameFailTest(){
+  public void findUserAttributeByNameFailTest() {
     when(securityContext.getAuthentication()).thenReturn(authentication);
     SecurityContextHolder.setContext(securityContext);
     when(SecurityContextHolder.getContext().getAuthentication().getPrincipal()).thenReturn(principal);

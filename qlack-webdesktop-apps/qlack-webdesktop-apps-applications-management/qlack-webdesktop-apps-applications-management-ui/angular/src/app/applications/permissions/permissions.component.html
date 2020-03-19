@@ -1,61 +1,62 @@
 <mat-tab-group>
-  <mat-tab selectIndex label="{{'management-app-ui.users' | translate}}">
+  <mat-tab label="{{'management-app-ui.users' | translate}}" selectIndex>
     <form [formGroup]="usersForm">
       <mat-form-field>
-        <input type="text" matInput formControlName="user" [matAutocomplete]="auto">
+        <input [matAutocomplete]="auto" formControlName="user" matInput type="text">
         <mat-autocomplete #auto="matAutocomplete">
           <mat-option *ngFor="let user of options" [value]="user.username">
             {{user.username}}
           </mat-option>
         </mat-autocomplete>
       </mat-form-field>
-      <button mat-button color="primary" (click)="addUser()"
-              [disabled]="!usersForm.controls['user'].dirty">{{'management-app-ui.add' | translate}}</button>
+      <button (click)="addUser()" [disabled]="!usersForm.controls['user'].dirty" color="primary"
+              mat-button>{{'management-app-ui.add' | translate}}</button>
     </form>
     <div fxLayout="column">
 
-      <p id="tableDscUser" aria-hidden="true" hidden>{{'management-app-ui.users' | translate}}</p>
-      <table mat-table #table [dataSource]="dataSource" class="mat-elevation-z0" fxFlex="grow"
+      <p aria-hidden="true" hidden id="tableDscUser">{{'management-app-ui.users' | translate}}</p>
+      <table #table [dataSource]="dataSource" aria-describedby="tableDscUser" class="mat-elevation-z0" fxFlex="grow"
+             mat-table
              matSort
              matSortActive="username"
              matSortDirection="asc"
-             matSortStart="asc"
-             matSortDisableClear aria-describedby="tableDscUser">
+             matSortDisableClear matSortStart="asc">
 
         <ng-container matColumnDef="profilepic">
           <th *matHeaderCellDef
               mat-header-cell scope="col">{{'management-app-ui.profilePicture' | translate}}</th>
           <td *matCellDef="let element" mat-cell>
             <span *ngFor="let item of element.userAttributes">
-            <img class="profilePicImg" *ngIf="item.name === 'image'" [attr.src]="item.data" alt="{{element.name}} {{'management-app-ui.icon' | translate}}"/>
+            <img *ngIf="item.name === 'image'" [attr.src]="item.data" alt="{{element.name}} {{'management-app-ui.icon' | translate}}"
+                 class="profilePicImg"/>
             </span>
           </td>
         </ng-container>
         <ng-container matColumnDef="username">
-          <th mat-header-cell *matHeaderCellDef
+          <th *matHeaderCellDef mat-header-cell
               mat-sort-header scope="col">{{'management-app-ui.userName' | translate}}</th>
-          <td mat-cell *matCellDef="let element">{{element.username}}</td>
+          <td *matCellDef="let element" mat-cell>{{element.username}}</td>
         </ng-container>
         <ng-container matColumnDef="lastname">
-          <th mat-header-cell *matHeaderCellDef
+          <th *matHeaderCellDef mat-header-cell
               mat-sort-header scope="col">{{'management-app-ui.lastName' | translate}}</th>
-          <td mat-cell *matCellDef="let element">{{element.lastname}}</td>
+          <td *matCellDef="let element" mat-cell>{{element.lastname}}</td>
         </ng-container>
         <!-- Action Column -->
         <ng-container matColumnDef="action">
-          <th mat-header-cell *matHeaderCellDef scope="col"></th>
-          <td mat-cell *matCellDef="let element" class="action-link">
-            <button mat-button color="warn" (click)="removeUser(element)" class="move-right">
+          <th *matHeaderCellDef mat-header-cell scope="col"></th>
+          <td *matCellDef="let element" class="action-link" mat-cell>
+            <button (click)="removeUser(element)" class="move-right" color="warn" mat-button>
               <mat-icon>delete</mat-icon>
             </button>
           </td>
         </ng-container>
-        <tr mat-header-row *matHeaderRowDef="displayedColumnsUsergroup"></tr>
-        <tr mat-row *matRowDef="let row; let element; columns: displayedColumnsUsergroup;"></tr>
+        <tr *matHeaderRowDef="displayedColumnsUsergroup" mat-header-row></tr>
+        <tr *matRowDef="let row; let element; columns: displayedColumnsUsergroup;" mat-row></tr>
       </table>
       <mat-paginator #paginator (page)="changePage()"
-                     [pageSize]="10"
                      [pageSizeOptions]="[10, 30, 50]"
+                     [pageSize]="10"
                      [showFirstLastButtons]="true">
       </mat-paginator>
     </div>
@@ -64,52 +65,52 @@
   <mat-tab label="{{'management-app-ui.groups' | translate}}">
     <form [formGroup]="groupForm">
       <mat-form-field>
-        <input type="text" matInput formControlName="name" [matAutocomplete]="matAuto">
+        <input [matAutocomplete]="matAuto" formControlName="name" matInput type="text">
         <mat-autocomplete #matAuto="matAutocomplete">
           <mat-option *ngFor="let group of optionsUserGroup" [value]="group.name">
             {{group.name}}
           </mat-option>
         </mat-autocomplete>
       </mat-form-field>
-      <button mat-button color="primary" (click)="addGroup()"
-              [disabled]="!groupForm.controls['name'].dirty">{{'management-app-ui.add' | translate}}</button>
+      <button (click)="addGroup()" [disabled]="!groupForm.controls['name'].dirty" color="primary"
+              mat-button>{{'management-app-ui.add' | translate}}</button>
     </form>
     <div fxLayout="column">
 
-      <p id="tableDscUserGroup" aria-hidden="true" hidden>{{'management-app-ui.groups' | translate}}</p>
-      <table mat-table #table [dataSource]="dataSourceUserGroup" class="mat-elevation-z0"
+      <p aria-hidden="true" hidden id="tableDscUserGroup">{{'management-app-ui.groups' | translate}}</p>
+      <table #table [dataSource]="dataSourceUserGroup" aria-describedby="tableDscUserGroup" class="mat-elevation-z0"
              fxFlex="grow"
+             mat-table
              matSort
              matSortActive="name"
              matSortDirection="asc"
-             matSortStart="asc"
-             matSortDisableClear aria-describedby="tableDscUserGroup">
+             matSortDisableClear matSortStart="asc">
 
         <ng-container matColumnDef="name">
-          <th mat-header-cell *matHeaderCellDef
+          <th *matHeaderCellDef mat-header-cell
               mat-sort-header scope="col">{{'management-app-ui.title' | translate}}</th>
-          <td mat-cell *matCellDef="let element">{{element.name}}</td>
+          <td *matCellDef="let element" mat-cell>{{element.name}}</td>
         </ng-container>
         <ng-container matColumnDef="description">
-          <th mat-header-cell *matHeaderCellDef
+          <th *matHeaderCellDef mat-header-cell
               mat-sort-header scope="col">{{'management-app-ui.description' | translate}}</th>
-          <td mat-cell *matCellDef="let element">{{element.description}}</td>
+          <td *matCellDef="let element" mat-cell>{{element.description}}</td>
         </ng-container>
         <!-- Action Column -->
         <ng-container matColumnDef="action">
-          <th mat-header-cell *matHeaderCellDef scope="col"></th>
-          <td mat-cell *matCellDef="let element" class="action-link">
-            <button mat-button color="warn" (click)="removeGroup(element)" class="move-right">
+          <th *matHeaderCellDef mat-header-cell scope="col"></th>
+          <td *matCellDef="let element" class="action-link" mat-cell>
+            <button (click)="removeGroup(element)" class="move-right" color="warn" mat-button>
               <mat-icon>delete</mat-icon>
             </button>
           </td>
         </ng-container>
-        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; let element; columns: displayedColumns;"></tr>
+        <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
+        <tr *matRowDef="let row; let element; columns: displayedColumns;" mat-row></tr>
       </table>
       <mat-paginator #paginator (page)="changePage()"
-                     [pageSize]="10"
                      [pageSizeOptions]="[10, 30, 50]"
+                     [pageSize]="10"
                      [showFirstLastButtons]="true">
       </mat-paginator>
     </div>

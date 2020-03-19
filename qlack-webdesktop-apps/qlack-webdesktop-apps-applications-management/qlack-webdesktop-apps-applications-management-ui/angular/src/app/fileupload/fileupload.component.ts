@@ -32,26 +32,13 @@ export class FileuploadComponent implements OnInit {
     // this.fetchUploadedImages();
   }
 
-  private fetchUploadedImages() {
-    this.fileService.getAllSorted("sort=name").subscribe(value => {
-      this.files = value;
-      if (this.files) {
-        this.fileId = this.files[0].id.toString();
-        this.changeImage(this.fileId);
-      }
-    }, onError => {
-      this.utilityService.popupError(onError.error.message);
-    });
-  }
-
-
   changeListener(event) {
     const file = (event.target as HTMLInputElement).files[0];
     const reader = new FileReader();
     reader.onload = () => {
       this.previewImageURL = reader.result as string;
-    }
-    reader.readAsDataURL(file)
+    };
+    reader.readAsDataURL(file);
 
     this.uploadForm.patchValue({
       file: file
@@ -81,5 +68,17 @@ export class FileuploadComponent implements OnInit {
 
   close() {
     this.dialogRef.close();
+  }
+
+  private fetchUploadedImages() {
+    this.fileService.getAllSorted("sort=name").subscribe(value => {
+      this.files = value;
+      if (this.files) {
+        this.fileId = this.files[0].id.toString();
+        this.changeImage(this.fileId);
+      }
+    }, onError => {
+      this.utilityService.popupError(onError.error.message);
+    });
   }
 }

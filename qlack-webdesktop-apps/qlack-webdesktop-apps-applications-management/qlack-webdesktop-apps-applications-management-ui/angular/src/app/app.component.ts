@@ -13,26 +13,20 @@ import {Title} from '@angular/platform-browser';
 export class AppComponent extends BaseComponent implements OnInit {
 
   title = 'qlack-webdesktop-management-app-ui';
+  // Controller for sidebar's visibility.
+  sidebarVisibility = true;
   //Logger
   private log = Log.create('AppComponent');
 
-  // Controller for sidebar's visibility.
-  sidebarVisibility = true;
-
-  ngOnInit(): void {
-    this.log.info('Initialising application.');
-  }
-
-  constructor(private applicationService: ApplicationsService, private translate: TranslateService,private titleService: Title) {
+  constructor(private applicationService: ApplicationsService, private translate: TranslateService, private titleService: Title) {
     super();
     this.applicationService.getUserAttributeByName("defaultLanguage").subscribe(attr => {
-      if(attr != null){
+      if (attr != null) {
         translate.setDefaultLang(attr.data);
         translate.get('management-app-ui.tabTitle').subscribe((title: string) => {
           titleService.setTitle(title);
         });
-      }
-      else{
+      } else {
         if (sessionStorage.getItem('defaultLanguage') != null) {
           translate.setDefaultLang(sessionStorage.getItem('defaultLanguage'));
           translate.get('management-app-ui.tabTitle').subscribe((title: string) => {
@@ -46,6 +40,10 @@ export class AppComponent extends BaseComponent implements OnInit {
         }
       }
     });
+  }
+
+  ngOnInit(): void {
+    this.log.info('Initialising application.');
   }
 
   toggleSidebar() {

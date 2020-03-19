@@ -1,8 +1,9 @@
 package com.eurodyn.qlack.webdesktop.applications.management.dto;
 
 import com.eurodyn.qlack.fuse.aaa.dto.UserGroupDTO;
-import java.util.Collection;
 import javax.validation.constraints.NotNull;
+
+import java.util.Collection;
 
 public class UserGroupManagementDTO extends UserGroupDTO {
 

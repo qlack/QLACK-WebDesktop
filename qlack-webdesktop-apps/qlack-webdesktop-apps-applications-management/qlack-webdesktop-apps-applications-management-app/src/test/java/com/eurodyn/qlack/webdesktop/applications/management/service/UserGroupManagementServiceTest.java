@@ -9,13 +9,14 @@ import com.eurodyn.qlack.fuse.aaa.dto.UserGroupDTO;
 import com.eurodyn.qlack.fuse.aaa.service.UserGroupService;
 import com.eurodyn.qlack.webdesktop.applications.management.dto.UserGroupManagementDTO;
 import com.eurodyn.qlack.webdesktop.applications.management.util.InitTestValues;
-import java.util.Collection;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
+
+import java.util.Collection;
 
 @RunWith(MockitoJUnitRunner.class)
 public class UserGroupManagementServiceTest {

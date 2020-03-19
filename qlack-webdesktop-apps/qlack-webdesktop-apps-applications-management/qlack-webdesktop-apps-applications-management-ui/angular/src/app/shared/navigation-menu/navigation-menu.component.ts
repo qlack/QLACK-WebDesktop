@@ -14,10 +14,11 @@ export class NavigationMenuComponent implements OnInit {
     {path: '/usergroup', label: 'groups'}
   ];
 
-  isVisible:boolean;
-  isSsoActive:boolean;
+  isVisible: boolean;
+  isSsoActive: boolean;
 
-  constructor(private data: DataService, private applicationService: ApplicationsService) { }
+  constructor(private data: DataService, private applicationService: ApplicationsService) {
+  }
 
   ngOnInit() {
     this.data.currentMessage.subscribe(isVisible => this.isVisible = isVisible);

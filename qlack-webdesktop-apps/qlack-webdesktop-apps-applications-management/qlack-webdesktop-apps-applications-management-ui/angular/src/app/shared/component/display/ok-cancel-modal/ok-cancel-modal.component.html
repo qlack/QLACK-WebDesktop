@@ -2,7 +2,9 @@
 <mat-dialog-content>{{ data.question }}</mat-dialog-content>
 
 <mat-dialog-actions align="end">
-  <button mat-button tabindex="-1" (click)="dialogRef.close(false)" *ngIf="data.buttons.cancel" class="cancel-button">CANCEL</button>
-  <button mat-button tabindex="-1" (click)="reload()" *ngIf="data.buttons.reload">RELOAD</button>
-  <button mat-button color="primary" tabindex="-1" (click)="dialogRef.close(true)" *ngIf="data.buttons.ok">OK</button>
+  <button (click)="dialogRef.close(false)" *ngIf="data.buttons.cancel" class="cancel-button" mat-button tabindex="-1">
+    CANCEL
+  </button>
+  <button (click)="reload()" *ngIf="data.buttons.reload" mat-button tabindex="-1">RELOAD</button>
+  <button (click)="dialogRef.close(true)" *ngIf="data.buttons.ok" color="primary" mat-button tabindex="-1">OK</button>
 </mat-dialog-actions>

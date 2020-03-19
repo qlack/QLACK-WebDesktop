@@ -26,19 +26,19 @@ export class PermissionsComponent implements OnInit {
   usersAdded: string[] = [];
   usersRemoved: string[] = [];
   usersInitList: UserDto[] = [];
-  private isUsersListChanged = false;
   groupForm: FormGroup;
   groupsAdded: string[] = [];
   groupsRemoved: string[] = [];
   groupsInitList: any[];
-  private isGroupListChanged = false;
   displayedColumns: string[] = ['name', 'description', 'action'];
   dataSource: MatTableDataSource<UserDto> = new MatTableDataSource<UserDto>();
   optionsUserGroup: any[];
   dataSourceUserGroup: MatTableDataSource<UserDto> = new MatTableDataSource<UserDto>();
   displayedColumnsUsergroup: string[] = ['profilepic', 'username', 'lastname', 'action'];
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
-  @ViewChild(MatSort, {static: true}) sort: MatSort
+  @ViewChild(MatSort, {static: true}) sort: MatSort;
+  private isUsersListChanged = false;
+  private isGroupListChanged = false;
   private usersStorage: any;
   private userGroupsStorage: any;
 
@@ -97,15 +97,15 @@ export class PermissionsComponent implements OnInit {
       console.log(e)
     }
 
-    if (!this.usersStorage){
+    if (!this.usersStorage) {
       this.usersStorage = new QPageableReply();
       this.usersStorage.content = [];
     }
-    if (!this.userGroupsStorage){
+    if (!this.userGroupsStorage) {
       this.userGroupsStorage = new QPageableReply();
     }
 
-    if (this.usersStorage.content){
+    if (this.usersStorage.content) {
       this.dataSource.data = this.usersStorage.content;
       this.usersInitList = this.usersStorage.content.slice();
       this.paginator.length = this.usersStorage.content.totalElements;

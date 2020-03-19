@@ -63,6 +63,7 @@ public class TranslationsController {
       @RequestParam String lang) {
     return translationsService.findTranslationsForLocale(lang);
   }
+
   @GetMapping("/user/attributes/{attributeName}")
   public UserAttributeDTO getUserAttributeByName(@PathVariable String attributeName) {
     return translationsService.findUserAttributeByName(attributeName);

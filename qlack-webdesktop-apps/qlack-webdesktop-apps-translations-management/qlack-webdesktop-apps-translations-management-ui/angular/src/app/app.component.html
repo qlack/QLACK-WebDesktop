@@ -1,11 +1,11 @@
 <mat-card>
   <mat-card-content>
     <nav mat-tab-nav-bar>
-      <a mat-tab-link
+      <a #rla="routerLinkActive"
          *ngFor="let link of navLinks"
-         [routerLink]="link.path"
-         routerLinkActive #rla="routerLinkActive"
-         [active]="rla.isActive">
+         [active]="rla.isActive"
+         [routerLink]="link.path" mat-tab-link
+         routerLinkActive>
         {{'translations-management-ui.' + link.label | translate}}
       </a>
     </nav>

@@ -3,7 +3,7 @@
 applicationName: Translations Management
 groupName: system
 appUrl: "http://localhost:8091"
-appPath: '/translationsManagement/'
+appPath: "/translationsManagement/"
 icon: "http://localhost:8082/translations/logo/icon"
 iconSmall: "http://localhost:8082/translations/logo/icon_small"
 width: "800"

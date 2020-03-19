@@ -9,22 +9,23 @@ export class WebdesktopService {
   }
 
   getActiveApplications(): Observable<any> {
-    return this.http.get('/apps/');
+    return this.http.get('/api/application/');
   }
 
   getApplicationByName(applicationName: string): Observable<any> {
-    return this.http.get('/apps/app/'+applicationName);
+    return this.http.get('/api/application/byName/' + applicationName);
   }
 
   getUserAttributes(): Observable<any> {
-    return this.http.get('/user/attributes');
+    return this.http.get('/api/user/attributes');
   }
 
   getUserAttributeByName(attributeName: string): Observable<any> {
-    return this.http.get('/user/attributes/' + attributeName);
+    return this.http.get('/api/user/attributes/' + attributeName);
   }
+
   getActiveProfile(): Observable<any> {
-    return this.http.get('/user/profile');
+    return this.http.get('/api/user/profile');
   }
 
 }

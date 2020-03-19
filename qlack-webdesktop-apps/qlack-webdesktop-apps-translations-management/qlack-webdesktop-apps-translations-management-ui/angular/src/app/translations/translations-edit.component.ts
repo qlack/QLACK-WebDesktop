@@ -4,7 +4,6 @@ import {KeyDto} from '../dto/key-dto';
 import {LanguageDto} from '../dto/language-dto';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {UtilityService} from '../services/utility.service';
-import {MatDialog} from '@angular/material/dialog';
 
 @Component({
   selector: 'app-translations-edit',
@@ -13,10 +12,9 @@ import {MatDialog} from '@angular/material/dialog';
 })
 export class TranslationsEditComponent implements OnInit {
 
+  @ViewChild('form', {static: true}) form: any;
   private key: KeyDto;
   private languages: LanguageDto[] = [];
-
-  @ViewChild('form', {static: true}) form: any;
 
   constructor(private translationService: TranslationService, private _snackBar: MatSnackBar, private utilityService: UtilityService) {
   }

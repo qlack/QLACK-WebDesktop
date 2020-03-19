@@ -3,46 +3,50 @@
     <div fxLayout="column">
       <div [formGroup]="filterForm" fxFlex="row" fxLayoutGap="10px">
         <mat-form-field>
-          <input matInput placeholder="{{'management-app-ui.userName' | translate}}" formControlName="username">
+          <input formControlName="username" matInput placeholder="{{'management-app-ui.userName' | translate}}">
         </mat-form-field>
-        <button mat-button (click)="clearFilter()">CLEAR</button>
+        <button (click)="clearFilter()" mat-button>CLEAR</button>
       </div>
 
-      <p id="tableDscUser" aria-hidden="true" hidden>{{'management-app-ui.users' | translate}}</p>
-      <table mat-table #table [dataSource]="dataSource" class="mat-elevation-z0" fxFlex="grow"
+      <p aria-hidden="true" hidden id="tableDscUser">{{'management-app-ui.users' | translate}}</p>
+      <table #table [dataSource]="dataSource" aria-describedby="tableDscUser" class="mat-elevation-z0" fxFlex="grow"
+             mat-table
              matSort
              matSortActive="username"
              matSortDirection="asc"
-             matSortStart="asc"
-             matSortDisableClear aria-describedby="tableDscUser">
+             matSortDisableClear matSortStart="asc">
 
         <ng-container matColumnDef="profilepic">
           <th *matHeaderCellDef mat-header-cell scope="col">{{'management-app-ui.profilePicture' | translate}}</th>
           <td *matCellDef="let element" mat-cell>
             <span *ngFor="let item of element.userAttributes">
-            <img class="profilePicImg" *ngIf="item.name === 'image'" [attr.src]="item.data" alt="{{item.name}} {{'management-app-ui.icon' | translate}}"/>
+            <img *ngIf="item.name === 'image'" [attr.src]="item.data" alt="{{item.name}} {{'management-app-ui.icon' | translate}}"
+                 class="profilePicImg"/>
             </span>
-          </td>l
+          </td>
+          l
         </ng-container>
         <ng-container matColumnDef="username">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header scope="col">{{'management-app-ui.userName' | translate}}</th>
-          <td mat-cell *matCellDef="let element">{{element.username}}</td>
+          <th *matHeaderCellDef mat-header-cell mat-sort-header
+              scope="col">{{'management-app-ui.userName' | translate}}</th>
+          <td *matCellDef="let element" mat-cell>{{element.username}}</td>
         </ng-container>
         <ng-container matColumnDef="firstname">
-          <th mat-header-cell *matHeaderCellDef scope="col">{{'management-app-ui.firstName' | translate}}</th>
-          <td mat-cell *matCellDef="let element">{{element.firstname}}</td>
+          <th *matHeaderCellDef mat-header-cell scope="col">{{'management-app-ui.firstName' | translate}}</th>
+          <td *matCellDef="let element" mat-cell>{{element.firstname}}</td>
         </ng-container>
         <ng-container matColumnDef="lastname">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header scope="col">{{'management-app-ui.lastName' | translate}}</th>
-          <td mat-cell *matCellDef="let element">{{element.lastname}}</td>
+          <th *matHeaderCellDef mat-header-cell mat-sort-header
+              scope="col">{{'management-app-ui.lastName' | translate}}</th>
+          <td *matCellDef="let element" mat-cell>{{element.lastname}}</td>
         </ng-container>
-        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; let element; columns: displayedColumns;"
-            [routerLink]="element.id"></tr>
+        <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
+        <tr *matRowDef="let row; let element; columns: displayedColumns;" [routerLink]="element.id"
+            mat-row></tr>
       </table>
       <mat-paginator #paginator (page)="changePage()"
-                     [pageSize]="10"
                      [pageSizeOptions]="[10, 30, 50]"
+                     [pageSize]="10"
                      [showFirstLastButtons]="true">
       </mat-paginator>
     </div>

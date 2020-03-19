@@ -31,12 +31,12 @@ export class UserGroupEditComponent implements OnInit {
   usersAdded: string[] = [];
   usersRemoved: string[] = [];
   usersInitList: UserDto[] = [];
-  private isUsersListChanged = false;
   displayedColumns: string[] = ['profilepic', 'username', 'lastname', 'action'];
   dataSource: MatTableDataSource<UserDto> = new MatTableDataSource<UserDto>();
   options: any[];
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
-  @ViewChild(MatSort, {static: true}) sort: MatSort
+  @ViewChild(MatSort, {static: true}) sort: MatSort;
+  private isUsersListChanged = false;
 
   constructor(private fb: FormBuilder, private applicationsService: ApplicationsService,
               private route: ActivatedRoute,
@@ -68,7 +68,7 @@ export class UserGroupEditComponent implements OnInit {
       });
     }
 
-    this.usersForm.valueChanges.subscribe( term => {
+    this.usersForm.valueChanges.subscribe(term => {
       if (term.user && term != '' && term.user.length > 1) {
         this.userGroupService.search(term.user, "users").subscribe(
           data => {
@@ -120,7 +120,7 @@ export class UserGroupEditComponent implements OnInit {
         if (error.status == 400) {
           let validationErrors = error.error;
           //inserts proper translations
-          validationErrors.forEach( validationError => {
+          validationErrors.forEach(validationError => {
             validationError.code = 'management-app-ui.' + validationError.code;
           });
           if (error.error) {
@@ -129,8 +129,10 @@ export class UserGroupEditComponent implements OnInit {
             this.utilityService.popupError(this.getMessageTranslations('management-app-ui.error'));
           }
         } else {
-          if (error.error === "alreadyExistsCode"){
-            this.utilityService.popupError(this.getMessageTranslations('management-app-ui.the') + " " + this.getMessageTranslations('management-app-ui.title') +
+          if (error.error === "alreadyExistsCode") {
+            this.utilityService.popupError(
+              this.getMessageTranslations('management-app-ui.the') + " " + this.getMessageTranslations(
+              'management-app-ui.title') +
               " " + this.getMessageTranslations('management-app-ui.alreadyExistsCode'));
           } else {
             this.utilityService.popupError(error.error);
@@ -178,7 +180,7 @@ export class UserGroupEditComponent implements OnInit {
         } else {
           this.users.push(user);
           //filtering, add user only if user has never been removed and added again.
-          if (!this.itemExists(this.usersInitList, user.id)){
+          if (!this.itemExists(this.usersInitList, user.id)) {
             this.usersAdded.push(user.id);
           }
           //filtering, if user has been removed and then added again remove him from usersRemoved.
@@ -192,13 +194,13 @@ export class UserGroupEditComponent implements OnInit {
       });
   }
 
-  filterList(list: string[], data: string): string[]{
+  filterList(list: string[], data: string): string[] {
     return list.filter(value => value != data);
   }
 
   //check if user exists
   itemExists(list, userId): any {
-    return list.find( item => item.id === userId);
+    return list.find(item => item.id === userId);
   }
 
   removeUser(row_obj) {
@@ -210,7 +212,7 @@ export class UserGroupEditComponent implements OnInit {
     //filtering, if user has been added and removed, remove him from usersAdded.
     this.usersAdded = this.filterList(this.usersAdded, row_obj.id);
     //filtering, add user only if user has never been removed and added again.
-    if (this.itemExists(this.usersInitList, row_obj.id)){
+    if (this.itemExists(this.usersInitList, row_obj.id)) {
       this.usersRemoved.push(row_obj.id);
     }
   }

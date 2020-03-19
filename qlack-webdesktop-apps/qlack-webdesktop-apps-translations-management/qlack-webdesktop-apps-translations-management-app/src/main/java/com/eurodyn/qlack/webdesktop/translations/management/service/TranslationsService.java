@@ -40,6 +40,7 @@ public class TranslationsService {
   private KeyRepository keyRepository;
   private DataRepository dataRepository;
   private UserService userService;
+
   @Autowired
   public TranslationsService(GroupService groupService, KeyService keyService,
       LanguageService languageService, KeyRepository keyRepository,
@@ -53,11 +54,11 @@ public class TranslationsService {
   }
 
   public Page<TmKeyDTO> findPagesForAllKeys(String page, String size,
-    List<String> sort) {
+      List<String> sort) {
     KeySearchCriteria criteria = new KeySearchCriteria();
     criteria.setPageable(
-      PageRequest.of(Integer.parseInt(page), Integer.parseInt(size),
-        Sort.Direction.fromString(sort.get(1)), sort.get(0)));
+        PageRequest.of(Integer.parseInt(page), Integer.parseInt(size),
+            Sort.Direction.fromString(sort.get(1)), sort.get(0)));
 
     List<KeyDTO> tempKeys = keyService.findKeys(criteria, true);
     Set<GroupDTO> groups = groupService.getGroups();
@@ -80,7 +81,7 @@ public class TranslationsService {
   }
 
   public void updateTranslationsForKey(String keyId,
-    Map<String, String> translations) {
+      Map<String, String> translations) {
     keyService.updateTranslationsForKeyByLocale(keyId, translations);
   }
 
@@ -122,7 +123,7 @@ public class TranslationsService {
   }
 
   public Map<String, Map<String, String>> findTranslationsForLocale(
-    String locale) {
+      String locale) {
     return keyService.getTranslationsForLocaleGroupByGroupTitle(locale);
   }
 
@@ -132,8 +133,8 @@ public class TranslationsService {
       String userName = ((DefaultOAuth2User) principal).getName();
       UserDTO userDTO = userService.getUserByName(userName);
       for (UserAttributeDTO attribute : userDTO.getUserAttributes()) {
-        if(attribute.getName().equalsIgnoreCase(attributeName)){
-          return  attribute;
+        if (attribute.getName().equalsIgnoreCase(attributeName)) {
+          return attribute;
         }
       }
     }

@@ -2,8 +2,8 @@
   <mat-card-content>
     <div fxLayout="row wrap" fxLayout.lt-sm="column" fxLayoutAlign="flex-start" fxLayoutGap="15px">
       <div fxFlex="0 1 calc(100%)" fxFlex.lt-md="0 1 calc(100%)" fxFlex.lt-sm="100%">
-        <img src="assets/img/empty.png" alt="profile Image" class="profileImage">
-        <form  [formGroup]="myForm"  (ngSubmit)="save()">
+        <img alt="profile Image" class="profileImage" src="assets/img/empty.png">
+        <form (ngSubmit)="save()" [formGroup]="myForm">
 
           <mat-form-field class="full-width-input">
             <mat-label>{{'defaultLanguage' | translate}}</mat-label>
@@ -15,7 +15,7 @@
           <br>
 
           <div class="button-pad">
-            <button type="submit" mat-button [disabled]="!myForm.dirty">{{'save' | translate}}</button>
+            <button [disabled]="!myForm.dirty" mat-button type="submit">{{'save' | translate}}</button>
           </div>
         </form>
       </div>

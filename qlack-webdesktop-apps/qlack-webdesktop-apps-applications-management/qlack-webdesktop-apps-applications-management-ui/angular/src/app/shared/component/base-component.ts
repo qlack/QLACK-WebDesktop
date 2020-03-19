@@ -4,12 +4,12 @@ import {AppSettings} from '../../app.settings';
 
 export class BaseComponent {
 
-  constructor() {
-  }
-
   // Expose constants and settings to all components extending this class.
   constants = AppConstants;
   settings = AppSettings;
+
+  constructor() {
+  }
 
   /**
    * Checks if the current user is logged in or not.

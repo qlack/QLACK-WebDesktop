@@ -19,15 +19,18 @@ export class CrudService<T> {
 
   getAll(queryString?: string): Observable<QPageableReply<T>> {
     if (queryString) {
-      return this.http.get<QPageableReply<T>>(`${this.contextPath}` + `${AppConstants.API_SECURED_ROOT}/${this.endpoint}?${queryString}`);
+      return this.http.get<QPageableReply<T>>(
+        `${this.contextPath}` + `${AppConstants.API_SECURED_ROOT}/${this.endpoint}?${queryString}`);
     } else {
-      return this.http.get<QPageableReply<T>>(`${this.contextPath}` + `${AppConstants.API_SECURED_ROOT}/${this.endpoint}`);
+      return this.http.get<QPageableReply<T>>(
+        `${this.contextPath}` + `${AppConstants.API_SECURED_ROOT}/${this.endpoint}`);
     }
   }
 
   getAllSorted(queryString?: string): Observable<T[]> {
     if (queryString) {
-      return this.http.get<T[]>(`${this.contextPath}` + `${AppConstants.API_SECURED_ROOT}/${this.endpoint}/sorted?${queryString}`);
+      return this.http.get<T[]>(
+        `${this.contextPath}` + `${AppConstants.API_SECURED_ROOT}/${this.endpoint}/sorted?${queryString}`);
     } else {
       return this.http.get<T[]>(`${this.contextPath}` + `${AppConstants.API_SECURED_ROOT}/${this.endpoint}/sorted`);
     }

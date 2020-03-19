@@ -7,10 +7,12 @@ import {PermissionsComponent} from "./permissions/permissions.component";
 
 const routes: Routes = [
   {path: '', component: ApplicationsComponent},
-  {path: ':id', component: ApplicationsEditComponent,
+  {
+    path: ':id', component: ApplicationsEditComponent,
     children: [
       {path: "permissions", component: PermissionsComponent}
-  ]},
+    ]
+  },
   {path: 'upload', component: FileuploadComponent}
 ];
 

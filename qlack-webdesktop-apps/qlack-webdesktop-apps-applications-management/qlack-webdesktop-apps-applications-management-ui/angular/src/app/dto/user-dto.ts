@@ -9,7 +9,7 @@ export class UserDto extends BaseDto {
   status: number;
   roles: string;
   profilepic: string;
-  userAttributes: [ {
+  userAttributes: [{
     name: string;
     data: string;
   }
