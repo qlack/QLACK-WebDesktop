@@ -4,6 +4,7 @@ import com.eurodyn.qlack.fuse.aaa.dto.UserAttributeDTO;
 import com.eurodyn.qlack.fuse.aaa.dto.UserDTO;
 import com.eurodyn.qlack.fuse.aaa.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.env.Environment;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.core.user.DefaultOAuth2User;
@@ -21,6 +22,8 @@ public class UserDetailsService {
   private UserService userService;
   @Autowired
   private Environment env;
+  @Value("${systemDefaultLanguage}")
+  private String systemDefaultLanguage;
 
   public Map<String, UserAttributeDTO> findUserAttributes() {
     Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -46,6 +49,9 @@ public class UserDetailsService {
           return attribute;
         }
       }
+    }
+    if(attributeName.equalsIgnoreCase("defaultLanguage")){
+      return  new UserAttributeDTO("defaultLanguage",systemDefaultLanguage);
     }
     return null;
   }

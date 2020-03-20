@@ -9,7 +9,7 @@
      [cdkDragFreeDragPosition]="applicationPosition"
      [class.applicationMinimized]="isMinimized && !isSmallScreen" [style.left]="xPosition" [style.top]="yPosition"
      [style.z-index]="zIndex" cdkDrag
-     cdkDragBoundary=".widget-boundary" class="application">
+     cdkDragBoundary=".application-boundary" class="application">
 
   <div (click)="applicationClicked()" *ngIf="isMinimized && !isSmallScreen" class="applicationAsIcon">
     <div *ngIf="!(!!iconImageSrc)">{{ applicationName + '.title' | translate  }}</div>

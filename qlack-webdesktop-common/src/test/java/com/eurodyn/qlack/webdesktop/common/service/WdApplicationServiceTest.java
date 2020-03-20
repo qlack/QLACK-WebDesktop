@@ -27,6 +27,7 @@ import com.eurodyn.qlack.webdesktop.common.dto.WdApplicationDTO;
 import com.eurodyn.qlack.webdesktop.common.mapper.WdApplicationMapper;
 import com.eurodyn.qlack.webdesktop.common.model.WdApplication;
 import com.eurodyn.qlack.webdesktop.common.repository.WdApplicationRepository;
+import com.eurodyn.qlack.webdesktop.common.util.StringUtils;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -65,6 +66,8 @@ public class WdApplicationServiceTest {
   private KeyService keyService;
   @Mock
   private LanguageDTO languageDTO;
+  @Mock
+  private StringUtils stringUtils;
   @Mock
   private Map<String, Map<String, String>> mockGroupedTranslations;
   @Mock

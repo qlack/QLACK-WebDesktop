@@ -86,6 +86,7 @@ export class HeaderComponent implements OnInit {
     this.tempApplicationComponent.instance.multipleInstances = application.multipleInstances;
     this.tempApplicationComponent.instance.iconImageSrc = application.icon;
     this.tempApplicationComponent.instance.applicationName = application.applicationName;
+    console.log(application);
     if (this.tempApplicationComponent.instance.proxyAppUrl == null) {
       this.tempApplicationComponent.instance.indexPageUrl = application.appUrl + application.appPath;
     } else {

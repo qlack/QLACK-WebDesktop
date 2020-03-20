@@ -16,6 +16,7 @@ import com.eurodyn.qlack.webdesktop.common.dto.WdApplicationDTO;
 import com.eurodyn.qlack.webdesktop.common.mapper.WdApplicationMapper;
 import com.eurodyn.qlack.webdesktop.common.model.WdApplication;
 import com.eurodyn.qlack.webdesktop.common.repository.WdApplicationRepository;
+import com.eurodyn.qlack.webdesktop.common.util.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.core.user.DefaultOAuth2User;
@@ -46,6 +47,7 @@ public class WdApplicationService {
   private UserGroupService userGroupService;
   private LanguageService languageService;
   private ProfileManagerService profileManagerService;
+  private StringUtils stringUtils;
 
 
   @Autowired
@@ -54,7 +56,7 @@ public class WdApplicationService {
       WdApplicationRepository wdApplicationRepository, GroupService groupService,
       KeyService keyService, UserService userService,
       OperationService operationService, UserGroupService userGroupService,
-      LanguageService languageService, ProfileManagerService profileManagerService) {
+      LanguageService languageService, ProfileManagerService profileManagerService,StringUtils stringUtils) {
     this.mapper = mapper;
     this.wdApplicationRepository = wdApplicationRepository;
     this.groupService = groupService;
@@ -64,6 +66,7 @@ public class WdApplicationService {
     this.operationService = operationService;
     this.languageService = languageService;
     this.profileManagerService = profileManagerService;
+    this.stringUtils = stringUtils;
   }
 
   /**
@@ -121,8 +124,10 @@ public class WdApplicationService {
       }
       wdApplication.setGroupName(wdApplication.getGroupName().trim());
 
-      if (wdApplication.getProxyAppUrl() != null) {
+      if (stringUtils.isNotNullOrEmpty(wdApplication.getProxyAppUrl())) {
+
         wdApplication.setAppUrl(null);
+        wdApplication.setAppPath(null);
       }
     });
     return mapper.mapToDTO(filteredWdList);
