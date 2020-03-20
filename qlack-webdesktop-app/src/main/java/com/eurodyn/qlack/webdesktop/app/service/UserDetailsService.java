@@ -22,7 +22,7 @@ public class UserDetailsService {
   private UserService userService;
   @Autowired
   private Environment env;
-  @Value("${systemDefaultLanguage}")
+  @Value("${system.default.language}")
   private String systemDefaultLanguage;
 
   public Map<String, UserAttributeDTO> findUserAttributes() {
