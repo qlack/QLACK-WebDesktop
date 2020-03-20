@@ -62,7 +62,7 @@ export class HeaderComponent implements OnInit {
 
   activeApplicationIndex(application: Application) {
     for (let i = 0; i < this.activeApplicationsComponents.length; i++) {
-      if (this.activeApplicationsComponents[i].instance.proxyAppUrl == application.proxyAppUrl) {
+      if (this.activeApplicationsComponents[i].instance.applicationName == application.applicationName) {
         return i;
       }
     }

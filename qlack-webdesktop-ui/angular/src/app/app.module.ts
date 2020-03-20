@@ -26,7 +26,6 @@ import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import {ResizableModule} from 'angular-resizable-element';
 import {QngPubsubModule} from '@qlack/qng-pubsub';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
-import {ErrorComponent} from './error/error.component';
 import {ImagePreloadDirective} from './image-preload.directive';
 
 export function HttpLoaderFactory(http: HttpClient) {
@@ -54,7 +53,6 @@ export function webDesktopServiceFactory(webDesktopService: WebdesktopService, t
     ApplicationComponent,
     StartMenuComponent,
     ImagePreloadDirective,
-    ErrorComponent,
   ],
   imports: [
     BrowserModule,
