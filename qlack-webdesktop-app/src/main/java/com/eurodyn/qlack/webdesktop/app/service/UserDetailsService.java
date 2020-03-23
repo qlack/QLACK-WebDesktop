@@ -3,6 +3,7 @@ package com.eurodyn.qlack.webdesktop.app.service;
 import com.eurodyn.qlack.fuse.aaa.dto.UserAttributeDTO;
 import com.eurodyn.qlack.fuse.aaa.dto.UserDTO;
 import com.eurodyn.qlack.fuse.aaa.service.UserService;
+import com.eurodyn.qlack.fuse.lexicon.service.LanguageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.env.Environment;
@@ -20,6 +21,9 @@ public class UserDetailsService {
 
   @Autowired
   private UserService userService;
+  @Autowired
+  private LanguageService languageService;
+  private static final String DEFAULT_LANGUAGE = "defaultLanguage";
   @Autowired
   private Environment env;
   @Value("${system.default.language}")
@@ -46,12 +50,18 @@ public class UserDetailsService {
       UserDTO userDTO = userService.getUserByName(userName);
       for (UserAttributeDTO attribute : userDTO.getUserAttributes()) {
         if (attribute.getName().equalsIgnoreCase(attributeName)) {
+          if(attributeName.equalsIgnoreCase(DEFAULT_LANGUAGE)){
+            if (!languageService.getLanguageByLocale(attribute.getData()).isActive()){
+              return  new UserAttributeDTO(DEFAULT_LANGUAGE,systemDefaultLanguage);
+            }
+          }
           return attribute;
         }
       }
     }
-    if(attributeName.equalsIgnoreCase("defaultLanguage")){
-      return  new UserAttributeDTO("defaultLanguage",systemDefaultLanguage);
+    // if the user has not saved default language as user attribute return the system default language
+    if(attributeName.equalsIgnoreCase(DEFAULT_LANGUAGE)){
+      return  new UserAttributeDTO(DEFAULT_LANGUAGE,systemDefaultLanguage);
     }
     return null;
   }
