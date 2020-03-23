@@ -34,14 +34,12 @@ export function HttpLoaderFactory(http: HttpClient) {
 
 export function webDesktopServiceFactory(webDesktopService: WebdesktopService, translate: TranslateService): Function {
   return () => webDesktopService.getUserAttributeByName("defaultLanguage").toPromise().then(attribute => {
-    if (attribute != null) {
-      translate.setDefaultLang(attribute.data);
-    } else {
-      if (sessionStorage.getItem('defaultLanguage') != null) {
-        translate.setDefaultLang(sessionStorage.getItem('defaultLanguage'));
-      } else {
-        translate.setDefaultLang("en");
-      }
+    if (sessionStorage.getItem('defaultLanguage') != null) {
+      translate.setDefaultLang(sessionStorage.getItem('defaultLanguage'));
+    }else{
+      if (attribute != null) {
+          translate.setDefaultLang(attribute.data);
+        }
     }
   }).catch((err: any) => Promise.resolve().then(() => translate.setDefaultLang("en")));
 }

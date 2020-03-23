@@ -20,25 +20,8 @@ export class AppComponent extends BaseComponent implements OnInit {
 
   constructor(private applicationService: ApplicationsService, private translate: TranslateService, private titleService: Title) {
     super();
-    this.applicationService.getUserAttributeByName("defaultLanguage").subscribe(attr => {
-      if (attr != null) {
-        translate.setDefaultLang(attr.data);
-        translate.get('management-app-ui.tabTitle').subscribe((title: string) => {
-          titleService.setTitle(title);
-        });
-      } else {
-        if (sessionStorage.getItem('defaultLanguage') != null) {
-          translate.setDefaultLang(sessionStorage.getItem('defaultLanguage'));
-          translate.get('management-app-ui.tabTitle').subscribe((title: string) => {
-            titleService.setTitle(title);
-          });
-        } else {
-          translate.setDefaultLang("en");
-          translate.get('management-app-ui.tabTitle').subscribe((title: string) => {
-            titleService.setTitle(title);
-          });
-        }
-      }
+    translate.get('management-app-ui.tabTitle').subscribe((title: string) => {
+      titleService.setTitle(title);
     });
   }
 

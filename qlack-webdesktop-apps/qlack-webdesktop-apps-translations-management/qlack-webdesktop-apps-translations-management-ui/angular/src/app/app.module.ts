@@ -29,8 +29,9 @@ import {MyMatPaginatorIntl} from './my-mat-paginator-Intl ';
 import {MatTabsModule} from '@angular/material/tabs';
 import {MatSelectModule} from '@angular/material/select';
 import {AppConstants} from './app.constants';
-import {TranslationService} from './services/translation.service';
 import {MatDialogModule} from '@angular/material/dialog';
+import {QngPubsubModule, QngPubsubService} from '@qlack/qng-pubsub';
+import {QPubSub} from '@qlack/qpubsub';
 
 
 export function HttpLoaderFactory(http: HttpClient) {
@@ -38,20 +39,14 @@ export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, `${contextPath}` + AppConstants.API_ROOT + "/translations?lang=", "");
 }
 
-export function translationsServiceFactory(translationService: TranslationService, translate: TranslateService): Function {
-  return () => translationService.getUserAttributeByName("defaultLanguage").toPromise().then(attribute => {
-    if (attribute != null) {
-      if (attribute.data != null) {
-        translate.setDefaultLang(attribute.data);
-      }
-    } else {
-      if (sessionStorage.getItem('defaultLanguage') != null) {
-        translate.setDefaultLang(sessionStorage.getItem('defaultLanguage'));
-      } else {
-        translate.setDefaultLang("en");
-      }
-    }
-  }).catch((err: any) => Promise.resolve().then(() => translate.setDefaultLang("en")));
+export function translationsServiceFactory(qPubSubService: QngPubsubService, translate: TranslateService): Function {
+  return () => {
+    qPubSubService.init('client-' + Math.floor(Math.random() * 9000), false);
+     qPubSubService.publish('QDefaultLanguageRequest','');
+    qPubSubService.subscribe('QDefaultLanguageResponse', (message: QPubSub.Message) => {
+          translate.setDefaultLang(message.msg);
+    });
+  }
 }
 
 
@@ -97,13 +92,14 @@ export function createCustomMatPaginatorIntl(
       }
     }),
     MatTabsModule,
-    MatSelectModule
+    MatSelectModule,
+    QngPubsubModule
 
   ],
   providers: [{
     provide: APP_INITIALIZER,
     useFactory: translationsServiceFactory,
-    deps: [TranslationService, TranslateService],
+    deps: [QngPubsubService, TranslateService],
     multi: true
   }, {provide: MatPaginatorIntl, deps: [TranslateService], useFactory: createCustomMatPaginatorIntl}],
   bootstrap: [AppComponent]

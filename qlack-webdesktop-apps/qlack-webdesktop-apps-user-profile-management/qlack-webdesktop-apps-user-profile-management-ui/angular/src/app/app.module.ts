@@ -23,6 +23,8 @@ import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import {AppConstants} from './app.constants';
 import {NoSecurityProfileComponent} from './no-security-profile/no-security-profile.component';
 import {UserProfileService} from './services/user-profile.service';
+import {QngPubsubModule, QngPubsubService} from '@qlack/qng-pubsub';
+import {QPubSub} from '@qlack/qpubsub';
 
 
 export function HttpLoaderFactory(http: HttpClient) {
@@ -30,20 +32,14 @@ export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, `${contextPath}` + AppConstants.API_ROOT + "/translations?lang=", "");
 }
 
-export function translationsServiceFactory(userProfileService: UserProfileService, translate: TranslateService): Function {
-  return () => userProfileService.getUserAttributeByName("defaultLanguage").toPromise().then(attribute => {
-    if (attribute != null) {
-      if (attribute.data != null) {
-        translate.setDefaultLang(attribute.data);
-      }
-    } else {
-      if (sessionStorage.getItem('defaultLanguage') != null) {
-        translate.setDefaultLang(sessionStorage.getItem('defaultLanguage'));
-      } else {
-        translate.setDefaultLang("en");
-      }
-    }
-  }).catch((err: any) => Promise.resolve().then(() => translate.setDefaultLang("en")));
+export function translationsServiceFactory(qPubSubService: QngPubsubService, translate: TranslateService): Function {
+  return () => {
+    qPubSubService.init('client-' + Math.floor(Math.random() * 9000), false);
+    qPubSubService.publish('QDefaultLanguageRequest','');
+    qPubSubService.subscribe('QDefaultLanguageResponse', (message: QPubSub.Message) => {
+      translate.setDefaultLang(message.msg);
+    });
+  }
 }
 
 @NgModule({
@@ -70,6 +66,7 @@ export function translationsServiceFactory(userProfileService: UserProfileServic
     MatInputModule,
     MaterialFileInputModule,
     MatIconModule,
+    QngPubsubModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
@@ -83,7 +80,7 @@ export function translationsServiceFactory(userProfileService: UserProfileServic
     {
       provide: APP_INITIALIZER,
       useFactory: translationsServiceFactory,
-      deps: [UserProfileService, TranslateService],
+      deps: [QngPubsubService, TranslateService],
       multi: true
     }
   ],

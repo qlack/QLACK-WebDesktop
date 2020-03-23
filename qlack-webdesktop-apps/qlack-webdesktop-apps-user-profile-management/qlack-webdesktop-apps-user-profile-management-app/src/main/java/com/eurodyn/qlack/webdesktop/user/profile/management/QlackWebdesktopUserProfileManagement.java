@@ -27,6 +27,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
     "com.eurodyn.qlack.webdesktop.user.profile.management.security",
     "com.eurodyn.qlack.webdesktop.common.service",
     "com.eurodyn.qlack.webdesktop.common.mapper",
+    "com.eurodyn.qlack.webdesktop.common.util",
     "com.eurodyn.qlack.fuse.aaa",
 })
 public class QlackWebdesktopUserProfileManagement {

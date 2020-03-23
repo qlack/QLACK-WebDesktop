@@ -1,6 +1,6 @@
 /* tslint:disable:max-line-length */
 import {BrowserModule} from '@angular/platform-browser';
-import {NgModule} from '@angular/core';
+import {APP_INITIALIZER, NgModule} from '@angular/core';
 import {AppComponent} from './app.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {HttpClient, HttpClientModule} from '@angular/common/http';
@@ -33,10 +33,22 @@ import {MatTableModule} from "@angular/material/table";
 import {MatCheckboxModule} from "@angular/material/checkbox";
 import {NavigationMenuComponent} from './shared/navigation-menu/navigation-menu.component';
 import {DataService} from "./services/data.service";
+import {QngPubsubModule, QngPubsubService} from '@qlack/qng-pubsub';
+import {QPubSub} from '@qlack/qpubsub';
 
 export function HttpLoaderFactory(http: HttpClient) {
   let contextPath = window.location.pathname;
   return new TranslateHttpLoader(http, `${contextPath}` + AppConstants.API_ROOT + "/translations?lang=", "");
+}
+
+export function translationsServiceFactory(qPubSubService: QngPubsubService, translate: TranslateService): Function {
+  return () => {
+    qPubSubService.init('client-' + Math.floor(Math.random() * 9000), false);
+    qPubSubService.publish('QDefaultLanguageRequest','');
+    qPubSubService.subscribe('QDefaultLanguageResponse', (message: QPubSub.Message) => {
+      translate.setDefaultLang(message.msg);
+    });
+  }
 }
 
 export function createCustomMatPaginatorIntl(
@@ -68,6 +80,7 @@ export function createCustomMatPaginatorIntl(
     MatInputModule,
     MatButtonModule,
     DisplayModule,
+    QngPubsubModule,
     NgProgressModule.withConfig({
       trickleSpeed: 500,
       debounceTime: 500,
@@ -91,6 +104,12 @@ export function createCustomMatPaginatorIntl(
   ],
   providers: [
     QFormsModule,
+    {
+      provide: APP_INITIALIZER,
+      useFactory: translationsServiceFactory,
+      deps: [QngPubsubService, TranslateService],
+      multi: true
+    },
     {provide: MatPaginatorIntl, deps: [TranslateService], useFactory: createCustomMatPaginatorIntl},
     DataService
   ],

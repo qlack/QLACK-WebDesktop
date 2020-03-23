@@ -39,7 +39,8 @@
     "rxjs-compat": "^6.5.3",
     "tslib": "^1.10.0",
     "yaml": "^1.7.2",
-    "zone.js": "~0.9.1"
+    "zone.js": "~0.9.1",
+    "@qlack/qng-pubsub": "^1.0.0"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.803.19",

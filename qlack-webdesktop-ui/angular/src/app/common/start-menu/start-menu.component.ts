@@ -105,7 +105,12 @@ export class StartMenuComponent implements OnInit {
           duration: 3000
         });
       });
+      this.qPubSubService.subscribe('QDefaultLanguageRequest', () => {
+        this.qPubSubService.publish('QDefaultLanguageResponse', this.translate.getDefaultLang());
+      });
     });
+
+
   }
 
   ngAfterViewInit() {
