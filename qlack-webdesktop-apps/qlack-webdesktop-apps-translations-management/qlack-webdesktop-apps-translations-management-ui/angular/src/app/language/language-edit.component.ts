@@ -27,7 +27,7 @@ export class LanguageEditComponent implements OnInit {
 
   save() {
     this.languageService.updateLanguages(this.languages).subscribe(success => {
-      this.utilityService.popupError(localStorage.getItem('saved'));
+      this.utilityService.popupSuccessAction(localStorage.getItem('success'),localStorage.getItem('dismiss'))
     }, Error => {
       this.utilityService.popupError(localStorage.getItem('error'));
     });

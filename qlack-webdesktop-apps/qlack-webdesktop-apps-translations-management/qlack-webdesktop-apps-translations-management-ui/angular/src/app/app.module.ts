@@ -25,7 +25,7 @@ import {TranslateLoader, TranslateModule, TranslateService} from '@ngx-translate
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import {LanguageCreateComponent} from './language/language-create.component';
 import {MatPaginatorIntl} from '@angular/material/paginator';
-import {MyMatPaginatorIntl} from './my-mat-paginator-Intl ';
+import {MyMatPaginatorIntl} from './my-mat-paginator-Intl';
 import {MatTabsModule} from '@angular/material/tabs';
 import {MatSelectModule} from '@angular/material/select';
 import {AppConstants} from './app.constants';

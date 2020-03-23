@@ -16,11 +16,20 @@ export class MyMatPaginatorIntl extends MatPaginatorIntl {
   getTranslations() {
     this.translateService.get([
       'translations-management-ui.itemsPerPage',
-      'translations-management-ui.rangeLabel'
+      'translations-management-ui.rangeLabel',
+      'translations-management-ui.firstPage',
+      'translations-management-ui.lastPage',
+      'translations-management-ui.previousPage',
+      'translations-management-ui.nextPage'
+
     ])
     .subscribe(translation => {
       this.itemsPerPageLabel = translation['translations-management-ui.itemsPerPage'];
       this.rangeLabelIntl = translation['translations-management-ui.rangeLabel'];
+      this.firstPageLabel = translation['translations-management-ui.firstPage'];
+      this.lastPageLabel = translation['translations-management-ui.lastPage'];
+      this.previousPageLabel = translation['translations-management-ui.previousPage'];
+      this.nextPageLabel = translation['translations-management-ui.nextPage'];
       this.changes.next();
     });
   }

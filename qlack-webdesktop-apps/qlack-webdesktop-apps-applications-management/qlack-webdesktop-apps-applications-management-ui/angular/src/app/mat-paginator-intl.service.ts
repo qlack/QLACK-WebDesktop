@@ -19,12 +19,21 @@ export class MatPaginatorIntlService extends MatPaginatorIntl {
 
   getTranslations() {
     this.translateService.get([
-      'translations-management-ui.itemsPerPage',
-      'translations-management-ui.rangeLabel'
+      'management-app-ui.itemsPerPage',
+      'management-app-ui.rangeLabel',
+      'management-app-ui.firstPage',
+      'management-app-ui.lastPage',
+      'management-app-ui.previousPage',
+      'management-app-ui.nextPage'
+
     ])
     .subscribe(translation => {
-      this.itemsPerPageLabel = translation['translations-management-ui.itemsPerPage'];
-      this.rangeLabelIntl = translation['translations-management-ui.rangeLabel'];
+      this.itemsPerPageLabel = translation['management-app-ui.itemsPerPage'];
+      this.rangeLabelIntl = translation['management-app-ui.rangeLabel'];
+      this.firstPageLabel = translation['management-app-ui.firstPage'];
+      this.lastPageLabel = translation['management-app-ui.lastPage'];
+      this.previousPageLabel = translation['management-app-ui.previousPage'];
+      this.nextPageLabel = translation['management-app-ui.nextPage'];
       this.changes.next();
     });
   }

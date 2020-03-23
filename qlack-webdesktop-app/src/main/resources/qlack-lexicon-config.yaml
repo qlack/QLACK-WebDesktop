@@ -48,7 +48,6 @@ translations:
     - translations: Translations
     - copyTranslations: Copy translations
     - back: Back
-    - saveChanges: Save changes
     - groupName: Group Name
     - keyName: Key Name
     - create: Create
@@ -56,7 +55,12 @@ translations:
     - save: Save
     - itemsPerPage: Items per page
     - rangeLabel: of
-    - saved: Saved!
+    - nextPage: Next page
+    - lastPage: Last page
+    - firstPage: First page
+    - previousPage: Previous Page
+    - dismiss: Dismiss
+    - success: Success
     - error: Something went wrong!
     - inactive-active: Inactive/Active
     - languageCreate: Language create
@@ -71,7 +75,6 @@ translations:
     - translations: Μεταφράσεις
     - copyTranslations: Aντιγράψτε μεταφράσεις
     - back: Επιστροφή
-    - saveChanges: Αποθηκεύστε  τις αλλαγές
     - groupName: Όνομα ομάδας
     - keyName: Όνομα κλειδιού
     - create: Δημιουργία
@@ -79,7 +82,12 @@ translations:
     - save: Αποθήκευση
     - itemsPerPage: Aντικείμενα ανά σελίδα
     - rangeLabel: από
-    - saved: Αποθηκεύτηκαν
+    - nextPage: Επόμενη σελίδα
+    - lastPage: Τελευταία σελίδα
+    - firstPage: Πρώτη σελίδα
+    - previousPage: Προηγούμενη σελίδα
+    - dismiss: Κλείσιμο
+    - success: Επιτυχία
     - error: Κάτι πήγε στραβά!
     - inactive-active: Ανενεργή/Ενεργή
     - languageCreate: Δημιουργία γλώσσας
@@ -99,6 +107,12 @@ translations:
     - create: Create
     - save: Save
     - pagination: Items per page
+    - itemsPerPage: Items per page
+    - rangeLabel: of
+    - nextPage: Next page
+    - lastPage: Last page
+    - firstPage: First page
+    - previousPage: Previous Page
     - proxyAppPath: Proxy Application Path
     - appUrl: Application Url
     - iconSmall: Icon Small
@@ -123,7 +137,7 @@ translations:
     - editApp: Edit Application
     - tableDescription: Applications List
     - properties: Properties
-    - error: Error
+    - error: Something went wrong!
     - dismiss: Dismiss
     - success: Success
     - systemApp: System Applications
@@ -168,6 +182,12 @@ translations:
     - create: Δημιουργία
     - save: Αποθήκευση
     - pagination: Αποτελέσματα ανά σελίδα
+    - itemsPerPage: Aντικείμενα ανά σελίδα
+    - rangeLabel: από
+    - nextPage: Επόμενη σελίδα
+    - lastPage: Τελευταία σελίδα
+    - firstPage: Πρώτη σελίδα
+    - previousPage: Προηγούμενη σελίδα
     - proxyAppPath: Proxy Application Path
     - appUrl: Διαδρομή εφαρμογής
     - iconSmall: Μικρή εικόνα
@@ -192,7 +212,7 @@ translations:
     - editApp: Επεξεργασία εφαρμογής
     - tableDescription: Λίστα εφαρμογών
     - properties: Ιδιότητες
-    - error: Σφάλμα
+    - error: Κάτι πήγε στραβά!
     - dismiss: Κλείσιμο
     - success: Επιτυχία
     - systemApp: Εφαρμογές Συστήματος
@@ -248,7 +268,8 @@ translations:
     - backgroundImage: Background Image
     - save: Save
     - tabTitle: User Profile Management
-    - saved: Saved!
+    - dismiss: Dismiss
+    - success: Success
     - error: Something went wrong!
 - group: user-profile-management-ui
   locale: el
@@ -260,5 +281,6 @@ translations:
     - backgroundImage: Εικόνα φόντου
     - save: Αποθήκευση
     - tabTitle: Διαχείρηση Προφίλ Χρήστη
-    - saved: Αποθηκεύτηκαν
+    - dismiss: Κλείσιμο
+    - success: Επιτυχία
     - error: Κάτι πήγε στραβά!

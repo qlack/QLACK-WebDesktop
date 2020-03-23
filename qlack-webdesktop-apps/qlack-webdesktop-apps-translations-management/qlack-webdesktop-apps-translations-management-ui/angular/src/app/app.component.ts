@@ -20,12 +20,14 @@ export class AppComponent {
       titleService.setTitle(title);
     });
     translate.get([
-      'translations-management-ui.saved',
+      'translations-management-ui.success',
+      'translations-management-ui.dismiss',
       'translations-management-ui.error',
     ])
     .subscribe(translation => {
-      localStorage.setItem('saved', translation['translations-management-ui.saved']);
+      localStorage.setItem('success', translation['translations-management-ui.success']);
       localStorage.setItem('error', translation['translations-management-ui.error']);
+      localStorage.setItem('dismiss', translation['translations-management-ui.dismiss']);
     });
   }
 
