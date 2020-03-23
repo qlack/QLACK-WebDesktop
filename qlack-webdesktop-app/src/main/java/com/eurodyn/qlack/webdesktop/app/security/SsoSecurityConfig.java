@@ -20,7 +20,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 @Profile("sso")
 public class SsoSecurityConfig extends WebSecurityConfigurerAdapter {
 
-  @Value("${logout.url}")
+  @Value("${oauth2.logout.page.url:/}")
   private String logoutUrl;
   private LdapUserUtil ldapUserUtil;
 
@@ -41,7 +41,7 @@ public class SsoSecurityConfig extends WebSecurityConfigurerAdapter {
     http.csrf()
         .disable().antMatcher("/**")
         .authorizeRequests()
-        .antMatchers("/login/**", "/logout.html", "/css/style.css", "/assets/img/**").permitAll()
+        .antMatchers("/login/**", "/logout.html", "/css/style.css", "/assets/img/**", "/auth/**").permitAll()
         .anyRequest().authenticated()
         .and().logout().invalidateHttpSession(true).clearAuthentication(true).logoutUrl("/logout")
         .logoutSuccessUrl(

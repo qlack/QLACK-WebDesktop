@@ -78,7 +78,7 @@ public class WdApplicationConfig implements ApplicationRunner {
   private ResourceWdApplicationService resourceWdApplicationService;
   private ZuulRouteService zuulRouteService;
   private StringUtils stringUtils;
-  @Value("${wd.admin:null}")
+  @Value("${webdesktop.ldap.administrator.username:null}")
   private String wdAdmin;
 
   @Autowired

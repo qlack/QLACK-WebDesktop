@@ -31,16 +31,19 @@
     <dependency>
       <groupId>org.springframework.security</groupId>
       <artifactId>spring-security-oauth2-core</artifactId>
+      <version>${spring-security.version}</version>
     </dependency>
 
     <!-- Spring deps -->
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-validation</artifactId>
+      <version>${spring-boot.version}</version>
     </dependency>
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-data-jpa</artifactId>
+      <version>${spring-boot.version}</version>
     </dependency>
 
     <!-- Third-party deps -->
@@ -107,7 +110,6 @@
             <useIncrementalCompilation>false</useIncrementalCompilation>
           </configuration>
         </plugin>
-
         <plugin>
           <groupId>org.springframework.boot</groupId>
           <artifactId>spring-boot-maven-plugin</artifactId>
@@ -117,79 +119,8 @@
             <skip>false</skip>
           </configuration>
         </plugin>
-
-        <plugin>
-          <artifactId>maven-resources-plugin</artifactId>
-          <executions>
-            <execution>
-              <configuration>
-                <outputDirectory>${project.build.directory}/classes/resources/</outputDirectory>
-                <resources>
-                  <resource>
-                    <directory>${project.parent.basedir}/qlack-webdesktop-ui/target/dist</directory>
-                  </resource>
-                </resources>
-              </configuration>
-              <goals>
-                <goal>copy-resources</goal>
-              </goals>
-              <id>copy-resources</id>
-              <phase>validate</phase>
-            </execution>
-          </executions>
-        </plugin>
       </plugins>
     </pluginManagement>
   </build>
-
-  <profiles>
-    <profile>
-      <id>coverage</id>
-      <build>
-        <plugins>
-          <plugin>
-            <groupId>org.jacoco</groupId>
-            <artifactId>jacoco-maven-plugin</artifactId>
-            <version>${jacoco.version}</version>
-            <executions>
-              <execution>
-                <id>before-unit-test-execution</id>
-                <configuration>
-                  <destFile>${project.build.directory}/jacoco.exec</destFile>
-                  <propertyName>argLine</propertyName>
-                </configuration>
-                <goals>
-                  <goal>prepare-agent</goal>
-                </goals>
-              </execution>
-              <execution>
-                <id>before-integration-test-execution</id>
-                <phase>pre-integration-test</phase>
-                <configuration>
-                  <destFile>${project.build.directory}/jacoco-it.exec</destFile>
-                  <propertyName>failsafe.jacoco.args</propertyName>
-                </configuration>
-                <goals>
-                  <goal>prepare-agent</goal>
-                </goals>
-              </execution>
-              <execution>
-                <id>report</id>
-                <phase>test</phase>
-                <configuration>
-                  <excludes>
-                    <exclude>com/eurodyn/qlack/**/**/model/*</exclude>
-                  </excludes>
-                </configuration>
-                <goals>
-                  <goal>report</goal>
-                </goals>
-              </execution>
-            </executions>
-          </plugin>
-        </plugins>
-      </build>
-    </profile>
-  </profiles>
 
 </project>
