@@ -39,16 +39,16 @@ export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, `${contextPath}` + AppConstants.API_ROOT + "/translations?lang=", "");
 }
 
-export function translationsServiceFactory(qPubSubService: QngPubsubService, translate: TranslateService): Function {
-  return () => {
+export function translationsServiceFactory(qPubSubService: QngPubsubService, translate: TranslateService){
+  return () =>  new Promise((resolve) => {
     qPubSubService.init('client-' + Math.floor(Math.random() * 9000), false);
-     qPubSubService.publish('QDefaultLanguageRequest','');
-    qPubSubService.subscribe('QDefaultLanguageResponse', (message: QPubSub.Message) => {
-          translate.setDefaultLang(message.msg);
-    });
-  }
+      qPubSubService.publish('QDefaultLanguageRequest', '');
+      qPubSubService.subscribe('QDefaultLanguageResponse', (message: QPubSub.Message) => {
+        translate.setDefaultLang(message.msg);
+        resolve();
+  });
+  });
 }
-
 
 export function createCustomMatPaginatorIntl(
   translateService: TranslateService
@@ -96,7 +96,7 @@ export function createCustomMatPaginatorIntl(
     QngPubsubModule
 
   ],
-  providers: [{
+  providers: [TranslateService,{
     provide: APP_INITIALIZER,
     useFactory: translationsServiceFactory,
     deps: [QngPubsubService, TranslateService],
