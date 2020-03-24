@@ -13,12 +13,8 @@
   <artifactId>qlack-webdesktop-apps-applications-management-app</artifactId>
   <packaging>jar</packaging>
 
-  <properties>
-    <commons-io.version>2.6</commons-io.version>
-  </properties>
-
   <dependencies>
-    <!-- QLACK -->
+    <!-- QLACK Dependencies -->
     <dependency>
       <groupId>com.eurodyn.qlack.fuse</groupId>
       <artifactId>qlack-fuse-aaa</artifactId>
@@ -45,17 +41,7 @@
       <version>${qlack.version}</version>
     </dependency>
 
-    <!-- Spring Boot -->
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter</artifactId>
-      <version>${spring-boot.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-data-jpa</artifactId>
-      <version>${spring-boot.version}</version>
-    </dependency>
+    <!-- Spring Boot Dependencies -->
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-web</artifactId>
@@ -63,8 +49,7 @@
     </dependency>
     <dependency>
       <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-test</artifactId>
-      <scope>test</scope>
+      <artifactId>spring-boot-starter-data-jpa</artifactId>
       <version>${spring-boot.version}</version>
     </dependency>
     <dependency>
@@ -77,8 +62,14 @@
       <artifactId>spring-security-oauth2-client</artifactId>
       <version>${spring-security.version}</version>
     </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-test</artifactId>
+      <scope>test</scope>
+      <version>${spring-boot.version}</version>
+    </dependency>
 
-    <!-- Third-party -->
+    <!-- Third-party Dependencies -->
     <dependency>
       <groupId>org.projectlombok</groupId>
       <artifactId>lombok</artifactId>
@@ -88,11 +79,12 @@
     <dependency>
       <groupId>com.fasterxml.jackson.dataformat</groupId>
       <artifactId>jackson-dataformat-yaml</artifactId>
+      <version>${jackson.version}</version>
     </dependency>
     <dependency>
       <groupId>mysql</groupId>
       <artifactId>mysql-connector-java</artifactId>
-      <version>${mysql.connector.version}</version>
+      <version>${mysql-connector.version}</version>
     </dependency>
     <dependency>
       <groupId>commons-io</groupId>
@@ -137,7 +129,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-resources-plugin</artifactId>
-        <version>${maven.resources.plugin.version}</version>
+        <version>${maven-resources-plugin.version}</version>
         <executions>
           <execution>
             <configuration>

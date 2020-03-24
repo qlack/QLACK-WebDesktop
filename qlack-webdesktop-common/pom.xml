@@ -2,17 +2,17 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
   <parent>
     <artifactId>qlack-webdesktop</artifactId>
     <groupId>com.eurodyn.qlack.webdesktop</groupId>
     <version>3.0.0-SNAPSHOT</version>
   </parent>
-  <modelVersion>4.0.0</modelVersion>
 
   <artifactId>qlack-webdesktop-common</artifactId>
 
   <dependencies>
-    <!-- QLACK deps -->
+    <!-- QLACK Dependencies -->
     <dependency>
       <groupId>com.eurodyn.qlack.common</groupId>
       <artifactId>qlack-common</artifactId>
@@ -28,25 +28,21 @@
       <artifactId>qlack-fuse-aaa</artifactId>
       <version>${qlack.version}</version>
     </dependency>
+
+
+    <!-- Spring Dependencies -->
+    <dependency>
+      <groupId>org.springframework.data</groupId>
+      <artifactId>spring-data-commons</artifactId>
+      <version>${spring-boot.version}</version>
+    </dependency>
     <dependency>
       <groupId>org.springframework.security</groupId>
       <artifactId>spring-security-oauth2-core</artifactId>
       <version>${spring-security.version}</version>
     </dependency>
 
-    <!-- Spring deps -->
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-validation</artifactId>
-      <version>${spring-boot.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-data-jpa</artifactId>
-      <version>${spring-boot.version}</version>
-    </dependency>
-
-    <!-- Third-party deps -->
+    <!-- Third-party Dependenciesm -->
     <dependency>
       <groupId>com.querydsl</groupId>
       <artifactId>querydsl-jpa</artifactId>
@@ -68,11 +64,15 @@
   <build>
     <pluginManagement>
       <plugins>
-        <!-- Global configuration for the compiler -->
+        <plugin>
+          <groupId>org.springframework.boot</groupId>
+          <artifactId>spring-boot-maven-plugin</artifactId>
+          <version>${spring-boot.version}</version>
+        </plugin>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-compiler-plugin</artifactId>
-          <version>${maven.compiler.version}</version>
+          <version>${maven-compiler-plugin.version}</version>
           <configuration>
             <annotationProcessorPaths>
               <annotationProcessorPath>
@@ -97,26 +97,6 @@
                 <version>${querydsl.version}</version>
               </annotationProcessorPath>
             </annotationProcessorPaths>
-
-            <compilerArgs>
-              <!-- The -parameters argument is crucial for the correct function
-               of the authentication interceptor, due to heavy use of the Reflection API -->
-              <arg>-parameters</arg>
-            </compilerArgs>
-            <encoding>UTF-8</encoding>
-            <showDeprecation>true</showDeprecation>
-            <source>${java.version}</source>
-            <target>${java.version}</target>
-            <useIncrementalCompilation>false</useIncrementalCompilation>
-          </configuration>
-        </plugin>
-        <plugin>
-          <groupId>org.springframework.boot</groupId>
-          <artifactId>spring-boot-maven-plugin</artifactId>
-          <version>${spring-boot.version}</version>
-          <configuration>
-            <fork>true</fork>
-            <skip>false</skip>
           </configuration>
         </plugin>
       </plugins>

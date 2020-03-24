@@ -1,9 +1,9 @@
 package com.eurodyn.qlack.webdesktop.app.controller;
 
-import com.eurodyn.qlack.webdesktop.common.dto.WdApplicationManagementDTO;
-import com.eurodyn.qlack.webdesktop.common.dto.WdApplicationDTO;
-import com.eurodyn.qlack.webdesktop.common.service.WdApplicationService;
 import com.eurodyn.qlack.webdesktop.app.service.ApplicationsService;
+import com.eurodyn.qlack.webdesktop.common.dto.WdApplicationDTO;
+import com.eurodyn.qlack.webdesktop.common.dto.WdApplicationManagementDTO;
+import com.eurodyn.qlack.webdesktop.common.service.WdApplicationService;
 import javax.validation.Valid;
 import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * Provides Web Desktop application REST service endpoints.

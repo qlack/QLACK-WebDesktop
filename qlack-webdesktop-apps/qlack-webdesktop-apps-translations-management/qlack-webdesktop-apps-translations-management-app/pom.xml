@@ -13,7 +13,7 @@
   <packaging>jar</packaging>
 
   <dependencies>
-    <!-- QLACK  -->
+    <!-- QLACK  Dependencies -->
     <dependency>
       <groupId>com.eurodyn.qlack.fuse</groupId>
       <artifactId>qlack-fuse-lexicon</artifactId>
@@ -24,7 +24,18 @@
       <artifactId>qlack-fuse-aaa</artifactId>
       <version>${qlack.version}</version>
     </dependency>
-    <!-- Spring Boot -->
+
+    <!-- Spring Boot Dependencies -->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-web</artifactId>
+      <version>${spring-boot.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-data-jpa</artifactId>
+      <version>${spring-boot.version}</version>
+    </dependency>
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-security</artifactId>
@@ -37,29 +48,12 @@
     </dependency>
     <dependency>
       <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-data-jpa</artifactId>
-      <version>${spring-boot.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-web</artifactId>
-      <version>${spring-boot.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-devtools</artifactId>
-      <version>${spring-boot.version}</version>
-      <scope>runtime</scope>
-      <optional>true</optional>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-test</artifactId>
       <scope>test</scope>
       <version>${spring-boot.version}</version>
     </dependency>
 
-    <!-- Third-party -->
+    <!-- Third-party Dependencies -->
     <dependency>
       <groupId>org.projectlombok</groupId>
       <artifactId>lombok</artifactId>
@@ -69,7 +63,7 @@
     <dependency>
       <groupId>mysql</groupId>
       <artifactId>mysql-connector-java</artifactId>
-      <version>${mysql.connector.version}</version>
+      <version>${mysql-connector.version}</version>
       <scope>runtime</scope>
     </dependency>
     <dependency>
@@ -110,7 +104,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-resources-plugin</artifactId>
-        <version>${maven.resources.plugin.version}</version>
+        <version>${maven-resources-plugin.version}</version>
         <executions>
           <execution>
             <configuration>

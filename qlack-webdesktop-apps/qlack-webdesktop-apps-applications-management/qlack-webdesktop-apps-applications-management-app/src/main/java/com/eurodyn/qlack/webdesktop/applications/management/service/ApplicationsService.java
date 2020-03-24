@@ -63,19 +63,6 @@ public class ApplicationsService {
    * @return a responded entity containing all the applications.
    */
   public ResponseEntity<Page<WdApplicationDTO>> getApplications() {
-    //    UserDTO userId = new UserDTO();
-    //    Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-    //    if (("sso").equalsIgnoreCase(profileManagerService.getActiveProfile())
-    //        && principal instanceof DefaultOAuth2User){
-    //      String userName = ((DefaultOAuth2User) principal).getName();
-    //      userId = userService.getUserByName(userName);
-    //    }
-    //    if (userId.isSuperadmin()) {
-    //      Page<WdApplicationDTO> wdApplicationDTOS = new PageImpl<>(wdApplicationService.findAllApplications());
-    //      return ResponseEntity.ok(wdApplicationDTOS);
-    //    } else {
-    //      return ResponseEntity.notFound().build();
-    //    }
     Page<WdApplicationDTO> wdApplicationDTOS = new PageImpl<>(
         wdApplicationService.findAllApplications());
     return ResponseEntity.ok(wdApplicationDTOS);

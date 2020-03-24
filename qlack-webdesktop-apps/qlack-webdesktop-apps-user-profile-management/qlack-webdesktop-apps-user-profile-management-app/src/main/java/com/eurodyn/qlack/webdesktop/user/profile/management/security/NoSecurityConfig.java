@@ -21,8 +21,9 @@ public class NoSecurityConfig extends WebSecurityConfigurerAdapter {
    * @throws Exception if the security configuration cannot be applied
    */
   @Override
-  @SuppressWarnings({"java:S4834"})
+  @SuppressWarnings({"java:S4502", "java:S4834"})
   public void configure(HttpSecurity http) throws Exception {
-    http.authorizeRequests().antMatchers("/").permitAll().and().headers().frameOptions().disable();
+    http.csrf().disable().authorizeRequests().antMatchers("/").permitAll()
+        .and().headers().frameOptions().disable();
   }
 }

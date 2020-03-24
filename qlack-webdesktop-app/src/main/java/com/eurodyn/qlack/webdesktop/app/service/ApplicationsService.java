@@ -49,6 +49,7 @@ public class ApplicationsService {
   private StringUtils stringUtils;
 
   @Autowired
+  @SuppressWarnings({"java:S107"})
   public ApplicationsService(WdApplicationService wdApplicationService,
       WdApplicationRepository wdApplicationRepository,
       ProcessLexiconUtil processLexiconUtil, WdApplicationMapper mapper,

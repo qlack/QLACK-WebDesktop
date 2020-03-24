@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class ActiveProfileService {
 
-  private final static String SSO_PROFILE = "sso";
+  private static final String SSO_PROFILE = "sso";
 
   private ProfileManagerService profileManagerService;
 

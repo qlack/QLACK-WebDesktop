@@ -21,7 +21,6 @@ import java.io.IOException;
  */
 @RestController
 @Slf4j
-@SuppressWarnings({"common-java:DuplicatedBlocks"})
 public class IndexController {
 
 

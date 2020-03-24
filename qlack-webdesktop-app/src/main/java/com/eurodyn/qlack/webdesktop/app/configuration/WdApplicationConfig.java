@@ -23,10 +23,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
-import org.springframework.cloud.netflix.zuul.filters.RouteLocator;
-import org.springframework.cloud.netflix.zuul.filters.ZuulProperties;
-import org.springframework.cloud.netflix.zuul.filters.discovery.DiscoveryClientRouteLocator;
-import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
 
@@ -69,7 +65,6 @@ public class WdApplicationConfig implements ApplicationRunner {
 
   private WdApplicationRepository wdApplicationRepository;
   private CryptoDigestService cryptoDigestService;
-  private DiscoveryClientRouteLocator discoveryClientRouteLocator;
   private GroupService groupService;
   private KeyService keyService;
   private UserRepository userRepository;
@@ -85,16 +80,13 @@ public class WdApplicationConfig implements ApplicationRunner {
   @SuppressWarnings("squid:S00107")
   public WdApplicationConfig(
       WdApplicationRepository wdApplicationRepository, CryptoDigestService cryptoDigestService,
-      DiscoveryClientRouteLocator discoveryClientRouteLocator,
       GroupService groupService, KeyService keyService, UserRepository userRepository,
       LdapUserUtil ldapUserUtil,
       ResourceWdApplicationService resourceWdApplicationService,
-      WdApplicationService wdApplicationService, ZuulProperties zuulProperties, RouteLocator routeLocator,
-      ApplicationEventPublisher applicationEventPublisher, ZuulRouteService zuulRouteService, StringUtils stringUtils) {
+      WdApplicationService wdApplicationService, ZuulRouteService zuulRouteService, StringUtils stringUtils) {
 
     this.wdApplicationRepository = wdApplicationRepository;
     this.cryptoDigestService = cryptoDigestService;
-    this.discoveryClientRouteLocator = discoveryClientRouteLocator;
     this.groupService = groupService;
     this.keyService = keyService;
     this.userRepository = userRepository;

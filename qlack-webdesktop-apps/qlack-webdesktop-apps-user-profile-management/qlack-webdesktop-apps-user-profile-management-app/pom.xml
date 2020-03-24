@@ -2,6 +2,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
+
   <parent>
     <groupId>com.eurodyn.qlack.webdesktop</groupId>
     <artifactId>qlack-webdesktop-apps-user-profile-management</artifactId>
@@ -12,7 +13,7 @@
   <packaging>jar</packaging>
   
   <dependencies>
-    <!-- QLACK -->
+    <!-- QLACK Dependencies -->
     <dependency>
       <groupId>com.eurodyn.qlack.fuse</groupId>
       <artifactId>qlack-fuse-lexicon</artifactId>
@@ -24,14 +25,19 @@
       <version>${qlack.version}</version>
     </dependency>
 
-    <!-- WebDesktop -->
+    <!-- WebDesktop Dependencies -->
     <dependency>
       <groupId>com.eurodyn.qlack.webdesktop</groupId>
       <artifactId>qlack-webdesktop-common</artifactId>
       <version>${project.version}</version>
     </dependency>
 
-    <!-- Spring boot -->
+    <!-- Spring Boot Dependencies -->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-web</artifactId>
+      <version>${spring-boot.version}</version>
+    </dependency>
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-data-jpa</artifactId>
@@ -46,19 +52,6 @@
       <groupId>org.springframework.security</groupId>
       <artifactId>spring-security-oauth2-client</artifactId>
       <version>${spring-security.version}</version>
-
-    </dependency>
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-web</artifactId>
-      <version>${spring-boot.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-devtools</artifactId>
-      <version>${spring-boot.version}</version>
-      <scope>runtime</scope>
-      <optional>true</optional>
     </dependency>
     <dependency>
       <groupId>org.springframework.boot</groupId>
@@ -67,7 +60,7 @@
       <version>${spring-boot.version}</version>
     </dependency>
 
-    <!-- Third-party -->
+    <!-- Third-party Dependencies-->
     <dependency>
       <groupId>org.projectlombok</groupId>
       <artifactId>lombok</artifactId>
@@ -77,7 +70,7 @@
     <dependency>
       <groupId>mysql</groupId>
       <artifactId>mysql-connector-java</artifactId>
-      <version>${mysql.connector.version}</version>
+      <version>${mysql-connector.version}</version>
       <scope>runtime</scope>
     </dependency>
     <dependency>
@@ -123,7 +116,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-resources-plugin</artifactId>
-        <version>${maven.resources.plugin.version}</version>
+        <version>${maven-resources-plugin.version}</version>
         <executions>
           <execution>
             <configuration>
