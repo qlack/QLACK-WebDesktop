@@ -108,18 +108,14 @@ export class StartMenuComponent implements OnInit {
       this.qPubSubService.subscribe('QDefaultLanguageRequest', () => {
         this.qPubSubService.publish('QDefaultLanguageResponse', this.translate.getDefaultLang());
       });
+
+      if (this.isSsoProfile) {
+        // Subscribe to retrieve User Information requests and send the information back
+        this.qPubSubService.subscribe('QUserInformationRequest', () => {
+          this.qPubSubService.publish('QUserInformationResponse', this.userDetailsDto);
+        });
+      }
     });
-
-
-  }
-
-  ngAfterViewInit() {
-    if (this.isSsoProfile) {
-      // Subscribe to retrieve User Information requests and send the information back
-      this.qPubSubService.subscribe('QUserInformationRequest', () => {
-        this.qPubSubService.publish('QUserInformationResponse', this.userDetailsDto);
-      });
-    }
   }
 
   onCreateMenuColumns(sortedApplications: number) {
