@@ -1,9 +1,14 @@
 <mat-card>
   <mat-card-content>
     <form #form="ngForm">
+      <mat-slide-toggle  [disabled]="true" [checked]="true"
+                         matTooltip="{{'translations-management-ui.systemLanguage' | translate}}"
+                         class="slidePadding " color="primary" name="{{disabledSystemLanguage.name}}" >
+        {{disabledSystemLanguage.name}}
+      </mat-slide-toggle>
       <section *ngFor="let language of languages" class="">
-        <mat-slide-toggle [(ngModel)]="language.active" class="slidePadding "
-                          color="primary" name="{{language.active}}">
+        <mat-slide-toggle [(ngModel)]="language.active"
+        class="slidePadding " color="primary" name="{{language.name}} ">
           {{language.name}}
         </mat-slide-toggle>
       </section>

@@ -72,6 +72,7 @@ translations:
     - languageLocale: Language locale
     - none: None
     - tabTitle: Translations Management
+    - systemLanguage: System language
 - group: translations-management-ui
   locale: el
   keys:
@@ -99,6 +100,7 @@ translations:
     - languageLocale: Locale γλώσσας
     - none: Καμία
     - tabTitle: Διαχείρηση Μεταφράσεων
+    - systemLanguage: Γλώσσα συστήματος
 - group: management-app-ui
   locale: en
   keys:

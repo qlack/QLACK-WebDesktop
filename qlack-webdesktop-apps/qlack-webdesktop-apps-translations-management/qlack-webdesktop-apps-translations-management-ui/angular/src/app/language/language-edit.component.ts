@@ -11,16 +11,24 @@ import {UtilityService} from '../services/utility.service';
 })
 export class LanguageEditComponent implements OnInit {
   languages: LanguageDto[] = [];
+  systemLanguage: string = 'en';
+  disabledSystemLanguage: LanguageDto;
   @ViewChild('form', {static: true}) form: any;
+
 
   constructor(private languageService: LanguageService, private _snackBar: MatSnackBar, private utilityService: UtilityService) {
   }
 
   ngOnInit() {
-
+       // this.systemLanguage = sessionStorage.getItem('systemLanguage');
     this.languageService.getLanguages(true).subscribe(languageList => {
-      languageList.forEach((language, index) => {
-        this.languages.push(language);
+      languageList.forEach((language) => {
+           if(this.isSystemLanguage(language.locale)){
+             this.disabledSystemLanguage = language;
+           }else{
+             this.languages.push(language);
+           }
+
       });
     });
   }
@@ -34,5 +42,7 @@ export class LanguageEditComponent implements OnInit {
     this.form.control.markAsPristine();
 
   }
-
+  isSystemLanguage(locale: string){
+    return locale == this.systemLanguage;
+  }
 }

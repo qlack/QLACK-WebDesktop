@@ -37,5 +37,10 @@ public class UserController {
   public boolean getActiveProfile() {
     return userDetailsService.isSsoProfile();
   }
+
+  @GetMapping("/systemLanguage")
+  public String getSystemDefaultLanguage() {
+    return userDetailsService.findSystemDefaultLanguage();
+  }
 }
 

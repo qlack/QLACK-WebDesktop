@@ -32,6 +32,7 @@ import {AppConstants} from './app.constants';
 import {MatDialogModule} from '@angular/material/dialog';
 import {QngPubsubModule, QngPubsubService} from '@qlack/qng-pubsub';
 import {QPubSub} from '@qlack/qpubsub';
+import {MatTooltipModule} from '@angular/material/tooltip';
 
 
 export function HttpLoaderFactory(http: HttpClient) {
@@ -93,7 +94,8 @@ export function createCustomMatPaginatorIntl(
     }),
     MatTabsModule,
     MatSelectModule,
-    QngPubsubModule
+    QngPubsubModule,
+    MatTooltipModule
 
   ],
   providers: [TranslateService,{

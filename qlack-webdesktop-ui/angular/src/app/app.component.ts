@@ -18,6 +18,9 @@ export class AppComponent {
       }
     });
 
+    this.webDesktopService.getSystemDefaultLanguage().subscribe(systemLanguage => {
+       sessionStorage.setItem("systemLanguage",systemLanguage);
+    });
   }
 
 }

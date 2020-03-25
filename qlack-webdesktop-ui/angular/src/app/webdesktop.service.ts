@@ -28,4 +28,8 @@ export class WebdesktopService {
     return this.http.get('/api/user/profile');
   }
 
+  getSystemDefaultLanguage(): Observable<any> {
+    return this.http.get('/api/user/systemLanguage',
+        { responseType: 'text'});
+  }
 }

@@ -19,20 +19,20 @@ export class HeaderComponent implements OnInit {
   @ViewChild('applicationContainer', {static: true, read: ViewContainerRef}) entry: ViewContainerRef;
   isSsoProfile: boolean;
 
-  constructor(private resolver: ComponentFactoryResolver, private wedDesktopService: WebdesktopService) {
+  constructor(private resolver: ComponentFactoryResolver, private webDesktopService: WebdesktopService) {
 
   }
 
   ngOnInit() {
-    this.wedDesktopService.getActiveProfile().subscribe(isSsoProfile => {
+    this.webDesktopService.getActiveProfile().subscribe(isSsoProfile => {
       this.isSsoProfile = isSsoProfile;
     });
-    this.wedDesktopService.getUserAttributeByName("profileImage").subscribe(attribute => {
+    this.webDesktopService.getUserAttributeByName("profileImage").subscribe(attribute => {
       if (attribute != null) {
         this.profileImage = attribute.bindata;
       }
     });
-    this.wedDesktopService.getApplicationByName(this.userProfileApplicationName).subscribe(application => {
+    this.webDesktopService.getApplicationByName(this.userProfileApplicationName).subscribe(application => {
       if (application != null) {
         this.userProfileApplication = application;
       }

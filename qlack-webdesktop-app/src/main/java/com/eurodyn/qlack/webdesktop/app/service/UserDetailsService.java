@@ -69,4 +69,7 @@ public class UserDetailsService {
     return env.getActiveProfiles().length == 1;
   }
 
+  public String findSystemDefaultLanguage() {
+    return systemDefaultLanguage;
+  }
 }

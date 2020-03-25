@@ -1,5 +1,5 @@
 {
-  "/api": {
+  "/translationsManagement/api": {
     "target": "http://localhost:8091",
     "secure": false,
     "changeOrigin": true,
