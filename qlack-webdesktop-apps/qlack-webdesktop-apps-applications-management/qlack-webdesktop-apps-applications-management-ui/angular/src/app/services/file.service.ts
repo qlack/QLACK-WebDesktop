@@ -15,12 +15,14 @@ import {QFormsService} from '@eurodyn/forms';
 export class FileService extends CrudService<FileDto> {
   private resource = `file`;
 
+  private webDesktopHost = window.location.origin;
+
   constructor(http: HttpClient, qForms: QFormsService) {
     super(http, 'file', qForms);
   }
 
   public upload(formData) {
-    return this.http.post('http://localhost:8082/api/application/upload', formData);
+    return this.http.post(`${this.webDesktopHost}/api/application/upload`, formData);
   }
 
   getImage(id: any) {

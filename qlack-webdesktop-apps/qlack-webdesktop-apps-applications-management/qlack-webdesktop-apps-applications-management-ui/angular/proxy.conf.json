@@ -1,6 +1,6 @@
 {
-  "/applicationsManagement/api": {
-    "target": "http://localhost:8090",
+  "/api": {
+    "target": "http://localhost:8090/applicationsManagement",
     "secure": false,
     "changeOrigin": true,
     "logLevel": "debug"

@@ -1,6 +1,6 @@
 # application configuration
 ---
-applicationName: management
+applicationName: Applications/Users Management
 groupName: system
 appUrl: 'http://localhost:8090'
 appPath: "/applicationsManagement/"

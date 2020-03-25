@@ -109,9 +109,11 @@ public class ApplicationsService {
 
     if (stringUtils.isNotNullOrEmpty(newWdApplication.getProxyAppPath()) && stringUtils
         .isNotNullOrEmpty(newWdApplication.getAppUrl())) {
-      zuulRouteService.addRoute(newWdApplication.getProxyAppPath(),
-          newWdApplication.getAppUrl() + newWdApplication.getAppPath(), newWdApplication.getId());
-      zuulRouteService.refresh();
+      if (newWdApplication.isActive()) {
+        zuulRouteService.addRoute(newWdApplication.getProxyAppPath(),
+            newWdApplication.getAppUrl() + newWdApplication.getAppPath(), newWdApplication.getId());
+        zuulRouteService.refresh();
+      }
     }
 
     return ResponseEntity.status(HttpStatus.CREATED).body(wdApplicationByName);

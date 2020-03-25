@@ -16,20 +16,22 @@ import {AppConstants} from '../app.constants';
 export class ApplicationsService extends CrudService<ApplicationDto> {
   private resource = `applications`;
 
+  private webDesktopHost = window.location.origin;
+
   constructor(http: HttpClient, qForms: QFormsService) {
     super(http, 'applications', qForms);
   }
 
   // Save application
   save(application: ApplicationDto) {
-    return this.http.post(`http://localhost:8082/api/application/`,
+    return this.http.post(`${this.webDesktopHost}api/application/`,
       JSON.stringify(application),
       {headers: {'Content-Type': 'application/json'}, observe: 'response'});
   }
 
   // Save application
   update(application: ApplicationDto, id: any) {
-    return this.http.post(`http://localhost:8082/api/application/${id}`,
+    return this.http.post(`${this.webDesktopHost}api/application/${id}`,
       JSON.stringify(application),
       {headers: {'Content-Type': 'application/json'}, observe: 'response'});
   }

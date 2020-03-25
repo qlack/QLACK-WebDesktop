@@ -29,10 +29,10 @@ lexicon:
       - key: title
         value: User Profile Management
       - key: description
-        value: System application which manages the user profile .
+        value: System application which manages the user profile.
   - languageLocale: el
     values:
       - key: title
         value: Διαχείρηση Προφίλ Χρήστη
       - key: description
-        value: Εφαρμογή συστήματος η οποία διαχειρίζεται το προφίλ χρήστη .
+        value: Εφαρμογή συστήματος η οποία διαχειρίζεται το προφίλ χρήστη.

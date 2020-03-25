@@ -29,10 +29,10 @@ lexicon:
       - key: title
         value: Translations Management
       - key: description
-        value: System application which manages the translations .
+        value: System application which manages the translations.
   - languageLocale: el
     values:
       - key: title
         value: Διαχείρηση Μεταφράσεων
       - key: description
-        value: Εφαρμογή συστήματος η οποία διαχειρίζεται τις μεταφράσεις .
+        value: Εφαρμογή συστήματος η οποία διαχειρίζεται τις μεταφράσεις.
