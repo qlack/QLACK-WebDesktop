@@ -23,6 +23,18 @@ export class UtilityService {
   }
 
   /**
+   * Display a success message.
+   * @param message The message to display.
+   */
+  popupSuccessAction(message: string, action: string) {
+    this.snackBar.open(message, action, {
+      duration: 5000,
+      verticalPosition: 'top',
+      panelClass: 'bg-green'
+    });
+  }
+
+  /**
    * Display an error message.
    * @param message The message to display.
    */

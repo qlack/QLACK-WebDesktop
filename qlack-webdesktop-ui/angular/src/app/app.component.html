@@ -1,8 +1,4 @@
-<div *ngIf="backgroundImage" [style.background-image]="'url(data:image/png;base64,'+backgroundImage+')'"
-     class="application-boundary background-class">
-  <router-outlet></router-outlet>
-</div>
-<div *ngIf="!backgroundImage" [style.background]="background"
+<div [style.background-image]="'url(data:image/png;base64,'+backgroundImage+')'"
      class="application-boundary background-class">
   <router-outlet></router-outlet>
 </div>

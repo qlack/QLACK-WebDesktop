@@ -23,6 +23,10 @@ export class StartMenuComponent implements OnInit {
   @Input() isSsoProfile;
   userDetailsDto: any = new UserDetailsDto();
   private allowedOrigins: string[] = [];
+  private timeOutCancel: boolean = false;
+  static count?: number = 0;
+  refreshPageMessage: string;
+  cancel: string;
 
   constructor(private webDesktopService: WebdesktopService, private translate: TranslateService, private qPubSubService: QngPubsubService, private _snackBar: MatSnackBar) {
     this.webDesktopService.getUserAttributes().subscribe(userAttributeList => {
@@ -49,6 +53,16 @@ export class StartMenuComponent implements OnInit {
   }
 
   ngOnInit() {
+
+    this.translate.get([
+      'webdesktop-ui.refreshPageMessage',
+      'webdesktop-ui.cancel'
+    ])
+    .subscribe(translation => {
+      this.refreshPageMessage = translation['webdesktop-ui.refreshPageMessage'];
+      this.cancel = translation['webdesktop-ui.cancel'];
+    });
+
     this.webDesktopService.getActiveApplications().subscribe(applicationsList => {
 
       applicationsList.forEach((application, index) => {
@@ -105,6 +119,28 @@ export class StartMenuComponent implements OnInit {
           duration: 3000
         });
       });
+      this.qPubSubService.subscribe('QRefreshPage', (message: QPubSub.Message) => {
+        const snackBarMatSnackBarRef =  this._snackBar.open(this.refreshPageMessage, this.cancel, {
+          duration: 10000,
+          verticalPosition: 'top',
+          panelClass: 'bg-green'
+        });
+        snackBarMatSnackBarRef.afterDismissed().subscribe(() => {
+          if(this.timeOutCancel && StartMenuComponent.count == 1){
+            window.location.reload();
+          }else{
+            StartMenuComponent.count++;
+            this.timeOutCancel = true;
+          }
+        });
+        snackBarMatSnackBarRef.onAction().subscribe(() => {
+          this.timeOutCancel = false;
+          StartMenuComponent.count -= 2;
+        });
+
+      });
+
+
       this.qPubSubService.subscribe('QDefaultLanguageRequest', () => {
         this.qPubSubService.publish('QDefaultLanguageResponse', this.translate.getDefaultLang());
       });
@@ -123,4 +159,5 @@ export class StartMenuComponent implements OnInit {
       this.columns = 5;
     }
   }
+
 }

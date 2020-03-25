@@ -20,6 +20,7 @@ export class HeaderComponent implements OnInit {
   isSsoProfile: boolean;
 
   constructor(private resolver: ComponentFactoryResolver, private wedDesktopService: WebdesktopService) {
+
   }
 
   ngOnInit() {

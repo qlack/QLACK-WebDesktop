@@ -30,6 +30,8 @@ translations:
     - fullscreen: Fullscreen
     - exitFullscreen: Exit Fullscreen
     - close: Close
+    - cancel: Cancel
+    - refreshPageMessage: The Page will refresh in 10's.
 - group: webdesktop-ui
   locale: el
   keys:
@@ -41,6 +43,8 @@ translations:
     - fullscreen: Πλήρης οθόνη
     - exitFullscreen: Έξοδος απο πλήρη οθόνη
     - close: Κλείσιμο
+    - cancel: Άκυρο
+    - refreshPageMessage: Η σελίδα θα ανανεωθεί σε '10.
 - group: translations-management-ui
   locale: en
   keys:

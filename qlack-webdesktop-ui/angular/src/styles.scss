@@ -7,6 +7,7 @@ html, body {
 }
 
 body {
+  background: linear-gradient(45deg, $light, $dark);
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }

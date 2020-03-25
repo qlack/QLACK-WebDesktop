@@ -62,7 +62,7 @@
           </mat-form-field>
           <br>
           <div class="button-pad">
-            <button [disabled]="" mat-button type="submit">{{'save' | translate}}</button>
+            <button [disabled]="!myForm.dirty" mat-button type="submit">{{'save' | translate}}</button>
           </div>
         </form>
       </div>

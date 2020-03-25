@@ -8,6 +8,7 @@ import {UserDetailsDto} from '../dto/user-details-dto';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {QFormsService} from '@eurodyn/forms';
 import {TranslateService} from '@ngx-translate/core';
+import {QngPubsubService} from '@qlack/qng-pubsub';
 
 @Component({
   selector: 'app-user-profile',
@@ -23,10 +24,12 @@ export class UserProfileComponent implements OnInit {
   myForm: FormGroup;
   errorMessage: string;
   successMessage: string;
+  dismissMessage: string;
 
   constructor(private userProfileService: UserProfileService, private dialog: MatDialog,
               private fb: FormBuilder, private qForms: QFormsService,
-              private utilityService: UtilityService, private languageService: LanguageService, private translate: TranslateService) {
+              private utilityService: UtilityService, private languageService: LanguageService,
+              private translate: TranslateService, private qPubSubService: QngPubsubService) {
   }
 
   ngOnInit(): void {
@@ -66,12 +69,14 @@ export class UserProfileComponent implements OnInit {
       this.myForm.patchValue(this.userDetailsDto);
     });
     this.translate.get([
-      'saved',
+      'dismiss',
+      'success',
       'error'
     ])
     .subscribe(translation => {
       this.errorMessage = translation['error'];
-      this.successMessage = translation['saved'];
+      this.successMessage = translation['success'];
+      this.dismissMessage = translation['dismiss'];
     });
   }
 
@@ -104,8 +109,10 @@ export class UserProfileComponent implements OnInit {
   save() {
 
     this.userProfileService.saveDetails(this.myForm).subscribe(onNext => {
-      this.utilityService.popupSuccess(this.successMessage);
+      this.utilityService.popupSuccessAction(this.successMessage,this.dismissMessage);
       this.clearBackgroundImagePreview();
+      this.qPubSubService.publish('QRefreshPage', '');
+      this.myForm.markAsPristine();
     }, onError => {
       this.utilityService.popupError(this.errorMessage);
     });
