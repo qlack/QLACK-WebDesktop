@@ -49,7 +49,6 @@ export class ApplicationsEditComponent implements OnInit {
       appUrl: [{value: '', disabled: false}, [Validators.maxLength(1024)]],
       appPath: [{value: '', disabled: false}, [Validators.maxLength(1024)]],
       proxyAppPath: [{value: '', disabled: false}, [Validators.maxLength(1024)]],
-      proxyAppUrl: [{value: '', disabled: false}, [Validators.maxLength(1024)]],
       icon: [{value: '', disabled: false}, [Validators.maxLength(1024)]],
       iconSmall: [{value: '', disabled: false}, [Validators.maxLength(1024)]],
       multipleInstances: [{value: '', disabled: false}, [Validators.maxLength(1024)]],

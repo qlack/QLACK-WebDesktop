@@ -124,7 +124,7 @@ public class WdApplicationService {
       }
       wdApplication.setGroupName(wdApplication.getGroupName().trim());
 
-      if (stringUtils.isNotNullOrEmpty(wdApplication.getProxyAppUrl())) {
+      if (stringUtils.isNotNullOrEmpty(wdApplication.getProxyAppPath())) {
 
         wdApplication.setAppUrl(null);
         wdApplication.setAppPath(null);

@@ -137,7 +137,7 @@ public class WdApplicationConfig implements ApplicationRunner {
     for (WdApplication app : wdApplicationRepository.findByActiveIsTrue()) {
       if (stringUtils.isNotNullOrEmpty(app.getProxyAppPath()) && stringUtils.isNotNullOrEmpty(app.getAppUrl())) {
         log.info(LOAD_ROUTES_FROM_DB_MSG);
-        zuulRouteService.addRoute(app.getProxyAppPath(),
+        zuulRouteService.addRoute("" + app.getProxyAppPath() + "**",
             app.getAppUrl() + app.getAppPath(), app.getId());
       }
     }
@@ -203,7 +203,7 @@ public class WdApplicationConfig implements ApplicationRunner {
       WdApplication newWdApplication = wdApplicationRepository
           .findByApplicationName(wdApplication.getApplicationName());
       resourceWdApplicationService.createApplicationResource(newWdApplication);
-      zuulRouteService.addRoute(wdApplication.getProxyAppPath(),
+      zuulRouteService.addRoute("" + wdApplication.getProxyAppPath() + "**",
           wdApplication.getAppUrl() + wdApplication.getAppPath(), wdApplication.getId());
       zuulRouteService.refresh();
     }

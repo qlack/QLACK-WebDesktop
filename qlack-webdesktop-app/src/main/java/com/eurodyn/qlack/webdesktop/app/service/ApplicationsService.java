@@ -110,7 +110,7 @@ public class ApplicationsService {
     if (stringUtils.isNotNullOrEmpty(newWdApplication.getProxyAppPath()) && stringUtils
         .isNotNullOrEmpty(newWdApplication.getAppUrl())) {
       if (newWdApplication.isActive()) {
-        zuulRouteService.addRoute(newWdApplication.getProxyAppPath(),
+        zuulRouteService.addRoute("" + newWdApplication.getProxyAppPath() + "**",
             newWdApplication.getAppUrl() + newWdApplication.getAppPath(), newWdApplication.getId());
         zuulRouteService.refresh();
       }
@@ -158,7 +158,7 @@ public class ApplicationsService {
       if (!wdApplicationManagementDTO.getDetails().isActive()) {
         zuulRouteService.removeRoute(wdApplication.getId());
       } else {
-        zuulRouteService.addRoute(wdApplication.getProxyAppPath(),
+        zuulRouteService.addRoute("" + wdApplication.getProxyAppPath() + "**",
             wdApplication.getAppUrl() + wdApplication.getAppPath(), wdApplication.getId());
       }
       zuulRouteService.refresh();
@@ -222,7 +222,7 @@ public class ApplicationsService {
 
       if (stringUtils.isNotNullOrEmpty(wdApplication.getProxyAppPath()) && stringUtils
           .isNotNullOrEmpty(wdApplication.getAppUrl())) {
-        zuulRouteService.addRoute(wdApplication.getProxyAppPath(),
+        zuulRouteService.addRoute("" + wdApplication.getProxyAppPath() + "**",
             wdApplication.getAppUrl() + wdApplication.getAppPath(), wdApplication.getId());
         zuulRouteService.refresh();
       }

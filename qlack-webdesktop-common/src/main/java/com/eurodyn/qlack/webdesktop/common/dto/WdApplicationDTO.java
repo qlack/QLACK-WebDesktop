@@ -58,6 +58,11 @@ public class WdApplicationDTO {
   private String appPath;
 
   /**
+   * Reverse proxy path
+   */
+  private String proxyAppPath;
+
+  /**
    * Icon
    */
   @NotNull
@@ -142,16 +147,6 @@ public class WdApplicationDTO {
    * System
    */
   private boolean system;
-
-  /**
-   * Reverse proxy path
-   */
-  private String proxyAppPath;
-
-  /**
-   * Reverse proxy application url
-   */
-  private String proxyAppUrl;
 
   /**
    * File sha256 checksum

@@ -1,5 +1,4 @@
 export class Application {
-  proxyAppUrl: string;
   icon: string;
   iconSmall: string;
   closable: boolean;
@@ -19,5 +18,6 @@ export class Application {
   groupTranslated: string;
   appUrl: string;
   appPath: string;
+  proxyAppPath: string;
   indexPageUrl: string;
 }

@@ -52,6 +52,13 @@ public class WdApplication extends QlackBaseModel {
   private String appPath;
 
   /**
+   * Reverse proxy path rule
+   */
+  @Basic
+  @Column(name = "proxy_app_path", length = 256)
+  private String proxyAppPath;
+
+  /**
    * Icon
    */
   @Basic
@@ -162,20 +169,6 @@ public class WdApplication extends QlackBaseModel {
   @Basic
   @Column(name = "is_system", nullable = false)
   private boolean system;
-
-  /**
-   * Reverse proxy path rule
-   */
-  @Basic
-  @Column(name = "proxy_app_path", length = 256)
-  private String proxyAppPath;
-
-  /**
-   * Reverse proxy application url
-   */
-  @Basic
-  @Column(name = "proxy_app_url", length = 256)
-  private String proxyAppUrl;
 
   /**
    * File sha256 checksum

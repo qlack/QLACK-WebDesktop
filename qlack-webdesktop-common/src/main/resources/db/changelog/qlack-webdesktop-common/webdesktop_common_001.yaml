@@ -32,6 +32,9 @@ databaseChangeLog:
                   constraints:
                     nullable: false
               - column:
+                  name: proxy_app_path
+                  type: varchar(256)
+              - column:
                   name: icon
                   type: varchar(256)
                   constraints:
@@ -119,12 +122,6 @@ databaseChangeLog:
                   type: boolean
                   constraints:
                     nullable: false
-              - column:
-                  name: proxy_app_url
-                  type: varchar(255)
-              - column:
-                  name: proxy_app_path
-                  type: varchar(256)
               - column:
                   name: checksum
                   type: varchar(255)

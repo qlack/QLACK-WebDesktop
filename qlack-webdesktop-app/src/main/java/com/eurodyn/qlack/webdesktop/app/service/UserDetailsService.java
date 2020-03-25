@@ -19,11 +19,11 @@ import java.util.Map;
 @Validated
 public class UserDetailsService {
 
+  private static final String DEFAULT_LANGUAGE = "defaultLanguage";
   @Autowired
   private UserService userService;
   @Autowired
   private LanguageService languageService;
-  private static final String DEFAULT_LANGUAGE = "defaultLanguage";
   @Autowired
   private Environment env;
   @Value("${system.default.language}")

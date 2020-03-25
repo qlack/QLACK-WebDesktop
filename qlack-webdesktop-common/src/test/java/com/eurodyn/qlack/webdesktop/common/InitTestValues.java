@@ -26,7 +26,6 @@ public class InitTestValues {
     WdApplication wdApplication = new WdApplication();
 
     wdApplication.setId("0f9a2472-cde0-44a6-ba3d-8e60992904fb");
-    wdApplication.setProxyAppUrl("apps/usermanagement/");
     wdApplication.setProxyAppPath("a_path");
 
     wdApplication.setAddedOn(new Long("2121545432165"));
@@ -59,7 +58,6 @@ public class InitTestValues {
     WdApplicationDTO wdApplicationDTO = new WdApplicationDTO();
 
     wdApplicationDTO.setId("0f9a2472-cde0-44a6-ba3d-8e60992904fb");
-    wdApplicationDTO.setProxyAppUrl("apps/usermanagement/");
     wdApplicationDTO.setProxyAppPath("a_path");
 
     wdApplicationDTO.setAddedOn(new Long("2121545432165"));
@@ -92,7 +90,6 @@ public class InitTestValues {
     WdApplication wdApplication = new WdApplication();
 
     wdApplication.setId("0f9a2472-cde0-44a6-ba3d-8e60992904fb");
-    wdApplication.setProxyAppUrl("apps/usermanagement/");
     wdApplication.setProxyAppPath("a_path");
 
     wdApplication.setAddedOn(new Long("2121545432165"));

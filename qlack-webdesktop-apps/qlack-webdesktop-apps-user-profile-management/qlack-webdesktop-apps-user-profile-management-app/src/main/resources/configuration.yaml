@@ -20,8 +20,7 @@ minimizable: true
 maximizable: true
 system: true
 showTitle: true
-proxyAppUrl: "/userProfileManagement/"
-proxyAppPath: "/userProfileManagement/**"
+proxyAppPath: "/userProfileManagement/"
 version: "3.0.0-SNAPSHOT"
 lexicon:
   - languageLocale: en

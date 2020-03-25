@@ -88,10 +88,10 @@ export class HeaderComponent implements OnInit {
     this.tempApplicationComponent.instance.iconImageSrc = application.icon;
     this.tempApplicationComponent.instance.applicationName = application.applicationName;
 
-    if (application.proxyAppUrl == null || application.proxyAppUrl == "") {
+    if (application.proxyAppPath == null || application.proxyAppPath == "") {
       this.tempApplicationComponent.instance.indexPageUrl = application.appUrl + application.appPath;
     } else {
-      this.tempApplicationComponent.instance.indexPageUrl = application.proxyAppUrl;
+      this.tempApplicationComponent.instance.indexPageUrl = application.proxyAppPath;
     }
     this.tempApplicationComponent.instance.Id = HeaderComponent.applicationId++;
     this.tempApplicationComponent.instance.iconSmallSrc = application.iconSmall;

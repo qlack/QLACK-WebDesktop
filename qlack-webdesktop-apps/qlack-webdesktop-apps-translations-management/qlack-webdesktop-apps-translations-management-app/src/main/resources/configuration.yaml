@@ -20,8 +20,7 @@ minimizable: true
 maximizable: true
 system: true
 showTitle: true
-proxyAppUrl: "/translationsManagement/"
-proxyAppPath: "/translationsManagement/**"
+proxyAppPath: "/translationsManagement/"
 version: "3.0.0-SNAPSHOT"
 lexicon:
   - languageLocale: en

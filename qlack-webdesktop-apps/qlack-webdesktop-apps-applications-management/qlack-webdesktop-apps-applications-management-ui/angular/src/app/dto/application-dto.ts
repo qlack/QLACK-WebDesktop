@@ -6,7 +6,6 @@ export interface ApplicationDto {
   appUrl: string
   appPath: string
   proxyAppPath: string
-  proxyAppUrl: string
   icon: string
   iconSmall: string
   multipleInstances: boolean

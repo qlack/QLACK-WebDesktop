@@ -20,8 +20,7 @@ minimizable: true
 maximizable: true
 system: true
 showTitle: true
-proxyAppUrl: '/applicationsManagement/'
-proxyAppPath: '/applicationsManagement/**'
+proxyAppPath: '/applicationsManagement/'
 version: '3.0.0-SNAPSHOT'
 lexicon:
   - languageLocale: en
