@@ -10,7 +10,7 @@ addons:
     token:
       secure: "myxG1tIG83Z4mktYF4tBoEAU+3Mmu2oUw8L+dX930EfVdD7FAJsxmt5kpjdVI24be9CE+TsrxDlik8KAseEUpzxslFSs+jnJIpHueO3qNwS7WFMfuGtiVWOtXd394ub5tdW+8FDCj6QPjVXdEP4zIkCLDhETR0pKFfjolkw/AAqNBruxcBoITLr81hfwMrFl1nWRR5FhiGLQM4suv9VcGhCtAHQYGDkSUWWXPoCj93y5AFvbHLp8nJvZFUYuaZ1UBTKqm3JOchYWyth5APBOD1AkkuRP9vIPdMwJwzQLSE8NKft1XZ3+VoW2Q1T5JLTns/TEFa/lSp/ke20t/DG8LKng2h034wXz/+iDBmRGyBonEQjygs4Dhmc9uueAHtBxO40u1fJRg+Lzpmi89DotulfxdWcDHy+xV2P3atqlWO2+StpiNEHurDxfJnThxHzsV65WVALwl9xE00BCI88NDHjm4xytqHT3j7CA1b694KoQ4sD0V74aDcxcu/zB6vcAPtjx6H5XM17RKnNbSMnwnicI6gZNLltxdIpKirjPRJILxJOXjafhJli0qNvyfrM4TYJJzOB3dkj+f+xDrDZd0GmaZuoYaIhUdEjkvA6rBK2JN2ISAy5xmG+perfXqC2L50hsWXHr65UHk/miWgkqbzrQZ6aCgidlQpD7HiqAeOY="
 
-script: mvn clean install sonar:sonar -Dsonar.projectKey=qlack_QLACK-WebDesktop
+script: ./mvnw clean install sonar:sonar -Dsonar.projectKey=qlack_QLACK-WebDesktop
 
 notifications:
   email:
