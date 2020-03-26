@@ -73,11 +73,7 @@ export class ApplicationsEditComponent implements OnInit {
       restrictAccess: [{value: '', disabled: true}],
     });
 
-    this.applicationsService.isSsoEnabled().subscribe(isSso => {
-      if (isSso) {
-        this.form.controls['restrictAccess'].enable();
-      }
-    });
+    this.enableRestrictAccess();
 
     // Fill-in the form with data if editing an existing item.
     if (this.isEdit) {
@@ -99,9 +95,22 @@ export class ApplicationsEditComponent implements OnInit {
         sessionStorage.setItem('groupsRemoved', JSON.stringify(onNext.groupsRemoved));
         sessionStorage.setItem('users', JSON.stringify(onNext.users));
         sessionStorage.setItem('userGroups', JSON.stringify(onNext.userGroups));
+
+        this.enableRestrictAccess();
       });
     }
+
+
+
     this.data.isNavBarVisible(false);
+  }
+
+  enableRestrictAccess(){
+    this.applicationsService.isSsoEnabled().subscribe(isSso => {
+      if (isSso) {
+        this.form.controls['restrictAccess'].enable();
+      }
+    });
   }
 
   isNavBarVisible(value: boolean) {

@@ -105,15 +105,20 @@ export class UserGroupEditComponent implements OnInit {
     });
   }
 
+  createOrUpdateMessage(): string{
+    return this.isEdit ?
+      this.getMessageTranslations('management-app-ui.updated') + "!"
+      : this.getMessageTranslations('management-app-ui.created') + "!";
+  }
+
   save() {
     this.form.controls['usersAdded'].setValue(this.usersAdded);
     this.form.controls['usersRemoved'].setValue(this.usersRemoved);
     this.userGroupService.save(this.qForms.cleanupForm(this.form)).subscribe(
       (response) => {
-        this.utilityService.popupSuccess(
-          this.isEdit ?
-            this.getMessageTranslations('management-app-ui.updated') + "!"
-            : this.getMessageTranslations('management-app-ui.created') + "!");
+        this.utilityService.popupSuccessAction(
+          this.createOrUpdateMessage(),
+          this.getMessageTranslations('management-app-ui.dismiss'));
         this.router.navigate(["/usergroup"]);
       }, error => {
 
@@ -154,7 +159,9 @@ export class UserGroupEditComponent implements OnInit {
       if (result) {
         this.userGroupService.delete(this.id).subscribe(onNext => {
           this.router.navigate(["/usergroup"]);
-          this.utilityService.popupSuccess(this.getMessageTranslations('management-app-ui.deleteSuccess'));
+          this.utilityService.popupSuccessAction(
+            this.getMessageTranslations('management-app-ui.deleteSuccess'),
+            this.getMessageTranslations('management-app-ui.dismiss'));
         });
       }
     });

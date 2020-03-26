@@ -159,9 +159,9 @@ translations:
     - deleteGroup: Delete Group
     - deleteQuestion: Do you really want to delete this group?
     - groups: Groups
-    - created: Group successfully created
-    - updated: Group successfully updated
-    - deleteSuccess: Group successfully deleted
+    - created: Successfully created
+    - updated: Successfully updated
+    - deleteSuccess: Successfully deleted
     - newGroup: New Group
     - editGroup: Edit Group
     - profilePicture: Profile Picture

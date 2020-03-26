@@ -105,15 +105,20 @@ export class UsersEditComponent implements OnInit {
     });
   }
 
+  createOrUpdateMessage(): string{
+    return this.isEdit ?
+      this.getMessageTranslations('management-app-ui.updated') + "!"
+      : this.getMessageTranslations('management-app-ui.created') + "!";
+  }
+
   save() {
     this.form.controls['groupsAdded'].setValue(this.groupsAdded);
     this.form.controls['groupsRemoved'].setValue(this.groupsRemoved);
     this.userService.save(this.qForms.cleanupForm(this.form)).subscribe(
       (response) => {
-        this.utilityService.popupSuccess(
-          this.isEdit ?
-            this.getMessageTranslations('management-app-ui.updated') + "!"
-            : this.getMessageTranslations('management-app-ui.created') + "!");
+        this.utilityService.popupSuccessAction(
+          this.createOrUpdateMessage(),
+          this.getMessageTranslations('management-app-ui.dismiss'));
         this.router.navigate(["/users"]);
       }, error => {
 
