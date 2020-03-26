@@ -16,7 +16,7 @@
       </button>
       <ul>
         <li>
-          <button (click)="openUserProfileApplication()" mat-button>
+          <button *ngIf="userProfileApplication" (click)="openUserProfileApplication()" mat-button>
             {{'webdesktop-ui.profile' | translate}}
           </button>
         </li>

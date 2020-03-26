@@ -25,6 +25,7 @@ export class UserProfileComponent implements OnInit {
   errorMessage: string;
   successMessage: string;
   dismissMessage: string;
+  systemLanguage: string;
 
   constructor(private userProfileService: UserProfileService, private dialog: MatDialog,
               private fb: FormBuilder, private qForms: QFormsService,
@@ -33,6 +34,7 @@ export class UserProfileComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.systemLanguage = sessionStorage.getItem('systemLanguage');
     this.languageService.getLanguages(false).subscribe(languageList => {
       languageList.forEach((language) => {
         this.languages.push(language);
@@ -108,7 +110,7 @@ export class UserProfileComponent implements OnInit {
 
   save() {
 
-    this.userProfileService.saveDetails(this.myForm).subscribe(onNext => {
+    this.userProfileService.saveDetails(this.myForm).toPromise().then(onNext => {
       this.utilityService.popupSuccessAction(this.successMessage,this.dismissMessage);
       this.clearBackgroundImagePreview();
       this.qPubSubService.publish('QRefreshPage', '');
@@ -141,5 +143,8 @@ export class UserProfileComponent implements OnInit {
     });
     this.myForm.get('deleteBackgroundImage').updateValueAndValidity();
 
+  }
+  isSystemLanguage(){
+    return this.translate.getDefaultLang() == this.systemLanguage;
   }
 }

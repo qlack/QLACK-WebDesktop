@@ -3,7 +3,49 @@
 <head>
   <meta charset="UTF-8">
   <title>QLACK WebDesktop</title>
-  <link rel="stylesheet" type="text/css" href="css/style.css"/>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      border: 0;
+      font-size: 100%;
+      font-family: Roboto, "Helvetica Neue", sans-serif;
+      background: linear-gradient(45deg, #43c6ac, #2f2a9a);
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      background-color: white;
+    }
+    .error-container {
+      height: 100vh;
+      position: relative;
+      background: #ffffff82;
+    }
+    .error-container > .error-content {
+      background: white;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      margin: 0 -50% 0 0;
+      transform: translate(-50%, -50%);
+      z-index: 10000;
+      box-shadow: 0 2px 5px 3px #00000073;
+      padding: 80px 130px 80px 130px;
+      border-radius: 5px;
+      text-align: center;
+    }
+    .error-button {
+      font-weight: bold;
+      font-size: 1em;
+      text-decoration: none;
+      background-color: transparent;
+      text-align: left;
+      color: black;
+      display: inline-block;
+      padding: 10px 30px 10px 30px;
+      border: 2px solid black;
+      border-radius: 5px;
+    }
+  </style>
   <link href="assets/img/favicon.ico" rel="icon" type="image/x-icon">
 </head>
 <body>

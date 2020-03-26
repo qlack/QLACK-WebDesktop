@@ -270,6 +270,7 @@ translations:
     - firstName: First Name
     - lastName: Last Name
     - defaultLanguage: Default Language
+    - systemLanguageLabel: Default Language (System language)
     - profilePicture: Profile Picture
     - backgroundImage: Background Image
     - save: Save
@@ -283,6 +284,7 @@ translations:
     - firstName: Όνομα
     - lastName: Επώνυμο
     - defaultLanguage: Προεπιλεγμένη γλώσσα
+    - systemLanguageLabel: Προεπιλεγμένη γλώσσα (Γλώσσα συστήματος)
     - profilePicture: Εικόνα προφίλ
     - backgroundImage: Εικόνα φόντου
     - save: Αποθήκευση

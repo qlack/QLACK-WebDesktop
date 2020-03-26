@@ -24,7 +24,6 @@ export class StartMenuComponent implements OnInit {
   userDetailsDto: any = new UserDetailsDto();
   private allowedOrigins: string[] = [];
   private timeOutCancel: boolean = false;
-  static count?: number = 0;
   refreshPageMessage: string;
   cancel: string;
 
@@ -126,16 +125,14 @@ export class StartMenuComponent implements OnInit {
           panelClass: 'bg-green'
         });
         snackBarMatSnackBarRef.afterDismissed().subscribe(() => {
-          if(this.timeOutCancel && StartMenuComponent.count == 1){
+          if(!this.timeOutCancel ){
             window.location.reload();
           }else{
-            StartMenuComponent.count++;
-            this.timeOutCancel = true;
+            this.timeOutCancel = false;
           }
         });
         snackBarMatSnackBarRef.onAction().subscribe(() => {
-          this.timeOutCancel = false;
-          StartMenuComponent.count -= 2;
+          this.timeOutCancel = true;
         });
 
       });
