@@ -11,7 +11,7 @@ import {UtilityService} from '../services/utility.service';
 })
 export class LanguageEditComponent implements OnInit {
   languages: LanguageDto[] = [];
-  systemLanguage: string = 'en';
+  systemLanguage: string;
   disabledSystemLanguage: LanguageDto;
   @ViewChild('form', {static: true}) form: any;
 
@@ -20,7 +20,7 @@ export class LanguageEditComponent implements OnInit {
   }
 
   ngOnInit() {
-       // this.systemLanguage = sessionStorage.getItem('systemLanguage');
+        this.systemLanguage = sessionStorage.getItem('systemLanguage');
     this.languageService.getLanguages(true).subscribe(languageList => {
       languageList.forEach((language) => {
            if(this.isSystemLanguage(language.locale)){
