@@ -1,4 +1,12 @@
-import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from "@angular/core";
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  OnInit,
+  Output,
+  SimpleChanges,
+} from "@angular/core";
 import {DomSanitizer} from '@angular/platform-browser';
 import {CdkDragEnd} from '@angular/cdk/drag-drop';
 import {ResizeEvent} from 'angular-resizable-element';
@@ -19,7 +27,7 @@ export class ApplicationComponent implements OnChanges, OnInit {
   @Output() onDragEnd = new EventEmitter();
   @Output() onDragMoved = new EventEmitter();
   @Output() onDragReleased = new EventEmitter();
-  @Output() onApplicationClicked = new EventEmitter();
+  @Output() onShowApplication = new EventEmitter();
   @Input() isActive: boolean = true;
   @Input() isDraggable: boolean = true;
   @Input() isMinimizable: boolean = true;
@@ -55,18 +63,21 @@ export class ApplicationComponent implements OnChanges, OnInit {
   displayIframe: boolean = true;
   zIndex?: number = 2;
   initDraggableValue: boolean;
+  Clicked: boolean;
 
   constructor(private sanitizer: DomSanitizer) {
+    this.zIndex  = ApplicationComponent.zIndexCounter++;
   }
 
   ngOnInit() {
+
     this.safeIconImageSrc = this.sanitizer.bypassSecurityTrustResourceUrl(
         this.iconImageSrc);
     this.safeSmallIconImageSrc = this.sanitizer.bypassSecurityTrustResourceUrl(
         this.iconSmallSrc);
     this.safeAppUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.indexPageUrl);
     this.initDraggableValue = this.isDraggable;
-    this.zIndex = this.zIndex = ++ApplicationComponent.zIndexCounter;
+
   }
 
   ngOnChanges(event: SimpleChanges) {
@@ -101,7 +112,7 @@ export class ApplicationComponent implements OnChanges, OnInit {
     this.onClose.emit(this.Id);
   }
 
-  applicationClicked() {
+  showApplication() {
     if (!this.isMaximized) {
       this.xPosition = '42px';
       this.width = this.tempWidth;
@@ -118,7 +129,7 @@ export class ApplicationComponent implements OnChanges, OnInit {
     }
 
     this.isMinimized = !this.isMinimized;
-    this.onApplicationClicked.emit();
+    this.onShowApplication.emit();
   }
 
   applicationMinimized() {
@@ -159,19 +170,22 @@ export class ApplicationComponent implements OnChanges, OnInit {
     this.onMaximize.emit(event);
   }
 
-  zIndexPlusOne() {
+  applicationClicked() {
     if (!this.isMaximized) {
       this.zIndex = ApplicationComponent.zIndexCounter++;
+      this.isActiveApplication();
+      this.Clicked = true;
     }
   }
 
   onResizeEnd($event: ResizeEvent) {
     this.displayIframe = true;
+    this.release();
   }
 
   onResizeStart($event: ResizeEvent) {
     this.displayIframe = false;
-
+    this.applicationClicked();
   }
 
   onResize($event: ResizeEvent) {
@@ -179,4 +193,11 @@ export class ApplicationComponent implements OnChanges, OnInit {
     this.height = $event.rectangle.height;
   }
 
+  isActiveApplication(){
+    return this.zIndex + 1 == ApplicationComponent.zIndexCounter;
+  }
+
+  release() {
+    this.Clicked = false;
+  }
 }

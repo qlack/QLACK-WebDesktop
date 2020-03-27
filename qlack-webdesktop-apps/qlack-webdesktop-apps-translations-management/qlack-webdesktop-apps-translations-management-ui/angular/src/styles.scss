@@ -9,6 +9,7 @@ html, body {
 body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
+  background-color: white;
 }
 
 .custom-text {
@@ -32,4 +33,6 @@ body {
   padding-left: 16px;
 }
 
-
+.mat-card{
+  box-shadow: none !important;
+}

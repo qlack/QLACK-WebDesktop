@@ -1,4 +1,4 @@
-<mat-card class="mat-card-padding">
+<mat-card>
   <mat-card-content>
     <div fxLayout="row wrap" fxLayout.lt-sm="column" fxLayoutAlign="flex-start" fxLayoutGap="15px">
       <div fxFlex="0 1 calc(100%)" fxFlex.lt-md="0 1 calc(100%)" fxFlex.lt-sm="100%">
@@ -28,6 +28,7 @@
             <mat-label *ngIf="isSystemLanguage()">{{'systemLanguageLabel' | translate}}</mat-label>
             <mat-label *ngIf="!isSystemLanguage()">{{'defaultLanguage' | translate}}</mat-label>
             <mat-select formControlName="defaultLanguage">
+
               <mat-option *ngFor="let language of languages" [value]="language.locale"
               >{{language.name}}</mat-option>
             </mat-select>
@@ -36,7 +37,8 @@
           <mat-form-field class="full-width-input">
             <ngx-mat-file-input #removableInput (change)="showProfileImagePreview($event)"
                                 placeholder="{{'profilePicture' | translate}}"></ngx-mat-file-input>
-            <button (click)="removableInput.clear($event); clearProfileImagePreview()" *ngIf="!removableInput.empty" mat-icon-button
+            <button (click)="removableInput.clear($event); clearProfileImagePreview()" *ngIf="!removableInput.empty"
+                    mat-icon-button
                     matSuffix>
               <mat-icon>clear</mat-icon>
             </button>
@@ -63,11 +65,10 @@
           </mat-form-field>
           <br>
           <div class="button-pad">
-            <button  mat-button type="submit">{{'save' | translate}}</button>
+            <button mat-button type="submit">{{'save' | translate}}</button>
           </div>
         </form>
       </div>
     </div>
   </mat-card-content>
 </mat-card>
-

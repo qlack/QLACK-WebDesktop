@@ -45,7 +45,7 @@ export class HeaderComponent implements OnInit {
       if (this.activeApplicationsComponents[index].instance.multipleInstances) {
         this.createApplication(application);
       } else if (this.activeApplicationsComponents[index].instance.isMinimized) {
-        this.activeApplicationsComponents[index].instance.applicationClicked();
+        this.activeApplicationsComponents[index].instance.showApplication();
       }
     } else {
       this.createApplication(application);

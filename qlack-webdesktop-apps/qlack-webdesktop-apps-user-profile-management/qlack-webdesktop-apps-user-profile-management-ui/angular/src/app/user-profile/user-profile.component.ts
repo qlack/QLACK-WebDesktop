@@ -34,6 +34,7 @@ export class UserProfileComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
     this.systemLanguage = sessionStorage.getItem('systemLanguage');
     this.languageService.getLanguages(false).subscribe(languageList => {
       languageList.forEach((language) => {
