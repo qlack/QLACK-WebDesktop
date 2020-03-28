@@ -26,7 +26,7 @@ public class UserDetailsService {
   private LanguageService languageService;
   @Autowired
   private Environment env;
-  @Value("${system.default.language}")
+  @Value("${system.default.language:en}")
   private String systemDefaultLanguage;
 
   public Map<String, UserAttributeDTO> findUserAttributes() {

@@ -29,7 +29,6 @@
       <version>${qlack.version}</version>
     </dependency>
 
-
     <!-- Spring Dependencies -->
     <dependency>
       <groupId>org.springframework.data</groupId>
@@ -42,7 +41,7 @@
       <version>${spring-security.version}</version>
     </dependency>
 
-    <!-- Third-party Dependenciesm -->
+    <!-- Third-party Dependencies -->
     <dependency>
       <groupId>com.querydsl</groupId>
       <artifactId>querydsl-jpa</artifactId>

@@ -122,12 +122,9 @@ public class WdApplicationConfig implements ApplicationRunner {
     if (args.containsOption(APPS_URL)) {
       String[] urls = args.getOptionValues(APPS_URL).get(0).split(COMMA_REGEX);
 
-      List<String> validUrls = Arrays.stream(urls)
-          .filter(url -> UrlValidator.getInstance().isValid(url)).collect(
+      List<String> validUrls = Arrays.stream(urls).collect(
               Collectors.toList());
-
       loadWdApplicationConfig(validUrls);
-
     } else {
       log.warning(NO_URL_MSG);
       log.info(USAGE_MSG);

@@ -2,10 +2,10 @@
 ---
 applicationName: User Profile Management
 groupName: system
-appUrl: "http://localhost:8092"
+appUrl: "http://qlack-webdesktop-user-profile-management:8092"
 appPath: "/userProfileManagement/"
-icon: "http://localhost:8082/userProfileManagement/logo/icon"
-iconSmall: "http://localhost:8082/userProfileManagement/logo/icon_small"
+icon: "http://localhost:8083/userProfileManagement/logo/icon"
+iconSmall: "http://localhost:8083/userProfileManagement/logo/icon_small"
 width: "800"
 minWidth: "470"
 height: "500"
@@ -18,7 +18,7 @@ draggable: true
 closable: true
 minimizable: true
 maximizable: true
-system: true
+system: false
 showTitle: true
 proxyAppPath: "/userProfileManagement/"
 version: "3.0.0-SNAPSHOT"

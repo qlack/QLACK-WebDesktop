@@ -1,0 +1,58 @@
+version: '3.7'
+
+networks:
+  qlackwebdesktop_network:
+    driver: bridge
+
+services:
+  qlack-webdesktop-db:
+    image: mysql:8.0.17
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DATABASE_ROOT_PASSWORD}
+      MYSQL_DATABASE: QlackWebDesktop
+    ports:
+      - "3304:3306"
+    command: ['mysqld', '--character-set-server=utf8mb4', '--collation-server=utf8mb4_unicode_ci']
+    restart: always
+    networks:
+      - qlackwebdesktop_network
+
+  qlack-webdesktop-applications-management:
+    image: eurodyn/qlack-webdesktop-apps-applications-management-app:latest
+    environment:
+      DATABASE_ROOT_PASSWORD: ${DATABASE_ROOT_PASSWORD}
+      SPRING_PROFILES_ACTIVE: ${SPRING_PROFILES_ACTIVE}
+    restart: always
+    networks:
+      - qlackwebdesktop_network
+
+  qlack-webdesktop-translations-management:
+    image: eurodyn/qlack-webdesktop-apps-translations-management-app:latest
+    environment:
+      DATABASE_ROOT_PASSWORD: ${DATABASE_ROOT_PASSWORD}
+      SPRING_PROFILES_ACTIVE: ${SPRING_PROFILES_ACTIVE}
+    restart: always
+    networks:
+      - qlackwebdesktop_network
+
+  qlack-webdesktop-user-profile-management:
+    image: eurodyn/qlack-webdesktop-apps-user-profile-management-app:latest
+    environment:
+      DATABASE_ROOT_PASSWORD: ${DATABASE_ROOT_PASSWORD}
+      SPRING_PROFILES_ACTIVE: ${SPRING_PROFILES_ACTIVE}
+    restart: always
+    networks:
+      - qlackwebdesktop_network
+
+  qlack-webdesktop-app:
+    image: eurodyn/qlack-webdesktop-app:latest
+    environment:
+      DATABASE_ROOT_PASSWORD: ${DATABASE_ROOT_PASSWORD}
+      SPRING_PROFILES_ACTIVE: ${SPRING_PROFILES_ACTIVE}
+      SYSTEM_DEFAULT_LANGUAGE: ${SYSTEM_DEFAULT_LANGUAGE}
+      APPS_URL: ${APPS_URL}
+    ports:
+      - "8083:8082"
+    restart: always
+    networks:
+      - qlackwebdesktop_network
