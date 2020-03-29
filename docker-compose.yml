@@ -52,7 +52,7 @@ services:
       SYSTEM_DEFAULT_LANGUAGE: ${SYSTEM_DEFAULT_LANGUAGE}
       APPS_URL: ${APPS_URL}
     ports:
-      - "8083:8082"
+      - "${PUBLISHED_PORT}:8082"
     restart: always
     networks:
       - qlackwebdesktop_network

@@ -1,8 +1,8 @@
-## QLACK WebDesktop Installation Manual
+# QLACK WebDesktop Installation Manual
 
 This manual contains instructions on how to deploy and use the QLACK WebDesktop application.
 
-### Deployment
+## Deployment
 
 1) Navigate to the _QLACK-WebDesktop\qlack-webdesktop-app\src\main\resources_ folder and edit the following properties in the_application.properties_ file: <br/>
 **server.port**: the desired port which will serve the application on your machine (default 8082) <br/>
@@ -59,17 +59,29 @@ This manual contains instructions on how to deploy and use the QLACK WebDesktop 
 `nohup java -jar qlack-webdesktop-apps/qlack-webdesktop-apps-user-profile-management/qlack-webdesktop-apps-user-profile-management-app/target/qlack-webdesktop-apps-user-profile-management.jar &>/dev/null &` <br/><br/>
 
 12) Deploy the QLACK Web Desktop application by executing the command: <br/>
-`nohup java -jar -Dsystem.default.language=en qlack-webdesktop-app/target/qlack-webdesktop-app.jar --apps.url=http://127.0.0.1:8090/applicationsManagement/configuration,http://127.0.0.1:8091/translationsManagement/configuration,http://127.0.0.1:8092/userProfileManagement/configuration &>/dev/null &` <br/><br/>
+`nohup java -jar -Dsystem.default.language=en qlack-webdesktop-app/target/qlack-webdesktop-app.jar --apps.url=http://127.0.0.1:8090/applicationsManagement/configuration,http://127.0.0.1:8091/translationsManagement/configuration,http://127.0.0.1:8092/userProfileManagement/configuration &>/dev/null &` <br/> <br/>
 The argument _system.default.language_ is used in order to define the default language of the system and its possible values are 'en', 'el', 'fr' and 'de'.
 Using the argument _apps.url_ you can specify the url of the .yaml configuration file of an application which will be registered in the system. The .yaml file should be accessible by performing a GET HTTP request on the provided url and multiple configuration files can be given during the deployment with the comma separator.
 
-### Deployment using Docker
+## Deployment using Docker
 
 QLACK WebDesktop can also be deployed using Docker by executing the command `docker-compose up`.
 This command will the following five containers:
 1) qlack-webdesktop-db
-This container contains 
-2) qlack-webdesktop-app
-3) qlack-webdesktop-applications-management
-4) qlack-webdesktop-translations-management
-5) qlack-webdesktop-user-profile-management 
+This container contains a MySQL 8 installation with the schema 'QlackWebDesktop' in which all the other containers will be connected. <br/>
+2) qlack-webdesktop-applications-management
+This container runs a deployment of the Applications/Users Management application and prevents any external communication to the application by not publishing any ports. <br/>
+3) qlack-webdesktop-translations-management
+This container runs a deployment of the Translations Management application and prevents any external communication to the application by not publishing any ports. <br/>
+4) qlack-webdesktop-user-profile-management
+This container runs a deployment of the User Profile Management application and prevents any external communication to the application by not publishing any ports. <br/>
+5) qlack-webdesktop-app
+This container runs a deployment of the QLACK Web Desktop application, in which the three custom applications are already integrated. The application is accessible on port 80, which is published by the container.
+
+Before running the containers, the following variables of the _.env_ file should be edited: <br/>
+**PUBLISHED_PORT**: the port under which QLACK WebDesktop will be accessible on your system <br/>
+**DATABASE_ROOT_PASSWORD**: the password of the ROOT user of the MySQL application <br/>
+**SPRING_PROFILES_ACTIVE**: the security profile of the system ('sso' if SSO will be enabled, or leave empty) <br/>
+**SYSTEM_DEFAULT_LANGUAGE**: the default language for all the users (possible values are 'en', 'el', 'fr' and 'de') <br/>
+**APPS_URL**: the urls of the .yaml configuration files of the applications to be integrated (sepated by comma)
+
