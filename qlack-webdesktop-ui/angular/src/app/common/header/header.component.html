@@ -14,9 +14,9 @@
       <button *ngIf="!profileImage" mat-button>
         <mat-icon>account_circle</mat-icon>
       </button>
-      <ul>
-        <li>
-          <button *ngIf="userProfileApplication" (click)="openUserProfileApplication()" mat-button>
+      <ul *ngIf="userProfileApplication || isSsoProfile">
+        <li *ngIf="userProfileApplication">
+          <button (click)="openUserProfileApplication()" mat-button>
             {{'webdesktop-ui.profile' | translate}}
           </button>
         </li>
