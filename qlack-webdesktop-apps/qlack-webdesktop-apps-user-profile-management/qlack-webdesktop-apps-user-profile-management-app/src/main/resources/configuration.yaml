@@ -4,8 +4,8 @@ applicationName: User Profile Management
 groupName: system
 appUrl: "http://qlack-webdesktop-user-profile-management:8092"
 appPath: "/userProfileManagement/"
-icon: "http://localhost:8083/userProfileManagement/logo/icon"
-iconSmall: "http://localhost:8083/userProfileManagement/logo/icon_small"
+icon: "/userProfileManagement/logo/icon"
+iconSmall: "/userProfileManagement/logo/icon_small"
 width: "800"
 minWidth: "470"
 height: "500"
