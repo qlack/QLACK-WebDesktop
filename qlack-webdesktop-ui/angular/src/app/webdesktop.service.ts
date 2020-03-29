@@ -12,8 +12,8 @@ export class WebdesktopService {
     return this.http.get('/api/application/');
   }
 
-  getApplicationByName(applicationName: string): Observable<any> {
-    return this.http.get('/api/application/byName/' + applicationName);
+  getActiveApplicationByName(applicationName: string): Observable<any> {
+    return this.http.get('/api/application/activeByName/' + applicationName);
   }
 
   getUserAttributes(): Observable<any> {

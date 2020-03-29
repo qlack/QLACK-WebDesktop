@@ -190,6 +190,18 @@ public class WdApplicationService {
     return mapper.mapToDTO(wdApplication);
   }
 
+  public WdApplicationDTO findActiveApplicationDTOByName(String name) {
+    List<WdApplicationDTO> wdApplicationDTOS = this.findAllActiveApplicationsFilterGroupName();
+    if(wdApplicationDTOS != null) {
+      for (WdApplicationDTO wdApplicationDTO : wdApplicationDTOS) {
+        if (wdApplicationDTO.getApplicationName().equalsIgnoreCase(name)) {
+          return wdApplicationDTO;
+        }
+      }
+    }
+    return null;
+  }
+
   /**
    * Saves an application to database
    *

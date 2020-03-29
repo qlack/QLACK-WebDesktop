@@ -32,7 +32,7 @@ export class HeaderComponent implements OnInit {
         this.profileImage = attribute.bindata;
       }
     });
-    this.webDesktopService.getApplicationByName(this.userProfileApplicationName).subscribe(application => {
+    this.webDesktopService.getActiveApplicationByName(this.userProfileApplicationName).subscribe(application => {
       if (application != null) {
         this.userProfileApplication = application;
       }

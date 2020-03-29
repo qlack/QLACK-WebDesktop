@@ -65,6 +65,12 @@ public class WdApplicationController {
     return wdApplicationService.findApplicationDTOByName(name);
   }
 
+  @GetMapping("/activeByName/{name}")
+  public WdApplicationDTO getActiveApplicationByName(@PathVariable String name) {
+    return wdApplicationService.findActiveApplicationDTOByName(name);
+  }
+
+
   /**
    * Saves a new wd application.
    *
