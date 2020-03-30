@@ -216,9 +216,12 @@ public class ApplicationsService {
    */
   private void processWdApplication(WdApplication wdApplication, String checksum) {
     if (wdApplication != null) {
+      boolean isNew = wdApplication.getId() == null;
       wdApplication.setChecksum(checksum);
       wdApplication = wdApplicationRepository.save(wdApplication);
-      resourceWdApplicationService.createApplicationResource(wdApplication);
+      if (isNew){
+        resourceWdApplicationService.createApplicationResource(wdApplication);
+      }
 
       if (stringUtils.isNotNullOrEmpty(wdApplication.getProxyAppPath()) && stringUtils
           .isNotNullOrEmpty(wdApplication.getAppUrl())) {

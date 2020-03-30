@@ -195,11 +195,12 @@ public class WdApplicationConfig implements ApplicationRunner {
   public void processWdApplication(WdApplication wdApplication, String checksum) {
     if (wdApplication != null) {
       wdApplication.setChecksum(checksum);
+      boolean isNew = wdApplication.getId() == null;
       wdApplication.setLastDeployedOn(Instant.now().toEpochMilli());
-      wdApplicationRepository.save(wdApplication);
-      WdApplication newWdApplication = wdApplicationRepository
-          .findByApplicationName(wdApplication.getApplicationName());
-      resourceWdApplicationService.createApplicationResource(newWdApplication);
+      wdApplication = wdApplicationRepository.save(wdApplication);
+      if (isNew){
+        resourceWdApplicationService.createApplicationResource(wdApplication);
+      }
       zuulRouteService.addRoute("" + wdApplication.getProxyAppPath() + "**",
           wdApplication.getAppUrl() + wdApplication.getAppPath(), wdApplication.getId());
       zuulRouteService.refresh();
