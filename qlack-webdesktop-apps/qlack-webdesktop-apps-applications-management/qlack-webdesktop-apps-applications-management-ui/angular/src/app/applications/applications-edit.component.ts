@@ -58,6 +58,7 @@ export class ApplicationsEditComponent implements OnInit {
       minHeight: [{value: '', disabled: false}, [Validators.maxLength(1024)]],
       resizable: [{value: '', disabled: false}, [Validators.maxLength(1024)]],
       minimizable: [{value: '', disabled: false}, [Validators.maxLength(1024)]],
+      maximizable: [{value: '', disabled: false}, [Validators.maxLength(1024)]],
       closable: [{value: '', disabled: false}, [Validators.maxLength(1024)]],
       draggable: [{value: '', disabled: false}, [Validators.maxLength(1024)]],
       addedOn: [{value: new Date(), disabled: true}, [Validators.maxLength(1024)]],

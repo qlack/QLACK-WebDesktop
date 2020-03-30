@@ -26,15 +26,19 @@
                   {{'management-app-ui.resizable' |
                   translate}}
                 </mat-slide-toggle>
-                <mat-slide-toggle color="primary" formControlName="minimizable">
-                  {{'management-app-ui.minimizable' |
+                <mat-slide-toggle color="primary" formControlName="closable">
+                  {{'management-app-ui.closable' |
                   translate}}
                 </mat-slide-toggle>
                 <div></div>
               </div>
               <div fxFlex fxLayout="column" fxLayoutGap="10px">
-                <mat-slide-toggle color="primary" formControlName="closable">
-                  {{'management-app-ui.closable' |
+                <mat-slide-toggle color="primary" formControlName="minimizable">
+                  {{'management-app-ui.minimizable' |
+                  translate}}
+                </mat-slide-toggle>
+                <mat-slide-toggle color="primary" formControlName="maximizable">
+                  {{'management-app-ui.maximizable' |
                   translate}}
                 </mat-slide-toggle>
                 <mat-slide-toggle color="primary" formControlName="draggable">
@@ -126,28 +130,6 @@
                   </mat-icon>
                 </mat-form-field>
                 <mat-form-field>
-                  <input formControlName="icon" matInput placeholder="{{'management-app-ui.icon' |
-            translate}}">
-                  <mat-icon *ngIf="form.controls['icon'].invalid" color="warn"
-                            matSuffix
-                            matTooltip="{{form.controls['icon'].getError('message')}}"
-                            matTooltipClass="error-tooltip" matTooltipPosition="above"
-                  >{{'warning'}}
-                  </mat-icon>
-                </mat-form-field>
-                <mat-form-field>
-                  <input formControlName="iconSmall" matInput placeholder="{{'management-app-ui.iconSmall' |
-            translate}}">
-                  <mat-icon *ngIf="form.controls['iconSmall'].invalid" color="warn"
-                            matSuffix
-                            matTooltip="{{form.controls['iconSmall'].getError('message')}}"
-                            matTooltipClass="error-tooltip" matTooltipPosition="above"
-                  >{{'warning'}}
-                  </mat-icon>
-                </mat-form-field>
-              </div>
-              <div fxFlex fxLayout="column" fxLayoutGap="10px">
-                <mat-form-field>
                   <input formControlName="proxyAppPath" matInput placeholder="{{'management-app-ui.proxyAppPath' |
             translate}}">
                   <mat-icon *ngIf="form.controls['proxyAppPath'].invalid" color="warn"
@@ -157,6 +139,9 @@
                   >{{'warning'}}
                   </mat-icon>
                 </mat-form-field>
+              </div>
+              <div fxFlex fxLayout="column" fxLayoutGap="10px">
+
                 <mat-form-field>
                   <input formControlName="width" matInput placeholder="{{'management-app-ui.width' |
             translate}}">
@@ -193,6 +178,26 @@
                   <mat-icon *ngIf="form.controls['minHeight'].invalid" color="warn"
                             matSuffix
                             matTooltip="{{form.controls['minHeight'].getError('message')}}"
+                            matTooltipClass="error-tooltip" matTooltipPosition="above"
+                  >{{'warning'}}
+                  </mat-icon>
+                </mat-form-field>
+                <mat-form-field>
+                  <input formControlName="icon" matInput placeholder="{{'management-app-ui.icon' |
+            translate}}">
+                  <mat-icon *ngIf="form.controls['icon'].invalid" color="warn"
+                            matSuffix
+                            matTooltip="{{form.controls['icon'].getError('message')}}"
+                            matTooltipClass="error-tooltip" matTooltipPosition="above"
+                  >{{'warning'}}
+                  </mat-icon>
+                </mat-form-field>
+                <mat-form-field>
+                  <input formControlName="iconSmall" matInput placeholder="{{'management-app-ui.iconSmall' |
+            translate}}">
+                  <mat-icon *ngIf="form.controls['iconSmall'].invalid" color="warn"
+                            matSuffix
+                            matTooltip="{{form.controls['iconSmall'].getError('message')}}"
                             matTooltipClass="error-tooltip" matTooltipPosition="above"
                   >{{'warning'}}
                   </mat-icon>

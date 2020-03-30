@@ -15,6 +15,7 @@ export interface ApplicationDto {
   minHeight: number
   resizable: boolean
   minimizable: boolean
+  maximizable: boolean
   closable: boolean
   draggable: boolean
   addedOn: number

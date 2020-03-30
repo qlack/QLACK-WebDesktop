@@ -133,6 +133,7 @@ translations:
     - multipleInstances: Multiple Instances
     - resizable: Resizable
     - minimizable: Minimizable
+    - maximizable: Maximizable
     - closable: Closable
     - draggable: Draggable
     - system: System
@@ -208,6 +209,7 @@ translations:
     - multipleInstances: Πολλαπλά παράθυρα
     - resizable: Αλλαγή διαστάσεων
     - minimizable: Ελαχιστοποίηση
+    - maximizable: Μεγιστοποίηση
     - closable: Κλεινόμενο
     - draggable: Συρόμενο
     - system: Σύστημα
