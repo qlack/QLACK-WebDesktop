@@ -36,3 +36,6 @@ body {
 .mat-card{
   box-shadow: none !important;
 }
+.mat-card>.mat-card-actions:last-child{
+  margin-bottom: 20px !important;
+}

@@ -3,7 +3,7 @@
     <div fxLayout="row wrap" fxLayout.lt-sm="column" fxLayoutAlign="flex-start" fxLayoutGap="15px">
       <div fxFlex="0 1 calc(100%)" fxFlex.lt-md="0 1 calc(100%)" fxFlex.lt-sm="100%">
         <img alt="profile Image" class="profileImage" src="assets/img/empty.png">
-        <form (ngSubmit)="save()" [formGroup]="myForm">
+        <form [formGroup]="myForm">
 
           <mat-form-field class="full-width-input">
             <mat-label>{{'defaultLanguage' | translate}}</mat-label>
@@ -13,13 +13,14 @@
             </mat-select>
           </mat-form-field>
           <br>
-
-          <div class="button-pad">
-            <button [disabled]="!myForm.dirty" mat-button type="submit">{{'save' | translate}}</button>
-          </div>
         </form>
       </div>
     </div>
 
   </mat-card-content>
+  <mat-card-actions>
+    <div class="button-pad">
+      <button  mat-button (click)="save()">{{'save' | translate}}</button>
+    </div>
+  </mat-card-actions>
 </mat-card>
