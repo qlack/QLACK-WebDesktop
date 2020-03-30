@@ -6,6 +6,9 @@
   opacity: 0.95;
   border-radius: 0 !important;
 }
+.cdk-overlay-pane {
+  z-index: 999999 !important;
+}
 
 .mat-menu-content {
   //padding-bottom: 2px !important;
