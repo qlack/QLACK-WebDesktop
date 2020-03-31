@@ -70,13 +70,12 @@ public class WdApplicationController {
     return wdApplicationService.findActiveApplicationDTOByName(name);
   }
 
-
   /**
    * Saves a new wd application.
    *
    * @return the response entity.
    */
-  @PostMapping("/")
+  @PostMapping("/save")
   public ResponseEntity save(
       @Valid @RequestBody WdApplicationManagementDTO wdApplicationManagementDTO) {
     return applicationsService.save(wdApplicationManagementDTO);
@@ -87,7 +86,7 @@ public class WdApplicationController {
    *
    * @return the response entity.
    */
-  @PostMapping("/{id}")
+  @PostMapping("/update/{id}")
   public ResponseEntity update(
       @Valid @RequestBody WdApplicationManagementDTO wdApplicationManagementDTO) {
     return applicationsService.update(wdApplicationManagementDTO);

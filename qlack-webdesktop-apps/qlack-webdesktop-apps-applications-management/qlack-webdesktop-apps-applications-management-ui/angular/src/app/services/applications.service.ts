@@ -24,14 +24,14 @@ export class ApplicationsService extends CrudService<ApplicationDto> {
 
   // Save application
   save(application: ApplicationDto) {
-    return this.http.post(`${this.webDesktopHost}/api/application/`,
+    return this.http.post(`${this.webDesktopHost}/api/application/save`,
       JSON.stringify(application),
       {headers: {'Content-Type': 'application/json'}, observe: 'response'});
   }
 
-  // Save application
+  // Updates application
   update(application: ApplicationDto, id: any) {
-    return this.http.post(`${this.webDesktopHost}/api/application/${id}`,
+    return this.http.post(`${this.webDesktopHost}/api/application/update/${id}`,
       JSON.stringify(application),
       {headers: {'Content-Type': 'application/json'}, observe: 'response'});
   }

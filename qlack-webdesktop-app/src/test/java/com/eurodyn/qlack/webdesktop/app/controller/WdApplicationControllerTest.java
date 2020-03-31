@@ -68,7 +68,7 @@ public class WdApplicationControllerTest {
 
   @Test
   public void saveApplicationInvalidObjectTest() throws Exception {
-    mockMvc.perform(MockMvcRequestBuilders.post("/api/application/")
+    mockMvc.perform(MockMvcRequestBuilders.post("/api/application/save")
         .contentType(MediaType.APPLICATION_JSON)
         .content(new ObjectMapper().writeValueAsString(new WdApplicationManagementDTO()))
         .accept(MediaType.ALL))
@@ -77,7 +77,7 @@ public class WdApplicationControllerTest {
 
   @Test
   public void updateApplicationInvalidObjectTest() throws Exception {
-    mockMvc.perform(MockMvcRequestBuilders.post("/api/application/{id}", "id")
+    mockMvc.perform(MockMvcRequestBuilders.post("/api/application/update/{id}", "id")
         .contentType(MediaType.APPLICATION_JSON)
         .content(new ObjectMapper().writeValueAsString(new WdApplicationManagementDTO()))
         .accept(MediaType.ALL))
