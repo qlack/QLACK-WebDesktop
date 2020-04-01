@@ -56,7 +56,7 @@ public class WdApplicationService {
       WdApplicationRepository wdApplicationRepository, GroupService groupService,
       KeyService keyService, UserService userService,
       OperationService operationService, UserGroupService userGroupService,
-      LanguageService languageService, ProfileManagerService profileManagerService,StringUtils stringUtils) {
+      LanguageService languageService, ProfileManagerService profileManagerService, StringUtils stringUtils) {
     this.mapper = mapper;
     this.wdApplicationRepository = wdApplicationRepository;
     this.groupService = groupService;
@@ -107,7 +107,7 @@ public class WdApplicationService {
     List<WdApplication> wdApplicationListSystem = wdApplicationRepository
         .findBySystemAndActiveIsTrue(true);
     //add system applications in case the user is super admin, or there is no sso as well.
-    if ((user != null && user.isSuperadmin()) || profileManagerService.getActiveProfile().isEmpty()) {
+    if ((user != null && user.isSuperadmin()) || !profileManagerService.getActiveProfile().equalsIgnoreCase("sso")) {
       wdApplicationList.addAll(wdApplicationListSystem);
     }
     //filter the application list based on user's permissions
@@ -192,7 +192,7 @@ public class WdApplicationService {
 
   public WdApplicationDTO findActiveApplicationDTOByName(String name) {
     List<WdApplicationDTO> wdApplicationDTOS = this.findAllActiveApplicationsFilterGroupName();
-    if(wdApplicationDTOS != null) {
+    if (wdApplicationDTOS != null) {
       for (WdApplicationDTO wdApplicationDTO : wdApplicationDTOS) {
         if (wdApplicationDTO.getApplicationName().equalsIgnoreCase(name)) {
           return wdApplicationDTO;

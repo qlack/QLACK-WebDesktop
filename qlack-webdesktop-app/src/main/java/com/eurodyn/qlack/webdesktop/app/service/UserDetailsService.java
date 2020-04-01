@@ -12,6 +12,7 @@ import org.springframework.security.oauth2.core.user.DefaultOAuth2User;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -66,7 +67,7 @@ public class UserDetailsService {
   }
 
   public boolean isSsoProfile() {
-    return env.getActiveProfiles().length == 1;
+    return Arrays.asList(env.getActiveProfiles()).contains("sso");
   }
 
   public String findSystemDefaultLanguage() {

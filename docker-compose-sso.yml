@@ -5,6 +5,20 @@ networks:
     driver: bridge
 
 services:
+  qlack-webdesktop-keycloak:
+    image: jboss/keycloak:9.0.2
+    volumes:
+      - ${KEYCLOAK_EXPORTS_LOCATION}:/opt/jboss/keycloak/imports/
+    command:
+      - "-b 0.0.0.0 -Dkeycloak.migration.action=import -Dkeycloak.migration.provider=singleFile -Dkeycloak.migration.file=/opt/jboss/keycloak/imports/realm-export.json"
+    environment:
+      - KEYCLOAK_USER=admin
+      - KEYCLOAK_PASSWORD=admin
+      - PROXY_ADDRESS_FORWARDING=true
+    restart: always
+    networks:
+      - webdesktop_network
+
   qlack-webdesktop-db:
     image: mysql:8.0.17
     environment:

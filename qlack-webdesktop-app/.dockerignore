@@ -1,0 +1,4 @@
+*
+!Dockerfile
+!docker_deploy_webdesktop.sh
+!target/qlack-webdesktop-app.jar

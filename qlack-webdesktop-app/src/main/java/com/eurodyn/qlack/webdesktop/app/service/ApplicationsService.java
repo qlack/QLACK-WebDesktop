@@ -26,6 +26,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.time.Instant;
 import java.util.Collection;
 import java.util.List;
 import java.util.Set;
@@ -218,6 +219,10 @@ public class ApplicationsService {
     if (wdApplication != null) {
       boolean isNew = wdApplication.getId() == null;
       wdApplication.setChecksum(checksum);
+      if (wdApplication.getAddedOn() == 0) {
+        wdApplication.setAddedOn(Instant.now().toEpochMilli());
+      }
+      wdApplication.setLastDeployedOn(Instant.now().toEpochMilli());
       wdApplication = wdApplicationRepository.save(wdApplication);
       if (isNew){
         resourceWdApplicationService.createApplicationResource(wdApplication);

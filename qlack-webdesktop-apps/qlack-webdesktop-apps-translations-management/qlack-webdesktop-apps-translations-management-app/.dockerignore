@@ -1,0 +1,4 @@
+*
+!Dockerfile
+!docker_deploy_webdesktop_apps_translations_management.sh
+!target/qlack-webdesktop-apps-translations-management-app.jar

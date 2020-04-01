@@ -1,0 +1,4 @@
+*
+!Dockerfile
+!docker_deploy_webdesktop_apps_user_profile_management.sh
+!target/qlack-webdesktop-apps-user-profile-management-app.jar

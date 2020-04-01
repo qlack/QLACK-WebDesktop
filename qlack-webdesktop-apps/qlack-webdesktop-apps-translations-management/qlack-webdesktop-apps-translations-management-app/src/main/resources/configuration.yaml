@@ -4,6 +4,7 @@ applicationName: Translations Management
 groupName: system
 appUrl: "http://qlack-webdesktop-translations-management:8091"
 appPath: "/translationsManagement/"
+proxyAppPath: "/translationsManagement/"
 icon: "/translationsManagement/logo/icon"
 iconSmall: "/translationsManagement/logo/icon_small"
 width: "800"
@@ -12,15 +13,14 @@ height: "500"
 minHeight: "450"
 active: true
 multipleInstances: false
-restrictAccess: false
 resizable: true
 draggable: true
 closable: true
 minimizable: true
 maximizable: true
-system: true
 showTitle: true
-proxyAppPath: "/translationsManagement/"
+system: true
+restrictAccess: false
 version: "3.0.0-SNAPSHOT"
 lexicon:
   - languageLocale: en
