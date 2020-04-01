@@ -11,7 +11,7 @@
 
 QLACK WebDesktop is an application which simulates a virtual desktop environment in one single browser window by allowing the seamless integration of multiple web applications under the same environment. 
 
-All the integrated applications are displayed under a compact pop-up menu as tiles, defined by their title and icon and can be categorized based on their defined usability (system management, communication, etc.). Clicking on the tile of one application will lead to opening a new window which will display the front page of the web application and will provide you with the ability to use it exactly the same way you would do on a separate browser window.
+All the integrated applications are displayed under a compact pop-up menu as tiles, defined by their title and icon and can be categorized based on their defined usability (system management, communication, etc.). Clicking on the tile of one application will lead to opening an iframe window which will display the front page of the web application and will provide you with the ability to use it exactly the same way you would do on a separate browser window.
 
 Each application window supports every common desktop application feature, i.e. resize, minimize, maximize, drag, close and having multiple instances at the same time.   
 
@@ -25,15 +25,17 @@ Except from offering a complete and user-friendly solution in case your project 
 * Integration with any Lightweight Directory Access Protocol (LDAP) server
 * Restriction of access to applications for all and/or specific users
 * Provision of three system applications which provide useful tools for user, application and translation management
+* Exchange messages between the integrated applications and the main QLACK WebDesktop system
+* Easy and fast deployment using Docker
 
 ## Default System Applications
 
 QLACK WebDesktop provides the following three ready-to-use applications:
-1. Applications Management
+1. Applications/Users Management
 2. Translations Management
 3. User Profile Management
 
-### Applications Management
+### Applications/Users Management
 
 This application is developed in order to provide management options for all the integrated QLACK WebDesktop applications, as well as the users who have access in the system using SSO.
 
