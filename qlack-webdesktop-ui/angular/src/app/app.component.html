@@ -1,4 +1,5 @@
-<div [style.background-image]="'url(data:image/png;base64,'+backgroundImage+')'"
+<div [ngStyle]="{ 'background-image':backgroundImage ? 'url(data:image/png;base64,'+backgroundImage+')'
+ : 'none'}"
      class="application-boundary background-class">
   <router-outlet></router-outlet>
 </div>
