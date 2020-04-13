@@ -185,11 +185,21 @@ public class WdApplicationService {
     return wdApplicationRepository.findByApplicationName(name);
   }
 
+  /**
+   * Finds and returns an application by applicationName field in its DTO form.
+   * @param name then applicationDTO name field.
+   * @return the applicationDTO object
+   */
   public WdApplicationDTO findApplicationDTOByName(String name) {
     WdApplication wdApplication = wdApplicationRepository.findByApplicationName(name);
     return mapper.mapToDTO(wdApplication);
   }
 
+  /**
+   * Finds an active Web Desktop applicationDTO by name.
+   * @param name the applicationDTO name.
+   * @return the applicationDTO object.
+   */
   public WdApplicationDTO findActiveApplicationDTOByName(String name) {
     List<WdApplicationDTO> wdApplicationDTOS = this.findAllActiveApplicationsFilterGroupName();
     if (wdApplicationDTOS != null) {

@@ -28,6 +28,10 @@ import com.eurodyn.qlack.webdesktop.common.mapper.WdApplicationMapper;
 import com.eurodyn.qlack.webdesktop.common.model.WdApplication;
 import com.eurodyn.qlack.webdesktop.common.repository.WdApplicationRepository;
 import com.eurodyn.qlack.webdesktop.common.util.StringUtils;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -39,9 +43,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.core.user.DefaultOAuth2User;
-
-import java.util.List;
-import java.util.Map;
 
 /**
  * Test class for WdApplicationService
@@ -158,6 +159,7 @@ public class WdApplicationServiceTest {
 
     when(userService.getUserByName(principal.getName())).thenReturn(userDTO);
     when(wdApplicationRepository.findBySystemAndActiveIsTrue(false)).thenReturn(wdApplications);
+    when(stringUtils.isNotNullOrEmpty(any())).thenReturn(true);
 
     List<WdApplicationDTO> activeAppsListDTO = wdApplicationService
         .findAllActiveApplicationsFilterGroupName();
@@ -264,4 +266,23 @@ public class WdApplicationServiceTest {
     assertEquals(mockGroupedTranslations, translations);
   }
 
+  @Test
+  public void findUserGroupsIdsTest() {
+    Set<String> userGroupIds = new HashSet<>();
+    userGroupIds.add("id");
+    when(userGroupService.getUserGroupsIds("id")).thenReturn(userGroupIds);
+    wdApplicationService.findUserGroupsIds("id");
+    verify(userGroupService, times(1)).getUserGroupsIds(any());
+  }
+
+  @Test
+  public void findActiveApplicationDTOByNameNullTest(){
+    wdApplications.get(0).setGroupName("groupName");
+    when(securityContext.getAuthentication()).thenReturn(authentication);
+    SecurityContextHolder.setContext(securityContext);
+    when(authentication.getPrincipal()).thenReturn(principal);
+    when(profileManagerService.getActiveProfile()).thenReturn("sso");
+
+    wdApplicationService.findActiveApplicationDTOByName("wdApplication");
+  }
 }

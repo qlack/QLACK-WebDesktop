@@ -3,11 +3,8 @@ package com.eurodyn.qlack.webdesktop.applications.management.controller;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.eurodyn.qlack.webdesktop.applications.management.service.ApplicationsService;
-import com.eurodyn.qlack.webdesktop.common.dto.WdApplicationManagementDTO;
 import com.eurodyn.qlack.webdesktop.common.service.ActiveProfileService;
 import com.eurodyn.qlack.webdesktop.common.service.ProfileManagerService;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.common.io.Files;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -15,12 +12,9 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-
-import java.io.File;
 
 @RunWith(MockitoJUnitRunner.class)
 public class ApplicationsControllerTest {
