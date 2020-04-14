@@ -35,7 +35,7 @@ import java.util.Set;
 @Service
 public class ApplicationsService {
 
-  private final static String SSO_PROFILE = "sso";
+  private static final String SSO_PROFILE = "sso";
 
   private WdApplicationService wdApplicationService;
   private WdApplicationRepository wdApplicationRepository;
@@ -108,13 +108,12 @@ public class ApplicationsService {
       updatePermissions(wdApplicationManagementDTO, resourceId);
     }
 
-    if (stringUtils.isNotNullOrEmpty(newWdApplication.getProxyAppPath()) && stringUtils
-        .isNotNullOrEmpty(newWdApplication.getAppUrl())) {
-      if (newWdApplication.isActive()) {
+    if (stringUtils.isNotNullOrEmpty(newWdApplication.getProxyAppPath())
+        && stringUtils.isNotNullOrEmpty(newWdApplication.getAppUrl())
+        && (newWdApplication.isActive())) {
         zuulRouteService.addRoute("" + newWdApplication.getProxyAppPath() + "**",
             newWdApplication.getAppUrl() + newWdApplication.getAppPath(), newWdApplication.getId());
         zuulRouteService.refresh();
-      }
     }
 
     return ResponseEntity.status(HttpStatus.CREATED).body(wdApplicationByName);

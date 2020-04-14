@@ -283,6 +283,8 @@ public class WdApplicationServiceTest {
     when(authentication.getPrincipal()).thenReturn(principal);
     when(profileManagerService.getActiveProfile()).thenReturn("sso");
 
-    wdApplicationService.findActiveApplicationDTOByName("wdApplication");
+    assertNull(wdApplicationService.findActiveApplicationDTOByName("wdApplication"));
+    verify(wdApplicationRepository, times(2))
+        .findBySystemAndActiveIsTrue(any());
   }
 }

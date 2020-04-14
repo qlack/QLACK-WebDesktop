@@ -2,13 +2,12 @@ package com.eurodyn.qlack.webdesktop.app.controller;
 
 import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class MyErrorController implements ErrorController {
 
-  @RequestMapping(path = "/error", method = RequestMethod.GET)
+  @GetMapping(path = "/error")
   public String handleError() {
     //do something like logging
     return "error.html";
