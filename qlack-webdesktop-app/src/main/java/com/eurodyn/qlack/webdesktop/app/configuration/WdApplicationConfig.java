@@ -2,7 +2,6 @@ package com.eurodyn.qlack.webdesktop.app.configuration;
 
 import com.eurodyn.qlack.fuse.aaa.model.User;
 import com.eurodyn.qlack.fuse.aaa.repository.UserRepository;
-import com.eurodyn.qlack.fuse.aaa.service.LdapUserUtil;
 import com.eurodyn.qlack.fuse.crypto.service.CryptoDigestService;
 import com.eurodyn.qlack.fuse.lexicon.dto.KeyDTO;
 import com.eurodyn.qlack.fuse.lexicon.service.GroupService;
@@ -66,12 +65,11 @@ public class WdApplicationConfig implements ApplicationRunner {
   private GroupService groupService;
   private KeyService keyService;
   private UserRepository userRepository;
-  private LdapUserUtil ldapUserUtil;
   private WdApplicationService wdApplicationService;
   private ResourceWdApplicationService resourceWdApplicationService;
   private ZuulRouteService zuulRouteService;
   private StringUtils stringUtils;
-  @Value("${webdesktop.ldap.administrator.username:null}")
+  @Value("${webdesktop.administrator.username:null}")
   private String wdAdmin;
 
   @Autowired
@@ -79,7 +77,6 @@ public class WdApplicationConfig implements ApplicationRunner {
   public WdApplicationConfig(
       WdApplicationRepository wdApplicationRepository, CryptoDigestService cryptoDigestService,
       GroupService groupService, KeyService keyService, UserRepository userRepository,
-      LdapUserUtil ldapUserUtil,
       ResourceWdApplicationService resourceWdApplicationService,
       WdApplicationService wdApplicationService, ZuulRouteService zuulRouteService, StringUtils stringUtils) {
 
@@ -88,7 +85,6 @@ public class WdApplicationConfig implements ApplicationRunner {
     this.groupService = groupService;
     this.keyService = keyService;
     this.userRepository = userRepository;
-    this.ldapUserUtil = ldapUserUtil;
     this.wdApplicationService = wdApplicationService;
     this.resourceWdApplicationService = resourceWdApplicationService;
     this.zuulRouteService = zuulRouteService;
@@ -105,16 +101,15 @@ public class WdApplicationConfig implements ApplicationRunner {
    */
   @Override
   public void run(ApplicationArguments args) {
-    if (userRepository.findByUsername(wdAdmin) == null && wdAdmin != null) {
-      ldapUserUtil.setLdapMappingAttrs("firstName-givenName,lastName-sn");
-      User user = ldapUserUtil.syncUserWithAAA(wdAdmin);
-      if (user != null) {
-        user.setSuperadmin(true);
-        userRepository.save(user);
-        log.info("Admin  successfully created");
-      } else {
-        log.warning("Could not sync Admin  with AAA.");
-      }
+    if (userRepository.findByUsername(wdAdmin) == null && wdAdmin != null
+    && !("null".equals(wdAdmin))) {
+      User user = new User();
+      user.setUsername(wdAdmin);
+      user.setSuperadmin(true);
+      userRepository.save(user);
+      log.info(String.format("Admin %s successfully created", wdAdmin));
+    } else {
+      log.warning("Could not sync Admin with AAA.");
     }
 
     if (args.containsOption(APPS_URL)) {

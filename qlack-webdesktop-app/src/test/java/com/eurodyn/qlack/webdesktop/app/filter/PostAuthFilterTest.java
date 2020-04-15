@@ -1,14 +1,15 @@
 package com.eurodyn.qlack.webdesktop.app.filter;
 
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import com.eurodyn.qlack.fuse.aaa.model.User;
-import com.eurodyn.qlack.fuse.aaa.service.LdapUserUtil;
+import com.eurodyn.qlack.fuse.aaa.repository.UserRepository;
 import com.eurodyn.qlack.webdesktop.app.InitTestValues;
-import com.eurodyn.qlack.webdesktop.app.filter.PostAuthFilter;
+import java.io.IOException;
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
@@ -24,16 +25,12 @@ import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.core.user.DefaultOAuth2User;
 
-import java.io.IOException;
-
 @RunWith(MockitoJUnitRunner.class)
 public class PostAuthFilterTest {
 
   @InjectMocks
   private PostAuthFilter postAuthFilter;
 
-  @Mock
-  private LdapUserUtil ldapUserUtil;
   @Mock
   private DefaultOAuth2User defaultOAuth2User;
   @Mock
@@ -46,6 +43,8 @@ public class PostAuthFilterTest {
   private ServletRequest servletRequest;
   @Mock
   private ServletResponse servletResponse;
+  @Mock
+  private UserRepository userRepository;
   @Mock
   private FilterChain filterChain;
   private InitTestValues initTestValues;
@@ -63,10 +62,11 @@ public class PostAuthFilterTest {
     SecurityContextHolder.setContext(securityContext);
     when(SecurityContextHolder.getContext().getAuthentication().getPrincipal()).thenReturn(defaultOAuth2User);
     when(defaultOAuth2User.getName()).thenReturn("username");
-    when(ldapUserUtil.syncUserWithAAA(anyString())).thenReturn(user);
+    when(userRepository.findByUsername(any())).thenReturn(user);
 
     postAuthFilter.doFilter(servletRequest, servletResponse, filterChain);
-    verify(ldapUserUtil, times(1)).syncUserWithAAA(anyString());
+    verify(userRepository, times(1)).findByUsername(anyString());
+    verify(userRepository, times(0)).save(any());
   }
 
   @Test
@@ -75,20 +75,21 @@ public class PostAuthFilterTest {
     SecurityContextHolder.setContext(securityContext);
     when(SecurityContextHolder.getContext().getAuthentication().getPrincipal()).thenReturn(principal);
     postAuthFilter.doFilter(servletRequest, servletResponse, filterChain);
-    verify(ldapUserUtil, times(0)).syncUserWithAAA(anyString());
+    verify(userRepository, times(0)).findByUsername(anyString());
+    verify(userRepository, times(0)).save(any());
   }
 
-
   @Test
-  public void doFilterCouldNotSyncAdminWithAAATest() throws IOException, ServletException {
+  public void doFilterWithDefaultOath2NewUserTest() throws IOException, ServletException {
     when(securityContext.getAuthentication()).thenReturn(authentication);
     SecurityContextHolder.setContext(securityContext);
     when(SecurityContextHolder.getContext().getAuthentication().getPrincipal()).thenReturn(defaultOAuth2User);
     when(defaultOAuth2User.getName()).thenReturn("username");
-    when(ldapUserUtil.syncUserWithAAA(anyString())).thenReturn(null);
+    when(userRepository.findByUsername(any())).thenReturn(null);
 
     postAuthFilter.doFilter(servletRequest, servletResponse, filterChain);
-    verify(ldapUserUtil, times(1)).syncUserWithAAA(anyString());
+    verify(userRepository, times(1)).findByUsername(anyString());
+    verify(userRepository, times(1)).save(any());
   }
 
 }

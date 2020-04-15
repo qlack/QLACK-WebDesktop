@@ -22,6 +22,7 @@ import com.eurodyn.qlack.webdesktop.common.model.WdApplication;
 import com.eurodyn.qlack.webdesktop.common.repository.WdApplicationRepository;
 import com.eurodyn.qlack.webdesktop.common.service.WdApplicationService;
 import com.eurodyn.qlack.webdesktop.common.util.StringUtils;
+import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -29,10 +30,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.powermock.modules.junit4.PowerMockRunner;
 import org.springframework.boot.ApplicationArguments;
-import org.springframework.cloud.netflix.zuul.filters.discovery.DiscoveryClientRouteLocator;
 import org.springframework.test.util.ReflectionTestUtils;
-
-import java.util.List;
 
 @RunWith(PowerMockRunner.class)
 public class WdApplicationConfigTest {
@@ -123,9 +121,8 @@ public class WdApplicationConfigTest {
   public void runWithoutExistingAdminUserAndWdAdminPropertyExistsTest() {
     ReflectionTestUtils.setField(wdApplicationConfig, "wdAdmin", "adminUserName");
     when(userRepository.findByUsername(anyString())).thenReturn(null);
-    when(ldapUserUtil.syncUserWithAAA(anyString())).thenReturn(user);
     wdApplicationConfig.run(args);
-    verify(userRepository, times(1)).save(user);
+    verify(userRepository, times(1)).save(any());
   }
 
   @Test
@@ -141,12 +138,11 @@ public class WdApplicationConfigTest {
   public void runWithValidUrlArgsTest() {
     ReflectionTestUtils.setField(wdApplicationConfig, "wdAdmin", "adminUserName");
     when(userRepository.findByUsername(anyString())).thenReturn(null);
-    when(ldapUserUtil.syncUserWithAAA(anyString())).thenReturn(user);
     when(args.containsOption(anyString())).thenReturn(true);
     when(args.getOptionValues(anyString())).thenReturn(urls);
     when(wdApplicationRepository.findByActiveIsTrue()).thenReturn(wdApplications);
     wdApplicationConfig.run(args);
-    verify(userRepository, times(1)).save(user);
+    verify(userRepository, times(1)).save(any());
     verify(wdApplicationRepository, times(1)).findByActiveIsTrue();
   }
 
