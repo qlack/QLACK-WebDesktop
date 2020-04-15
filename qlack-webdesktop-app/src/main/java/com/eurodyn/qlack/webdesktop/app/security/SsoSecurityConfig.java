@@ -1,5 +1,6 @@
 package com.eurodyn.qlack.webdesktop.app.security;
 
+import com.eurodyn.qlack.fuse.aaa.repository.UserAttributeRepository;
 import com.eurodyn.qlack.fuse.aaa.repository.UserRepository;
 import com.eurodyn.qlack.webdesktop.app.filter.PostAuthFilter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,10 +24,12 @@ public class SsoSecurityConfig extends WebSecurityConfigurerAdapter {
   @Value("${oauth2.logout.page.url:/}")
   private String logoutUrl;
   private UserRepository userRepository;
+  private UserAttributeRepository userAttributeRepository;
 
   @Autowired
-  public SsoSecurityConfig(UserRepository userRepository) {
+  public SsoSecurityConfig(UserRepository userRepository, UserAttributeRepository userAttributeRepository) {
     this.userRepository = userRepository;
+    this.userAttributeRepository = userAttributeRepository;
   }
 
   /**
@@ -59,7 +62,7 @@ public class SsoSecurityConfig extends WebSecurityConfigurerAdapter {
     FilterRegistrationBean<PostAuthFilter> registrationBean
         = new FilterRegistrationBean<>();
 
-    registrationBean.setFilter(new PostAuthFilter(this.userRepository));
+    registrationBean.setFilter(new PostAuthFilter(this.userRepository, this.userAttributeRepository));
     registrationBean.addUrlPatterns("/");
 
     return registrationBean;

@@ -116,11 +116,11 @@ public class InitTestValues {
     return urls;
   }
 
-  public WdApplication createWdApplication(String proxyPAth, String appUrl) {
+  public WdApplication createWdApplication(String proxyPath, String appUrl) {
     WdApplication wdApplication = new WdApplication();
 
     wdApplication.setId("0f9a2472-cde0-44a6-ba3d-8e60992904fb");
-    wdApplication.setProxyAppPath(proxyPAth);
+    wdApplication.setProxyAppPath(proxyPath);
     wdApplication.setAppUrl(appUrl);
 
     wdApplication.setAddedOn(new Long("2121545432165"));

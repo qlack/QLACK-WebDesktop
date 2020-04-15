@@ -88,7 +88,7 @@ public class PostAuthFilterTest {
     when(userRepository.findByUsername(any())).thenReturn(null);
 
     postAuthFilter.doFilter(servletRequest, servletResponse, filterChain);
-    verify(userRepository, times(1)).findByUsername(anyString());
+    verify(userRepository, times(2)).findByUsername(anyString());
     verify(userRepository, times(1)).save(any());
   }
 

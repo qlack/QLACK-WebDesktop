@@ -20,6 +20,7 @@ import com.eurodyn.qlack.webdesktop.app.service.ZuulRouteService;
 import com.eurodyn.qlack.webdesktop.common.dto.LexiconDTO;
 import com.eurodyn.qlack.webdesktop.common.model.WdApplication;
 import com.eurodyn.qlack.webdesktop.common.repository.WdApplicationRepository;
+import com.eurodyn.qlack.webdesktop.common.service.ResourceWdApplicationService;
 import com.eurodyn.qlack.webdesktop.common.service.WdApplicationService;
 import com.eurodyn.qlack.webdesktop.common.util.StringUtils;
 import java.util.List;
@@ -57,6 +58,8 @@ public class WdApplicationConfigTest {
   private StringUtils stringUtils;
   @Mock
   private ZuulRouteService zuulRouteService;
+  @Mock
+  private ResourceWdApplicationService resourceWdApplicationService;
 
   private List<LexiconDTO> translations;
   private KeyDTO keyDTO;
@@ -64,6 +67,7 @@ public class WdApplicationConfigTest {
   private User user;
   private List<String> urls;
   private List<WdApplication> wdApplications;
+  private WdApplication wdApplication;
 
   private InitTestValues initTestValues;
 
@@ -76,6 +80,7 @@ public class WdApplicationConfigTest {
     user = initTestValues.createUser();
     urls = initTestValues.createUrls();
     wdApplications = initTestValues.createWdApplications();
+    wdApplication = initTestValues.createWdApplication("proxyPath", "appUrl");
   }
 
   @Test
@@ -154,5 +159,27 @@ public class WdApplicationConfigTest {
     wdApplicationConfig.processLexiconValues(translations, wdApplications.get(0));
     verify(wdApplicationService, times(1)).processLexiconValues(any(), any());
     verify(keyService, times(1)).updateTranslationByLocale(anyString(), anyString(), anyString());
+  }
+
+  @Test
+  public void processWdApplicationNullTest(){
+    wdApplication = null;
+    wdApplicationConfig.processWdApplication(wdApplication, "checksum");
+    verify(wdApplicationRepository, times(0)).save(any());
+  }
+
+  @Test
+  public void processWdApplicationTest(){
+    when(wdApplicationRepository.save(any())).thenReturn(wdApplication);
+    wdApplicationConfig.processWdApplication(wdApplication, "checksum");
+    verify(wdApplicationRepository, times(1)).save(any());
+  }
+
+  @Test
+  public void processWdApplicationNewTest(){
+    wdApplication.setId(null);
+    when(wdApplicationRepository.save(any())).thenReturn(wdApplication);
+    wdApplicationConfig.processWdApplication(wdApplication, "checksum");
+    verify(wdApplicationRepository, times(1)).save(any());
   }
 }
