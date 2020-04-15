@@ -149,15 +149,16 @@
             <artifactId>dockerfile-maven-plugin</artifactId>
             <version>${dockerfile-maven-plugin.version}</version>
             <configuration>
+              <useMavenSettingsForAuth>true</useMavenSettingsForAuth>
               <repository>eurodyn/${project.artifactId}</repository>
               <tag>latest</tag>
             </configuration>
             <executions>
               <execution>
-                <id>default</id>
                 <phase>clean</phase>
                 <goals>
                   <goal>build</goal>
+                  <goal>push</goal>
                 </goals>
               </execution>
             </executions>

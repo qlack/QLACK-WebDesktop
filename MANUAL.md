@@ -16,79 +16,77 @@ This manual contains instructions on how to deploy and use the QLACK WebDesktop 
 **spring.security.oauth2.client.registration.master.client-id**: the id of the SSO client <br/>
 **spring.security.oauth2.client.registration.master.client-name**: the name of the SSO client <br/>
 **spring.security.oauth2.client.registration.master.client-secret**: the key for accessing the restricted SSO client <br/>
+**webdesktop.administrator.username**: the user id of the user who will be the QLACK WebDesktop system administrator <br/>
 
-3) If LDAP is used with your SSO configuration, navigate to the _QLACK-WebDesktop\qlack-webdesktop-app\src\main\resources_ folder and edit the following properties in the_application-sso.properties_ file: <br/>
-**qlack.fuse.aaa.ldap.enabled**: set to true <br/>
-**qlack.fuse.aaa.ldap.url**: the url of the LDAP provider <br/>
-**qlack.fuse.aaa.ldap.basedn**: the base dn of the LDAP provider <br/>
-**qlack.fuse.aaa.ldap.mapping.uid**: the mapping user id of the LDAP provider <br/>
-**qlack.fuse.aaa.ldap.mapping.gid**: the mapping group id of the LDAP provider <br/>
-**qlack.fuse.aaa.ldap.admin.uid**: the user id of the LDAP administrator <br/>
-**qlack.fuse.aaa.ldap.admin.password**: the user password of the LDAP administrator <br/>
-**webdesktop.ldap.administrator.username**: the user id of the LDAP user who will be the QLACK WebDesktop system administrator <br/>
-
-4) Navigate to the _QLACK-WebDesktop\qlack-webdesktop-apps\qlack-webdesktop-apps-applications-management\qlack-webdesktop-apps-applications-management-app\src\main\resources_ folder and edit the following properties in the_application.properties_ file: <br/>
+3) Navigate to the _QLACK-WebDesktop\qlack-webdesktop-apps\qlack-webdesktop-apps-applications-management\qlack
+-webdesktop-apps-applications-management-app\src\main\resources_ folder and edit the following properties in the_application.properties_ file: <br/>
 **server.port**: the desired port which will serve the application on your machine (default 8090) <br/>
 **server.servlet.context-path**: the context path under which the application will be accessible (default /applicationsManagement) <br/>
 **spring.datasource.url**: the url connection of the QLACK WebDesktop database (ex. jdbc:mysql://localhost:3306/QlackWebDesktop?useUnicode=yes&characterEncoding=UTF-8) <br/>
 **spring.datasource.username**: the username the connect to the database <br/>
 **spring.datasource.password**: the password the connect to the database <br/>
 
-5) On the same folder update the following properties of the _configuration.yaml_ file: <br/>
+4) On the same folder update the following properties of the _configuration.yaml_ file: <br/>
 **appUrl**: the url under which the application is served (hostname:port) <br/>
 **appPath**: the context path of the application (same value as _server.servlet.context-path_) <br/>
 **proxyAppPath**: the reversed path under which QLACK WebDesktop will use the application (if SSO is used, the value should be equal to the _appPath_ value) <br/>
 
-6) If SSO is enabled, navigate to the _QLACK-WebDesktop\qlack-webdesktop-apps\qlack-webdesktop-apps-applications-management\qlack-webdesktop-apps-applications-management-app\src\main\resources_ folder and edit the following properties in the_application-sso.properties_ file: <br/>
+5) If SSO is enabled, navigate to the _QLACK-WebDesktop\qlack-webdesktop-apps\qlack-webdesktop-apps-applications
+-management\qlack-webdesktop-apps-applications-management-app\src\main\resources_ folder and edit the following properties in the_application-sso.properties_ file: <br/>
 **oauth2.provider.url**: the url under which QLACK WebDesktop will be served <br/>
 **spring.security.oauth2.client.registration.master.client-id**: the id of the SSO client <br/>
 **spring.security.oauth2.client.registration.master.client-name**: the name of the SSO client <br/>
 **spring.security.oauth2.client.registration.master.client-secret**: the key for accessing the restricted SSO client <br/>
 
-7) Navigate to the _QLACK-WebDesktop\qlack-webdesktop-apps\qlack-webdesktop-apps-translations-management\qlack-webdesktop-apps-translations-management-app\src\main\resources_ folder and edit the following properties in the_application.properties_ file: <br/>
+6) Navigate to the _QLACK-WebDesktop\qlack-webdesktop-apps\qlack-webdesktop-apps-translations-management\qlack
+-webdesktop-apps-translations-management-app\src\main\resources_ folder and edit the following properties in the_application.properties_ file: <br/>
 **server.port**: the desired port which will serve the application on your machine (default 8091) <br/>
 **server.servlet.context-path**: the context path under which the application will be accessible (default /translationsManagement) <br/>
 **spring.datasource.url**: the url connection of the QLACK WebDesktop database (ex. jdbc:mysql://localhost:3306/QlackWebDesktop?useUnicode=yes&characterEncoding=UTF-8) <br/>
 **spring.datasource.username**: the username the connect to the database <br/>
 **spring.datasource.password**: the password the connect to the database <br/>
 
-8) On the same folder update the following properties of the _configuration.yaml_ file: <br/>
+7) On the same folder update the following properties of the _configuration.yaml_ file: <br/>
 **appUrl**: the url under which the application is served (hostname:port) <br/>
 **appPath**: the context path of the application (same value as _server.servlet.context-path_) <br/>
 **proxyAppPath**: the reversed path under which QLACK WebDesktop will use the application (if SSO is used, the value should be equal to the _appPath_ value) <br/>
 
-9) If SSO is enabled, navigate to the _QLACK-WebDesktop\qlack-webdesktop-apps\qlack-webdesktop-apps-translations-management\qlack-webdesktop-apps-translations-management-app\src\main\resources_ folder and edit the following properties in the_application-sso.properties_ file: <br/>
+8) If SSO is enabled, navigate to the _QLACK-WebDesktop\qlack-webdesktop-apps\qlack-webdesktop-apps-translations
+-management\qlack-webdesktop-apps-translations-management-app\src\main\resources_ folder and edit the following properties in the_application-sso.properties_ file: <br/>
 **oauth2.provider.url**: the url under which QLACK WebDesktop will be served <br/>
 **spring.security.oauth2.client.registration.master.client-id**: the id of the SSO client <br/>
 **spring.security.oauth2.client.registration.master.client-name**: the name of the SSO client <br/>
 **spring.security.oauth2.client.registration.master.client-secret**: the key for accessing the restricted SSO client <br/>
 
-10) Navigate to the _QLACK-WebDesktop\qlack-webdesktop-apps\qlack-webdesktop-apps-user-profile-management\qlack-webdesktop-apps-user-profile-management-app\src\main\resources_ folder and edit the following properties in the_application.properties_ file: <br/>
+9) Navigate to the _QLACK-WebDesktop\qlack-webdesktop-apps\qlack-webdesktop-apps-user-profile-management\qlack
+-webdesktop-apps-user-profile-management-app\src\main\resources_ folder and edit the following properties in the_application.properties_ file: <br/>
 **server.port**: the desired port which will serve the application on your machine (default 8092) <br/>
 **server.servlet.context-path**: the context path under which the application will be accessible (default /userProfileManagement) <br/>
 **spring.datasource.url**: the url connection of the QLACK WebDesktop database (ex. jdbc:mysql://localhost:3306/QlackWebDesktop?useUnicode=yes&characterEncoding=UTF-8) <br/>
 **spring.datasource.username**: the username the connect to the database <br/>
 **spring.datasource.password**: the password the connect to the database <br/>
 
-11) On the same folder update the following properties of the _configuration.yaml_ file: <br/>
+10) On the same folder update the following properties of the _configuration.yaml_ file: <br/>
 **appUrl**: the url under which the application is served (hostname:port) <br/>
 **appPath**: the context path of the application (same value as _server.servlet.context-path_) <br/>
 **proxyAppPath**: the reversed path under which QLACK WebDesktop will use the application (if SSO is used, the value should be equal to the _appPath_ value) <br/>
 
-12) If SSO is enabled, navigate to the _QLACK-WebDesktop\qlack-webdesktop-apps\qlack-webdesktop-apps-user-profile-management\qlack-webdesktop-apps-user-profile-management-app\src\main\resources_ folder and edit the following properties in the_application-sso.properties_ file: <br/>
+11) If SSO is enabled, navigate to the _QLACK-WebDesktop\qlack-webdesktop-apps\qlack-webdesktop-apps-user-profile
+-management\qlack-webdesktop-apps-user-profile-management-app\src\main\resources_ folder and edit the following properties in the_application-sso.properties_ file: <br/>
 **oauth2.provider.url**: the url under which QLACK WebDesktop will be served <br/>
 **spring.security.oauth2.client.registration.master.client-id**: the id of the SSO client <br/>
 **spring.security.oauth2.client.registration.master.client-name**: the name of the SSO client <br/>
 **spring.security.oauth2.client.registration.master.client-secret**: the key for accessing the restricted SSO client <br/>
 
-13) Make a clean installation of the application by executing the following command on the root folder of the project (Java 8 must be installed and set as JAVA_HOME): <br/>
+12) Make a clean installation of the application by executing the following command on the root folder of the
+ project (Java 8 must be installed and set as JAVA_HOME): <br/>
 `mvnw.cmd clean install -Dmaven.test.skip=true` (for Windows OS) <br/>
 `./mvnw clean install -Dmaven.test.skip=true` (for Linux OS) <br/>
 
-14) Create the database schema by executing the command: <br/>
+13) Create the database schema by executing the command: <br/>
 `CREATE DATABASE QlackWebDesktop CHARACTER SET utf8 COLLATE utf8_general_ci;`
 
-15) Deploy the system QLACK WebDesktop applications by executing the commands: <br/>
+14) Deploy the system QLACK WebDesktop applications by executing the commands: <br/>
 `nohup java -jar qlack-webdesktop-apps/qlack-webdesktop-apps-applications-management/qlack-webdesktop-apps-applications-management-app/target/qlack-webdesktop-apps-applications-management.jar &>/dev/null &` <br/><br/>
 `nohup java -jar qlack-webdesktop-apps/qlack-webdesktop-apps-translations-management/qlack-webdesktop-apps-translations-management-app/target/qlack-webdesktop-apps-translations-management.jar &>/dev/null &` <br/><br/>
 `nohup java -jar qlack-webdesktop-apps/qlack-webdesktop-apps-user-profile-management/qlack-webdesktop-apps-user-profile-management-app/target/qlack-webdesktop-apps-user-profile-management.jar &>/dev/null &` <br/><br/>
@@ -98,7 +96,7 @@ If SSO is enabled, deploy the applications with the following command:
 `nohup java -jar -Dspring.profiles.active=sso qlack-webdesktop-apps/qlack-webdesktop-apps-translations-management/qlack-webdesktop-apps-translations-management-app/target/qlack-webdesktop-apps-translations-management.jar &>/dev/null &` <br/><br/>
 `nohup java -jar -Dspring.profiles.active=sso qlack-webdesktop-apps/qlack-webdesktop-apps-user-profile-management/qlack-webdesktop-apps-user-profile-management-app/target/qlack-webdesktop-apps-user-profile-management.jar &>/dev/null &` <br/><br/>
 
-16) Deploy the QLACK Web Desktop application by executing the command: <br/>
+15) Deploy the QLACK Web Desktop application by executing the command: <br/>
 `nohup java -jar -Dsystem.default.language=en qlack-webdesktop-app/target/qlack-webdesktop-app.jar --apps.url=http://127.0.0.1:8090/applicationsManagement/configuration,http://127.0.0.1:8091/translationsManagement/configuration,http://127.0.0.1:8092/userProfileManagement/configuration &>/dev/null &` <br/> <br/>
 
 If SSO is enabled, deploy QLACK WebDesktop with the following command:
@@ -129,23 +127,21 @@ Before running the containers, the following variables of the _.env_ file should
 **APPS_URL**: the urls of the .yaml configuration files of the applications to be integrated (sepated by comma)
 
 If SSO will be enabled, the following variables should be also edited:
-**WEBDESKTOP_URL**: the url under which QLACK WebDesktop will be served (ex. http://localhost:8082)
-**KEYCLOAK_AUTH_URL**: the url of the SSO provider home page (ex. http://localhost:8080/auth)
+**WEBDESKTOP_URL**: the url under which QLACK WebDesktop will be served (ex. http://qlack-webdesktop:8082)
+**KEYCLOAK_AUTH_URL**: the url of the SSO provider home page (ex. http://keycloak-provider:8080/auth)
 **KEYCLOAK_CLIENT**: the id of the SSO client
 **KEYCLOAK_CLIENT_SECRET**: the key for accessing the restricted SSO client
+**WEBDESKTOP_ADMIN**: the user id of the user who will be the QLACK WebDesktop system administrator <br/>
 
-If LDAP will be used for the user authentication on your SSO provider you must also the edit variables:<br/>
-**LDAP_ENABLED**: set to true <br/>
-**LDAP_URL**: the url of the LDAP provider <br/>
-**LDAP_BASEDN**: the base dn of the LDAP provider <br/>
-**LDAP_MAPPING_UID**: the mapping user id of the LDAP provider <br/>
-**LDAP_MAPPING_GID**: the mapping group id of the LDAP provider <br/>
-**LDAP_ADMIN_UID**: the user id of the LDAP administrator <br/>
-**LDAP_ADMIN_PASSWORD**: the user password of the LDAP administrator <br/>
-**WEBDESKTOP_ADMIN**: the user id of the LDAP user who will be the QLACK WebDesktop system administrator <br/>
+The Docker Deployment can also start a Keycloak provider on a separate container, along with the other QLACK WebDesktop containers, by running the command: `docker-compose docker-compose-sso.yml up`.
+When using the Keycloak container, the following .env variables must be also set: <br/>
+**KEYCLOAK_AUTH_URL**: http://qlack-webdesktop-keycloak:8080/auth <br/>
+**KEYCLOAK_ADMIN_USERNAME**: the username of the Keycloak admin user <br/>
+**KEYCLOAK_ADMIN_PASSWORD**: the password of the Keycloak admin user <br/>
+**KEYCLOAK_PORT**: the port under which Keycloak will be accessible on your system <br/>
 
-The Docker Deployment can also start a Keycloak provider on a seperate container, along with the other QLACK WebDesktop containers, by running the command: `docker-compose docker-compose-sso.yml up`.
-When using the Keycloak container, the value of the **KEYCLOAK_AUTH_URL** .env variable must be set to **http://qlack-webdesktop-keycloak:8080/auth** and the variable **KEYCLOAK_EXPORTS_LOCATION** must point to the local folder in which the _realm-export.json_ is located, containing an exported Keycloak realm with the Client to be used by the applications.
+Also, after the **qlack-webdesktop-keycloak** container is started, navigate to its _/auth_ page in order to create the client to be used by QLACK WebDesktop and update the .env variables **KEYCLOAK_CLIENT** **KEYCLOAK_CLIENT_SECRET** accordingly. 
+Restart the applications container, by executing: `docker-compose docker-compose-sso.yml down` and `docker-compose docker-compose-sso.yml up`
 
 
 ## Applications Integration

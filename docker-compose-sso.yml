@@ -6,15 +6,13 @@ networks:
 
 services:
   qlack-webdesktop-keycloak:
-    image: jboss/keycloak:9.0.2
-    volumes:
-      - ${KEYCLOAK_EXPORTS_LOCATION}:/opt/jboss/keycloak/imports/
-    command:
-      - "-b 0.0.0.0 -Dkeycloak.migration.action=import -Dkeycloak.migration.provider=singleFile -Dkeycloak.migration.file=/opt/jboss/keycloak/imports/realm-export.json"
+    image: jboss/keycloak:9.0.3
     environment:
-      - KEYCLOAK_USER=admin
-      - KEYCLOAK_PASSWORD=admin
+      - KEYCLOAK_USER=${KEYCLOAK_ADMIN_USERNAME}
+      - KEYCLOAK_PASSWORD=${KEYCLOAK_ADMIN_PASSWORD}
       - PROXY_ADDRESS_FORWARDING=true
+    ports:
+      - "${KEYCLOAK_PORT}:8080"
     restart: always
     networks:
       - webdesktop_network
@@ -81,13 +79,6 @@ services:
       KEYCLOAK_AUTH_URL: ${KEYCLOAK_AUTH_URL}
       KEYCLOAK_CLIENT: ${KEYCLOAK_CLIENT}
       KEYCLOAK_CLIENT_SECRET: ${KEYCLOAK_CLIENT_SECRET}
-      LDAP_ENABLED: ${LDAP_ENABLED}
-      LDAP_URL: ${LDAP_URL}
-      LDAP_BASEDN: ${LDAP_BASEDN}
-      LDAP_MAPPING_UID: ${LDAP_MAPPING_UID}
-      LDAP_MAPPING_GID: ${LDAP_MAPPING_GID}
-      LDAP_ADMIN_UID: ${LDAP_ADMIN_UID}
-      LDAP_ADMIN_PASSWORD: ${LDAP_ADMIN_PASSWORD}
       WEBDESKTOP_ADMIN: ${WEBDESKTOP_ADMIN}
       APPS_URL: ${APPS_URL}
     ports:
