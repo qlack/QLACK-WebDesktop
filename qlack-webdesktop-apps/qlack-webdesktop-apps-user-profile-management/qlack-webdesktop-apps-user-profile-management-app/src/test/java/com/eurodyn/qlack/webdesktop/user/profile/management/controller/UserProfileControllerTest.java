@@ -75,5 +75,10 @@ public class UserProfileControllerTest {
         .accept(MediaType.APPLICATION_JSON))
         .andExpect(status().isOk());
   }
-
+  @Test
+  public void getActiveProfileTest() throws Exception {
+    mockMvc.perform(get("/api/user/profile")
+        .accept(MediaType.APPLICATION_JSON))
+        .andExpect(status().isOk());
+  }
 }

@@ -63,4 +63,13 @@ public class ApplicationsControllerTest {
         .accept(MediaType.ALL))
         .andExpect(status().isOk());
   }
+
+  @Test
+  public void getActiveProfileTest() throws Exception {
+    mvc.perform(MockMvcRequestBuilders.get("/api/activeProfile")
+        .accept(MediaType.ALL))
+        .andExpect(status().isOk());
+  }
+
+
 }

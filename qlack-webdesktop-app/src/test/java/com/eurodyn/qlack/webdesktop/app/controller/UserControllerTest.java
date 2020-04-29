@@ -42,5 +42,18 @@ public class UserControllerTest {
         .accept(MediaType.APPLICATION_JSON))
         .andExpect(status().isOk());
   }
+  @Test
+  public void getActiveProfileTest() throws Exception {
+    mockMvc.perform(get("/api/user/profile")
+        .accept(MediaType.APPLICATION_JSON))
+        .andExpect(status().isOk());
+  }
+
+  @Test
+  public void getSystemDefaultLanguageTest() throws Exception {
+    mockMvc.perform(get("/api/user/systemLanguage")
+        .accept(MediaType.APPLICATION_JSON))
+        .andExpect(status().isOk());
+  }
 
 }

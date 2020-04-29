@@ -1,8 +1,10 @@
 package com.eurodyn.qlack.webdesktop.user.profile.management.service;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyBoolean;
 import static org.mockito.ArgumentMatchers.anyString;
@@ -16,6 +18,7 @@ import com.eurodyn.qlack.fuse.aaa.service.UserService;
 import com.eurodyn.qlack.fuse.lexicon.dto.LanguageDTO;
 import com.eurodyn.qlack.fuse.lexicon.service.KeyService;
 import com.eurodyn.qlack.fuse.lexicon.service.LanguageService;
+import com.eurodyn.qlack.webdesktop.common.service.ProfileManagerService;
 import com.eurodyn.qlack.webdesktop.user.profile.management.InitTestValues;
 import com.eurodyn.qlack.webdesktop.user.profile.management.dto.UserDetailsDTO;
 import org.junit.Before;
@@ -47,6 +50,8 @@ public class UserProfileServiceTest {
   private UserService userService;
   @Mock
   private LanguageService languageService;
+  @Mock
+  private ProfileManagerService profileManagerService;
   @Mock
   private UserDetailsDTO userDetailsDTO;
   @Mock
@@ -227,6 +232,16 @@ public class UserProfileServiceTest {
     assertNull(result);
 
   }
-
-
+  @Test
+  public void isSsoProfileSuccessTest() {
+    when(profileManagerService.getActiveProfile()).thenReturn("sso");
+    boolean result = userProfileService.isSsoProfile();
+    assertTrue(result);
+  }
+  @Test
+  public void isSsoProfileFailTest() {
+    when(profileManagerService.getActiveProfile()).thenReturn(null);
+    boolean result = userProfileService.isSsoProfile();
+    assertFalse(result);
+  }
 }
