@@ -20,7 +20,7 @@ done
 
 if [ "$SPRING_PROFILES_ACTIVE" = "sso" ]
 then
-	java -jar -Dserver.port=${WEBDESKTOP_PORT} -Dspring.datasource.password=${DATABASE_ROOT_PASSWORD} -Dsystem.default.language=${SYSTEM_DEFAULT_LANGUAGE} -Dspring.profiles.active=sso -Dwebdesktop.host=${WEBDESKTOP_URL} -Doauth2.provider.url=${KEYCLOAK_AUTH_URL} -Dspring.security.oauth2.client.registration.master.client-id=${KEYCLOAK_CLIENT} -Dspring.security.oauth2.client.registration.master.client-name=${KEYCLOAK_CLIENT} -Dspring.security.oauth2.client.registration.master.client-secret=${KEYCLOAK_CLIENT_SECRET} -Dwebdesktop.administrator.username=${WEBDESKTOP_ADMIN} /opt/app/qlack-webdesktop-app.jar --apps.url=${APPS_URL}
+	java -jar -Dserver.port=${WEBDESKTOP_PORT} -Dspring.datasource.password=${DATABASE_ROOT_PASSWORD} -Dsystem.default.language=${SYSTEM_DEFAULT_LANGUAGE} -Dspring.profiles.active=sso -Dwebdesktop.host=${WEBDESKTOP_URL} -Dwebdesktop.scheme=${WEBDESKTOP_SCHEME} -Doauth2.provider.url=${KEYCLOAK_AUTH_URL} -Dspring.security.oauth2.client.registration.master.client-id=${KEYCLOAK_CLIENT} -Dspring.security.oauth2.client.registration.master.client-name=${KEYCLOAK_CLIENT} -Dspring.security.oauth2.client.registration.master.client-secret=${KEYCLOAK_CLIENT_SECRET} -Dwebdesktop.administrator.username=${WEBDESKTOP_ADMIN} /opt/app/qlack-webdesktop-app.jar --apps.url=${APPS_URL}
 else
 	java -jar -Dserver.port=${WEBDESKTOP_PORT} -Dspring.datasource.password=${DATABASE_ROOT_PASSWORD} -Dsystem.default.language=${SYSTEM_DEFAULT_LANGUAGE} /opt/app/qlack-webdesktop-app.jar --apps.url=${APPS_URL}
 fi

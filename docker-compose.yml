@@ -18,12 +18,13 @@ services:
       - webdesktop_network
 
   qlack-webdesktop-applications-management:
-    image: eurodyn/qlack-webdesktop-apps-applications-management-app:latest
+    image: eurodyn/qlack-webdesktop-apps-applications-management-app:${WEBDESKTOP_VERSION}
     environment:
       WEBDESKTOP_PORT: ${WEBDESKTOP_PORT}
       DATABASE_ROOT_PASSWORD: ${DATABASE_ROOT_PASSWORD}
       SPRING_PROFILES_ACTIVE: ${SPRING_PROFILES_ACTIVE}
       WEBDESKTOP_URL: ${WEBDESKTOP_URL}
+      WEBDESKTOP_SCHEME: ${WEBDESKTOP_SCHEME}
       KEYCLOAK_CLIENT: ${KEYCLOAK_CLIENT}
       KEYCLOAK_CLIENT_SECRET: ${KEYCLOAK_CLIENT_SECRET}
     restart: always
@@ -31,12 +32,13 @@ services:
       - webdesktop_network
 
   qlack-webdesktop-translations-management:
-    image: eurodyn/qlack-webdesktop-apps-translations-management-app:latest
+    image: eurodyn/qlack-webdesktop-apps-translations-management-app:${WEBDESKTOP_VERSION}
     environment:
       WEBDESKTOP_PORT: ${WEBDESKTOP_PORT}
       DATABASE_ROOT_PASSWORD: ${DATABASE_ROOT_PASSWORD}
       SPRING_PROFILES_ACTIVE: ${SPRING_PROFILES_ACTIVE}
       WEBDESKTOP_URL: ${WEBDESKTOP_URL}
+      WEBDESKTOP_SCHEME: ${WEBDESKTOP_SCHEME}
       KEYCLOAK_CLIENT: ${KEYCLOAK_CLIENT}
       KEYCLOAK_CLIENT_SECRET: ${KEYCLOAK_CLIENT_SECRET}
     restart: always
@@ -44,12 +46,13 @@ services:
       - webdesktop_network
 
   qlack-webdesktop-user-profile-management:
-    image: eurodyn/qlack-webdesktop-apps-user-profile-management-app:latest
+    image: eurodyn/qlack-webdesktop-apps-user-profile-management-app:${WEBDESKTOP_VERSION}
     environment:
       WEBDESKTOP_PORT: ${WEBDESKTOP_PORT}
       DATABASE_ROOT_PASSWORD: ${DATABASE_ROOT_PASSWORD}
       SPRING_PROFILES_ACTIVE: ${SPRING_PROFILES_ACTIVE}
       WEBDESKTOP_URL: ${WEBDESKTOP_URL}
+      WEBDESKTOP_SCHEME: ${WEBDESKTOP_SCHEME}
       KEYCLOAK_CLIENT: ${KEYCLOAK_CLIENT}
       KEYCLOAK_CLIENT_SECRET: ${KEYCLOAK_CLIENT_SECRET}
     restart: always
@@ -57,13 +60,14 @@ services:
       - webdesktop_network
 
   qlack-webdesktop-app:
-    image: eurodyn/qlack-webdesktop-app:latest
+    image: eurodyn/qlack-webdesktop-app:${WEBDESKTOP_VERSION}
     environment:
       WEBDESKTOP_PORT: ${WEBDESKTOP_PORT}
       DATABASE_ROOT_PASSWORD: ${DATABASE_ROOT_PASSWORD}
       SPRING_PROFILES_ACTIVE: ${SPRING_PROFILES_ACTIVE}
       SYSTEM_DEFAULT_LANGUAGE: ${SYSTEM_DEFAULT_LANGUAGE}
       WEBDESKTOP_URL: ${WEBDESKTOP_URL}
+      WEBDESKTOP_SCHEME: ${WEBDESKTOP_SCHEME}
       KEYCLOAK_AUTH_URL: ${KEYCLOAK_AUTH_URL}
       KEYCLOAK_CLIENT: ${KEYCLOAK_CLIENT}
       KEYCLOAK_CLIENT_SECRET: ${KEYCLOAK_CLIENT_SECRET}
