@@ -4,7 +4,13 @@ import com.eurodyn.qlack.fuse.aaa.dto.UserAttributeDTO;
 import com.eurodyn.qlack.fuse.lexicon.dto.LanguageDTO;
 import com.eurodyn.qlack.webdesktop.user.profile.management.dto.UserDetailsDTO;
 import com.eurodyn.qlack.webdesktop.user.profile.management.service.UserProfileService;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -63,4 +69,15 @@ public class UserProfileController {
   public boolean getActiveProfile() {
     return userProfileService.isSsoProfile();
   }
+
+  @GetMapping("/user/logout")
+  public void logout(HttpServletRequest request, HttpServletResponse response) throws ServletException {
+    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+    authentication.setAuthenticated(false);
+    new SecurityContextLogoutHandler().logout(request,response,authentication);
+    SecurityContextHolder.clearContext();
+    request.logout();
+    request.getSession().invalidate();
+  }
+
 }
