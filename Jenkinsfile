@@ -22,7 +22,7 @@ pipeline {
         }
         stage('Sonar Analysis') {
             steps {
-                sh 'mvn sonar:sonar -Dsonar.projectName=Qlack-Java -Dsonar.host.url=${SONAR_HOST_URL} -Dsonar.login=${SONAR_KEY_QLACKWD}'
+                sh 'mvn sonar:sonar -Dsonar.projectName=Qlack-WebDesktop -Dsonar.host.url=${SONAR_HOST_URL} -Dsonar.login=${SONAR_KEY_QLACKWD}'
             }
         }
         stage('Produce bom.xml'){
