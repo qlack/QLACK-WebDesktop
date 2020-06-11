@@ -87,6 +87,8 @@
       src/main/java/com/eurodyn/qlack/webdesktop/**/**/management/security/*.java,
       src/main/java/com/eurodyn/qlack/webdesktop/**/management/security/*.java
     </sonar.coverage.exclusions>
+    <sonar.dependencyCheck.reportPath>target/dependency-check-report.xml</sonar.dependencyCheck.reportPath>
+    <sonar.dependencyCheck.htmlReportPath>target/dependency-check-report.html</sonar.dependencyCheck.htmlReportPath>
   </properties>
 
   <modules>
