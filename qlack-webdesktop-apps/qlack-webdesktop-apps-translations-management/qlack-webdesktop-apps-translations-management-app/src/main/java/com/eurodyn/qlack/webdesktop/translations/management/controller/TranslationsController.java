@@ -28,7 +28,7 @@ import java.util.Map;
 @RestController
 public class TranslationsController {
 
-  private TranslationsService translationsService;
+  private final TranslationsService translationsService;
 
   @Autowired
   public TranslationsController(
@@ -79,7 +79,7 @@ public class TranslationsController {
   public void logout(HttpServletRequest request, HttpServletResponse response) throws ServletException {
     Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
     authentication.setAuthenticated(false);
-    new SecurityContextLogoutHandler().logout(request,response,authentication);
+    new SecurityContextLogoutHandler().logout(request, response, authentication);
     SecurityContextHolder.clearContext();
     request.logout();
     request.getSession().invalidate();

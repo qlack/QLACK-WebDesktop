@@ -3,6 +3,7 @@ package com.eurodyn.qlack.webdesktop.app.controller;
 import com.eurodyn.qlack.webdesktop.app.service.ApplicationsService;
 import com.eurodyn.qlack.webdesktop.common.dto.WdApplicationDTO;
 import com.eurodyn.qlack.webdesktop.common.dto.WdApplicationManagementDTO;
+import com.eurodyn.qlack.webdesktop.common.model.WdApplication;
 import com.eurodyn.qlack.webdesktop.common.service.WdApplicationService;
 import javax.validation.Valid;
 import lombok.extern.java.Log;
@@ -76,6 +77,7 @@ public class WdApplicationController {
    * @return the response entity.
    */
   @PostMapping("/save")
+  @SuppressWarnings({"java:S3740"})
   public ResponseEntity save(
       @Valid @RequestBody WdApplicationManagementDTO wdApplicationManagementDTO) {
     return applicationsService.save(wdApplicationManagementDTO);
@@ -87,7 +89,7 @@ public class WdApplicationController {
    * @return the response entity.
    */
   @PostMapping("/update/{id}")
-  public ResponseEntity update(
+  public ResponseEntity<WdApplication> update(
       @Valid @RequestBody WdApplicationManagementDTO wdApplicationManagementDTO) {
     return applicationsService.update(wdApplicationManagementDTO);
   }

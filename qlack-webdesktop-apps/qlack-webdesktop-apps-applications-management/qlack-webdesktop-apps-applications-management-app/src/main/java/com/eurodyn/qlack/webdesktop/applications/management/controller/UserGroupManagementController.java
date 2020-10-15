@@ -67,6 +67,7 @@ public class UserGroupManagementController {
    * @param groupId the groud id to search for users.
    * @return a page object of type UserGroupDTO containing group users.
    */
+  @SuppressWarnings({"java:S3740"})
   @GetMapping(path = "/users/{groupId}")
   public Page findUsersByGroupId(@PathVariable String groupId) {
     UserSearchCriteria userSearchCriteria = UserSearchCriteriaBuilder.createCriteria()
@@ -81,6 +82,7 @@ public class UserGroupManagementController {
    * @param term the string to search for among userGroups.
    * @return one or more objects that contains the term.
    */
+  @SuppressWarnings({"java:S3740"})
   @GetMapping(path = "/search/{term}")
   public Page findGroupsByTerm(@PathVariable String term) {
     UserGroupSearchCriteria userGroupSearchCriteria = UserGroupSearchCriteriaBuilder
@@ -106,7 +108,7 @@ public class UserGroupManagementController {
    * @return a response entity containing all userGroups.
    */
   @GetMapping("/groups")
-  public ResponseEntity findAllGroups() {
+  public ResponseEntity<List<UserGroupDTO>> findAllGroups() {
     return userGroupManagementService.findAllGroups();
   }
 
@@ -117,6 +119,7 @@ public class UserGroupManagementController {
    * @return a response entity.
    */
   @PostMapping
+  @SuppressWarnings({"java:S3740"})
   public ResponseEntity upload(@Valid @RequestBody UserGroupManagementDTO userGroupManagementDTO) {
     return userGroupManagementService.upload(userGroupManagementDTO);
   }

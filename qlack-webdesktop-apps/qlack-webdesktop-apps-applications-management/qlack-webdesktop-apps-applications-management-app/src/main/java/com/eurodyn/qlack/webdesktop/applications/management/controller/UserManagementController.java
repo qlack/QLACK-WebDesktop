@@ -61,8 +61,9 @@ public class UserManagementController {
    * @param userId the user id to search for userGroups.
    * @return a page object containing users.
    */
+  @SuppressWarnings({"java:S3740"})
   @GetMapping(path = "/groups/{userId}")
-  public Page findGroupsByUserId(@PathVariable String userId) {
+  public Page<List<UserGroupDTO>> findGroupsByUserId(@PathVariable String userId) {
     return new PageImpl(userManagementService.findUserGroupsIds(userId));
   }
 
@@ -72,6 +73,7 @@ public class UserManagementController {
    * @param term the string to search for among users.
    * @return one or more objects that contains the term.
    */
+  @SuppressWarnings({"java:S3740"})
   @GetMapping(path = "/search/{term}")
   public Page findUsersByTerm(@PathVariable String term) {
     UserSearchCriteria userSearchCriteria = UserSearchCriteriaBuilder
@@ -97,7 +99,7 @@ public class UserManagementController {
    * @return the response entity.
    */
   @GetMapping("/username/{name}")
-  public ResponseEntity findUserByName(@PathVariable String name) {
+  public ResponseEntity<UserDTO> findUserByName(@PathVariable String name) {
     return userManagementService.findUserByName(name);
   }
 
@@ -119,7 +121,7 @@ public class UserManagementController {
    * @return a response entity.
    */
   @PostMapping
-  public ResponseEntity upload(@Valid @RequestBody UserManagementDTO userManagementDTO) {
+  public ResponseEntity<UserManagementDTO> upload(@Valid @RequestBody UserManagementDTO userManagementDTO) {
     return userManagementService.saveAll(userManagementDTO);
   }
 }

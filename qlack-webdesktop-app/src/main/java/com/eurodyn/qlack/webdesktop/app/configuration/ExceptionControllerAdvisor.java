@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 public class ExceptionControllerAdvisor {
 
   @ExceptionHandler(MethodArgumentNotValidException.class)
+  @SuppressWarnings({"java:S3740"})
   public ResponseEntity handleValidationException(MethodArgumentNotValidException exception) {
     return new ResponseEntity<>(JSONFilter
         .filterDefault(exception.getBindingResult().getAllErrors(),

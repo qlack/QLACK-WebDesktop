@@ -19,10 +19,10 @@ import java.util.List;
 @Component
 public class ProcessLexiconUtil {
 
-  private LanguageService languageService;
-  private WdApplicationService wdApplicationService;
-  private WdApplicationMapper wdApplicationMapper;
-  private List<LexiconDTO> translationKeys = new ArrayList<>();
+  private final LanguageService languageService;
+  private final WdApplicationService wdApplicationService;
+  private final WdApplicationMapper wdApplicationMapper;
+  private final List<LexiconDTO> translationKeys = new ArrayList<>();
 
   @Autowired
   public ProcessLexiconUtil(LanguageService languageService,

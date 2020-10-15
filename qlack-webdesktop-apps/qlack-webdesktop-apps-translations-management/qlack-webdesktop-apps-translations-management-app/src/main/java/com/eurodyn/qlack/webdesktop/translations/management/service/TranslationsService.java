@@ -34,12 +34,12 @@ import java.util.Set;
 @Service
 public class TranslationsService {
 
-  private GroupService groupService;
-  private KeyService keyService;
-  private LanguageService languageService;
-  private KeyRepository keyRepository;
-  private DataRepository dataRepository;
-  private UserService userService;
+  private final GroupService groupService;
+  private final KeyService keyService;
+  private final LanguageService languageService;
+  private final KeyRepository keyRepository;
+  private final DataRepository dataRepository;
+  private final UserService userService;
 
   @Autowired
   public TranslationsService(GroupService groupService, KeyService keyService,

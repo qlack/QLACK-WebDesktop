@@ -28,10 +28,6 @@ import com.eurodyn.qlack.webdesktop.common.mapper.WdApplicationMapper;
 import com.eurodyn.qlack.webdesktop.common.model.WdApplication;
 import com.eurodyn.qlack.webdesktop.common.repository.WdApplicationRepository;
 import com.eurodyn.qlack.webdesktop.common.util.StringUtils;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -43,6 +39,11 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.core.user.DefaultOAuth2User;
+
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * Test class for WdApplicationService
@@ -130,7 +131,7 @@ public class WdApplicationServiceTest {
     wdApplicationsDTO.forEach(wdApplicationDTO1 ->
         assertNull(wdApplicationDTO1.getGroupName()));
     activeAppsListDTO.forEach(wdApplicationDTO ->
-        assertTrue(wdApplicationDTO.getGroupName() == null));
+        assertNull(wdApplicationDTO.getGroupName()));
   }
 
   @Test
@@ -147,7 +148,7 @@ public class WdApplicationServiceTest {
     wdApplicationsDTO.forEach(wdApplicationDTO1 ->
         assertNull(wdApplicationDTO1.getGroupName()));
     activeAppsListDTO.forEach(wdApplicationDTO ->
-        assertTrue(wdApplicationDTO.getGroupName() == null));
+        assertNull(wdApplicationDTO.getGroupName()));
   }
 
   @Test
@@ -181,7 +182,7 @@ public class WdApplicationServiceTest {
     wdApplicationsDTO.forEach(wdApplicationDTO1 ->
         assertNull(wdApplicationDTO1.getGroupName()));
     activeAppsListDTO.forEach(wdApplicationDTO ->
-        assertTrue(wdApplicationDTO.getGroupName() == null));
+        assertNull(wdApplicationDTO.getGroupName()));
   }
 
   @Test
@@ -276,7 +277,7 @@ public class WdApplicationServiceTest {
   }
 
   @Test
-  public void findActiveApplicationDTOByNameNullTest(){
+  public void findActiveApplicationDTOByNameNullTest() {
     wdApplications.get(0).setGroupName("groupName");
     when(securityContext.getAuthentication()).thenReturn(authentication);
     SecurityContextHolder.setContext(securityContext);

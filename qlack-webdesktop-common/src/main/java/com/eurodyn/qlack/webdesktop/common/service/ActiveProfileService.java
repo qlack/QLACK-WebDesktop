@@ -8,7 +8,7 @@ public class ActiveProfileService {
 
   private static final String SSO_PROFILE = "sso";
 
-  private ProfileManagerService profileManagerService;
+  private final ProfileManagerService profileManagerService;
 
   @Autowired
   public ActiveProfileService(ProfileManagerService profileManagerService) {

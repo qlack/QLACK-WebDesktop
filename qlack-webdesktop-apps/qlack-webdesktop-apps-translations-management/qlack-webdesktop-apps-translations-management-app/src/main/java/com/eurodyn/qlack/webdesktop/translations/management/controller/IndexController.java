@@ -24,7 +24,7 @@ import java.io.IOException;
 public class IndexController {
 
 
-  private ResourceLoader resourceLoader;
+  private final ResourceLoader resourceLoader;
 
   @Autowired
   public IndexController(ResourceLoader resourceLoader) {

@@ -23,7 +23,7 @@ import java.io.IOException;
 @Slf4j
 public class IndexController {
 
-  private ResourceLoader resourceLoader;
+  private final ResourceLoader resourceLoader;
 
   @Autowired
   public IndexController(ResourceLoader resourceLoader) {

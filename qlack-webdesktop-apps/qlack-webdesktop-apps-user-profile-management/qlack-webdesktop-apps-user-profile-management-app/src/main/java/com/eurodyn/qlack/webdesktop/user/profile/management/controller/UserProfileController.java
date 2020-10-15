@@ -28,7 +28,7 @@ import java.util.Map;
 @RestController
 public class UserProfileController {
 
-  private UserProfileService userProfileService;
+  private final UserProfileService userProfileService;
 
   @Autowired
   public UserProfileController(
@@ -74,7 +74,7 @@ public class UserProfileController {
   public void logout(HttpServletRequest request, HttpServletResponse response) throws ServletException {
     Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
     authentication.setAuthenticated(false);
-    new SecurityContextLogoutHandler().logout(request,response,authentication);
+    new SecurityContextLogoutHandler().logout(request, response, authentication);
     SecurityContextHolder.clearContext();
     request.logout();
     request.getSession().invalidate();

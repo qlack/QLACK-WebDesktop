@@ -38,16 +38,16 @@ import java.util.stream.Collectors;
 @Validated
 public class WdApplicationService {
 
-  private WdApplicationMapper mapper;
-  private WdApplicationRepository wdApplicationRepository;
-  private GroupService groupService;
-  private KeyService keyService;
-  private UserService userService;
-  private OperationService operationService;
-  private UserGroupService userGroupService;
-  private LanguageService languageService;
-  private ProfileManagerService profileManagerService;
-  private StringUtils stringUtils;
+  private final WdApplicationMapper mapper;
+  private final WdApplicationRepository wdApplicationRepository;
+  private final GroupService groupService;
+  private final KeyService keyService;
+  private final UserService userService;
+  private final OperationService operationService;
+  private final UserGroupService userGroupService;
+  private final LanguageService languageService;
+  private final ProfileManagerService profileManagerService;
+  private final StringUtils stringUtils;
 
 
   @Autowired
@@ -187,6 +187,7 @@ public class WdApplicationService {
 
   /**
    * Finds and returns an application by applicationName field in its DTO form.
+   *
    * @param name then applicationDTO name field.
    * @return the applicationDTO object
    */
@@ -197,6 +198,7 @@ public class WdApplicationService {
 
   /**
    * Finds an active Web Desktop applicationDTO by name.
+   *
    * @param name the applicationDTO name.
    * @return the applicationDTO object.
    */

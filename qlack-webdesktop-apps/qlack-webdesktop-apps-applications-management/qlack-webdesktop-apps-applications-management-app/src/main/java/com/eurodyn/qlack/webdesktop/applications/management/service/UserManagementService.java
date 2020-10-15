@@ -61,7 +61,7 @@ public class UserManagementService {
    * @param userManagementDTO the object to be updated.
    * @return the response entity.
    */
-  public ResponseEntity saveAll(UserManagementDTO userManagementDTO) {
+  public ResponseEntity<UserManagementDTO> saveAll(UserManagementDTO userManagementDTO) {
     if (CollectionUtils.isNotEmpty(userManagementDTO.getGroupsAdded())) {
       userService.addUserGroups(userManagementDTO.getGroupsAdded(), userManagementDTO.getId());
     }
@@ -77,7 +77,7 @@ public class UserManagementService {
    * @param name the name to search for.
    * @return if the user exists return the user, else return null.
    */
-  public ResponseEntity findUserByName(String name) {
+  public ResponseEntity<UserDTO> findUserByName(String name) {
     UserDTO userDTO = userService.getUserByName(name);
     return userDTO != null ? ResponseEntity.status(HttpStatus.OK).body(userDTO)
         : ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);

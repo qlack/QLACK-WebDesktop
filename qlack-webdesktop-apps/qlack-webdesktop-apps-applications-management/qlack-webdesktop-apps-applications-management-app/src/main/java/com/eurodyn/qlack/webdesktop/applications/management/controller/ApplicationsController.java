@@ -1,9 +1,9 @@
 package com.eurodyn.qlack.webdesktop.applications.management.controller;
 
 import com.eurodyn.qlack.fuse.aaa.dto.UserAttributeDTO;
+import com.eurodyn.qlack.webdesktop.applications.management.service.ApplicationsService;
 import com.eurodyn.qlack.webdesktop.common.dto.WdApplicationDTO;
 import com.eurodyn.qlack.webdesktop.common.dto.WdApplicationManagementDTO;
-import com.eurodyn.qlack.webdesktop.applications.management.service.ApplicationsService;
 import com.eurodyn.qlack.webdesktop.common.service.ActiveProfileService;
 import com.eurodyn.qlack.webdesktop.common.service.ProfileManagerService;
 import javax.servlet.ServletException;
@@ -101,7 +101,7 @@ public class ApplicationsController {
   public void logout(HttpServletRequest request, HttpServletResponse response) throws ServletException {
     Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
     authentication.setAuthenticated(false);
-    new SecurityContextLogoutHandler().logout(request,response,authentication);
+    new SecurityContextLogoutHandler().logout(request, response, authentication);
     SecurityContextHolder.clearContext();
     request.logout();
     request.getSession().invalidate();

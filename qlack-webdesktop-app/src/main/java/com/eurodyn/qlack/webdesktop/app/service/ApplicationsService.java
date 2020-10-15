@@ -77,6 +77,7 @@ public class ApplicationsService {
    * @param wdApplicationManagementDTO the application to be saved.
    * @return the responded entity.
    */
+  @SuppressWarnings({"java:S3740"})
   public ResponseEntity save(WdApplicationManagementDTO wdApplicationManagementDTO) {
 
     WdApplication wdApplicationByName = wdApplicationService.findApplicationByName(
@@ -125,7 +126,7 @@ public class ApplicationsService {
    * @param wdApplicationManagementDTO the application to be updated.
    * @return the responded entity.
    */
-  public ResponseEntity update(WdApplicationManagementDTO wdApplicationManagementDTO) {
+  public ResponseEntity<WdApplication> update(WdApplicationManagementDTO wdApplicationManagementDTO) {
 
     WdApplication wdApplication = wdApplicationRepository
         .fetchById(wdApplicationManagementDTO.getDetails().getId());

@@ -24,10 +24,10 @@ public class UserProfileService {
 
   private static final String TRANSLATIONS_GROUP = "user-profile-management-ui";
   private static final String SSO_PROFILE = "sso";
-  private KeyService keyService;
-  private LanguageService languageService;
-  private UserService userService;
-  private ProfileManagerService profileManagerService;
+  private final KeyService keyService;
+  private final LanguageService languageService;
+  private final UserService userService;
+  private final ProfileManagerService profileManagerService;
 
   @Autowired
   public UserProfileService(KeyService keyService, LanguageService languageService,

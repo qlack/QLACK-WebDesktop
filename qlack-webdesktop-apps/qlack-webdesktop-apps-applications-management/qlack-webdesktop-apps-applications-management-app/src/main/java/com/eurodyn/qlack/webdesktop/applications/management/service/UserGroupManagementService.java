@@ -61,6 +61,7 @@ public class UserGroupManagementService {
    * @param userGroupManagementDTO the object to be created/updated.
    * @return the response entity.
    */
+  @SuppressWarnings({"java:S3740"})
   public ResponseEntity upload(UserGroupManagementDTO userGroupManagementDTO) {
     if (isNewGroup(userGroupManagementDTO) && existsByGroupName(userGroupManagementDTO.getName())) {
       return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body("alreadyExistsCode");
@@ -91,7 +92,7 @@ public class UserGroupManagementService {
    *
    * @return if there are any userGroups return them in a list, else return null.
    */
-  public ResponseEntity findAllGroups() {
+  public ResponseEntity<List<UserGroupDTO>> findAllGroups() {
     List<UserGroupDTO> groupDTO = userGroupService.listGroups();
     return groupDTO != null ? ResponseEntity.status(HttpStatus.OK).body(groupDTO)
         : ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
