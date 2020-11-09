@@ -9,6 +9,7 @@ import {UtilityService} from "../services/utility.service";
 import {QLACKTypescriptFormValidationService} from "@qlack/form-validation";
 import {DataService} from "../services/data.service";
 import {MatSlideToggleChange} from "@angular/material/slide-toggle";
+import {QngPubsubService} from '@qlack/qng-pubsub';
 
 @Component({
   selector: 'app-applications-edit',
@@ -27,12 +28,16 @@ export class ApplicationsEditComponent implements OnInit {
   usersRemoved: string[];
   groupsAdded: string[];
   groupsRemoved: string[];
+  errorMessage: string;
+  successMessage: string;
+  dismissMessage: string;
 
   constructor(private fb: FormBuilder, private applicationsService: ApplicationsService,
               private route: ActivatedRoute,
               private qForms: QFormsService, private router: Router, private dialog: MatDialog,
               private translateService: TranslateService, private utilityService: UtilityService,
-              private validationService: QLACKTypescriptFormValidationService, private data: DataService) {
+              private validationService: QLACKTypescriptFormValidationService, private data: DataService,
+              private qPubSubService: QngPubsubService, private translate: TranslateService) {
   }
 
   ngOnInit() {
@@ -100,13 +105,21 @@ export class ApplicationsEditComponent implements OnInit {
         this.enableRestrictAccess();
       });
     }
-
-
-
     this.data.isNavBarVisible(false);
+
+    this.translate.get([
+      'translations-management-ui.dismiss',
+      'translations-management-ui.success',
+      'translations-management-ui.error'
+    ])
+    .subscribe(translation => {
+      this.errorMessage = translation['translations-management-ui.error'];
+      this.successMessage = translation['translations-management-ui.success'];
+      this.dismissMessage = translation['translations-management-ui.dismiss'];
+    });
   }
 
-  enableRestrictAccess(){
+  enableRestrictAccess() {
     this.applicationsService.isSsoEnabled().subscribe(isSso => {
       if (isSso) {
         this.form.controls['restrictAccess'].enable();
@@ -168,7 +181,9 @@ export class ApplicationsEditComponent implements OnInit {
         this.utilityService.popupSuccessAction(
           this.getMessageTranslations('management-app-ui.success') + "!",
           this.getMessageTranslations('management-app-ui.dismiss'));
-        this.router.navigate(["/"]).then(() => window.location.reload());
+        this.utilityService.popupSuccessAction(this.successMessage, this.dismissMessage);
+        this.qPubSubService.publish('QRefreshPage', '');
+        this.router.navigate(["/"]);
         this.data.isNavBarVisible(true);
       }, error => {
 
@@ -199,9 +214,8 @@ export class ApplicationsEditComponent implements OnInit {
   update() {
     this.applicationsService.update(this.qForms.cleanupForm(this.form), this.id).subscribe(
       (response) => {
-        this.utilityService.popupSuccessAction(
-          this.getMessageTranslations('management-app-ui.success') + "!",
-          this.getMessageTranslations('management-app-ui.dismiss'));
+        this.utilityService.popupSuccessAction(this.successMessage, this.dismissMessage);
+        this.qPubSubService.publish('QRefreshPage', '');
         this.router.navigate(["/"]);
         this.data.isNavBarVisible(true);
       }, error => {

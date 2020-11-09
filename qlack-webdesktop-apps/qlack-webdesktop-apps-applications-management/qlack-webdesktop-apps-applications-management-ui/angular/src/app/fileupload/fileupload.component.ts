@@ -6,6 +6,8 @@ import {MatDialog, MatDialogRef} from '@angular/material/dialog';
 import {FileService} from '../services/file.service';
 import {FileDto} from '../dto/file-dto';
 import {UtilityService} from "../services/utility.service";
+import {QngPubsubService} from '@qlack/qng-pubsub';
+import {TranslateService} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-fileupload',
@@ -17,11 +19,15 @@ export class FileuploadComponent implements OnInit {
   uploadForm: FormGroup;
   files: FileDto[];
   fileId: string;
+  errorMessage: string;
+  successMessage: string;
+  dismissMessage: string;
 
   constructor(public fb: FormBuilder, private fileService: FileService,
               private route: ActivatedRoute,
               private qForms: QFormsService, private router: Router, private dialog: MatDialog,
-              private utilityService: UtilityService, private dialogRef: MatDialogRef<FileuploadComponent>) {
+              private utilityService: UtilityService, private dialogRef: MatDialogRef<FileuploadComponent>,
+              private qPubSubService: QngPubsubService, private translate: TranslateService) {
     // Reactive Form
     this.uploadForm = this.fb.group({
       file: [null]
@@ -30,6 +36,17 @@ export class FileuploadComponent implements OnInit {
 
   ngOnInit(): void {
     // this.fetchUploadedImages();
+
+    this.translate.get([
+      'translations-management-ui.dismiss',
+      'translations-management-ui.success',
+      'translations-management-ui.error'
+    ])
+    .subscribe(translation => {
+      this.errorMessage = translation['translations-management-ui.error'];
+      this.successMessage = translation['translations-management-ui.success'];
+      this.dismissMessage = translation['translations-management-ui.dismiss'];
+    });
   }
 
   changeListener(event) {
@@ -55,7 +72,9 @@ export class FileuploadComponent implements OnInit {
       this.utilityService.popupSuccess("File Uploaded");
       this.previewImageURL = null;
       this.dialogRef.close();
-      window.location.reload();
+      this.utilityService.popupSuccessAction(this.successMessage, this.dismissMessage);
+      this.qPubSubService.publish('QRefreshPage', '');
+      this.router.navigate(["/"]);
     }, onError => {
       this.utilityService.popupError(onError.error.message);
     });
