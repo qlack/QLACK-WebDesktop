@@ -60,7 +60,6 @@ public class WdApplicationDTO {
   /**
    * Reverse proxy path
    */
-  @NotNull
   private String proxyAppPath;
 
   /**
