@@ -1,4 +1,7 @@
-export interface ApplicationDto {
+import {Deserializable} from './deserializable';
+import {UserList} from './user-list-dto';
+
+export class ApplicationDto implements Deserializable {
   id: string
   title: string
   description: string
@@ -33,6 +36,10 @@ export interface ApplicationDto {
   groupsAdded: [];
   groupsRemoved: [];
   details: [];
-  users: [];
+  users: UserList;
   userGroups: [];
+
+  deserialize(input: any): this {
+    return Object.assign(this, input);
+  }
 }

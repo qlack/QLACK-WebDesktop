@@ -228,10 +228,10 @@
   </mat-tab-group>
 
   <mat-card-actions>
-    <button (click)="isNavBarVisible(true)" mat-button
+    <button (click)="changeData()" mat-button
             routerLink="/applications">{{'management-app-ui.back' |
       translate}}</button>
-    <button (click)="submit()" [disabled]="!form.valid || !form.dirty"
+    <button (click)="submit()" [disabled]="(!form.valid || !form.dirty) && !permissionsEdited"
             color="primary"
             mat-button>{{'management-app-ui.save' | translate}}</button>
   </mat-card-actions>

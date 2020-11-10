@@ -15,9 +15,9 @@
     <div fxLayout="column">
 
       <p aria-hidden="true" hidden id="tableDscUser">{{'management-app-ui.users' | translate}}</p>
-      <table #table [dataSource]="users" aria-describedby="tableDscUser" class="mat-elevation-z0" fxFlex="grow"
+      <table #table [dataSource]="dataSource" aria-describedby="tableDscUser" class="mat-elevation-z0" fxFlex="grow"
              mat-table
-             matSort
+             matSort #userSort="matSort"
              matSortActive="username"
              matSortDirection="asc"
              matSortDisableClear matSortStart="asc">
@@ -58,7 +58,7 @@
         <tr *matHeaderRowDef="displayedColumnsUsergroup" mat-header-row></tr>
         <tr *matRowDef="let row; let element; columns: displayedColumnsUsergroup;" mat-row></tr>
       </table>
-      <mat-paginator #paginator (page)="changePage()"
+      <mat-paginator #userPaginator (page)="changeUserPage()"
                      [pageSizeOptions]="[10, 30, 50]"
                      [pageSize]="10"
                      [showFirstLastButtons]="true">
@@ -85,7 +85,8 @@
       <table #table [dataSource]="dataSourceUserGroup" aria-describedby="tableDscUserGroup" class="mat-elevation-z0"
              fxFlex="grow"
              mat-table
-             matSort
+             matSort #userGroupSort="matSort"
+             matSort #userGroupSort="matSort"
              matSortActive="name"
              matSortDirection="asc"
              matSortDisableClear matSortStart="asc">
@@ -112,7 +113,7 @@
         <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
         <tr *matRowDef="let row; let element; columns: displayedColumns;" mat-row></tr>
       </table>
-      <mat-paginator #paginator (page)="changePage()"
+      <mat-paginator #userGroupPaginator (page)="changeUserGroupPage()"
                      [pageSizeOptions]="[10, 30, 50]"
                      [pageSize]="10"
                      [showFirstLastButtons]="true">

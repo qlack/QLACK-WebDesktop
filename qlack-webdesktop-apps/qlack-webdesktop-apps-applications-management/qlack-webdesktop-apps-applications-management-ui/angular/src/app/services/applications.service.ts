@@ -5,6 +5,7 @@ import {ApplicationDto} from '../dto/application-dto';
 import {CrudService} from './crud.service';
 import {QFormsService} from '@eurodyn/forms';
 import {AppConstants} from '../app.constants';
+import {map} from 'rxjs/operators';
 
 /**
  * A service providing functionality for the user of the application, including authentication,
@@ -42,6 +43,11 @@ export class ApplicationsService extends CrudService<ApplicationDto> {
 
   isSsoEnabled(): Observable<any> {
     return this.http.get(`${this.contextPath}` + `${AppConstants.API_ROOT}/activeProfile`);
+  }
+
+  getApplication(id: any): Observable<ApplicationDto> {
+    return this.http.get<ApplicationDto>(`${this.contextPath}` + `${AppConstants.API_ROOT}/${this.endpoint}/${id}`).pipe(
+      map(res => new ApplicationDto().deserialize(res)));
   }
 }
 

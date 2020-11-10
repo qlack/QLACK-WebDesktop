@@ -10,7 +10,8 @@ import {UtilityService} from "../../services/utility.service";
 import {UserService} from "../../services/user.service";
 import {TranslateService} from "@ngx-translate/core";
 import {ActivatedRoute} from "@angular/router";
-import {ApplicationsService} from "../../services/applications.service";
+import {DataService} from '../../services/data.service';
+import {UserGroupDto} from '../../dto/user-group-dto';
 
 @Component({
   selector: 'app-permissions',
@@ -31,12 +32,15 @@ export class PermissionsComponent implements OnInit {
   groupsRemoved: string[] = [];
   groupsInitList: any[];
   displayedColumns: string[] = ['name', 'description', 'action'];
-  users: User[];
+  dataSource: MatTableDataSource<User> = new MatTableDataSource<User>();
   optionsUserGroup: any[];
-  dataSourceUserGroup: MatTableDataSource<User> = new MatTableDataSource<User>();
+  dataSourceUserGroup: MatTableDataSource<UserGroupDto> = new MatTableDataSource<UserGroupDto>();
   displayedColumnsUsergroup: string[] = ['profilepic', 'username', 'firstname', 'lastname', 'action'];
-  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
-  @ViewChild(MatSort, {static: true}) sort: MatSort;
+  @ViewChild('userPaginator', {static: true}) userPaginator: MatPaginator;
+  @ViewChild('userSort', {static: true}) userSort: MatSort;
+  @ViewChild('userGroupPaginator', {static: true}) userGroupPaginator: MatPaginator;
+  @ViewChild('userGroupSort', {static: true}) userGroupSort: MatSort;
+
   private isUsersListChanged = false;
   private isGroupListChanged = false;
   private usersStorage: any;
@@ -45,7 +49,7 @@ export class PermissionsComponent implements OnInit {
   constructor(private fb: FormBuilder, private userGroupService: UserGroupService,
               private qForms: QFormsService, private utilityService: UtilityService,
               private userService: UserService, private translateService: TranslateService,
-              private route: ActivatedRoute, private applicationsService: ApplicationsService) {
+              private route: ActivatedRoute, private dataService: DataService) {
     this.usersForm = this.fb.group({
       user: [{value: '', disabled: false}]
     });
@@ -57,13 +61,18 @@ export class PermissionsComponent implements OnInit {
   ngAfterViewInit(): void {
     // Initial fetch of data.
     setTimeout(() => {
-      this.fetchData(0, this.paginator.pageSize, this.sort.active, this.sort.start);
+      this.fetchUserData(0, this.userPaginator.pageSize, this.userSort.active, this.userGroupSort.start);
+      this.fetchUserGroupData(0, this.userPaginator.pageSize, this.userGroupSort.active, this.userGroupSort.start);
     });
 
     // Each time the sorting changes, reset the page number.
-    this.sort.sortChange.subscribe(onNext => {
-      this.paginator.pageIndex = 0;
-      this.fetchData(0, this.paginator.pageSize, onNext.active, onNext.direction);
+    this.userSort.sortChange.subscribe(onNext => {
+      this.userPaginator.pageIndex = 0;
+      this.fetchUserData(0, this.userPaginator.pageSize, onNext.active, onNext.direction);
+    });
+    this.userGroupSort.sortChange.subscribe(onNext => {
+      this.userGroupPaginator.pageIndex = 0;
+      this.fetchUserGroupData(0, this.userGroupPaginator.pageSize, onNext.active, onNext.direction);
     });
   }
 
@@ -72,27 +81,29 @@ export class PermissionsComponent implements OnInit {
 
     this.usersForm.valueChanges.debounceTime(500).subscribe(term => {
       if (term.user && term != '' && term.user.length > 1) {
-        this.userGroupService.search(term.user, "users").subscribe(
+        this.userService.searchUsers(term.user).subscribe(
           data => {
-            this.options = data;
+            this.options = data.content;
           });
       }
     });
 
     this.groupForm.valueChanges.debounceTime(500).subscribe(term => {
       if (term.name && term != '' && term.name.length > 1) {
-        this.userService.search(term.name, "usergroup").subscribe(
+        this.userGroupService.search(term.name, "usergroup").subscribe(
           data => {
             this.optionsUserGroup = data;
           });
       }
     });
+
+    this.dataSource._updateChangeSubscription();
+    this.dataSourceUserGroup._updateChangeSubscription();
   }
 
-  fetchData(page: number, size: number, sort: string, sortDirection: string) {
+  fetchUserData(page: number, size: number, sort: string, sortDirection: string) {
     try {
       this.usersStorage = JSON.parse(sessionStorage.getItem('users'));
-      this.userGroupsStorage = JSON.parse(sessionStorage.getItem('userGroups'));
     } catch (e) {
       console.log(e)
     }
@@ -101,21 +112,31 @@ export class PermissionsComponent implements OnInit {
       this.usersStorage = new QPageableReply();
       this.usersStorage.content = [];
     }
-    if (!this.userGroupsStorage) {
-      this.userGroupsStorage = new QPageableReply();
-    }
 
     if (this.usersStorage.content) {
-      this.users = this.usersStorage.content;
+      const tempUserList = [];
+      this.usersStorage.content.forEach(u => tempUserList.push(new User().deserialize(u)));
+      this.dataSource.data = tempUserList;
       this.usersInitList = this.usersStorage.content.slice();
-      this.paginator.length = this.usersStorage.content.totalElements;
+      this.userPaginator.length = this.usersStorage.totalElements;
+    }
+  }
+
+  fetchUserGroupData(page: number, size: number, sort: string, sortDirection: string) {
+    try {
+      this.userGroupsStorage = JSON.parse(sessionStorage.getItem('userGroups'));
+    } catch (e) {
+      console.log(e)
+    }
+
+    if (!this.userGroupsStorage) {
+      this.userGroupsStorage = new QPageableReply();
     }
 
     if (this.userGroupsStorage.content) {
       this.dataSourceUserGroup.data = this.userGroupsStorage.content;
       this.groupsInitList = this.userGroupsStorage.content.slice();
-      this.paginator.length = this.userGroupsStorage.totalElements;
-      this.dataSourceUserGroup.sort = this.sort;
+      this.userGroupPaginator.length = this.userGroupsStorage.totalElements;
     }
   }
 
@@ -124,7 +145,7 @@ export class PermissionsComponent implements OnInit {
       return value.id != row_obj.id;
     });
     sessionStorage.setItem('users', JSON.stringify(this.usersStorage));
-    this.users = this.usersStorage.content;
+    this.dataSource.data = this.usersStorage.content;
     this.isUsersListChanged = true;
     //filtering, if user has been added and removed, remove him from usersAdded.
     this.usersAdded = this.filterList(this.usersAdded, row_obj.id);
@@ -134,6 +155,7 @@ export class PermissionsComponent implements OnInit {
       this.usersRemoved.push(row_obj.id);
       sessionStorage.setItem('usersRemoved', JSON.stringify(this.usersRemoved));
     }
+    this.dataService.editPermissions(true);
   }
 
   removeGroup(row_obj) {
@@ -151,6 +173,7 @@ export class PermissionsComponent implements OnInit {
       this.groupsRemoved.push(row_obj.id);
       sessionStorage.setItem('groupsRemoved', JSON.stringify(this.groupsRemoved));
     }
+    this.dataService.editPermissions(true);
   }
 
   filterList(list: string[], data: string): string[] {
@@ -166,9 +189,15 @@ export class PermissionsComponent implements OnInit {
     });
   }
 
-  changePage() {
-    this.fetchData(this.paginator.pageIndex, this.paginator.pageSize, this.sort.active,
-      this.sort.start);
+  changeUserPage() {
+    this.fetchUserData(this.userPaginator.pageIndex, this.userPaginator.pageSize, this.userSort.active,
+      this.userSort.start);
+  }
+
+  changeUserGroupPage() {
+    this.fetchUserGroupData(this.userGroupPaginator.pageIndex, this.userGroupPaginator.pageSize,
+      this.userGroupSort.active,
+      this.userGroupSort.start);
   }
 
   addUser() {
@@ -190,10 +219,12 @@ export class PermissionsComponent implements OnInit {
         this.usersRemoved = this.filterList(this.usersRemoved, user.id);
         sessionStorage.setItem('usersRemoved', JSON.stringify(this.usersRemoved));
         this.isUsersListChanged = true;
+        this.dataSource.data = this.usersStorage.content;
       }
       //cleans up input text
       this.usersForm.controls['user'].reset();
       this.options = [];
+      this.dataService.editPermissions(true);
     });
   }
 
@@ -221,6 +252,7 @@ export class PermissionsComponent implements OnInit {
       //cleans up input text
       this.groupForm.controls['name'].reset();
       this.optionsUserGroup = [];
+      this.dataService.editPermissions(true);
     });
   }
 

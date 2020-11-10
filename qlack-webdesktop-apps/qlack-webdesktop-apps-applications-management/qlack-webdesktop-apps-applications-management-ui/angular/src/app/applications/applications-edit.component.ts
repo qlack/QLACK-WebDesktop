@@ -31,6 +31,7 @@ export class ApplicationsEditComponent implements OnInit {
   errorMessage: string;
   successMessage: string;
   dismissMessage: string;
+  permissionsEdited: boolean;
 
   constructor(private fb: FormBuilder, private applicationsService: ApplicationsService,
               private route: ActivatedRoute,
@@ -83,7 +84,7 @@ export class ApplicationsEditComponent implements OnInit {
 
     // Fill-in the form with data if editing an existing item.
     if (this.isEdit) {
-      this.applicationsService.get(this.id).subscribe(onNext => {
+      this.applicationsService.getApplication(this.id).subscribe(onNext => {
         this.form.disable();
         this.updateApplicationContent(onNext.details, 'title');
         this.updateApplicationContent(onNext.details, 'description');
@@ -117,6 +118,8 @@ export class ApplicationsEditComponent implements OnInit {
       this.successMessage = translation['translations-management-ui.success'];
       this.dismissMessage = translation['translations-management-ui.dismiss'];
     });
+
+    this.data.permissionsEdited.subscribe(value => this.permissionsEdited = value);
   }
 
   enableRestrictAccess() {
@@ -127,8 +130,9 @@ export class ApplicationsEditComponent implements OnInit {
     });
   }
 
-  isNavBarVisible(value: boolean) {
-    this.data.isNavBarVisible(value);
+  changeData() {
+    this.data.isNavBarVisible(true);
+    this.data.editPermissions(false);
   }
 
   updateApplicationContent(application, property) {
@@ -183,8 +187,9 @@ export class ApplicationsEditComponent implements OnInit {
           this.getMessageTranslations('management-app-ui.dismiss'));
         this.utilityService.popupSuccessAction(this.successMessage, this.dismissMessage);
         this.qPubSubService.publish('QRefreshPage', '');
-        this.router.navigate(["/"]);
         this.data.isNavBarVisible(true);
+        this.data.editPermissions(false);
+        this.router.navigate(["/"]);
       }, error => {
 
         if (error.status == 400) {
@@ -218,6 +223,7 @@ export class ApplicationsEditComponent implements OnInit {
         this.qPubSubService.publish('QRefreshPage', '');
         this.router.navigate(["/"]);
         this.data.isNavBarVisible(true);
+        this.data.editPermissions(false);
       }, error => {
 
         if (error.status == 400) {
