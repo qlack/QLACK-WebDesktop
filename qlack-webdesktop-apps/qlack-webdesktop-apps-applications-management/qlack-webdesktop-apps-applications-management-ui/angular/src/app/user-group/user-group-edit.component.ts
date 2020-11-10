@@ -9,7 +9,7 @@ import {UtilityService} from "../services/utility.service";
 import {QLACKTypescriptFormValidationService} from "@qlack/form-validation";
 import {UserGroupService} from "../services/user-group.service";
 import {OkCancelModalComponent} from "../shared/component/display/ok-cancel-modal/ok-cancel-modal.component";
-import {UserDto} from "../dto/user-dto";
+import {User} from "../dto/user";
 import {MatPaginator} from "@angular/material/paginator";
 import {MatSort} from "@angular/material/sort";
 import {MatTableDataSource} from "@angular/material/table";
@@ -27,12 +27,12 @@ export class UserGroupEditComponent implements OnInit {
   isEdit = false;
   selector: any;
   usersForm: FormGroup;
-  users: UserDto[] = [];
+  users: User[] = [];
   usersAdded: string[] = [];
   usersRemoved: string[] = [];
-  usersInitList: UserDto[] = [];
-  displayedColumns: string[] = ['profilepic', 'username', 'lastname', 'action'];
-  dataSource: MatTableDataSource<UserDto> = new MatTableDataSource<UserDto>();
+  usersInitList: User[] = [];
+  displayedColumns: string[] = ['profilepic', 'username', 'firstname', 'lastname', 'action'];
+  dataSource: MatTableDataSource<User> = new MatTableDataSource<User>();
   options: any[];
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
@@ -76,6 +76,8 @@ export class UserGroupEditComponent implements OnInit {
           });
       }
     });
+
+    this.dataSource._updateChangeSubscription();
   }
 
   ngAfterViewInit(): void {

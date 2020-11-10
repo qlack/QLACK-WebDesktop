@@ -3,13 +3,13 @@ import {FormBuilder, FormGroup} from '@angular/forms';
 import {Router} from '@angular/router';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
-import {MatTableDataSource} from '@angular/material/table';
 import {QFormsService} from '@eurodyn/forms';
 import {UserService} from '../services/user.service';
 import 'rxjs/add/operator/debounceTime';
 import {BaseComponent} from '../shared/component/base-component';
 import {FileService} from '../services/file.service';
-import {UserDto} from "../dto/user-dto";
+import {User} from "../dto/user";
+import {DomSanitizer} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-users',
@@ -17,15 +17,15 @@ import {UserDto} from "../dto/user-dto";
   styleUrls: ['./users.component.scss']
 })
 export class UsersComponent extends BaseComponent implements OnInit, AfterViewInit {
-  displayedColumns = ['profilepic', 'username', 'firstname', 'lastname'];
-  dataSource: MatTableDataSource<UserDto> = new MatTableDataSource<UserDto>();
+  displayedColumns: string[] = ['profilepic', 'username', 'firstname', 'lastname'];
+  users: User[];
   filterForm: FormGroup;
   // References to sorting and pagination.
   @ViewChild(MatSort, {static: true}) sort: MatSort;
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
 
   constructor(private fb: FormBuilder, private router: Router, private userService: UserService,
-              private qForms: QFormsService, private fileService: FileService) {
+              private qForms: QFormsService, private fileService: FileService, private sanitizer: DomSanitizer) {
     super();
     this.filterForm = this.fb.group({
       username: ['']
@@ -37,9 +37,9 @@ export class UsersComponent extends BaseComponent implements OnInit, AfterViewIn
     this.fetchData(0, this.paginator.pageSize, this.sort.active, this.sort.start);
 
     // Each time the sorting changes, reset the page number.
-    this.sort.sortChange.subscribe(onNext => {
+    this.sort.sortChange.subscribe(data => {
       this.paginator.pageIndex = 0;
-      this.fetchData(0, this.paginator.pageSize, onNext.active, onNext.direction);
+      this.fetchData(0, this.paginator.pageSize, data.active, data.direction);
     });
   }
 
@@ -47,9 +47,10 @@ export class UsersComponent extends BaseComponent implements OnInit, AfterViewIn
     // Listen for filter changes to fetch new data with %like% operator.
     this.filterForm.valueChanges.debounceTime(500).subscribe(term => {
       if (term.username && term != '' && term.username.length > 0) {
-        this.userService.search(term.username, "users").subscribe(
+        this.userService.searchUsers(term.username).subscribe(
           data => {
-            this.dataSource.data = data;
+            this.users = data.content;
+            this.paginator.length = data.totalElements;
           });
       } else {
         this.fetchData(this.paginator.pageIndex, this.paginator.pageSize, this.sort.active,
@@ -61,14 +62,13 @@ export class UsersComponent extends BaseComponent implements OnInit, AfterViewIn
   fetchData(page: number, size: number, sort: string, sortDirection: string) {
     let filterValue = this.filterForm.value;
     // Convert FormGroup to a query string to pass as a filter.
-    this.userService.getAll(
+    this.userService.getAllUsers(
       this.qForms.makeQueryString(
         this.fb.group({username: [filterValue.username]}), null, false, page,
         size, sort, sortDirection))
-    .subscribe(onNext => {
-      this.dataSource.data = onNext.content;
-      this.paginator.length = onNext.totalElements;
-      this.dataSource.sort = this.sort;
+    .subscribe(data => {
+      this.users = data.content;
+      this.paginator.length = data.totalElements;
     });
   }
 

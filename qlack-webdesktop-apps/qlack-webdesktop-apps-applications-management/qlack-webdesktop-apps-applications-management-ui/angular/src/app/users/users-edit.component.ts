@@ -1,6 +1,6 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {UserDto} from "../dto/user-dto";
+import {User} from "../dto/user";
 import {MatTableDataSource} from "@angular/material/table";
 import {MatPaginator} from "@angular/material/paginator";
 import {MatSort} from "@angular/material/sort";
@@ -31,7 +31,7 @@ export class UsersEditComponent implements OnInit {
   groupsRemoved: string[] = [];
   groupsInitList: any[];
   displayedColumns: string[] = ['name', 'description', 'action'];
-  dataSource: MatTableDataSource<UserDto> = new MatTableDataSource<UserDto>();
+  dataSource: MatTableDataSource<User> = new MatTableDataSource<User>();
   options: any[];
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;

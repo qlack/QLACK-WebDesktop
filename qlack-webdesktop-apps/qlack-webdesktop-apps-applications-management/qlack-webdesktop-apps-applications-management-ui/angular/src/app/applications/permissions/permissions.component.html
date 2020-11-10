@@ -15,7 +15,7 @@
     <div fxLayout="column">
 
       <p aria-hidden="true" hidden id="tableDscUser">{{'management-app-ui.users' | translate}}</p>
-      <table #table [dataSource]="dataSource" aria-describedby="tableDscUser" class="mat-elevation-z0" fxFlex="grow"
+      <table #table [dataSource]="users" aria-describedby="tableDscUser" class="mat-elevation-z0" fxFlex="grow"
              mat-table
              matSort
              matSortActive="username"
@@ -23,24 +23,28 @@
              matSortDisableClear matSortStart="asc">
 
         <ng-container matColumnDef="profilepic">
-          <th *matHeaderCellDef
-              mat-header-cell scope="col">{{'management-app-ui.profilePicture' | translate}}</th>
+          <th *matHeaderCellDef mat-header-cell scope="col">{{'management-app-ui.profilePicture' | translate}}</th>
           <td *matCellDef="let element" mat-cell>
-            <span *ngFor="let item of element.userAttributes">
-            <img *ngIf="item.name === 'image'" [attr.src]="item.data" alt="{{element.name}} {{'management-app-ui.icon' | translate}}"
-                 class="profilePicImg"/>
-            </span>
+            <img
+              *ngIf="element.findImage() != null"
+              src="data:image/png;base64,{{element.findImage()}}"
+              alt="{{'management-app-ui.icon' | translate}}"
+              class="profilePicImg"/>
           </td>
         </ng-container>
         <ng-container matColumnDef="username">
-          <th *matHeaderCellDef mat-header-cell
-              mat-sort-header scope="col">{{'management-app-ui.userName' | translate}}</th>
+          <th *matHeaderCellDef mat-header-cell mat-sort-header
+              scope="col">{{'management-app-ui.userName' | translate}}</th>
           <td *matCellDef="let element" mat-cell>{{element.username}}</td>
+        </ng-container>
+        <ng-container matColumnDef="firstname">
+          <th *matHeaderCellDef mat-header-cell scope="col">{{'management-app-ui.firstName' | translate}}</th>
+          <td *matCellDef="let element" mat-cell>{{element.findAttribute('firstName')}}</td>
         </ng-container>
         <ng-container matColumnDef="lastname">
           <th *matHeaderCellDef mat-header-cell
-              mat-sort-header scope="col">{{'management-app-ui.lastName' | translate}}</th>
-          <td *matCellDef="let element" mat-cell>{{element.lastname}}</td>
+              scope="col">{{'management-app-ui.lastName' | translate}}</th>
+          <td *matCellDef="let element" mat-cell>{{element.findAttribute('lastName')}}</td>
         </ng-container>
         <!-- Action Column -->
         <ng-container matColumnDef="action">

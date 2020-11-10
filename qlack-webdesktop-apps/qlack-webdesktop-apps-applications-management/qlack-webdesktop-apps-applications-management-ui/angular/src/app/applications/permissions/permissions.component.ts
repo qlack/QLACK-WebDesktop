@@ -1,6 +1,6 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {MatTableDataSource} from "@angular/material/table";
-import {UserDto} from "../../dto/user-dto";
+import {User} from "../../dto/user";
 import {MatPaginator} from "@angular/material/paginator";
 import {MatSort} from "@angular/material/sort";
 import {FormBuilder, FormGroup} from "@angular/forms";
@@ -25,16 +25,16 @@ export class PermissionsComponent implements OnInit {
   usersForm: FormGroup;
   usersAdded: string[] = [];
   usersRemoved: string[] = [];
-  usersInitList: UserDto[] = [];
+  usersInitList: User[] = [];
   groupForm: FormGroup;
   groupsAdded: string[] = [];
   groupsRemoved: string[] = [];
   groupsInitList: any[];
   displayedColumns: string[] = ['name', 'description', 'action'];
-  dataSource: MatTableDataSource<UserDto> = new MatTableDataSource<UserDto>();
+  users: User[];
   optionsUserGroup: any[];
-  dataSourceUserGroup: MatTableDataSource<UserDto> = new MatTableDataSource<UserDto>();
-  displayedColumnsUsergroup: string[] = ['profilepic', 'username', 'lastname', 'action'];
+  dataSourceUserGroup: MatTableDataSource<User> = new MatTableDataSource<User>();
+  displayedColumnsUsergroup: string[] = ['profilepic', 'username', 'firstname', 'lastname', 'action'];
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
   private isUsersListChanged = false;
@@ -51,6 +51,19 @@ export class PermissionsComponent implements OnInit {
     });
     this.groupForm = this.fb.group({
       name: [{value: '', disabled: false}]
+    });
+  }
+
+  ngAfterViewInit(): void {
+    // Initial fetch of data.
+    setTimeout(() => {
+      this.fetchData(0, this.paginator.pageSize, this.sort.active, this.sort.start);
+    });
+
+    // Each time the sorting changes, reset the page number.
+    this.sort.sortChange.subscribe(onNext => {
+      this.paginator.pageIndex = 0;
+      this.fetchData(0, this.paginator.pageSize, onNext.active, onNext.direction);
     });
   }
 
@@ -76,19 +89,6 @@ export class PermissionsComponent implements OnInit {
     });
   }
 
-  ngAfterViewInit(): void {
-    // Initial fetch of data.
-    setTimeout(() => {
-      this.fetchData(0, this.paginator.pageSize, this.sort.active, this.sort.start);
-    });
-
-    // Each time the sorting changes, reset the page number.
-    this.sort.sortChange.subscribe(onNext => {
-      this.paginator.pageIndex = 0;
-      this.fetchData(0, this.paginator.pageSize, onNext.active, onNext.direction);
-    });
-  }
-
   fetchData(page: number, size: number, sort: string, sortDirection: string) {
     try {
       this.usersStorage = JSON.parse(sessionStorage.getItem('users'));
@@ -106,10 +106,9 @@ export class PermissionsComponent implements OnInit {
     }
 
     if (this.usersStorage.content) {
-      this.dataSource.data = this.usersStorage.content;
+      this.users = this.usersStorage.content;
       this.usersInitList = this.usersStorage.content.slice();
       this.paginator.length = this.usersStorage.content.totalElements;
-      this.dataSource.sort = this.sort;
     }
 
     if (this.userGroupsStorage.content) {
@@ -125,7 +124,7 @@ export class PermissionsComponent implements OnInit {
       return value.id != row_obj.id;
     });
     sessionStorage.setItem('users', JSON.stringify(this.usersStorage));
-    this.dataSource.data = this.usersStorage.content;
+    this.users = this.usersStorage.content;
     this.isUsersListChanged = true;
     //filtering, if user has been added and removed, remove him from usersAdded.
     this.usersAdded = this.filterList(this.usersAdded, row_obj.id);
@@ -191,7 +190,6 @@ export class PermissionsComponent implements OnInit {
         this.usersRemoved = this.filterList(this.usersRemoved, user.id);
         sessionStorage.setItem('usersRemoved', JSON.stringify(this.usersRemoved));
         this.isUsersListChanged = true;
-        this.dataSource.data = this.usersStorage.content;
       }
       //cleans up input text
       this.usersForm.controls['user'].reset();

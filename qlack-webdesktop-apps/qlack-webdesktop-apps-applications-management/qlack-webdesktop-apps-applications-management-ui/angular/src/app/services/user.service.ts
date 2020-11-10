@@ -2,10 +2,12 @@ import {HttpClient} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
 import {AppConstants} from '../app.constants';
-import {UserDto} from '../dto/user-dto';
+import {User} from '../dto/user';
 import {CrudService} from './crud.service';
 import {QFormsService, QPageableReply} from '@eurodyn/forms';
 import {FormGroup} from '@angular/forms';
+import {UserList} from '../dto/user-list-dto';
+import {map} from 'rxjs/operators';
 
 /**
  * A service providing functionality for the user of the application, including authentication,
@@ -14,7 +16,7 @@ import {FormGroup} from '@angular/forms';
 @Injectable({
   providedIn: 'root'
 })
-export class UserService extends CrudService<UserDto> {
+export class UserService extends CrudService<User> {
   private resource = `users`;
 
   constructor(http: HttpClient, qForms: QFormsService) {
@@ -22,7 +24,7 @@ export class UserService extends CrudService<UserDto> {
   }
 
   // Save user
-  save(user: UserDto) {
+  save(user: User) {
     return this.http.post(`${this.contextPath}` + AppConstants.API_ROOT + `/${this.resource}`, JSON.stringify(user),
       {headers: {'Content-Type': 'application/json'}});
   }
@@ -32,8 +34,9 @@ export class UserService extends CrudService<UserDto> {
       `${this.contextPath}` + `${AppConstants.API_ROOT}/${this.resource}/upload`, false);
   }
 
-  findUserByName(name: string): Observable<any> {
-    return this.http.get(`${this.contextPath}` + `${AppConstants.API_ROOT}/${this.endpoint}/username/${name}`);
+  findUserByName(name: string): Observable<User> {
+    return this.http.get(`${this.contextPath}` + `${AppConstants.API_ROOT}/${this.endpoint}/username/${name}`).pipe(
+      map(res => new User().deserialize(res)));
   }
 
   findGroupByName(name: string): Observable<any> {
@@ -43,5 +46,24 @@ export class UserService extends CrudService<UserDto> {
   getGroupsByUserId(queryString?: string, userId?: string): Observable<any> {
     return this.http.get<QPageableReply<any>>(
       `${this.contextPath}` + `${AppConstants.API_ROOT}/${this.endpoint}/groups/` + userId + `?${queryString}`);
+  }
+
+  getAllUsers(queryString?: string): Observable<UserList> {
+    if (queryString) {
+      return this.http.get<UserList>(
+        `${this.contextPath}` + `${AppConstants.API_ROOT}/${this.endpoint}` + `?${queryString}`).pipe(
+        map(res => new UserList().deserialize(res))
+      );
+    } else {
+      return this.http.get<UserList>(`${this.contextPath}` + `/${this.endpoint}`).pipe(
+        map(res => new UserList().deserialize(res))
+      );
+    }
+  }
+
+  searchUsers(term: string): Observable<UserList> {
+    return this.http.get<UserList>(`${this.contextPath}` + `${AppConstants.API_ROOT}/users/search/` + term)
+    .pipe(
+      map(res => new UserList().deserialize(res)));
   }
 }

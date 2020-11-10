@@ -47,10 +47,11 @@
         <ng-container matColumnDef="profilepic">
           <th *matHeaderCellDef mat-header-cell scope="col">{{'management-app-ui.profilePicture' | translate}}</th>
           <td *matCellDef="let element" mat-cell>
-            <span *ngFor="let item of element.userAttributes">
-            <img *ngIf="item.name === 'image'" [attr.src]="item.data" alt="{{element.name}} {{'management-app-ui.icon' | translate}}"
-                 class="profilePicImg"/>
-            </span>
+            <img
+              *ngIf="element.findImage() != null"
+              src="data:image/png;base64,{{element.findImage()}}"
+              alt="{{'management-app-ui.icon' | translate}}"
+              class="profilePicImg"/>
           </td>
         </ng-container>
         <ng-container matColumnDef="username">
@@ -58,10 +59,14 @@
               scope="col">{{'management-app-ui.userName' | translate}}</th>
           <td *matCellDef="let element" mat-cell>{{element.username}}</td>
         </ng-container>
+        <ng-container matColumnDef="firstname">
+          <th *matHeaderCellDef mat-header-cell scope="col">{{'management-app-ui.firstName' | translate}}</th>
+          <td *matCellDef="let element" mat-cell>{{element.findAttribute('firstName')}}</td>
+        </ng-container>
         <ng-container matColumnDef="lastname">
-          <th *matHeaderCellDef mat-header-cell mat-sort-header
+          <th *matHeaderCellDef mat-header-cell
               scope="col">{{'management-app-ui.lastName' | translate}}</th>
-          <td *matCellDef="let element" mat-cell>{{element.lastname}}</td>
+          <td *matCellDef="let element" mat-cell>{{element.findAttribute('lastName')}}</td>
         </ng-container>
         <!-- Action Column -->
         <ng-container matColumnDef="action">
