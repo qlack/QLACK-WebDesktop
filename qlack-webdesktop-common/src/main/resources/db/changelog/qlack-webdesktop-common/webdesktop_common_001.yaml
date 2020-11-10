@@ -148,3 +148,23 @@ databaseChangeLog:
                   type: varchar(32)
                   constraints:
                     nullable: false
+        - insert:
+            tableName: aaa_operation
+            columns:
+              - column:
+                  name: id
+                  value: 6fa38099-1e9c-45f8-a1a7-a1f3bb3f1129
+              - column:
+                  name: name
+                  value: view
+              - column:
+                  name: description
+                  value: View application
+              - column:
+                  name: dynamic
+                  valueBoolean: false
+              - column:
+                  name: dynamic_code
+              - column:
+                  name: dbversion
+                  value: 1

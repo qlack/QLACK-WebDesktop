@@ -6,6 +6,7 @@ import com.eurodyn.qlack.webdesktop.common.dto.WdApplicationManagementDTO;
 import com.eurodyn.qlack.webdesktop.common.model.WdApplication;
 import com.eurodyn.qlack.webdesktop.common.service.WdApplicationService;
 import javax.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -28,17 +29,13 @@ import java.util.List;
 @Log
 @RestController
 @RequestMapping("/api/application")
+@RequiredArgsConstructor
 public class WdApplicationController {
 
   private final WdApplicationService wdApplicationService;
 
   private final ApplicationsService applicationsService;
 
-  @Autowired
-  public WdApplicationController(WdApplicationService wdApplicationService, ApplicationsService applicationsService) {
-    this.wdApplicationService = wdApplicationService;
-    this.applicationsService = applicationsService;
-  }
 
   /**
    * Get all the active Web Desktop applications filtered
