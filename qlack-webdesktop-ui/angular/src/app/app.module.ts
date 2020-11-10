@@ -27,6 +27,8 @@ import {ResizableModule} from 'angular-resizable-element';
 import {QngPubsubModule} from '@qlack/qng-pubsub';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {ImagePreloadDirective} from './image-preload.directive';
+import {CookieService} from 'ngx-cookie-service';
+import {DataService} from './data.service';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, "/api/translations?lang=", "");
@@ -36,10 +38,10 @@ export function webDesktopServiceFactory(webDesktopService: WebdesktopService, t
   return () => webDesktopService.getUserAttributeByName("defaultLanguage").toPromise().then(attribute => {
     if (sessionStorage.getItem('defaultLanguage') != null) {
       translate.setDefaultLang(sessionStorage.getItem('defaultLanguage'));
-    }else{
+    } else {
       if (attribute != null) {
-          translate.setDefaultLang(attribute.data);
-        }
+        translate.setDefaultLang(attribute.data);
+      }
     }
   }).catch((err: any) => Promise.resolve().then(() => translate.setDefaultLang("en")));
 }
@@ -80,7 +82,7 @@ export function webDesktopServiceFactory(webDesktopService: WebdesktopService, t
     ResizableModule
   ],
   providers: [
-    WebdesktopService,
+    WebdesktopService, CookieService, DataService,
     {
       provide: APP_INITIALIZER,
       useFactory: webDesktopServiceFactory,

@@ -16,11 +16,6 @@ import com.eurodyn.qlack.webdesktop.common.util.StringUtils;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.exc.MismatchedInputException;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
-import java.net.URL;
-import java.time.Instant;
-import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
 import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -28,6 +23,12 @@ import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
+
+import java.net.URL;
+import java.time.Instant;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Loads and creates Web Desktop application from .yaml configuration files provided as url endpoints and also registers
@@ -60,15 +61,15 @@ public class WdApplicationConfig implements ApplicationRunner {
           + "configuration: %s";
   private static final String LOAD_ROUTES_FROM_DB_MSG = "Loading routes from database..";
 
-  private WdApplicationRepository wdApplicationRepository;
-  private CryptoDigestService cryptoDigestService;
-  private GroupService groupService;
-  private KeyService keyService;
-  private UserRepository userRepository;
-  private WdApplicationService wdApplicationService;
-  private ResourceWdApplicationService resourceWdApplicationService;
-  private ZuulRouteService zuulRouteService;
-  private StringUtils stringUtils;
+  private final WdApplicationRepository wdApplicationRepository;
+  private final CryptoDigestService cryptoDigestService;
+  private final GroupService groupService;
+  private final KeyService keyService;
+  private final UserRepository userRepository;
+  private final WdApplicationService wdApplicationService;
+  private final ResourceWdApplicationService resourceWdApplicationService;
+  private final ZuulRouteService zuulRouteService;
+  private final StringUtils stringUtils;
   @Value("${webdesktop.administrator.username:null}")
   private String wdAdmin;
 
@@ -102,7 +103,7 @@ public class WdApplicationConfig implements ApplicationRunner {
   @Override
   public void run(ApplicationArguments args) {
     if (userRepository.findByUsername(wdAdmin) == null && wdAdmin != null
-    && !("null".equals(wdAdmin))) {
+        && !("null".equals(wdAdmin))) {
       User user = new User();
       user.setUsername(wdAdmin);
       user.setSuperadmin(true);
@@ -116,7 +117,7 @@ public class WdApplicationConfig implements ApplicationRunner {
       String[] urls = args.getOptionValues(APPS_URL).get(0).split(COMMA_REGEX);
 
       List<String> validUrls = Arrays.stream(urls).collect(
-              Collectors.toList());
+          Collectors.toList());
       loadWdApplicationConfig(validUrls);
     } else {
       log.warning(NO_URL_MSG);
@@ -191,7 +192,7 @@ public class WdApplicationConfig implements ApplicationRunner {
       boolean isNew = wdApplication.getId() == null;
       wdApplication.setLastDeployedOn(Instant.now().toEpochMilli());
       wdApplication = wdApplicationRepository.save(wdApplication);
-      if (isNew){
+      if (isNew) {
         resourceWdApplicationService.createApplicationResource(wdApplication);
       }
       zuulRouteService.addRoute("" + wdApplication.getProxyAppPath() + "**",

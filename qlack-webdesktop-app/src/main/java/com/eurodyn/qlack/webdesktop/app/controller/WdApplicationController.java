@@ -30,9 +30,9 @@ import java.util.List;
 @RequestMapping("/api/application")
 public class WdApplicationController {
 
-  private WdApplicationService wdApplicationService;
+  private final WdApplicationService wdApplicationService;
 
-  private ApplicationsService applicationsService;
+  private final ApplicationsService applicationsService;
 
   @Autowired
   public WdApplicationController(WdApplicationService wdApplicationService, ApplicationsService applicationsService) {

@@ -6,6 +6,7 @@ import {QngPubsubService} from '@qlack/qng-pubsub';
 import {QPubSub} from '@qlack/qpubsub';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {UserDetailsDto} from "../../dto/user-details-dto";
+import {DataService} from '../../data.service';
 
 @Component({
   selector: 'app-start-menu',
@@ -27,7 +28,8 @@ export class StartMenuComponent implements OnInit {
   refreshPageMessage: string;
   cancel: string;
 
-  constructor(private webDesktopService: WebdesktopService, private translate: TranslateService, private qPubSubService: QngPubsubService, private _snackBar: MatSnackBar) {
+  constructor(private webDesktopService: WebdesktopService, private translate: TranslateService, private qPubSubService: QngPubsubService,
+              private _snackBar: MatSnackBar, private dataService: DataService) {
     this.webDesktopService.getUserAttributes().subscribe(userAttributeList => {
       if (userAttributeList != null) {
         if (userAttributeList.firstName != null) {
@@ -63,6 +65,7 @@ export class StartMenuComponent implements OnInit {
     });
 
     this.webDesktopService.getActiveApplications().subscribe(applicationsList => {
+      this.dataService.initApplications(applicationsList);
 
       applicationsList.forEach((application, index) => {
 

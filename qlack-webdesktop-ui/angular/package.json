@@ -24,12 +24,13 @@
     "@angular/router": "~8.2.9",
     "@ngx-translate/core": "^11.0.1",
     "@ngx-translate/http-loader": "^4.0.0",
+    "@qlack/qng-pubsub": "^1.0.0",
     "angular-resizable-element": "^3.2.6",
     "hammerjs": "^2.0.8",
+    "ngx-cookie-service": "^3.1.3",
     "rxjs": "^6.4.0",
     "tslib": "^1.10.0",
-    "zone.js": "~0.9.1",
-    "@qlack/qng-pubsub": "^1.0.0"
+    "zone.js": "~0.9.1"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^0.803.25",

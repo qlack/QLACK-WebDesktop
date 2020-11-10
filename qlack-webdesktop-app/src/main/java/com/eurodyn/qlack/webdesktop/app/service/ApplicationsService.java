@@ -37,17 +37,17 @@ public class ApplicationsService {
 
   private static final String SSO_PROFILE = "sso";
 
-  private WdApplicationService wdApplicationService;
-  private WdApplicationRepository wdApplicationRepository;
-  private ProcessLexiconUtil processLexiconUtil;
-  private WdApplicationMapper mapper;
-  private ResourceWdApplicationService resourceWdApplicationService;
-  private OperationService operationService;
-  private ResourceService resourceService;
-  private CryptoDigestService cryptoDigestService;
-  private ProfileManagerService profileManagerService;
-  private ZuulRouteService zuulRouteService;
-  private StringUtils stringUtils;
+  private final WdApplicationService wdApplicationService;
+  private final WdApplicationRepository wdApplicationRepository;
+  private final ProcessLexiconUtil processLexiconUtil;
+  private final WdApplicationMapper mapper;
+  private final ResourceWdApplicationService resourceWdApplicationService;
+  private final OperationService operationService;
+  private final ResourceService resourceService;
+  private final CryptoDigestService cryptoDigestService;
+  private final ProfileManagerService profileManagerService;
+  private final ZuulRouteService zuulRouteService;
+  private final StringUtils stringUtils;
 
   @Autowired
   @SuppressWarnings({"java:S107"})
@@ -112,9 +112,9 @@ public class ApplicationsService {
     if (stringUtils.isNotNullOrEmpty(newWdApplication.getProxyAppPath())
         && stringUtils.isNotNullOrEmpty(newWdApplication.getAppUrl())
         && (newWdApplication.isActive())) {
-        zuulRouteService.addRoute("" + newWdApplication.getProxyAppPath() + "**",
-            newWdApplication.getAppUrl() + newWdApplication.getAppPath(), newWdApplication.getId());
-        zuulRouteService.refresh();
+      zuulRouteService.addRoute("" + newWdApplication.getProxyAppPath() + "**",
+          newWdApplication.getAppUrl() + newWdApplication.getAppPath(), newWdApplication.getId());
+      zuulRouteService.refresh();
     }
 
     return ResponseEntity.status(HttpStatus.CREATED).body(wdApplicationByName);
@@ -224,7 +224,7 @@ public class ApplicationsService {
       }
       wdApplication.setLastDeployedOn(Instant.now().toEpochMilli());
       wdApplication = wdApplicationRepository.save(wdApplication);
-      if (isNew){
+      if (isNew) {
         resourceWdApplicationService.createApplicationResource(wdApplication);
       }
 

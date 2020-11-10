@@ -25,7 +25,7 @@ public class KeycloakZuulConfig implements ApplicationRunner {
   @Value("${oauth2.reversed.path:/}")
   private String oauth2ReservedPath;
 
-  private ZuulRouteService zuulRouteService;
+  private final ZuulRouteService zuulRouteService;
 
   @Autowired
   public KeycloakZuulConfig(ZuulRouteService zuulRouteService) {

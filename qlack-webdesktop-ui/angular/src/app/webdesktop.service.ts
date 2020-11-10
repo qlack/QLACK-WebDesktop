@@ -32,4 +32,8 @@ export class WebdesktopService {
     return this.http.get('/api/user/systemLanguage',
         { responseType: 'text'});
   }
+
+  logout(url: string): Observable<any> {
+    return this.http.get(url, { observe: 'response', responseType: 'text'});
+  }
 }

@@ -2,6 +2,8 @@ import {Component, ComponentFactoryResolver, OnInit, ViewChild, ViewContainerRef
 import {Application} from "../../application";
 import {ApplicationComponent} from "../../application/application.component";
 import {WebdesktopService} from '../../webdesktop.service';
+import {CookieService} from 'ngx-cookie-service';
+import {DataService} from '../../data.service';
 
 @Component({
   selector: 'app-header',
@@ -18,8 +20,10 @@ export class HeaderComponent implements OnInit {
   userProfileApplication: Application;
   @ViewChild('applicationContainer', {static: true, read: ViewContainerRef}) entry: ViewContainerRef;
   isSsoProfile: boolean;
+  activeApplications: any[] = [];
 
-  constructor(private resolver: ComponentFactoryResolver, private webDesktopService: WebdesktopService) {
+  constructor(private resolver: ComponentFactoryResolver, private webDesktopService: WebdesktopService, private cookieService: CookieService,
+              private dataService: DataService) {
 
   }
 
@@ -36,7 +40,9 @@ export class HeaderComponent implements OnInit {
       if (application != null) {
         this.userProfileApplication = application;
       }
-    })
+    });
+
+    this.dataService.activeApplications.subscribe(apps => this.activeApplications = apps);
   }
 
   initApplication(application: Application) {
@@ -105,5 +111,19 @@ export class HeaderComponent implements OnInit {
     if (this.userProfileApplication) {
       this.initApplication(this.userProfileApplication);
     }
+  }
+
+  logout() {
+    console.log(this.activeApplications);
+    this.activeApplications.forEach((application) => {
+      if (application.proxyAppPath) {
+        this.webDesktopService.logout(application.proxyAppPath + 'logout').subscribe();
+      }
+    });
+
+    this.webDesktopService.logout('/logout').subscribe(res => {
+      this.cookieService.delete('JSESSIONID');
+      window.location.href = res.url;
+    });
   }
 }

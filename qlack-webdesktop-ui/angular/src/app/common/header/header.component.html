@@ -21,7 +21,7 @@
           </button>
         </li>
         <li *ngIf="isSsoProfile">
-          <a href="/logout" mat-button>{{'webdesktop-ui.logout' | translate}}</a>
+          <a (click)="logout()" mat-button>{{'webdesktop-ui.logout' | translate}}</a>
         </li>
       </ul>
     </div>

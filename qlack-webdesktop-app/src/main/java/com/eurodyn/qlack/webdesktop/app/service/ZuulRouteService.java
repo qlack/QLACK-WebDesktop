@@ -13,9 +13,9 @@ import org.springframework.stereotype.Service;
 @Log
 public class ZuulRouteService {
 
-  private ZuulProperties zuulProperties;
-  private RouteLocator routeLocator;
-  private ApplicationEventPublisher applicationEventPublisher;
+  private final ZuulProperties zuulProperties;
+  private final RouteLocator routeLocator;
+  private final ApplicationEventPublisher applicationEventPublisher;
 
   @Autowired
   public ZuulRouteService(ZuulProperties zuulProperties,

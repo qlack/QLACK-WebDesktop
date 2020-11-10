@@ -13,7 +13,7 @@ import java.util.Map;
 @RequestMapping("/api/translations")
 public class TranslationController {
 
-  private WdApplicationService wdApplicationService;
+  private final WdApplicationService wdApplicationService;
 
   @Autowired
   public TranslationController(WdApplicationService wdApplicationService) {

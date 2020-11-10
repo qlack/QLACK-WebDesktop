@@ -6,16 +6,10 @@ import com.eurodyn.qlack.webdesktop.common.dto.WdApplicationDTO;
 import com.eurodyn.qlack.webdesktop.common.dto.WdApplicationManagementDTO;
 import com.eurodyn.qlack.webdesktop.common.service.ActiveProfileService;
 import com.eurodyn.qlack.webdesktop.common.service.ProfileManagerService;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -95,16 +89,6 @@ public class ApplicationsController {
   @GetMapping(path = "/activeProfile")
   public boolean getActiveProfile() {
     return activeProfileService.isSsoActive();
-  }
-
-  @GetMapping("/user/logout")
-  public void logout(HttpServletRequest request, HttpServletResponse response) throws ServletException {
-    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-    authentication.setAuthenticated(false);
-    new SecurityContextLogoutHandler().logout(request, response, authentication);
-    SecurityContextHolder.clearContext();
-    request.logout();
-    request.getSession().invalidate();
   }
 
 }

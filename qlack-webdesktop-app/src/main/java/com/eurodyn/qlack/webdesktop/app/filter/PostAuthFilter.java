@@ -4,9 +4,6 @@ import com.eurodyn.qlack.fuse.aaa.model.User;
 import com.eurodyn.qlack.fuse.aaa.model.UserAttribute;
 import com.eurodyn.qlack.fuse.aaa.repository.UserAttributeRepository;
 import com.eurodyn.qlack.fuse.aaa.repository.UserRepository;
-import java.io.IOException;
-import java.util.Date;
-import java.util.Map;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -17,11 +14,15 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.core.user.DefaultOAuth2User;
 
+import java.io.IOException;
+import java.util.Date;
+import java.util.Map;
+
 
 /**
- * SSO / AAA Integration filter After SSO user authentication the username is queried against a user provided
- * service to ensure the user exists. If this is the case the users is created if not already in the local AAA
- * users database. The filter should be registered at the Spring Security Filter chain.
+ * SSO / AAA Integration filter After SSO user authentication the username is queried against a user provided service to
+ * ensure the user exists. If this is the case the users is created if not already in the local AAA users database. The
+ * filter should be registered at the Spring Security Filter chain.
  *
  * @author European Dynamics SA.
  */
@@ -29,8 +30,8 @@ import org.springframework.security.oauth2.core.user.DefaultOAuth2User;
 @Profile("sso")
 public class PostAuthFilter implements Filter {
 
-  private UserRepository userRepository;
-  private UserAttributeRepository userAttributeRepository;
+  private final UserRepository userRepository;
+  private final UserAttributeRepository userAttributeRepository;
 
   public PostAuthFilter(UserRepository userRepository, UserAttributeRepository userAttributeRepository) {
     this.userRepository = userRepository;
@@ -69,19 +70,19 @@ public class PostAuthFilter implements Filter {
     filterChain.doFilter(servletRequest, servletResponse);
   }
 
-  private void createUserAttributes(DefaultOAuth2User principal){
+  private void createUserAttributes(DefaultOAuth2User principal) {
     User user = userRepository.findByUsername(principal.getName());
     for (Map.Entry<String, Object> entry : principal.getAttributes().entrySet()) {
-      if ("given_name".equals(entry.getKey())){
+      if ("given_name".equals(entry.getKey())) {
         setAttributes(entry, user, "firstName");
       }
-      if ("family_name".equals(entry.getKey())){
+      if ("family_name".equals(entry.getKey())) {
         setAttributes(entry, user, "lastName");
       }
     }
   }
 
-  private void setAttributes(Map.Entry<String, Object> entry, User user, String attribute){
+  private void setAttributes(Map.Entry<String, Object> entry, User user, String attribute) {
     UserAttribute userAttribute = new UserAttribute();
     userAttribute.setUser(user);
     userAttribute.setName(attribute);

@@ -3,7 +3,7 @@ package com.eurodyn.qlack.webdesktop.app.security;
 import com.eurodyn.qlack.fuse.aaa.repository.UserAttributeRepository;
 import com.eurodyn.qlack.fuse.aaa.repository.UserRepository;
 import com.eurodyn.qlack.webdesktop.app.filter.PostAuthFilter;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
@@ -19,18 +19,13 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
  */
 @Configuration
 @Profile("sso")
+@RequiredArgsConstructor
 public class SsoSecurityConfig extends WebSecurityConfigurerAdapter {
 
   @Value("${oauth2.logout.page.url:/}")
   private String logoutUrl;
-  private UserRepository userRepository;
-  private UserAttributeRepository userAttributeRepository;
-
-  @Autowired
-  public SsoSecurityConfig(UserRepository userRepository, UserAttributeRepository userAttributeRepository) {
-    this.userRepository = userRepository;
-    this.userAttributeRepository = userAttributeRepository;
-  }
+  private final UserRepository userRepository;
+  private final UserAttributeRepository userAttributeRepository;
 
   /**
    * Enables OAuth2 SSO authentication
