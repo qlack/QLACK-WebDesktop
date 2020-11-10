@@ -107,7 +107,7 @@ export class UserGroupEditComponent implements OnInit {
     });
   }
 
-  createOrUpdateMessage(): string{
+  createOrUpdateMessage(): string {
     return this.isEdit ?
       this.getMessageTranslations('management-app-ui.updated') + "!"
       : this.getMessageTranslations('management-app-ui.created') + "!";

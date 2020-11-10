@@ -42,10 +42,12 @@ html, body {
 .mat-tab-header {
   margin-bottom: 2rem;
 }
-.mat-card{
+
+.mat-card {
   box-shadow: none !important;
   background-color: white !important;
 }
-.mat-card>.mat-card-actions:last-child{
+
+.mat-card > .mat-card-actions:last-child {
   margin-bottom: 20px !important;
 }

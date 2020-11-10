@@ -35,7 +35,7 @@ export class LanguageCreateComponent implements OnInit {
 
   save() {
     this.languageService.createLanguage(this.myForm).subscribe(success => {
-      this.utilityService.popupSuccessAction(localStorage.getItem('success'),localStorage.getItem('dismiss'))
+      this.utilityService.popupSuccessAction(localStorage.getItem('success'), localStorage.getItem('dismiss'))
     }, Error => {
       this.utilityService.popupError(localStorage.getItem('error'));
     });

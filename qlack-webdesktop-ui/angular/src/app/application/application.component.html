@@ -1,9 +1,9 @@
 <!-- img icon stays at init application position-->
-<div (mousedown)="applicationClicked()" (mouseup)="release()"  (dblclick)="applicationMinimized()"
+<div (dblclick)="applicationMinimized()" (mousedown)="applicationClicked()" (mouseup)="release()"
      *ngIf="!!iconImageSrc
 &&  isActive"
-     [class.applicationOnAppBarMinimized]="isMinimized"[class.activeApplicationOnAppBar]="isActiveApplication()"
-         [class.applicationOnAppBar]="!isMinimized">
+     [class.activeApplicationOnAppBar]="isActiveApplication()" [class.applicationOnAppBarMinimized]="isMinimized"
+     [class.applicationOnAppBar]="!isMinimized">
   <img [src]="safeIconImageSrc" alt="application icon" default='assets/img/icon.png'>
 </div>
 
@@ -20,9 +20,9 @@
   </div>
 
   <div *ngIf="!isMinimized || isSmallScreen">
-    <div  (mousedown)="applicationClicked()"(mouseup)="release()" (mouseleave)="release()" cdkDragHandle
+    <div (mousedown)="applicationClicked()" (mouseleave)="release()" (mouseup)="release()" [class.activeHeader]="isActiveApplication()"
          [class.header]="!isActiveApplication() "
-         [class.activeHeader]="isActiveApplication()">
+         cdkDragHandle>
       <img *ngIf="!!iconSmallSrc" [src]="safeSmallIconImageSrc" alt="application small icon" class="image"
            default='assets/img/icon_small.png'>
 
@@ -51,10 +51,11 @@
       </div>
     </div>
   </div>
-  <div (resizeEnd)="onResizeEnd($event)"
-       (resizeStart)="onResizeStart($event)"
-       (resizing)="onResize($event)" (mouseup)="release()"
-       [class.displayContent]="isMinimized" [class.fullScreenSize]="isMaximized && !isSmallScreen" [enableGhostResize]="false" [style.height.px]="height"
+  <div (mouseup)="release()"
+       (resizeEnd)="onResizeEnd($event)"
+       (resizeStart)="onResizeStart($event)" (resizing)="onResize($event)"
+       [class.displayContent]="isMinimized" [class.fullScreenSize]="isMaximized && !isSmallScreen"
+       [enableGhostResize]="false" [style.height.px]="height"
        [style.min-height.px]="minHeight"
        [style.min-width.px]="minWidth"
        [style.width.px]="width" class="content" mwlResizable>

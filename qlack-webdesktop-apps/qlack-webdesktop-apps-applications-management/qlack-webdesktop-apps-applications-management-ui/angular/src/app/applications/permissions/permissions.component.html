@@ -27,9 +27,9 @@
           <td *matCellDef="let element" mat-cell>
             <img
               *ngIf="element.findImage() != null"
-              src="data:image/png;base64,{{element.findImage()}}"
               alt="{{'management-app-ui.icon' | translate}}"
-              class="profilePicImg"/>
+              class="profilePicImg"
+              src="data:image/png;base64,{{element.findImage()}}"/>
           </td>
         </ng-container>
         <ng-container matColumnDef="username">

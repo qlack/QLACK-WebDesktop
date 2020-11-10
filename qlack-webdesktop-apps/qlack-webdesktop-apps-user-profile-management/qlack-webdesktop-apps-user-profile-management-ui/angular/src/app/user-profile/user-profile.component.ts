@@ -112,7 +112,7 @@ export class UserProfileComponent implements OnInit {
   save() {
 
     this.userProfileService.saveDetails(this.myForm).toPromise().then(onNext => {
-      this.utilityService.popupSuccessAction(this.successMessage,this.dismissMessage);
+      this.utilityService.popupSuccessAction(this.successMessage, this.dismissMessage);
       this.clearBackgroundImagePreview();
       this.qPubSubService.publish('QRefreshPage', '');
       this.myForm.markAsPristine();
@@ -145,7 +145,8 @@ export class UserProfileComponent implements OnInit {
     this.myForm.get('deleteBackgroundImage').updateValueAndValidity();
 
   }
-  isSystemLanguage(){
+
+  isSystemLanguage() {
     return this.translate.getDefaultLang() == this.systemLanguage;
   }
 }

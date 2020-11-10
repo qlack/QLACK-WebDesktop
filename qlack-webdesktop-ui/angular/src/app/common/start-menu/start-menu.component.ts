@@ -23,10 +23,10 @@ export class StartMenuComponent implements OnInit {
   @Output() onAppClick = new EventEmitter();
   @Input() isSsoProfile;
   userDetailsDto: any = new UserDetailsDto();
-  private allowedOrigins: string[] = [];
-  private timeOutCancel: boolean = false;
   refreshPageMessage: string;
   cancel: string;
+  private allowedOrigins: string[] = [];
+  private timeOutCancel: boolean = false;
 
   constructor(private webDesktopService: WebdesktopService, private translate: TranslateService, private qPubSubService: QngPubsubService,
               private _snackBar: MatSnackBar, private dataService: DataService) {
@@ -122,15 +122,15 @@ export class StartMenuComponent implements OnInit {
         });
       });
       this.qPubSubService.subscribe('QRefreshPage', (message: QPubSub.Message) => {
-        const snackBarMatSnackBarRef =  this._snackBar.open(this.refreshPageMessage, this.cancel, {
+        const snackBarMatSnackBarRef = this._snackBar.open(this.refreshPageMessage, this.cancel, {
           duration: 10000,
           verticalPosition: 'top',
           panelClass: 'bg-green'
         });
         snackBarMatSnackBarRef.afterDismissed().subscribe(() => {
-          if(!this.timeOutCancel ){
+          if (!this.timeOutCancel) {
             window.location.reload();
-          }else{
+          } else {
             this.timeOutCancel = false;
           }
         });

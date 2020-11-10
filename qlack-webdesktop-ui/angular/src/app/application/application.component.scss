@@ -10,23 +10,26 @@
   min-height: auto;
 
 }
-.OnApplicationClick{
+
+.OnApplicationClick {
   box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2), 0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12);
   opacity: 0.65 !important;
 }
+
 .applicationOnAppBar {
   width: 42px;
   height: 42px;
   border-radius: 0;
   position: relative;
   cursor: pointer;
+
   &:before {
-    content : "";
+    content: "";
     position: absolute;
-    left    : 2px;
-    bottom  : -1px;
-    height  : 1px;
-    width   : 90%;
+    left: 2px;
+    bottom: -1px;
+    height: 1px;
+    width: 90%;
     border-bottom: double aquamarine 2px;
   }
 
@@ -37,11 +40,8 @@
 }
 
 
-
-
-
-.activeApplicationOnAppBar{
-   background-color: rgba(255, 255, 255, 0.30);
+.activeApplicationOnAppBar {
+  background-color: rgba(255, 255, 255, 0.30);
 
   &:hover {
     background-color: rgba(255, 255, 255, 0.40);
@@ -131,10 +131,12 @@
   width: 100%;
   background-color: #8F8F8F;
 }
+
 .activeHeader {
   &:active {
     box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2), 0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12);
   }
+
   position: relative;
   top: 0px;
   cursor: move !important;
@@ -142,12 +144,13 @@
   width: 100%;
   background-color: #525252;
 }
+
 .title {
   color: white;
   position: absolute;
   margin-top: 5px;
   left: 34px;
-  font: 300  20px/32px Roboto,"Helvetica Neue",sans-serif;
+  font: 300 20px/32px Roboto, "Helvetica Neue", sans-serif;
 }
 
 .iconsContainer {

@@ -6,7 +6,8 @@
         *ngFor="let link of navLinks"
         [active]="rla.isActive"
         [disabled]="!isSsoActive && link.path !=='/applications'" [routerLink]="link.path"
-        mat-tab-link routerLinkActive>
+        mat-tab-link
+        routerLinkActive>
         {{'management-app-ui.' + link.label | translate}}
       </a>
     </nav>

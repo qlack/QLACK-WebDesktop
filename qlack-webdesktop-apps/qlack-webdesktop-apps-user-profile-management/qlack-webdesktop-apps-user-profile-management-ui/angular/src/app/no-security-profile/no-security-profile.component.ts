@@ -21,7 +21,7 @@ export class NoSecurityProfileComponent implements OnInit {
   dismissMessage: string;
 
   constructor(private languageService: LanguageService, private utilityService: UtilityService,
-              private qPubSubService: QngPubsubService,private fb: FormBuilder,private translate: TranslateService) {
+              private qPubSubService: QngPubsubService, private fb: FormBuilder, private translate: TranslateService) {
   }
 
   ngOnInit(): void {
@@ -51,7 +51,7 @@ export class NoSecurityProfileComponent implements OnInit {
 
   save() {
     sessionStorage.setItem('defaultLanguage', this.myForm.get('defaultLanguage').value);
-    this.utilityService.popupSuccessAction(this.successMessage,this.dismissMessage);
+    this.utilityService.popupSuccessAction(this.successMessage, this.dismissMessage);
     this.qPubSubService.publish('QRefreshPage', '');
     this.myForm.markAsPristine();
   }

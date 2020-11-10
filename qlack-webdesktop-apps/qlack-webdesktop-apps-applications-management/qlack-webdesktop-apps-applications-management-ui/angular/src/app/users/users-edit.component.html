@@ -26,7 +26,8 @@
     </form>
     <form [formGroup]="groupForm">
       <mat-form-field>
-        <input [matAutocomplete]="auto" formControlName="name" matInput placeholder="{{'management-app-ui.groups' | translate}}..."
+        <input [matAutocomplete]="auto" formControlName="name" matInput
+               placeholder="{{'management-app-ui.groups' | translate}}..."
                type="text">
         <mat-autocomplete #auto="matAutocomplete">
           <mat-option *ngFor="let group of options" [value]="group.name">
@@ -40,7 +41,8 @@
     <div fxLayout="column">
 
       <p aria-hidden="true" hidden id="tableDscUserGroupEdit">{{'management-app-ui.groups' | translate}}</p>
-      <table #table [dataSource]="dataSource" aria-describedby="tableDscUserGroupEdit" class="mat-elevation-z0" fxFlex="grow"
+      <table #table [dataSource]="dataSource" aria-describedby="tableDscUserGroupEdit" class="mat-elevation-z0"
+             fxFlex="grow"
              mat-table
              matSort
              matSortActive="name"

@@ -1,12 +1,4 @@
-import {
-  Component,
-  EventEmitter,
-  Input,
-  OnChanges,
-  OnInit,
-  Output,
-  SimpleChanges,
-} from "@angular/core";
+import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges,} from "@angular/core";
 import {DomSanitizer} from '@angular/platform-browser';
 import {CdkDragEnd} from '@angular/cdk/drag-drop';
 import {ResizeEvent} from 'angular-resizable-element';
@@ -66,7 +58,7 @@ export class ApplicationComponent implements OnChanges, OnInit {
   Clicked: boolean;
 
   constructor(private sanitizer: DomSanitizer) {
-    this.zIndex  = ApplicationComponent.zIndexCounter++;
+    this.zIndex = ApplicationComponent.zIndexCounter++;
   }
 
   ngOnInit() {
@@ -193,7 +185,7 @@ export class ApplicationComponent implements OnChanges, OnInit {
     this.height = $event.rectangle.height;
   }
 
-  isActiveApplication(){
+  isActiveApplication() {
     return this.zIndex + 1 == ApplicationComponent.zIndexCounter;
   }
 

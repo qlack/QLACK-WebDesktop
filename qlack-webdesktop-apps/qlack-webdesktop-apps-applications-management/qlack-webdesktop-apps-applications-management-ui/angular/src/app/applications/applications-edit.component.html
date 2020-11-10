@@ -64,7 +64,8 @@
                  fxLayout.xs="column">
               <div fxFlex fxLayout="column" fxLayoutGap="10px">
                 <mat-form-field>
-                  <input formControlName="applicationName" matInput matTooltip="{{'management-app-ui.uniqueMessage' | translate}}"
+                  <input formControlName="applicationName" matInput
+                         matTooltip="{{'management-app-ui.uniqueMessage' | translate}}"
                          placeholder="{{'management-app-ui.applicationName' |
             translate}}">
                   <mat-icon *ngIf="form.controls['applicationName'].invalid" color="warn"

@@ -30,10 +30,10 @@ export class WebdesktopService {
 
   getSystemDefaultLanguage(): Observable<any> {
     return this.http.get('/api/user/systemLanguage',
-        { responseType: 'text'});
+        {responseType: 'text'});
   }
 
   logout(url: string): Observable<any> {
-    return this.http.get(url, { observe: 'response', responseType: 'text'});
+    return this.http.get(url, {observe: 'response', responseType: 'text'});
   }
 }

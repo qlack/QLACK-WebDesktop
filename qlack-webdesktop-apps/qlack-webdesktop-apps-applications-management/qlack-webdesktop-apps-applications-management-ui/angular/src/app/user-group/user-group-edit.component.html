@@ -23,7 +23,8 @@
     </form>
     <form [formGroup]="usersForm">
       <mat-form-field>
-        <input [matAutocomplete]="auto" formControlName="user" matInput placeholder="{{'management-app-ui.users' | translate}}..."
+        <input [matAutocomplete]="auto" formControlName="user" matInput
+               placeholder="{{'management-app-ui.users' | translate}}..."
                type="text">
         <mat-autocomplete #auto="matAutocomplete">
           <mat-option *ngFor="let user of options" [value]="user.username">
@@ -49,9 +50,9 @@
           <td *matCellDef="let element" mat-cell>
             <img
               *ngIf="element.findImage() != null"
-              src="data:image/png;base64,{{element.findImage()}}"
               alt="{{'management-app-ui.icon' | translate}}"
-              class="profilePicImg"/>
+              class="profilePicImg"
+              src="data:image/png;base64,{{element.findImage()}}"/>
           </td>
         </ng-container>
         <ng-container matColumnDef="username">

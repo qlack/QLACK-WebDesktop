@@ -20,14 +20,14 @@ export class LanguageEditComponent implements OnInit {
   }
 
   ngOnInit() {
-        this.systemLanguage = sessionStorage.getItem('systemLanguage');
+    this.systemLanguage = sessionStorage.getItem('systemLanguage');
     this.languageService.getLanguages(true).subscribe(languageList => {
       languageList.forEach((language) => {
-           if(this.isSystemLanguage(language.locale)){
-             this.disabledSystemLanguage = language;
-           }else{
-             this.languages.push(language);
-           }
+        if (this.isSystemLanguage(language.locale)) {
+          this.disabledSystemLanguage = language;
+        } else {
+          this.languages.push(language);
+        }
 
       });
     });
@@ -35,14 +35,15 @@ export class LanguageEditComponent implements OnInit {
 
   save() {
     this.languageService.updateLanguages(this.languages).subscribe(success => {
-      this.utilityService.popupSuccessAction(localStorage.getItem('success'),localStorage.getItem('dismiss'))
+      this.utilityService.popupSuccessAction(localStorage.getItem('success'), localStorage.getItem('dismiss'))
     }, Error => {
       this.utilityService.popupError(localStorage.getItem('error'));
     });
     this.form.control.markAsPristine();
 
   }
-  isSystemLanguage(locale: string){
+
+  isSystemLanguage(locale: string) {
     return locale == this.systemLanguage;
   }
 }
