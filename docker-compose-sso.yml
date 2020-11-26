@@ -1,92 +1,98 @@
 version: '3.7'
 
 networks:
-  webdesktop_network:
+  qlack-webdesktop-network:
     driver: bridge
 
 services:
-  qlack-webdesktop-keycloak:
-    image: jboss/keycloak:9.0.3
-    environment:
-      - KEYCLOAK_USER=${KEYCLOAK_ADMIN_USERNAME}
-      - KEYCLOAK_PASSWORD=${KEYCLOAK_ADMIN_PASSWORD}
-      - PROXY_ADDRESS_FORWARDING=true
+  qlack-webdesktop-nginx:
+    image: nginx:1.19.4-alpine
+    container_name: qlack-webdesktop-nginx
+    restart: unless-stopped
+    volumes:
+      - ./docker-data/nginx:/etc/nginx/conf.d
     ports:
-      - "${KEYCLOAK_PORT}:8080"
-    restart: always
+      - "${NGNIX_PORT}:8080"
     networks:
-      - webdesktop_network
+      - qlack-webdesktop-network
 
   qlack-webdesktop-db:
     image: mysql:8.0.17
+    container_name: qlack-webdesktop-db
     environment:
       MYSQL_ROOT_PASSWORD: ${DATABASE_ROOT_PASSWORD}
       MYSQL_DATABASE: QlackWebDesktop
-    ports:
-      - "3304:3306"
     command: ['mysqld', '--character-set-server=utf8mb4', '--collation-server=utf8mb4_unicode_ci']
-    restart: always
+    restart: unless-stopped
+    ports:
+      - "${DATABASE_PORT}:3306"
     networks:
-      - webdesktop_network
+      - qlack-webdesktop-network
 
   qlack-webdesktop-applications-management:
     image: eurodyn/qlack-webdesktop-apps-applications-management-app:${WEBDESKTOP_VERSION}
+    container_name: qlack-webdesktop-applications-management
     environment:
-      WEBDESKTOP_PORT: ${WEBDESKTOP_PORT}
       DATABASE_ROOT_PASSWORD: ${DATABASE_ROOT_PASSWORD}
       SPRING_PROFILES_ACTIVE: ${SPRING_PROFILES_ACTIVE}
       WEBDESKTOP_URL: ${WEBDESKTOP_URL}
-      WEBDESKTOP_SCHEME: ${WEBDESKTOP_SCHEME}
-      KEYCLOAK_CLIENT: ${KEYCLOAK_CLIENT}
-      KEYCLOAK_CLIENT_SECRET: ${KEYCLOAK_CLIENT_SECRET}
-    restart: always
+      OAUTH2_CLIENT: ${OAUTH2_CLIENT}
+      OAUTH2_CLIENT_SECRET: ${OAUTH2_CLIENT_SECRET}
+    restart: unless-stopped
     networks:
-      - webdesktop_network
+      - qlack-webdesktop-network
 
   qlack-webdesktop-translations-management:
     image: eurodyn/qlack-webdesktop-apps-translations-management-app:${WEBDESKTOP_VERSION}
+    container_name: qlack-webdesktop-translations-management
     environment:
-      WEBDESKTOP_PORT: ${WEBDESKTOP_PORT}
       DATABASE_ROOT_PASSWORD: ${DATABASE_ROOT_PASSWORD}
       SPRING_PROFILES_ACTIVE: ${SPRING_PROFILES_ACTIVE}
       WEBDESKTOP_URL: ${WEBDESKTOP_URL}
-      WEBDESKTOP_SCHEME: ${WEBDESKTOP_SCHEME}
-      KEYCLOAK_CLIENT: ${KEYCLOAK_CLIENT}
-      KEYCLOAK_CLIENT_SECRET: ${KEYCLOAK_CLIENT_SECRET}
-    restart: always
+      OAUTH2_CLIENT: ${OAUTH2_CLIENT}
+      OAUTH2_CLIENT_SECRET: ${OAUTH2_CLIENT_SECRET}
+    restart: unless-stopped
     networks:
-      - webdesktop_network
+      - qlack-webdesktop-network
 
   qlack-webdesktop-user-profile-management:
     image: eurodyn/qlack-webdesktop-apps-user-profile-management-app:${WEBDESKTOP_VERSION}
+    container_name: qlack-webdesktop-user-profile-management
     environment:
-      WEBDESKTOP_PORT: ${WEBDESKTOP_PORT}
       DATABASE_ROOT_PASSWORD: ${DATABASE_ROOT_PASSWORD}
       SPRING_PROFILES_ACTIVE: ${SPRING_PROFILES_ACTIVE}
       WEBDESKTOP_URL: ${WEBDESKTOP_URL}
-      WEBDESKTOP_SCHEME: ${WEBDESKTOP_SCHEME}
-      KEYCLOAK_CLIENT: ${KEYCLOAK_CLIENT}
-      KEYCLOAK_CLIENT_SECRET: ${KEYCLOAK_CLIENT_SECRET}
-    restart: always
+      OAUTH2_CLIENT: ${OAUTH2_CLIENT}
+      OAUTH2_CLIENT_SECRET: ${OAUTH2_CLIENT_SECRET}
+    restart: unless-stopped
     networks:
-      - webdesktop_network
+      - qlack-webdesktop-network
 
   qlack-webdesktop-app:
     image: eurodyn/qlack-webdesktop-app:${WEBDESKTOP_VERSION}
+    container_name: qlack-webdesktop-app
     environment:
-      WEBDESKTOP_PORT: ${WEBDESKTOP_PORT}
       DATABASE_ROOT_PASSWORD: ${DATABASE_ROOT_PASSWORD}
       SPRING_PROFILES_ACTIVE: ${SPRING_PROFILES_ACTIVE}
       SYSTEM_DEFAULT_LANGUAGE: ${SYSTEM_DEFAULT_LANGUAGE}
       WEBDESKTOP_URL: ${WEBDESKTOP_URL}
-      WEBDESKTOP_SCHEME: ${WEBDESKTOP_SCHEME}
-      KEYCLOAK_AUTH_URL: ${KEYCLOAK_AUTH_URL}
-      KEYCLOAK_CLIENT: ${KEYCLOAK_CLIENT}
-      KEYCLOAK_CLIENT_SECRET: ${KEYCLOAK_CLIENT_SECRET}
+      OAUTH2_CLIENT: ${OAUTH2_CLIENT}
+      OAUTH2_CLIENT_SECRET: ${OAUTH2_CLIENT_SECRET}
       WEBDESKTOP_ADMIN: ${WEBDESKTOP_ADMIN}
       APPS_URL: ${APPS_URL}
+    restart: unless-stopped
     ports:
-      - "${WEBDESKTOP_PORT}:${WEBDESKTOP_PORT}"
-    restart: always
+      - "${WEBDESKTOP_PORT}:8082"
     networks:
-      - webdesktop_network
+      - qlack-webdesktop-network
+
+  qlack-webdesktop-logs:
+    image: amir20/dozzle:v3.0.2
+    container_name: qlack-webdesktop-logs
+    restart: unless-stopped
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    ports:
+      - "${LOGS_PORT}:8080"
+    networks:
+      - qlack-webdesktop-network

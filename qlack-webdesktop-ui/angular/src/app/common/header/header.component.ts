@@ -114,7 +114,6 @@ export class HeaderComponent implements OnInit {
   }
 
   logout() {
-    console.log(this.activeApplications);
     this.activeApplications.forEach((application) => {
       if (application.proxyAppPath) {
         this.webDesktopService.logout(application.proxyAppPath + 'logout').subscribe();

@@ -8,7 +8,7 @@ done
 
 if [ "$SPRING_PROFILES_ACTIVE" = "sso" ]
 then
-	java -jar -Dspring.datasource.password=${DATABASE_ROOT_PASSWORD} -Dspring.profiles.active=sso -Dwebdesktop.scheme=${WEBDESKTOP_SCHEME} -Doauth2.provider.url=${WEBDESKTOP_URL} -Dspring.security.oauth2.client.registration.master.client-id=${KEYCLOAK_CLIENT} -Dspring.security.oauth2.client.registration.master.client-name=${KEYCLOAK_CLIENT} -Dspring.security.oauth2.client.registration.master.client-secret=${KEYCLOAK_CLIENT_SECRET} /opt/app/qlack-webdesktop-apps-translations-management-app.jar
+	java -jar -Dspring.datasource.password=${DATABASE_ROOT_PASSWORD} -Dspring.profiles.active=sso -Dwebdesktop.url=${WEBDESKTOP_URL} -Dspring.security.oauth2.client.registration.master.client-id=${OAUTH2_CLIENT} -Dspring.security.oauth2.client.registration.master.client-name=${OAUTH2_CLIENT} -Dspring.security.oauth2.client.registration.master.client-secret=${OAUTH2_CLIENT_SECRET} /opt/app/qlack-webdesktop-apps-translations-management-app.jar
 else
 	java -jar -Dspring.datasource.password=${DATABASE_ROOT_PASSWORD} /opt/app/qlack-webdesktop-apps-translations-management-app.jar
 fi
