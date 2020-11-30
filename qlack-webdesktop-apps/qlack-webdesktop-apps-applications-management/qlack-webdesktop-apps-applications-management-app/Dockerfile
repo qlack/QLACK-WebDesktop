@@ -20,7 +20,7 @@ ENV WEBDESKTOP_URL ${WEBDESKTOP_URL}
 
 ENV OAUTH2_CLIENT ${OAUTH2_CLIENT}
 
-ENV OAUTH2_CLIENT ${OAUTH2_CLIENT}
+ENV OAUTH2_CLIENT_SECRET ${OAUTH2_CLIENT_SECRET}
 
 COPY target/qlack-webdesktop-apps-applications-management-app.jar /opt/app/qlack-webdesktop-apps-applications-management-app.jar
 
