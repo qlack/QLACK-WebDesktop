@@ -199,7 +199,7 @@ Start the containers with the command `docker-compose -f docker-compose-keycloak
 
 After the containers have successfully run (this will require about 5 minutes), follow these steps in order to create
  a new Keycloak client for QLACK WebDesktop:
-1) Navigate the Keycloak admin panel (http://server-name:NGNIX_PORT/auth/)]
+1) Navigate the Keycloak admin panel (http://server-name:NGNIX_PORT/auth/)
 2) Click on `Administration Console`
 3) Login using the credentials of the `admin` user
 4) From the left menu, click on `Clients`
@@ -307,7 +307,7 @@ Start the containers with the command `docker-compose -f docker-compose-keycloak
 
 After the containers have successfully run (this will require about 5 minutes), follow these steps in order to create
  a new Keycloak client for QLACK WebDesktop:
-1) Navigate the Keycloak admin panel (http://server-name:NGNIX_PORT/auth/)]
+1) Navigate the Keycloak admin panel (http://server-name:NGNIX_PORT/auth/)
 2) Click on `Administration Console`
 3) Login using the credentials of the `admin` user
 4) From the left menu, click on `Clients`
@@ -319,7 +319,7 @@ After the containers have successfully run (this will require about 5 minutes), 
 10) Click on `Save`
 11) On the top, navigate to the `Credentials` panel and copy paste the `Secret` value
 12) Update the values of the `OAUTH2_CLIENT` and `OAUTH2_CLIENT_SECRET` variables of the _.env_ file 
-13) Restart the containers with the command `docker-compose -f docker-compose-keycloak.yml up -d`
+13) Restart the containers with the command `docker-compose -f docker-compose-keycloak-ssl.yml up -d`
 
 ## Applications Integration
 
