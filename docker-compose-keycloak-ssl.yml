@@ -6,13 +6,40 @@ networks:
 
 services:
   qlack-webdesktop-nginx:
-    image: nginx:1.19.4-alpine
+    image: nginx:1.19.5-alpine
     container_name: qlack-webdesktop-nginx
     restart: unless-stopped
     volumes:
       - ./docker-data/nginx:/etc/nginx/conf.d
+      - ./docker-data/certbot/conf:/etc/letsencrypt
+      - ./docker-data/certbot/www:/var/www/certbot
     ports:
-      - "${NGNIX_PORT}:8080"
+      - "${NGNIX_PORT}:${NGNIX_PORT}"
+      - "443:443"
+    networks:
+      - qlack-webdesktop-network
+    command: "/bin/sh -c 'while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g \"daemon off;\"'"
+
+  qlack-webdesktop-certbot:
+    image: certbot/certbot:v1.9.0
+    restart: unless-stopped
+    volumes:
+      - ./docker-data/certbot/conf:/etc/letsencrypt
+      - ./docker-data/certbot/www:/var/www/certbot
+    entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'"
+
+  qlack-webdesktop-keycloak:
+    image: jboss/keycloak:11.0.3
+    container_name: qlack-webdesktop-keycloak
+    environment:
+      - KEYCLOAK_USER=${KEYCLOAK_ADMIN_USERNAME}
+      - KEYCLOAK_PASSWORD=${KEYCLOAK_ADMIN_PASSWORD}
+      - PROXY_ADDRESS_FORWARDING=true
+    restart: unless-stopped
+    volumes:
+      - ${KEYCLOAK_THEME_PATH}:/opt/jboss/keycloak/themes/custom-theme
+    ports:
+      - "${KEYCLOAK_PORT}:8080"
     networks:
       - qlack-webdesktop-network
 
@@ -34,7 +61,7 @@ services:
     container_name: qlack-webdesktop-applications-management
     environment:
       DATABASE_ROOT_PASSWORD: ${DATABASE_ROOT_PASSWORD}
-      SPRING_PROFILES_ACTIVE: ${SPRING_PROFILES_ACTIVE}
+      SPRING_PROFILES_ACTIVE: sso
       WEBDESKTOP_URL: ${WEBDESKTOP_URL}
       OAUTH2_CLIENT: ${OAUTH2_CLIENT}
       OAUTH2_CLIENT_SECRET: ${OAUTH2_CLIENT_SECRET}
@@ -47,7 +74,7 @@ services:
     container_name: qlack-webdesktop-translations-management
     environment:
       DATABASE_ROOT_PASSWORD: ${DATABASE_ROOT_PASSWORD}
-      SPRING_PROFILES_ACTIVE: ${SPRING_PROFILES_ACTIVE}
+      SPRING_PROFILES_ACTIVE: sso
       WEBDESKTOP_URL: ${WEBDESKTOP_URL}
       OAUTH2_CLIENT: ${OAUTH2_CLIENT}
       OAUTH2_CLIENT_SECRET: ${OAUTH2_CLIENT_SECRET}
@@ -60,7 +87,7 @@ services:
     container_name: qlack-webdesktop-user-profile-management
     environment:
       DATABASE_ROOT_PASSWORD: ${DATABASE_ROOT_PASSWORD}
-      SPRING_PROFILES_ACTIVE: ${SPRING_PROFILES_ACTIVE}
+      SPRING_PROFILES_ACTIVE: sso
       WEBDESKTOP_URL: ${WEBDESKTOP_URL}
       OAUTH2_CLIENT: ${OAUTH2_CLIENT}
       OAUTH2_CLIENT_SECRET: ${OAUTH2_CLIENT_SECRET}
@@ -73,7 +100,7 @@ services:
     container_name: qlack-webdesktop-app
     environment:
       DATABASE_ROOT_PASSWORD: ${DATABASE_ROOT_PASSWORD}
-      SPRING_PROFILES_ACTIVE: ${SPRING_PROFILES_ACTIVE}
+      SPRING_PROFILES_ACTIVE: sso
       SYSTEM_DEFAULT_LANGUAGE: ${SYSTEM_DEFAULT_LANGUAGE}
       WEBDESKTOP_URL: ${WEBDESKTOP_URL}
       OAUTH2_CLIENT: ${OAUTH2_CLIENT}

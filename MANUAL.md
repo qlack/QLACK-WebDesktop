@@ -12,8 +12,6 @@ This manual contains instructions on how to deploy and use the QLACK WebDesktop 
 
 2) If SSO is enabled, navigate to the _QLACK-WebDesktop\qlack-webdesktop-app\src\main\resources_ folder and edit the following properties in the_application-sso.properties_ file: <br/>
 **webdesktop.host**: the url under which QLACK WebDesktop will be served (ex. http://localhost:8082) <br/>
-**webdesktop.scheme**: the http protocol (http or https) <br/>
-**oauth2.provider.url**: the url of the SSO provider home page (ex. http://localhost:8080/auth) <br/>
 **spring.security.oauth2.client.registration.master.client-id**: the id of the SSO client <br/>
 **spring.security.oauth2.client.registration.master.client-name**: the name of the SSO client <br/>
 **spring.security.oauth2.client.registration.master.client-secret**: the key for accessing the restricted SSO client <br/>
@@ -34,8 +32,7 @@ This manual contains instructions on how to deploy and use the QLACK WebDesktop 
 
 5) If SSO is enabled, navigate to the _QLACK-WebDesktop\qlack-webdesktop-apps\qlack-webdesktop-apps-applications
 -management\qlack-webdesktop-apps-applications-management-app\src\main\resources_ folder and edit the following properties in the_application-sso.properties_ file: <br/>
-**webdesktop.scheme**: the http protocol (http or https) <br/>
-**oauth2.provider.url**: the url under which QLACK WebDesktop will be served <br/>
+**webdesktop.host**: the url under which QLACK WebDesktop will be served (ex. http://localhost:8082) <br/>
 **spring.security.oauth2.client.registration.master.client-id**: the id of the SSO client <br/>
 **spring.security.oauth2.client.registration.master.client-name**: the name of the SSO client <br/>
 **spring.security.oauth2.client.registration.master.client-secret**: the key for accessing the restricted SSO client <br/>
@@ -55,8 +52,7 @@ This manual contains instructions on how to deploy and use the QLACK WebDesktop 
 
 8) If SSO is enabled, navigate to the _QLACK-WebDesktop\qlack-webdesktop-apps\qlack-webdesktop-apps-translations
 -management\qlack-webdesktop-apps-translations-management-app\src\main\resources_ folder and edit the following properties in the_application-sso.properties_ file: <br/>
-**webdesktop.scheme**: the http protocol (http or https) <br/>
-**oauth2.provider.url**: the url under which QLACK WebDesktop will be served <br/>
+**webdesktop.host**: the url under which QLACK WebDesktop will be served (ex. http://localhost:8082) <br/>
 **spring.security.oauth2.client.registration.master.client-id**: the id of the SSO client <br/>
 **spring.security.oauth2.client.registration.master.client-name**: the name of the SSO client <br/>
 **spring.security.oauth2.client.registration.master.client-secret**: the key for accessing the restricted SSO client <br/>
@@ -76,8 +72,7 @@ This manual contains instructions on how to deploy and use the QLACK WebDesktop 
 
 11) If SSO is enabled, navigate to the _QLACK-WebDesktop\qlack-webdesktop-apps\qlack-webdesktop-apps-user-profile
 -management\qlack-webdesktop-apps-user-profile-management-app\src\main\resources_ folder and edit the following properties in the_application-sso.properties_ file: <br/>
-**webdesktop.scheme**: the http protocol (http or https) <br/>
-**oauth2.provider.url**: the url under which QLACK WebDesktop will be served <br/>
+**webdesktop.host**: the url under which QLACK WebDesktop will be served (ex. http://localhost:8082) <br/>
 **spring.security.oauth2.client.registration.master.client-id**: the id of the SSO client <br/>
 **spring.security.oauth2.client.registration.master.client-name**: the name of the SSO client <br/>
 **spring.security.oauth2.client.registration.master.client-secret**: the key for accessing the restricted SSO client <br/>
@@ -108,44 +103,223 @@ Using the argument _apps.url_ you can specify the url of the .yaml configuration
 
 ## Docker Deployment
 
-QLACK WebDesktop can also be deployed using Docker by executing the command `docker-compose up`.
-This command will the following five containers:
-1) qlack-webdesktop-db
-This container contains a MySQL 8 installation with the schema 'QlackWebDesktop' in which all the other containers will be connected. <br/>
-2) qlack-webdesktop-applications-management
-This container runs a deployment of the Applications/Users Management application and prevents any external communication to the application by not publishing any ports. <br/>
-3) qlack-webdesktop-translations-management
-This container runs a deployment of the Translations Management application and prevents any external communication to the application by not publishing any ports. <br/>
-4) qlack-webdesktop-user-profile-management
-This container runs a deployment of the User Profile Management application and prevents any external communication to the application by not publishing any ports. <br/>
-5) qlack-webdesktop-app
-This container runs a deployment of the QLACK Web Desktop application, in which the three custom applications are already integrated. The application is accessible on port 80, which is published by the container.
+QLACK WebDesktop can also be deployed using Docker Compose. There are three docker-compose files which can be used
+ for the deployment:
+ - docker-compose-no-auth.yml: Deployment without SSO integration
+ - docker-compose-keycloak.yml: Deployment with integrated Keycloak server and NGINX configuration
+ - docker-compose-keycloak-ssl.yml: Deployment with integrated Keycloak server, NGINX configuration and Let's Encrypt
+  SSL certificates
 
-Before running the containers, the following variables of the _.env_ file should be edited: <br/>
-**WEBDESKTOP_PORT=80**: the port under which QLACK WebDesktop will be accessible on your system <br/>
+### docker-compose-no-auth.yml
+This Docker Compose file contains the following Docker containers:
+1) qlack-webdesktop-db: This container contains a MySQL 8 installation with the schema 'QlackWebDesktop' in which all
+ the other containers will be connected. <br/>
+2) qlack-webdesktop-applications-management: This container runs a deployment of the Applications/Users Management
+ application and prevents any external communication to the application by not publishing any ports. <br/>
+3) qlack-webdesktop-translations-management: This container runs a deployment of the Translations Management
+ application and prevents any external communication to the application by not publishing any ports. <br/>
+4) qlack-webdesktop-user-profile-management: This container runs a deployment of the User Profile Management
+ application and prevents any external communication to the application by not publishing any ports. <br/>
+5) qlack-webdesktop-app: This container runs a deployment of the QLACK Web Desktop application, in which the three
+ custom applications are already integrated. <br/>
+6) qlack-webdesktop-logs: This container provides a UI interface for accessing all the logs of the running Docker containers.
+
+The following variables of the _.env_ file should be edited: <br/>
 **DATABASE_ROOT_PASSWORD**: the password of the ROOT user of the MySQL application <br/>
-**SPRING_PROFILES_ACTIVE**: the security profile of the system ('sso' if SSO will be enabled, or 'default' if no security will be used) <br/>
+**WEBDESKTOP_VERSION**: the version of the QLACK WebDesktop release <br/>
 **SYSTEM_DEFAULT_LANGUAGE**: the default language for all the users (possible values are 'en', 'el', 'fr' and 'de') <br/>
-**APPS_URL**: the urls of the .yaml configuration files of the applications to be integrated (sepated by comma)
+**APPS_URL**: the urls of the .yaml configuration files of the applications to be integrated (separated by commas) <br/>
+**DATABASE_PORT**: the port under which you can connect to the MySQL server on your system <br/>
+**WEBDESKTOP_PORT**: the port under which QLACK WebDesktop will be accessible on your system <br/>
+**LOGS_PORT**: the port under which the Docker logs will be accessible on your system <br/>
 
-If SSO will be enabled, the following variables should be also edited: <br/>
-**WEBDESKTOP_URL**: the url under which QLACK WebDesktop will be served (ex. http://qlack-webdesktop:8082) <br/>
-**WEBDESKTOP_SCHEME**: the http protocol (http or https) <br/>
-**KEYCLOAK_AUTH_URL**: the url of the SSO provider home page (ex. http://keycloak-provider:8080/auth) <br/>
-**KEYCLOAK_CLIENT**: the id of the SSO client <br/>
-**KEYCLOAK_CLIENT_SECRET**: the key for accessing the restricted SSO client <br/>
-**WEBDESKTOP_ADMIN**: the user id of the user who will be the QLACK WebDesktop system administrator <br/>
+Start the containers with the command `docker-compose -f docker-compose-no-auth.yml up -d`
 
-The Docker Deployment can also start a Keycloak provider on a separate container, along with the other QLACK WebDesktop containers, by running the command: `docker-compose docker-compose-sso.yml up`.
-When using the Keycloak container, the following .env variables must be also set: <br/>
-**KEYCLOAK_AUTH_URL**: http://qlack-webdesktop-keycloak:8080/auth <br/>
+### docker-compose-keycloak.yml
+This Docker Compose file contains the following Docker containers:
+1) qlack-webdesktop-nginx: This container contains an NGINX running server which will be responsible for forwarding
+ the requests to the Keycloak server, as well as the QLACK WebDesktop REST API calls. <br/>
+2) qlack-webdesktop-keycloak: This container contains a Keycloak server instance, which will be used by the other containers for the SSO integration. <br/>
+3) qlack-webdesktop-db: This container contains a MySQL 8 installation with the schema 'QlackWebDesktop' in which all
+ the other containers will be connected. <br/>
+4) qlack-webdesktop-applications-management: This container runs a deployment of the Applications/Users Management
+ application and prevents any external communication to the application by not publishing any ports. <br/>
+5) qlack-webdesktop-translations-management: This container runs a deployment of the Translations Management
+ application and prevents any external communication to the application by not publishing any ports. <br/>
+6) qlack-webdesktop-user-profile-management: This container runs a deployment of the User Profile Management
+ application and prevents any external communication to the application by not publishing any ports. <br/>
+7) qlack-webdesktop-app: This container runs a deployment of the QLACK Web Desktop application, in which the three
+ custom applications are already integrated. <br/>
+8) qlack-webdesktop-logs: This container provides a UI interface for accessing all the logs of the running Docker containers.
+
+The following variables of the _.env_ file should be edited: <br/>
+**DATABASE_ROOT_PASSWORD**: the password of the ROOT user of the MySQL application <br/>
+**OAUTH2_CLIENT**: the id of the SSO client <br/>
+**OAUTH2_CLIENT_SECRET**: the key for accessing the restricted SSO client <br/>
 **KEYCLOAK_ADMIN_USERNAME**: the username of the Keycloak admin user <br/>
 **KEYCLOAK_ADMIN_PASSWORD**: the password of the Keycloak admin user <br/>
-**KEYCLOAK_PORT**: the port under which Keycloak will be accessible on your system <br/>
+**WEBDESKTOP_VERSION**: the version of the QLACK WebDesktop release <br/>
+**SYSTEM_DEFAULT_LANGUAGE**: the default language for all the users (possible values are 'en', 'el', 'fr' and 'de') <br/>
+**WEBDESKTOP_URL**: the url under which QLACK WebDesktop will be served (ex. http://my-domain) <br/>
+**WEBDESKTOP_ADMIN**: the user id of the user who will be the QLACK WebDesktop system administrator <br/>
+**APPS_URL**: the urls of the .yaml configuration files of the applications to be integrated (separated by commas) <br/>
+**NGNIX_PORT**: the port under which the application will be running <br/>
+**KEYCLOAK_PORT**: the port under which the Keycloak admin panel will be accessible on your system <br/>
+**DATABASE_PORT**: the port under which you can connect to the MySQL server on your system <br/>
+**WEBDESKTOP_PORT**: the port under which QLACK WebDesktop will be accessible on your system <br/>
+**LOGS_PORT**: the port under which the Docker logs will be accessible on your system <br/>
 
-Also, after the **qlack-webdesktop-keycloak** container is started, navigate to its _/auth_ page in order to create the client to be used by QLACK WebDesktop and update the .env variables **KEYCLOAK_CLIENT** **KEYCLOAK_CLIENT_SECRET** accordingly. 
-Restart the applications container, by executing: `docker-compose docker-compose-sso.yml down` and `docker-compose docker-compose-sso.yml up`
+Overwrite the NGINX configuration _docker-data/nginx/app.conf_ with the following content:
+```
+server {
+    listen NGNIX_PORT;
+    server_name server-name;
+    server_tokens off;
 
+    location / {
+        proxy_pass http://server-name:WEBDESKTOP_PORT;
+    }
+
+    location /auth/ {
+        proxy_pass          http://server-name:KEYCLOAK_PORT/auth/;
+        proxy_set_header    Host               $host;
+        proxy_set_header    X-Real-IP          $remote_addr;
+        proxy_set_header    X-Forwarded-For    $proxy_add_x_forwarded_for;
+        proxy_set_header    X-Forwarded-Host   $host;
+        proxy_set_header    X-Forwarded-Server $host;
+        proxy_set_header    X-Forwarded-Port   $server_port;
+        proxy_set_header    X-Forwarded-Proto  $scheme;
+    }
+}
+```
+`server-name` must be updated to match your server name, as well as `NGNIX_PORT`, `WEBDESKTOP_PORT` and `KEYCLOAK_PORT
+` must be updated to match the ports you used in the `env` file.
+
+Start the containers with the command `docker-compose -f docker-compose-keycloak.yml up -d`
+
+After the containers have successfully run (this will require about 5 minutes), follow these steps in order to create
+ a new Keycloak client for QLACK WebDesktop:
+1) Navigate the Keycloak admin panel (http://server-name:NGNIX_PORT/auth/)]
+2) Click on `Administration Console`
+3) Login using the credentials of the `admin` user
+4) From the left menu, click on `Clients`
+5) On the table, click on `Create`
+6) Enter the desired `Client ID` and click on `Save`
+7) Wait a few seconds to be redirected to the configuration page of the new Client
+8) Change the access type from `public` to `confidential`
+9) Update the `Valid Redirect URIs` with the URI of your installation (ex. http://server-name:NGNIX_PORT/*)
+10) Click on `Save`
+11) On the top, navigate to the `Credentials` panel and copy paste the `Secret` value
+12) Update the values of the `OAUTH2_CLIENT` and `OAUTH2_CLIENT_SECRET` variables of the _.env_ file 
+13) Restart the containers with the command `docker-compose -f docker-compose-keycloak.yml up -d`
+
+### docker-compose-keycloak-ssl.yml
+This Docker Compose file contains the following Docker containers:
+1) qlack-webdesktop-nginx: This container contains an NGINX running server which will be responsible for forwarding
+ the requests to the Keycloak server, as well as the QLACK WebDesktop REST API calls. <br/>
+2) qlack-webdesktop-certbot: This container will be responsible for auto-updated the SSL certificates every 90 days
+ <br/>
+3) qlack-webdesktop-keycloak: This container contains a Keycloak server instance, which will be used by the other
+ containers for the SSO integration. <br/>
+4) qlack-webdesktop-db: This container contains a MySQL 8 installation with the schema 'QlackWebDesktop' in which all
+ the other containers will be connected. <br/>
+5) qlack-webdesktop-applications-management: This container runs a deployment of the Applications/Users Management
+ application and prevents any external communication to the application by not publishing any ports. <br/>
+6) qlack-webdesktop-translations-management: This container runs a deployment of the Translations Management
+ application and prevents any external communication to the application by not publishing any ports. <br/>
+7) qlack-webdesktop-user-profile-management: This container runs a deployment of the User Profile Management
+ application and prevents any external communication to the application by not publishing any ports. <br/>
+8) qlack-webdesktop-app: This container runs a deployment of the QLACK Web Desktop application, in which the three
+ custom applications are already integrated. <br/>
+9) qlack-webdesktop-logs: This container provides a UI interface for accessing all the logs of the running Docker
+ containers.
+
+The following variables of the _.env_ file should be edited: <br/>
+**DATABASE_ROOT_PASSWORD**: the password of the ROOT user of the MySQL application <br/>
+**OAUTH2_CLIENT**: the id of the SSO client <br/>
+**OAUTH2_CLIENT_SECRET**: the key for accessing the restricted SSO client <br/>
+**KEYCLOAK_ADMIN_USERNAME**: the username of the Keycloak admin user <br/>
+**KEYCLOAK_ADMIN_PASSWORD**: the password of the Keycloak admin user <br/>
+**WEBDESKTOP_VERSION**: the version of the QLACK WebDesktop release <br/>
+**SYSTEM_DEFAULT_LANGUAGE**: the default language for all the users (possible values are 'en', 'el', 'fr' and 'de') <br/>
+**WEBDESKTOP_URL**: the url under which QLACK WebDesktop will be served (ex. http://my-domain) <br/>
+**WEBDESKTOP_ADMIN**: the user id of the user who will be the QLACK WebDesktop system administrator <br/>
+**APPS_URL**: the urls of the .yaml configuration files of the applications to be integrated (separated by commas) <br/>
+**NGNIX_PORT**: the port under which the application will be running <br/>
+**KEYCLOAK_PORT**: the port under which the Keycloak admin panel will be accessible on your system <br/>
+**DATABASE_PORT**: the port under which you can connect to the MySQL server on your system <br/>
+**WEBDESKTOP_PORT**: the port under which QLACK WebDesktop will be accessible on your system <br/>
+**LOGS_PORT**: the port under which the Docker logs will be accessible on your system <br/>
+
+Overwrite the NGINX configuration _docker-data/nginx/app.conf_ with the following content:
+```
+server {
+    listen NGNIX_PORT;
+    server_name server-name;
+    server_tokens off;
+
+    location / {
+        return 301 https://$host$request_uri;
+    }
+
+    location /.well-known/acme-challenge/ {
+        root /var/www/certbot;
+    }
+}
+
+server {
+    listen 443 ssl;
+    server_name server-name;
+
+    ssl_certificate /etc/letsencrypt/live/server-name/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/server-name/privkey.pem;
+
+    include /etc/letsencrypt/options-ssl-nginx.conf;
+    ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem;
+
+    location / {
+        proxy_pass http://server-name:WEBDESKTOP_PORT;
+    }
+
+    location /auth/ {
+        proxy_pass          http://server-name:KEYCLOAK_PORT/auth/;
+        proxy_set_header    Host               $host;
+        proxy_set_header    X-Real-IP          $remote_addr;
+        proxy_set_header    X-Forwarded-For    $proxy_add_x_forwarded_for;
+        proxy_set_header    X-Forwarded-Host   $host;
+        proxy_set_header    X-Forwarded-Server $host;
+        proxy_set_header    X-Forwarded-Port   $server_port;
+        proxy_set_header    X-Forwarded-Proto  $scheme;
+    }
+}
+```
+`server-name` must be updated to match your server name, as well as `NGNIX_PORT`, `WEBDESKTOP_PORT` and `KEYCLOAK_PORT
+` must be updated to match the ports you used in the `env` file.
+
+Update the following lines of the SSL configuration file _init-letsenrcypt.sh_:
+- line 10: Enter the public domain(s) of your server
+- line 13: Add a valid email alias to receive email notifications for the Let's Encrypt SSL Certificates expirations
+
+Modify the permissions of the SSL configuration file to be executable with the command `chmod +x init-letsenrcypt.sh
+` and run the script with the command `./init-letsenrcypt.sh`
+
+Start the containers with the command `docker-compose -f docker-compose-keycloak-ssl.yml up -d`
+
+After the containers have successfully run (this will require about 5 minutes), follow these steps in order to create
+ a new Keycloak client for QLACK WebDesktop:
+1) Navigate the Keycloak admin panel (http://server-name:NGNIX_PORT/auth/)]
+2) Click on `Administration Console`
+3) Login using the credentials of the `admin` user
+4) From the left menu, click on `Clients`
+5) On the table, click on `Create`
+6) Enter the desired `Client ID` and click on `Save`
+7) Wait a few seconds to be redirected to the configuration page of the new Client
+8) Change the access type from `public` to `confidential`
+9) Update the `Valid Redirect URIs` with the URI of your installation (ex. http://server-name:NGNIX_PORT/*)
+10) Click on `Save`
+11) On the top, navigate to the `Credentials` panel and copy paste the `Secret` value
+12) Update the values of the `OAUTH2_CLIENT` and `OAUTH2_CLIENT_SECRET` variables of the _.env_ file 
+13) Restart the containers with the command `docker-compose -f docker-compose-keycloak.yml up -d`
 
 ## Applications Integration
 
