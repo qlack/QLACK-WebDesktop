@@ -4,6 +4,7 @@ import {ApplicationComponent} from "../../application/application.component";
 import {WebdesktopService} from '../../webdesktop.service';
 import {CookieService} from 'ngx-cookie-service';
 import {DataService} from '../../data.service';
+import * as uuid from 'uuid';
 
 @Component({
   selector: 'app-header',
@@ -43,6 +44,12 @@ export class HeaderComponent implements OnInit {
     });
 
     this.dataService.activeApplications.subscribe(apps => this.activeApplications = apps);
+
+    if(!this.isLoggedInSessionDefined()){
+      this.defineLoggedInSession();
+      this.webDesktopService.initSession().subscribe();
+    }
+
   }
 
   initApplication(application: Application) {
@@ -114,6 +121,10 @@ export class HeaderComponent implements OnInit {
   }
 
   logout() {
+
+    this.webDesktopService.terminateSession().subscribe();
+    this.deleteLoggedInSession();
+
     this.activeApplications.forEach((application) => {
       if (application.proxyAppPath) {
         this.webDesktopService.logout(application.proxyAppPath + 'logout').subscribe();
@@ -125,4 +136,26 @@ export class HeaderComponent implements OnInit {
       window.location.href = res.url;
     });
   }
+
+
+  defineLoggedInSession() {
+    if (localStorage.getItem("loggedInSession") === null) {
+      localStorage.setItem('loggedInSession',  uuid.v4());
+    }
+  }
+
+  isLoggedInSessionDefined() {
+    if (localStorage.getItem("loggedInSession") === null) {
+      return false;
+    } else {
+      return true;
+    }
+  }
+
+  deleteLoggedInSession() {
+    if (localStorage.getItem("loggedInSession") !== null) {
+      localStorage.removeItem("loggedInSession");
+    }
+  }
+
 }
