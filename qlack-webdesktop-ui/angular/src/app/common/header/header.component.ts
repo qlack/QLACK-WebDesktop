@@ -45,11 +45,7 @@ export class HeaderComponent implements OnInit {
 
     this.dataService.activeApplications.subscribe(apps => this.activeApplications = apps);
 
-    if(!this.isLoggedInSessionDefined()){
-      this.defineLoggedInSession();
-      this.webDesktopService.initSession().subscribe();
-    }
-
+    this.webDesktopService.initSession().subscribe();
   }
 
   initApplication(application: Application) {
@@ -123,7 +119,6 @@ export class HeaderComponent implements OnInit {
   logout() {
 
     this.webDesktopService.terminateSession().subscribe();
-    this.deleteLoggedInSession();
 
     this.activeApplications.forEach((application) => {
       if (application.proxyAppPath) {
@@ -135,27 +130,6 @@ export class HeaderComponent implements OnInit {
       this.cookieService.delete('JSESSIONID');
       window.location.href = res.url;
     });
-  }
-
-
-  defineLoggedInSession() {
-    if (localStorage.getItem("loggedInSession") === null) {
-      localStorage.setItem('loggedInSession',  uuid.v4());
-    }
-  }
-
-  isLoggedInSessionDefined() {
-    if (localStorage.getItem("loggedInSession") === null) {
-      return false;
-    } else {
-      return true;
-    }
-  }
-
-  deleteLoggedInSession() {
-    if (localStorage.getItem("loggedInSession") !== null) {
-      localStorage.removeItem("loggedInSession");
-    }
   }
 
 }

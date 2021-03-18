@@ -4,17 +4,18 @@ import com.eurodyn.qlack.fuse.aaa.dto.SessionDTO;
 import com.eurodyn.qlack.fuse.aaa.model.User;
 import com.eurodyn.qlack.fuse.aaa.repository.UserRepository;
 import com.eurodyn.qlack.fuse.aaa.service.AccountingService;
+import com.eurodyn.qlack.webdesktop.app.service.SessionService;
 import lombok.extern.java.Log;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.core.user.DefaultOAuth2User;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
 import java.time.Instant;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @Log
 @RestController
@@ -23,45 +24,34 @@ public class SessionController {
 
     private final UserRepository userRepository;
     private final AccountingService accountingService;
+    private final SessionService sessionService;
 
     public SessionController(UserRepository userRepository,
-                             AccountingService accountingService) {
+                             AccountingService accountingService,
+                             SessionService sessionService) {
         this.userRepository = userRepository;
         this.accountingService = accountingService;
+        this.sessionService = sessionService;
     }
 
-    @GetMapping("/terminate")
+    @PostMapping("/terminate")
     public void terminateSession() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        Object principal = authentication.getPrincipal();
-
-        if (principal instanceof DefaultOAuth2User) {
-            User user = userRepository.findByUsername(((DefaultOAuth2User) principal).getName());
-            this.accountingService.terminateSessionByUserId(user.getId());
-            log.info("Session terminated for user " + user.getUsername());
-        }
+        this.sessionService.terminateSession();
     }
 
-    @GetMapping("/init")
-    public void initSession() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        Object principal = authentication.getPrincipal();
-
-        if (principal instanceof DefaultOAuth2User) {
-            User user = userRepository.findByUsername(((DefaultOAuth2User) principal).getName());
-            SessionDTO sessionDto = new SessionDTO();
-            sessionDto.setUserId(user.getId());
-            sessionDto.setCreatedOn(Instant.now().toEpochMilli());
-            this.accountingService.createSession(sessionDto);
-            log.info("Session initiated for user " + user.getUsername());
-        }
+    @PostMapping("/init")
+    public void initSession(@RequestHeader("Cookie") String cookie) {
+        this.sessionService.initSession(cookie);
     }
 
-    @GetMapping("/history")
-    public Page<SessionDTO> sessionHistory(@RequestParam("username") String username, Pageable pageable) {
-        User user = userRepository.findByUsername(username);
-        if (user == null) return null;
-        return this.accountingService.getSessions(user.getId(), pageable);
+    @GetMapping("/history-by-username")
+    public Page<SessionDTO> sessionHistoryByUsername(@RequestParam("username") String username, Pageable pageable) {
+        return this.sessionService.sessionHistoryByUsername(username,pageable);
+    }
+
+    @GetMapping("/history-by-userid")
+    public Page<SessionDTO> sessionHistoryById(@RequestParam("id") String id, Pageable pageable) {
+       return this.sessionService.sessionHistoryById(id,pageable);
     }
 
 }

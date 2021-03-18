@@ -39,7 +39,7 @@ public class SsoSecurityConfig extends WebSecurityConfigurerAdapter {
     http.csrf()
         .disable().antMatcher("/**")
         .authorizeRequests()
-        .antMatchers("/login/**", "/logout.html", "/css/style.css", "/assets/img/**", "/auth/**", "/api/session/history").permitAll()
+        .antMatchers("/login/**", "/logout.html", "/css/style.css", "/assets/img/**", "/auth/**").permitAll()
         .anyRequest().authenticated()
         .and().logout().invalidateHttpSession(true).clearAuthentication(true).logoutUrl("/logout")
         .logoutSuccessUrl(

@@ -38,10 +38,10 @@ export class WebdesktopService {
   }
 
   terminateSession(): Observable<any> {
-    return this.http.get('/api/session/terminate');
+    return this.http.post('/api/session/terminate', null);
   }
 
   initSession(): Observable<any> {
-    return this.http.get('/api/session/init');
+    return this.http.post('/api/session/init', null);
   }
 }
