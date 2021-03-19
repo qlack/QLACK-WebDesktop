@@ -35,25 +35,41 @@ public class SessionService {
         this.entityManager = entityManager;
     }
 
-    public void terminateSession() {
+    public void terminate(String cookie) {
+
+        String jSessionId = this.retrieveJSessionIdFromCookie(cookie);
+
+        if (jSessionId == "") {
+            return;
+        }
+
+        Boolean alreadyOnDatabase = this.checkJSessionIdAlreadyOnDatabase(jSessionId);
+
+        if (!alreadyOnDatabase) {
+            return;
+        }
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Object principal = authentication.getPrincipal();
 
         if (principal instanceof DefaultOAuth2User) {
-            User user = userRepository.findByUsername(((DefaultOAuth2User) principal).getName());
-            this.accountingService.terminateSessionByUserId(user.getId());
-            log.info("Session terminated for user " + user.getUsername());
+            this.accountingService.terminateSessionByApplicationSessionId(jSessionId);
+            log.info("Session " + jSessionId + " terminated");
         }
 
     }
 
-    public void initSession(String cookie) {
+    public void init(String cookie) {
 
         String jSessionId = this.retrieveJSessionIdFromCookie(cookie);
+
+        if (jSessionId == "") {
+            return;
+        }
+
         Boolean alreadyOnDatabase = this.checkJSessionIdAlreadyOnDatabase(jSessionId);
 
-        if(alreadyOnDatabase){
+        if (alreadyOnDatabase) {
             return;
         }
 
@@ -68,13 +84,12 @@ public class SessionService {
             sessionDto.setApplicationSessionId(jSessionId);
 
             this.accountingService.createSession(sessionDto);
-            log.info("Session initiated for user " + user.getUsername());
+            log.info("Session " + jSessionId + " initiated");
         }
 
     }
 
     private String retrieveJSessionIdFromCookie(String cookie) {
-        log.info(cookie);
 
         if (cookie == null) {
             return "";
@@ -122,4 +137,5 @@ public class SessionService {
     public Page<SessionDTO> sessionHistoryById(String id, Pageable pageable) {
         return this.accountingService.getSessions(id, pageable);
     }
+
 }
