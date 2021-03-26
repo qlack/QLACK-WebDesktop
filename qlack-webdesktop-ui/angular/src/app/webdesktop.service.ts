@@ -36,4 +36,12 @@ export class WebdesktopService {
   logout(url: string): Observable<any> {
     return this.http.get(url, {observe: 'response', responseType: 'text'});
   }
+
+  terminateSession(): Observable<any> {
+    return this.http.post('/api/session/terminate', null);
+  }
+
+  initSession(): Observable<any> {
+    return this.http.post('/api/session/init', null);
+  }
 }

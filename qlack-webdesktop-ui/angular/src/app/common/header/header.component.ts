@@ -4,6 +4,7 @@ import {ApplicationComponent} from "../../application/application.component";
 import {WebdesktopService} from '../../webdesktop.service';
 import {CookieService} from 'ngx-cookie-service';
 import {DataService} from '../../data.service';
+import * as uuid from 'uuid';
 
 @Component({
   selector: 'app-header',
@@ -43,6 +44,8 @@ export class HeaderComponent implements OnInit {
     });
 
     this.dataService.activeApplications.subscribe(apps => this.activeApplications = apps);
+
+    this.webDesktopService.initSession().subscribe();
   }
 
   initApplication(application: Application) {
@@ -114,6 +117,9 @@ export class HeaderComponent implements OnInit {
   }
 
   logout() {
+
+    this.webDesktopService.terminateSession().subscribe();
+
     this.activeApplications.forEach((application) => {
       if (application.proxyAppPath) {
         this.webDesktopService.logout(application.proxyAppPath + 'logout').subscribe();
@@ -125,4 +131,5 @@ export class HeaderComponent implements OnInit {
       window.location.href = res.url;
     });
   }
+
 }
