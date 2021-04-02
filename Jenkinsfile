@@ -2,7 +2,7 @@ pipeline {
     agent {
         docker {
             image 'imousmoutis/maven3-jdk8:1.0.1'
-            args '-v /root/.m2/is4stat:/root/.m2'
+            args '-v /root/.m2/Qlack-WebDesktop:/root/.m2'
         }
     }
     options {
