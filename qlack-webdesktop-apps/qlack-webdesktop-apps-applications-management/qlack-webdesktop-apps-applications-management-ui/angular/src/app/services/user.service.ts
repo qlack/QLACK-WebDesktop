@@ -43,6 +43,12 @@ export class UserService extends CrudService<User> {
     return this.http.get(`${this.contextPath}` + `${AppConstants.API_ROOT}/${this.endpoint}/groupname/${name}`);
   }
 
+  getById(id: string): Observable<User> {
+    return this.http.get<User>(`${this.contextPath}` + `${AppConstants.API_ROOT}/users/` + id)
+    .pipe(
+      map(res => new User().deserialize(res)));
+  }
+
   getGroupsByUserId(queryString?: string, userId?: string): Observable<any> {
     return this.http.get<QPageableReply<any>>(
       `${this.contextPath}` + `${AppConstants.API_ROOT}/${this.endpoint}/groups/` + userId + `?${queryString}`);

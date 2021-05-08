@@ -33,6 +33,7 @@ export class UsersEditComponent implements OnInit {
   displayedColumns: string[] = ['name', 'description', 'action'];
   dataSource: MatTableDataSource<User> = new MatTableDataSource<User>();
   options: any[];
+  user: User;
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
   private isGroupListChanged = false;
@@ -63,8 +64,9 @@ export class UsersEditComponent implements OnInit {
     });
     // Fill-in the form with data if editing an existing item.
     if (this.isEdit) {
-      this.userService.get(this.id).subscribe(onNext => {
+      this.userService.getById(this.id).subscribe(onNext => {
         this.form.patchValue(onNext);
+        this.user = onNext;
       });
     }
 
@@ -167,7 +169,6 @@ export class UsersEditComponent implements OnInit {
     return list.filter(value => value != data);
   }
 
-  //check if user exists
   itemExists(list, groupId, prop): any {
     return list.find(item => {
       if (item[prop]) {

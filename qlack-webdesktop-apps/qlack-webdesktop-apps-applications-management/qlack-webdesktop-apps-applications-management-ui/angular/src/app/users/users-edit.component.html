@@ -16,11 +16,11 @@
         </mat-form-field>
         <mat-form-field>
           <input formControlName="firstname" matInput placeholder="{{'management-app-ui.firstName' |
-            translate}}">
+            translate}}" value="{{user.findAttribute('firstName')}}">
         </mat-form-field>
         <mat-form-field>
           <input formControlName="lastname" matInput placeholder="{{'management-app-ui.lastName' |
-            translate}}">
+            translate}}" value="{{user.findAttribute('lastName')}}">
         </mat-form-field>
       </div>
     </form>
