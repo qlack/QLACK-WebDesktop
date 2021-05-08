@@ -109,6 +109,37 @@ The instructions on how to install and use QLACK WebDesktop can be found [here](
 	</a>
 </p>
 
+## Development Instructions
+
+In order to be able to run Qlack WebDesktop on a Development Environment, you have the follow these steps:
+
+- Run a Keycloak instance:
+```
+docker run -it -p 8180:8080 --name keycloak -e PROXY_ADDRESS_FORWARDING=true -e KEYCLOAK_USER=admin -e KEYCLOAK_PASSWORD=admin jboss/keycloak:11.0.3
+```
+
+- Login to the Keycloak instance and create the Client
+```
+http://localhost:8180/auth/
+```
+
+- Update the following properties with the proper values in the application-sso.properties files:
+```
+webdesktop.url
+spring.security.oauth2.client.registration.master.client-id
+spring.security.oauth2.client.registration.master.client-name
+spring.security.oauth2.client.registration.master.client-secret
+```
+
+- Add the following property in the application.properties files:
+```
+spring.profiles.active=sso,sso-dev
+```
+
+- Add the following property in the application.properties file of the qlack-webdesktop-app module:
+```
+oauth2.provider.url=http://localhost:8180/auth/
+```
 
 ## Contributors
 
