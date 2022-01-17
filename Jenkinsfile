@@ -15,11 +15,6 @@ pipeline {
                 sh 'mvn clean install'
             }
         }
-        stage('Dependencies Check') {
-            steps {
-                sh 'mvn org.owasp:dependency-check-maven:aggregate'
-            }
-        }
         stage('Sonar Analysis') {
             steps {
                 withSonarQubeEnv('sonar'){
