@@ -32,7 +32,7 @@
     "human-duration": "^1.0.1",
     "js-yaml": "^3.13.1",
     "leaflet": "^1.6.0",
-    "moment": "~2.24.0",
+    "moment": "~2.29.4",
     "ng2-logger": "^2.0.48",
     "ngx": "^2.4.0",
     "rxjs": "^6.5.3",
