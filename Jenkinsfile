@@ -1,6 +1,7 @@
 pipeline {
     agent {
         kubernetes {
+            inheritFrom 'cicd-agent'
             yaml '''
               apiVersion: v1
               kind: Pod
@@ -8,13 +9,6 @@ pipeline {
                 name: qlack-webdesktop
                 namespace: jenkins
               spec:
-                tolerations:
-                - key: "jenkins"
-                  operator: "Equal"
-                  value: "agent"
-                  effect: "NoSchedule"
-                nodeSelector:
-                  jenkins-agent: "true"
                 priorityClassName: jenkins-low-priority
                 securityContext:
                     runAsUser: 0
@@ -31,6 +25,13 @@ pipeline {
                     privileged: true
                     runAsUser: 0
                     fsGroup: 0
+                  resources:
+                    requests:
+                      cpu: "1"
+                      memory: "1Gi"
+                    limits:
+                      cpu: "2"
+                      memory: "2Gi"
                 imagePullSecrets:
                 - name: regcred
                 volumes:
